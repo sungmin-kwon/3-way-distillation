@@ -3,11 +3,27 @@ import Base from '../layouts/Base.astro';
 import { href } from '../lib/notes';
 
 // Edit this list whenever the focus shifts, and bump the date.
+// Each item: text before the link, the linked note's id and title, text after.
 const currentlyUpdated = '2026-11-09';
 const currently = [
-  'Writing up notes on sequence-level distillation losses and forward vs. reverse KL.',
-  'Revisiting azeotropes and pressure-swing distillation.',
-  'Planning a grain-based wash as the next batch.',
+  {
+    before: 'Working through the open questions at the end of ',
+    note: 'what-is-model-distillation',
+    title: 'What is model distillation?',
+    after: ', starting with forward vs. reverse KL vs. on-policy distillation for long-form generation.',
+  },
+  {
+    before: 'Just wrote up ',
+    note: 'reading-a-mccabe-thiele-diagram',
+    title: 'McCabe–Thiele',
+    after: ' end to end on a 50/50 feed, checked against Fenske and Gilliland.',
+  },
+  {
+    before: 'Just worked through ',
+    note: 'how-spirits-distillation-works',
+    title: 'a stripping run and a spirit run',
+    after: ' with real ethanol–water equilibrium data.',
+  },
 ];
 ---
 
@@ -30,7 +46,9 @@ const currently = [
     <section class="about-block">
       <h2 class="label">Currently · updated <time datetime={currentlyUpdated}>{currentlyUpdated}</time></h2>
       <ul>
-        {currently.map((item) => <li>{item}</li>)}
+        {currently.map((c) => (
+          <li>{c.before}<a href={href(`notes/${c.note}/`)}>{c.title}</a>{c.after}</li>
+        ))}
       </ul>
     </section>
 
