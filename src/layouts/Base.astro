@@ -1,0 +1,55 @@
+---
+import 'katex/dist/katex.min.css';
+import '../styles/site.css';
+import { href } from '../lib/notes';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../lib/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  current?: 'index' | 'about';
+}
+
+const {
+  title,
+  description = SITE_DESCRIPTION,
+  current,
+} = Astro.props;
+const pageTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={href('favicon.svg')} />
+    <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={href('rss.xml')} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="page">
+      <header class="masthead">
+        <a class="site-name" href={href()} aria-current={current === 'index' ? 'page' : undefined}>
+          {SITE_TITLE}
+        </a>
+        <nav aria-label="Site">
+          <a href={href('about/')} aria-current={current === 'about' ? 'page' : undefined}>about</a>
+          <a href={href('rss.xml')}>rss</a>
+        </nav>
+      </header>
+      <main id="main">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

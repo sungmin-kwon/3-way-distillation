@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+import NoteIndex from '../components/NoteIndex.astro';
+import { getNotes } from '../lib/notes';
+import { SITE_DESCRIPTION } from '../lib/site';
+
+const notes = await getNotes();
+---
+
+<Base current="index">
+  <p class="intro">{SITE_DESCRIPTION}</p>
+  <NoteIndex notes={notes} />
+</Base>

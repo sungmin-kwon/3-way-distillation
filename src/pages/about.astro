@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import { href } from '../lib/notes';
+
+// Edit this list whenever the focus shifts, and bump the date.
+const currentlyUpdated = '2026-11-09';
+const currently = [
+  'Writing up notes on sequence-level distillation losses and forward vs. reverse KL.',
+  'Revisiting azeotropes and pressure-swing distillation.',
+  'Planning a grain-based wash as the next batch.',
+];
+---
+
+<Base title="About" description="Whose notebook this is, and why it’s called the 3-way distiller." current="about">
+  <article class="entry">
+    <h1>About</h1>
+    <div class="prose">
+      <p>
+        I’m Sungmin, a first-year grad student. This is my notebook, kept in public mostly so that I
+        write things down properly.
+      </p>
+      <p>
+        The name comes from three kinds of distillation that have followed me around: training small
+        language models to imitate large ones, which I study now; separating mixtures in columns; and
+        making spirits at home. All three are the same move. Take something complex and keep only what
+        matters. That is also what I try to do in each entry here.
+      </p>
+    </div>
+
+    <section class="about-block">
+      <h2 class="label">Currently · updated <time datetime={currentlyUpdated}>{currentlyUpdated}</time></h2>
+      <ul>
+        {currently.map((item) => <li>{item}</li>)}
+      </ul>
+    </section>
+
+    <section class="about-block about-block-quiet">
+      <h2 class="label">How to read this</h2>
+      <p>
+        Entries marked <span class="rough">rough</span> are unfinished thinking and
+        may be wrong. Longer entries open with a short distillate, so you can stop there.
+      </p>
+    </section>
+
+    <p class="back"><a href={href()}>← index</a></p>
+  </article>
+</Base>
