@@ -24,6 +24,13 @@ const pageTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
+    <script is:inline>
+      // Apply a saved theme before first paint; otherwise the system setting applies.
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href={href('favicon.svg')} />
@@ -45,11 +52,37 @@ const pageTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
         <nav aria-label="Site">
           <a href={href('about/')} aria-current={current === 'about' ? 'page' : undefined}>about</a>
           <a href={href('rss.xml')}>rss</a>
+          <button class="theme-toggle" type="button" data-theme-toggle hidden>dark</button>
         </nav>
       </header>
       <main id="main">
         <slot />
       </main>
     </div>
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        var btn = document.querySelector('[data-theme-toggle]');
+        if (!btn) return;
+        var media = window.matchMedia('(prefers-color-scheme: dark)');
+        var current = function () {
+          return root.dataset.theme || (media.matches ? 'dark' : 'light');
+        };
+        var sync = function () {
+          var next = current() === 'dark' ? 'light' : 'dark';
+          btn.textContent = next;
+          btn.setAttribute('aria-label', 'Switch to ' + next + ' mode');
+        };
+        btn.addEventListener('click', function () {
+          var next = current() === 'dark' ? 'light' : 'dark';
+          root.dataset.theme = next;
+          try { localStorage.setItem('theme', next); } catch (e) {}
+          sync();
+        });
+        media.addEventListener('change', sync);
+        btn.hidden = false;
+        sync();
+      })();
+    </script>
   </body>
 </html>
