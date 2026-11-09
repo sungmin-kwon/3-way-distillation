@@ -19,8 +19,9 @@
   color-scheme: light;
 }
 
+/* Dark: follows the system unless the header toggle picked a theme (data-theme on <html>). */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme='light']) {
     --paper: #171612;
     --ink: #ece7dc;
     --ink-2: #c9c2b4;
@@ -30,6 +31,16 @@
     --accent: #e08a55;
     color-scheme: dark;
   }
+}
+:root[data-theme='dark'] {
+  --paper: #171612;
+  --ink: #ece7dc;
+  --ink-2: #c9c2b4;
+  --muted: #a39b8b;
+  --rule: #3a362e;
+  --code-bg: #211e18;
+  --accent: #e08a55;
+  color-scheme: dark;
 }
 
 *,
@@ -119,6 +130,23 @@ a:hover {
 }
 .masthead nav a {
   padding: 10px 0;
+}
+.theme-toggle {
+  min-width: 44px;
+  min-height: 44px;
+  margin: 0 -8px 0 -8px;
+  padding: 10px 8px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  cursor: pointer;
+}
+.theme-toggle:hover {
+  color: var(--accent);
 }
 .masthead a[aria-current='page'] {
   color: var(--accent);
@@ -527,10 +555,14 @@ a.row-date:hover {
 
 /* Shiki's code colours stay readable in dark mode. */
 @media (prefers-color-scheme: dark) {
-  .prose .astro-code,
-  .prose .astro-code span {
+  :root:not([data-theme='light']) .prose .astro-code,
+  :root:not([data-theme='light']) .prose .astro-code span {
     color: var(--shiki-dark, inherit) !important;
   }
+}
+:root[data-theme='dark'] .prose .astro-code,
+:root[data-theme='dark'] .prose .astro-code span {
+  color: var(--shiki-dark, inherit) !important;
 }
 
 /* ---------- small screens ---------- */
