@@ -1,28 +1,29 @@
 ---
 title: Polygenic risk scores
-summary: How a polygenic risk score turns a GWAS into an individual risk number — the weighted allele sum, clumping and p-value thresholding, liability-scale R² and AUC with real accuracy numbers, and the ancestry portability problem, worked on a toy five-SNP example.
+summary: How a polygenic risk score turns a GWAS into a risk number for one person — the weighted allele sum and its standardization, clumping and thresholding, AUC under the liability-threshold model, absolute risk, how accuracy grows with GWAS size, and the ancestry portability problem, worked on a toy five-SNP example.
 date: 2026-11-10
 tags: [genes]
-distillate: A polygenic risk score (PRS) is the sum of a person's risk-allele counts weighted by GWAS effect sizes, standardized against a reference panel; on the toy five-SNP example a person with dosages (2, 1, 0, 2, 1) scores PRS = 1.05, z = 1.20 above the panel. For a disease with 1% prevalence, a score explaining 10% of liability variance gives AUC = 0.73. Real scores range from height (common SNPs explain 40–50%) to schizophrenia (PRS liability R² about 7.3%, top- vs bottom-centile OR 39) to coronary disease (AUC 0.79–0.81), but all are most accurate in European-ancestry samples. The model is additive and the score is only as good as the match between discovery and target populations.
+distillate: A polygenic risk score (PRS) is the sum of a person's risk-allele counts weighted by GWAS effect sizes, read against a reference panel of the same ancestry; on the toy five-SNP example, dosages (2, 1, 0, 2, 1) give PRS = 1.05 and z = 1.20. For a disease with 1% prevalence and a score that explains 10% of liability variance, the AUC is 0.73, and z = 1.20 raises this person's risk from 1% to 2.0%; even the top 5% of the score has a risk of only 4.0% and holds 20% of the cases. So a PRS stratifies a population rather than diagnosing a person, its accuracy is capped by GWAS sample size, and it is markedly less accurate outside the European-ancestry samples most GWAS are run in.
 model: [Mistral Large 4, Claude Opus 5.5]
+reviewed_by: [Claude Opus 5.5]
 ---
 
-Most common diseases are polygenic: thousands of variants each shift risk a little, and no single one is decisive. A **polygenic risk score** (PRS) adds those small effects into one number per person. The landmark demonstration was the International Schizophrenia Consortium's 2009 GWAS, which showed that common variants collectively carry schizophrenia risk and that a weighted sum of them separated cases from controls (Purcell et al., 2009)[^1]. Since then PRS has become a standard tool in human genetics: risk stratification, cohort selection for sequencing, and study design.
+Most common diseases are polygenic: thousands of variants each shift risk a little, and no single one is decisive. A **polygenic risk score** (PRS) adds those small effects into one number per person. The landmark demonstration was the International Schizophrenia Consortium's 2009 study, which showed that a weighted sum of thousands of common variants, most far below genome-wide significance, separated schizophrenia cases from controls in independent samples (Purcell et al., 2009). The score is a relative measure: it ranks people within a population, and turning it into a risk for one person takes a disease model and the prevalence.
 
-Throughout, the note uses one worked example: a toy score built from five SNPs, applied to one person, plus a disease model for the accuracy calculation.
+Throughout, the note uses one worked example: a toy score built from five SNPs, applied to one person, plus a disease model for the accuracy and risk calculations.
 
 | | value |
 | --- | --- |
 | SNPs in the toy score | 5, with GWAS effect sizes β = 0.30, 0.20, 0.15, 0.10, 0.05 (log-OR per risk allele) |
 | person | dosages (0/1/2 risk alleles) = (2, 1, 0, 2, 1) |
 | reference panel | 8 people, for standardizing the score |
-| disease model | prevalence K = 1%, score explains R²_L = 0.10 of liability variance |
+| disease model | prevalence $K$ = 1%; the score explains $R^2_L$ = 0.10 of liability variance |
 
-[^1]: Purcell, Wray, Stone, et al. (2009), Nature 460, 748–752, doi:10.1038/nature08185.
+Five SNPs could never explain 10% of liability; in the later sections the toy score stands in for a genome-wide score with that accuracy. The effect sizes are also large for common variants, whose per-allele odds ratios are mostly 1.05–1.2 (log-OR 0.05–0.18).
 
 ## The score itself
 
-Each SNP contributes its effect size times the number of risk alleles carried (the **dosage**, 0, 1 or 2):
+Each SNP contributes its effect size times the number of risk alleles carried (the **dosage** $g_i$, 0, 1 or 2; imputed genotypes give fractional expected dosages):
 
 $$
 \mathrm{PRS} = \sum_i \beta_i\, g_i
@@ -42,35 +43,39 @@ $$
 \mathrm{PRS} = 0.60 + 0.20 + 0 + 0.20 + 0.05 = 1.05
 $$
 
-To make the score interpretable, it is standardized against a reference panel: with the panel's mean 0.7688 and SD 0.2344, the person's z-score is
+The raw number has no meaning on its own, because its zero is a person carrying no risk alleles at all. It is read against a reference panel: with the panel's mean 0.7688 and standard deviation 0.2344, the person's z-score is
 
 $$
 z = \frac{1.05 - 0.7688}{0.2344} = 1.20
 $$
 
-so this person sits about 1.2 standard deviations above the panel average on this toy score. The sum assumes the variants act additively; it ignores gene–environment interaction and rare variants of large effect, which a GWAS of common SNPs never sees.
+so this person sits 1.2 standard deviations above the panel average. Because the β are log-odds ratios, the gap of $1.05 - 0.7688 = 0.28$ also reads as odds about $e^{0.28} = 1.3$ times those of an average panel member, if the SNPs act multiplicatively on the odds. The panel has to match the person's ancestry: allele frequencies differ between populations, so the same genotype can sit at different percentiles in different panels. The sum also assumes additive effects and misses rare variants of large effect, which a GWAS of common SNPs doesn't see.
 
 ## Where the weights come from
 
-The β values are per-allele effect sizes from a **genome-wide association study** (GWAS): one regression per SNP across thousands of people. A SNP is called genome-wide significant at $p < 5 \times 10^{-8}$. But a PRS uses far more than the significant hits, so two steps matter. **Clumping** (LD pruning, e.g. keeping SNPs with $r^2 < 0.2$ in a 250 kb window, as in PLINK) removes SNPs that merely tag each other, which would otherwise double-count the same signal (Purcell et al., 2007)[^2]. **Thresholding** then keeps all clumped SNPs below a p-value cutoff; because the best cutoff varies by trait, the standard clumping-and-thresholding (C+T) method sweeps a grid (5×10⁻⁸ up to 1.0) and picks the one with the best AUC in a held-out sample.
+The β values are per-allele effect sizes from a **genome-wide association study** (GWAS), one regression per SNP. A SNP is called genome-wide significant at $p < 5 \times 10^{-8}$, but a PRS uses far more than the significant hits, because most of the heritability sits in variants too weak to reach that bar. Using them needs two steps.
 
-[^2]: Purcell, Neale, Todd-Brown, et al. (2007), PLINK, Am J Hum Genet 81, 559–575, doi:10.1086/519795.
+**Clumping** handles linkage disequilibrium (LD), the correlation between nearby SNPs. Neighbouring SNPs that tag the same causal variant would otherwise count its effect several times. Clumping takes the most significant SNP in a region as the index, drops every SNP within a window that is correlated with it above an $r^2$ cutoff, and repeats down the list. PRSice-2 defaults to $r^2 > 0.1$ within 250 kb, while PLINK 1.9's `--clump` defaults to $r^2 > 0.5$ within 250 kb. Clumping differs from LD pruning, which thins SNPs by correlation alone without looking at p-values.
+
+**Thresholding** then keeps the clumped SNPs below a p-value cutoff. The best cutoff depends on the trait and on the GWAS size, so the clumping-and-thresholding (C+T) method tries a grid from $5 \times 10^{-8}$ up to 1 and picks the one that predicts best in a validation sample. Accuracy then has to be reported in a third sample that played no part in either the GWAS or the choice of cutoff. Overlap between the GWAS and the test sample inflates the apparent accuracy, sometimes severely (Wray et al., 2013).
 
 ## Measuring accuracy
 
-For a binary disease, accuracy is usually reported on the **liability scale**: Falconer (1965)[^3] modeled disease as a threshold on a continuous, normally distributed liability, and the R² of a PRS on that liability scale is directly comparable to heritability. Lee et al. (2011, 2012)[^4] give the conversion between observed-scale and liability-scale R² given the prevalence and the case fraction of the sample. For the AUC, Dudbridge (2013)[^5] gives the equal-variance (binormal) approximation; the exact liability-threshold value is given by Wray et al. (2010)[^15] and is 0.731 here, so 0.73 stands. The formula:
+For a binary disease, accuracy is usually stated on the **liability scale**. Falconer (1965) modeled disease as a threshold on an unobserved, normally distributed liability with variance 1: a person is affected when the liability exceeds $T = \Phi^{-1}(1 - K)$, where $K$ is the prevalence and $\Phi$ the standard normal cdf. The share of liability variance that a score explains, $R^2_L$, is comparable across studies with different case fractions, and it can't exceed the SNP heritability. Lee et al. (2012) give the conversion from the $R^2$ observed in a case-control sample to $R^2_L$.
+
+The **AUC** is the probability that a random case scores higher than a random control. Under the liability model it follows from $K$ and $R^2_L$ alone. Write the score, in liability units, as a component $S$ of the liability with variance $R^2_L$. The mean liability of cases is $\varphi(T)/K$, where $\varphi$ is the standard normal pdf, and that of controls is $-\varphi(T)/(1-K)$. The score carries the fraction $R^2_L$ of each mean, so the gap between case and control means, in standard deviations of the score, is
 
 $$
-\mathrm{AUC} = \Phi\!\left(\frac{\sqrt{R_L^2}\,\varphi(T)}{K(1-K)\,\sqrt{2}}\right), \qquad T = \Phi^{-1}(1-K)
+d = \frac{\sqrt{R^2_L}\;\varphi(T)}{K(1-K)}
 $$
 
-where $K$ is the disease prevalence, $\varphi$ and $\Phi$ the normal pdf and cdf, and $R_L^2$ the liability-scale R². For the worked example, $K = 0.01$ gives $T = 2.3263$ and $\varphi(T) = 0.0267$, so with $R_L^2 = 0.10$:
+Treating both groups as normal with equal variance gives $\mathrm{AUC} = \Phi(d/\sqrt{2})$. For the worked example, $K = 0.01$ gives $T = 2.3263$ and $\varphi(T) = 0.02665$, so
 
 $$
-\mathrm{AUC} = \Phi\!\left(\frac{0.3162 \times 0.0267}{0.0099 \times 1.4142}\right) = \Phi(0.603) = 0.73
+d = \frac{0.3162 \times 0.02665}{0.01 \times 0.99} = 0.851, \qquad \mathrm{AUC} = \Phi\!\left(\frac{0.851}{1.4142}\right) = \Phi(0.602) = 0.73
 $$
 
-The case and control distributions of the score are two shifted normal curves:
+The equal-variance step is an approximation, since selecting on liability narrows the spread of the score among cases. Wray et al. (2010) give the exact expression under the same model, which here gives 0.731, so the approximation costs nothing at this accuracy.
 
 <svg viewBox="0 0 500 300" role="img" aria-label="Distribution of a polygenic risk score in controls and cases for a disease with 1% prevalence whose score explains 10% of liability variance: controls centered near 0, cases shifted right to about 0.84 standard deviations, giving AUC 0.73." xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto;">
   <title>PRS distribution in controls and cases</title>
@@ -90,69 +95,95 @@ The case and control distributions of the score are two shifted normal curves:
   <text x="468.0" y="46.0" text-anchor="end" font-size="11" fill="currentColor">AUC = 0.73</text>
 </svg>
 
-*PRS distributions in controls and cases for K = 1% and R²_L = 0.10: the case curve is shifted right by about 0.84 SD, and the overlap gives AUC = 0.73.*
+*Distributions of the score in controls and cases for K = 1% and a liability-scale R² of 0.10, each scaled to the same peak height (there are 99 controls for every case). The case curve is centered 0.84 SD above the population mean, and the overlap gives AUC = 0.73.*
 
-[^3]: Falconer (1965), Ann Hum Genet 29, 51–76, doi:10.1111/j.1469-1809.1965.tb00500.x.
-[^4]: Lee, Wray, Goddard & Visscher (2011), Am J Hum Genet 88, 294–305, doi:10.1016/j.ajhg.2011.02.002; Lee, Goddard, Wray & Visscher (2012), Genet Epidemiol 36, 214–224, doi:10.1002/gepi.21614.
-[^5]: Dudbridge (2013), PLoS Genet 9(3), e1003348, doi:10.1371/journal.pgen.1003348.
+## From a z-score to an absolute risk
+
+The same model turns one person's z-score into an absolute risk. Given the score, the person's liability has mean $\sqrt{R^2_L}\,z$ and the remaining variance $1 - R^2_L$, so
+
+$$
+\text{risk} = \Phi\!\left(\frac{\sqrt{R^2_L}\,z - T}{\sqrt{1 - R^2_L}}\right) = \Phi\!\left(\frac{0.3162 \times 1.20 - 2.3263}{0.9487}\right) = \Phi(-2.05) = 0.020
+$$
+
+If the person's $z = 1.20$ came from a score with $R^2_L = 0.10$, their risk would be 2.0%, twice the population's 1%, and they would still be 98% likely to stay unaffected. Integrating the same expression over the top of the score distribution shows what a score with AUC 0.73 can do for a population: the top 1% of scores carries a risk of 6.0% and the top 5% a risk of 4.0%, and that top 5% holds only 20% of all future cases. A score like this **stratifies a population**, for instance to decide who is screened earlier, but it can't tell any one person whether they will get the disease. In a real cohort the absolute risk also needs the score to be calibrated against observed incidence there, since case mix, age and ascertainment shift the baseline.
+
+## How accuracy grows with GWAS size
+
+The β estimates carry sampling error, and with many small effects that error dominates. Daetwyler, Villanueva and Woolliams (2008) derived the expected accuracy of a score built from $N$ people for a trait with heritability $h^2$ spread over $M$ independent effects:
+
+$$
+R^2 \approx h^2 \cdot \frac{N h^2}{N h^2 + M}
+$$
+
+The score reaches half the heritability when $N = M / h^2$, and the remaining half comes slowly. For a trait with $h^2 = 0.24$ spread over $M = 50{,}000$ independent effects (illustrative values, not estimates for a real trait), half the heritability needs about 208,000 people, and reaching 90% of it needs nine times as many. This is why scores keep improving as GWAS grow from tens of thousands to millions of people, and why a trait with a smaller heritability, or effects spread over more loci, needs a larger GWAS for the same accuracy. For a case-control GWAS, $N$ is an effective sample size that is smaller than the head count when cases are few.
 
 ## Real-world accuracy
 
-Accuracy varies enormously by trait and sample size. For height, the largest GWAS (5.4 million people) found 12,111 significant SNPs and estimated that common SNPs explain 40–50% of height variation (Yengo et al., 2022)[^6]. For schizophrenia, the 2022 PGC GWAS (76,755 cases, 243,649 controls, 287 loci) estimated SNP-based heritability of 0.24 in Europeans, with a PRS at p < 0.05 explaining a median 7.3% of liability variance and a top- vs bottom-centile odds ratio of 39 (Trubetskoy et al., 2022)[^7]. In UK Biobank, genome-wide scores reached AUC 0.79–0.81 for coronary artery disease and identified 8.0% of the population at more than threefold CAD risk (Khera et al., 2018)[^8]. Even an AUC of 0.8 stratifies a population rather than predicting an individual: most people in the top risk group never get the disease, and turning a score into an absolute risk also needs the prevalence and a calibration in the target population. Published scores and their metadata are cataloged in the [PGS Catalog](https://www.pgscatalog.org/).
+Accuracy varies widely across traits. For height, the largest GWAS (5.4 million people) found 12,111 independent significant SNPs, which together account for nearly all of the common-SNP heritability, and they explain 40% of height variance in European-ancestry samples but only about 10–20% in other ancestries (Yengo et al., 2022). For schizophrenia, the 2022 Psychiatric Genomics Consortium GWAS (76,755 cases, 243,649 controls, 287 loci) estimated SNP-based heritability of 0.24, with a PRS explaining a median 7.3% of liability variance and an odds ratio of 39 between the top and bottom centiles of the score (Trubetskoy et al., 2022). For coronary artery disease, a genome-wide score in UK Biobank identified 8.0% of the population at more than threefold risk, a risk comparable to that of carrying a monogenic mutation (Khera et al., 2018). Published scores, with their weights and the samples they were validated in, are collected in the [PGS Catalog](https://www.pgscatalog.org/).
 
-[^6]: Yengo et al. (2022), Nature 610, 704–712, doi:10.1038/s41586-022-05275-y.
-[^7]: Trubetskoy et al. (2022), Nature 604, 502–508, doi:10.1038/s41586-022-04434-5.
-[^8]: Khera et al. (2018), Nat Genet 50, 1219–1224, doi:10.1038/s41588-018-0183-z.
+An odds ratio between extreme centiles compares the two thin tails of the score and makes a score sound stronger than its AUC suggests. For a person, the absolute risk in their own part of the distribution is what counts, and for a disease near 1% prevalence it stays low even in the top centile, as the worked example's 6.0% for the top 1% shows.
 
 ## Beyond clumping and thresholding
 
-C+T throws away LD information. Methods that model it instead usually predict better: LDpred (Vilhjálmsson et al., 2015)[^9], lassosum (Mak et al., 2017)[^10], PRS-CS (Ge et al., 2019)[^11], and SBayesR (Lloyd-Jones et al., 2019)[^12] all adjust the GWAS effect sizes for LD and shrink them, each with its own tuning. The practical lesson from Wray et al. (2013)[^13] still stands: report accuracy in a held-out sample, not in the discovery sample, or the numbers are inflated. And no method removes the sampling error in the GWAS β estimates, which caps accuracy at a given discovery sample size.
-
-[^9]: Vilhjálmsson et al. (2015), Am J Hum Genet 97, 576–592, doi:10.1016/j.ajhg.2015.09.001.
-[^10]: Mak et al. (2017), Genet Epidemiol 41, 469–480, doi:10.1002/gepi.22050.
-[^11]: Ge et al. (2019), Nat Commun 10, 1776, doi:10.1038/s41467-019-09718-5.
-[^12]: Lloyd-Jones et al. (2019), Nat Commun 10, 5086, doi:10.1038/s41467-019-12653-0.
-[^13]: Wray, Yang, Hayes, et al. (2013), Nat Rev Genet 14, 507–515, doi:10.1038/nrg3457.
+C+T discards LD information: it keeps one SNP per region and drops the rest. Methods that model LD instead usually predict better. LDpred (Vilhjálmsson et al., 2015) and PRS-CS (Ge et al., 2019) are the most used. Both take the GWAS summary statistics and an LD reference panel and shrink each β toward zero according to a prior on effect sizes, so that a block of correlated SNPs shares its signal instead of losing all but one. The same two rules apply to them as to C+T: tune and test in separate samples, and expect accuracy to be capped by the GWAS sample size, as in the previous section.
 
 ## The portability problem
 
-Almost all large GWAS have been run in European-ancestry cohorts, and a PRS trained there is **several times less accurate** in other ancestries, because allele frequencies and LD patterns differ and the tagged variants differ (Martin et al., 2019)[^14]. Using today's scores clinically would therefore widen health disparities unless discovery cohorts diversify. Within an ancestry, scores can also miscalibrate across cohorts because of ascertainment (e.g. the UK Biobank's healthy-volunteer bias).
+Most large GWAS have been run in European-ancestry samples, and scores built from them are **several times less accurate** in other ancestries, with the largest drop in African-ancestry samples (Martin et al., 2019). Three things cause it. Allele frequencies differ, so a SNP that varies in one population may barely vary in another. LD patterns differ, so a SNP that tags a causal variant well in Europeans may tag it poorly elsewhere; African-ancestry genomes have shorter LD blocks. And some causal variants are specific to one population. The height numbers above show the size of the effect: 40% of variance explained in European-ancestry samples against 10–20% elsewhere. Martin et al. argue that using today's scores in the clinic would widen health disparities unless discovery samples diversify.
 
-Clinical and personal uses raise questions beyond accuracy: preimplantation embryo selection on PRS, the psychological effect of receiving a score, and discrimination. In the US, GINA (2008) bars the use of genetic information in health insurance and employment, but not in life, disability or long-term-care insurance.
+Even within one ancestry, a score can lose accuracy between cohorts that differ in age, recruitment or environment, and UK Biobank volunteers are healthier on average than the UK population. Clinical and personal uses also raise questions beyond accuracy, such as the selection of embryos on a PRS and discrimination by insurers. In the US, the Genetic Information Nondiscrimination Act (2008) bars the use of genetic information in health insurance and employment, but not in life, disability or long-term-care insurance.
 
-[^14]: Martin, Kanai, Kamatani, et al. (2019), Nat Genet 51, 584–591, doi:10.1038/s41588-019-0379-x.
-[^15]: Wray, Yang, Goddard & Visscher (2010), PLoS Genet 6, e1000864, doi:10.1371/journal.pgen.1000864.
+## The whole computation in R
 
-## The whole computation in Python
+```r
+# Toy example: 5 SNPs, effect sizes in log-OR per risk allele
+beta   <- c(0.30, 0.20, 0.15, 0.10, 0.05)
+person <- c(2, 1, 0, 2, 1)             # dosages, 0/1/2 risk alleles
+panel  <- rbind(c(0,1,2,0,1), c(2,0,1,2,0), c(1,1,0,1,2),
+                c(0,2,1,0,0), c(2,2,0,1,1), c(1,0,2,0,2),
+                c(0,1,1,2,0), c(2,1,1,0,1))  # [8 people, 5 SNPs]
 
-```python
-import math
+prs    <- function(g) drop(g %*% beta) # weighted sum per row
+scores <- prs(panel)                   # [8]
+z      <- (prs(person) - mean(scores)) / sd(scores)  # sd: n - 1
+cat(sprintf("PRS = %.2f; panel mean %.4f, SD %.4f; z = %.2f\n",
+            prs(person), mean(scores), sd(scores), z))
 
-# Toy worked example: 5 SNPs, GWAS effect sizes in log-OR per risk allele.
-beta = [0.30, 0.20, 0.15, 0.10, 0.05]
-person = [2, 1, 0, 2, 1]          # dosages (0/1/2 risk alleles)
-panel = [[0,1,2,0,1],[2,0,1,2,0],[1,1,0,1,2],[0,2,1,0,0],
-         [2,2,0,1,1],[1,0,2,0,2],[0,1,1,2,0],[2,1,1,0,1]]  # reference panel
+# Liability model: prevalence K, score explains R2L of liability
+K <- 0.01; R2L <- 0.10
+T <- qnorm(1 - K)                          # liability threshold
+d <- sqrt(R2L) * dnorm(T) / (K * (1 - K))  # gap in score SDs
+cat(sprintf("T = %.4f, phi(T) = %.5f, d = %.3f, AUC = %.2f\n",
+            T, dnorm(T), d, pnorm(d / sqrt(2))))
 
-def prs(g): return sum(b * x for b, x in zip(beta, g))   # [n_snps]
-
-scores = [prs(g) for g in panel]
-mean = sum(scores) / len(scores)
-sd = math.sqrt(sum((s - mean) ** 2 for s in scores) / (len(scores) - 1))
-p = prs(person)
-print(f"PRS = {p:.2f}; panel mean {mean:.4f}, SD {sd:.4f}; z = {(p - mean) / sd:.2f}")
-
-# AUC from liability-scale R^2 and prevalence K (Dudbridge 2013)
-K, R2L = 0.01, 0.10
-T = 2.3263                              # Phi^-1(1 - K) for K = 1%
-phi_T = math.exp(-T * T / 2) / math.sqrt(2 * math.pi)
-x = math.sqrt(R2L) * phi_T / (K * (1 - K) * math.sqrt(2))
-print(f"AUC = {0.5 * (1 + math.erf(x / math.sqrt(2))):.2f} at K = {K:.0%}, R2_L = {R2L:.2f}")
+# Absolute risk for this person, and in the top 5% of scores
+risk <- function(z) pnorm((sqrt(R2L) * z - T) / sqrt(1 - R2L))
+top5 <- integrate(function(s) dnorm(s) * risk(s),
+                  qnorm(0.95), Inf)$value    # P(top 5% and affected)
+cat(sprintf("risk = %.1f%%; top 5%%: risk %.1f%%, cases %.0f%%\n",
+            100 * risk(z), 100 * top5 / 0.05, 100 * top5 / K))
 ```
 
 which prints:
 
 ```
 PRS = 1.05; panel mean 0.7688, SD 0.2344; z = 1.20
-AUC = 0.73 at K = 1%, R2_L = 0.10
+T = 2.3263, phi(T) = 0.02665, d = 0.851, AUC = 0.73
+risk = 2.0%; top 5%: risk 4.0%, cases 20%
 ```
+
+## Sources
+
+- S. M. Purcell, N. R. Wray, J. L. Stone, et al. (International Schizophrenia Consortium), "Common polygenic variation contributes to risk of schizophrenia and bipolar disorder", *Nature* 460, 748–752 (2009). [doi:10.1038/nature08185](https://doi.org/10.1038/nature08185)
+- S. W. Choi, P. F. O'Reilly, "PRSice-2: Polygenic Risk Score software for biobank-scale data", *GigaScience* 8, giz082 (2019). [doi:10.1093/gigascience/giz082](https://doi.org/10.1093/gigascience/giz082); clumping defaults from the [PRSice-2 command reference](https://choishingwan.github.io/PRSice/command_detail/) and the [PLINK 1.9 clumping documentation](https://www.cog-genomics.org/plink/1.9/postproc#clump)
+- N. R. Wray, J. Yang, B. J. Hayes, et al., "Pitfalls of predicting complex traits from SNPs", *Nat. Rev. Genet.* 14, 507–515 (2013). [doi:10.1038/nrg3457](https://doi.org/10.1038/nrg3457)
+- D. S. Falconer, "The inheritance of liability to certain diseases, estimated from the incidence among relatives", *Ann. Hum. Genet.* 29, 51–76 (1965). [doi:10.1111/j.1469-1809.1965.tb00500.x](https://doi.org/10.1111/j.1469-1809.1965.tb00500.x)
+- S. H. Lee, M. E. Goddard, N. R. Wray, P. M. Visscher, "A better coefficient of determination for genetic profile analysis", *Genet. Epidemiol.* 36, 214–224 (2012). [doi:10.1002/gepi.21614](https://doi.org/10.1002/gepi.21614)
+- N. R. Wray, J. Yang, M. E. Goddard, P. M. Visscher, "The genetic interpretation of area under the ROC curve in genomic profiling", *PLoS Genet.* 6, e1000864 (2010). [doi:10.1371/journal.pgen.1000864](https://doi.org/10.1371/journal.pgen.1000864)
+- H. D. Daetwyler, B. Villanueva, J. A. Woolliams, "Accuracy of predicting the genetic risk of disease using a genome-wide approach", *PLoS ONE* 3, e3395 (2008). [doi:10.1371/journal.pone.0003395](https://doi.org/10.1371/journal.pone.0003395)
+- L. Yengo, S. Vedantam, E. Marouli, et al., "A saturated map of common genetic variants associated with human height", *Nature* 610, 704–712 (2022). [doi:10.1038/s41586-022-05275-y](https://doi.org/10.1038/s41586-022-05275-y)
+- V. Trubetskoy, A. F. Pardiñas, T. Qi, et al., "Mapping genomic loci implicates genes and synaptic biology in schizophrenia", *Nature* 604, 502–508 (2022). [doi:10.1038/s41586-022-04434-5](https://doi.org/10.1038/s41586-022-04434-5)
+- A. V. Khera, M. Chaffin, K. G. Aragam, et al., "Genome-wide polygenic scores for common diseases identify individuals with risk equivalent to monogenic mutations", *Nat. Genet.* 50, 1219–1224 (2018). [doi:10.1038/s41588-018-0183-z](https://doi.org/10.1038/s41588-018-0183-z)
+- B. J. Vilhjálmsson, J. Yang, H. K. Finucane, et al., "Modeling linkage disequilibrium increases accuracy of polygenic risk scores", *Am. J. Hum. Genet.* 97, 576–592 (2015). [doi:10.1016/j.ajhg.2015.09.001](https://doi.org/10.1016/j.ajhg.2015.09.001)
+- T. Ge, C.-Y. Chen, Y. Ni, Y.-C. A. Feng, J. W. Smoller, "Polygenic prediction via Bayesian regression and continuous shrinkage priors", *Nat. Commun.* 10, 1776 (2019). [doi:10.1038/s41467-019-09718-5](https://doi.org/10.1038/s41467-019-09718-5)
+- A. R. Martin, M. Kanai, Y. Kamatani, et al., "Clinical use of current polygenic risk scores may exacerbate health disparities", *Nat. Genet.* 51, 584–591 (2019). [doi:10.1038/s41588-019-0379-x](https://doi.org/10.1038/s41588-019-0379-x)
