@@ -218,6 +218,7 @@ errors. These rules matter more than anything above.
 | --- | --- | --- |
 | ethanol–water azeotrope | "95.6% ABV" | 95.6 wt % ≈ 97% ABV (mole fraction 0.894), boils at 78.2 °C at 1 atm |
 | alcoholmeter temperature | warm sample reads low | warm sample is less dense and **reads high**; calibrated at 20 °C |
+| hydrometer temperature | warm sample reads high | warm sample is less dense, so it sinks deeper and reads **low**; the correction adds (the alcoholmeter is the opposite: reads high); calibrated at the printed temperature, often 15.6 °C |
 | methanol | concentrates in the heads | behaves much like ethanol–water and comes over across the run; keep it low via the fruit and fermentation |
 | fusel alcohols | land in tails because they boil high | volatility relative to ethanol in the pot liquid decides it; they are more volatile than ethanol in a watery pot, so they come over late in the run |
 | Rayleigh equation for ethanol–water | constant-α closed form | α falls from over 10 to 1 across a run; integrate numerically with VLE data |
