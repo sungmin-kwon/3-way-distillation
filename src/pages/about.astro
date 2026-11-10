@@ -1,10 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
-import { href } from '../lib/notes';
+import { href, tagHref } from '../lib/notes';
+import { TAGS } from '../lib/site';
 
 // Edit this list whenever the focus shifts, and bump the date.
 // Each item: text before the link, the linked note's id and title, text after.
-const currentlyUpdated = '2026-11-09';
+const currentlyUpdated = '2026-11-10';
 const currently = [
   {
     before: 'Working through the open questions at the end of ',
@@ -18,16 +19,10 @@ const currently = [
     title: 'McCabe–Thiele',
     after: ' end to end on a 50/50 feed, checked against Fenske and Gilliland.',
   },
-  {
-    before: 'Just worked through ',
-    note: 'how-spirits-distillation-works',
-    title: 'a stripping run and a spirit run',
-    after: ' with real ethanol–water equilibrium data.',
-  },
 ];
 ---
 
-<Base title="About" description="Whose notebook this is, and why it’s called the 3-way distiller." current="about">
+<Base title="About" description="Whose notebook this is, what its three tags cover, and why it’s called the 3-way distiller." current="about">
   <article class="entry">
     <h1>About</h1>
     <div class="prose">
@@ -36,10 +31,18 @@ const currently = [
         write things down properly.
       </p>
       <p>
-        The name comes from three kinds of distillation that have followed me around: training small
-        language models to imitate large ones; separating mixtures in columns; and
-        making spirits at home. All three are the same move. Take something complex and keep only what
-        matters. That is also what I try to do in each entry here.
+        The notes fall under three tags, roughly past, present and future:
+      </p>
+      <ul class="eras">
+        {TAGS.map((t) => (
+          <li><span class="label">{t.era}</span> <a href={tagHref(t.name)}>{t.name}</a>: {t.blurb}</li>
+        ))}
+      </ul>
+      <p>
+        The name comes from the kind of distillation that turns up in each of them: separating
+        mixtures in a column, training a small model to imitate a large one, and distilling many
+        noisy entangled pairs into a few good ones. All three are the same move. Take something
+        complex and keep only what matters. That is also what I try to do in each entry here.
       </p>
     </div>
 

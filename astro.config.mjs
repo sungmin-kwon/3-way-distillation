@@ -3,6 +3,7 @@ import { unified } from '@astrojs/markdown-remark';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import { remarkNoteLinks } from './src/lib/remark-note-links.mjs';
+import { unpublishedIds } from './scripts/notes-meta.mjs';
 
 // GitHub Pages project site. If this ever moves to a domain root,
 // set `site` to that domain and remove `base`.
@@ -15,7 +16,7 @@ export default defineConfig({
   base,
   markdown: {
     processor: unified({
-      remarkPlugins: [remarkMath, [remarkNoteLinks, { base }]],
+      remarkPlugins: [remarkMath, [remarkNoteLinks, { base, unpublished: unpublishedIds() }]],
       rehypePlugins: [rehypeKatex],
     }),
     shikiConfig: {

@@ -2,7 +2,8 @@
 title: Is home brewing and distilling legal?
 summary: Where you may ferment and where you may distill at home, as of November 2026 — why the law splits brewing from distilling, the US court fight now at the Supreme Court, and the rules in the UK, Canada, Australia, New Zealand, Germany, Sweden, Japan and Hungary, with sources.
 date: 2026-11-10
-tags: [spirits]
+tags: [cheme]
+hidden: true
 distillate: In most countries checked here, brewing beer or making wine at home for your own use is legal and untaxed, while distilling the same wash into spirits needs a commercial licence that hobbyists can't get. New Zealand is the clear exception, and the United States is in flux, with the federal home-distilling ban held unconstitutional by the Fifth Circuit in April 2026 and the Supreme Court agreeing on 19 October 2026 to hear the case. The split exists because spirits are the most heavily taxed form of alcohol, not because distilling is uniquely dangerous, and every rule here can change, so check the current law where you live.
 model: [Claude Opus 5.5]
 ---

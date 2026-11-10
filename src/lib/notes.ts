@@ -1,4 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { TAGS } from './site';
 
 export type Note = CollectionEntry<'notes'>;
 
@@ -27,9 +28,9 @@ export function tagHref(tag: string): string {
   return href(`tags/${tagSlug(tag)}/`);
 }
 
-/** All published notes, newest first. */
+/** All published notes (not draft, not hidden), newest first. */
 export async function getNotes(): Promise<Note[]> {
-  const notes = await getCollection('notes', ({ data }) => !data.draft);
+  const notes = await getCollection('notes', ({ data }) => !data.draft && !data.hidden);
   return notes.sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf() || a.id.localeCompare(b.id),
   );
@@ -100,19 +101,23 @@ export function groupByMonth(notes: Note[]): MonthGroup[] {
   return groups;
 }
 
-/** Tags in use, most used first. "rough" is added when any note is rough. */
+/**
+ * The tags, in their fixed order (past, present, future), whether or not any
+ * published note uses them yet. "rough" is added when any note is rough.
+ */
 export function allTags(notes: Note[]): string[] {
-  const counts = new Map<string, number>();
-  for (const n of notes) for (const t of n.data.tags) counts.set(t, (counts.get(t) ?? 0) + 1);
-  const tags = [...counts.entries()]
-    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-    .map(([t]) => t);
-  if (notes.some((n) => n.data.rough) && !tags.includes('rough')) tags.push('rough');
+  const tags: string[] = TAGS.map((t) => t.name);
+  if (notes.some((n) => n.data.rough)) tags.push('rough');
   return tags;
 }
 
+/** The description of a tag, e.g. for its page. */
+export function tagInfo(tag: string) {
+  return TAGS.find((t) => t.name === tag);
+}
+
 export function hasTag(note: Note, tag: string): boolean {
-  return tag === 'rough' ? note.data.rough || note.data.tags.includes('rough') : note.data.tags.includes(tag);
+  return tag === 'rough' ? note.data.rough : (note.data.tags as string[]).includes(tag);
 }
 
 /** Notes whose body links to `target` with a `note:` link. */

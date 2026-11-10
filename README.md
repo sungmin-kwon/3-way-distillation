@@ -30,11 +30,12 @@ A longer note adds a title and, optionally, more:
 title: Forward vs. reverse KL
 date: 2026-11-12
 updated: 2026-11-20      # optional
-tags: [ml/llm]           # used on the index filter; current tags: ml/llm, cheme, spirits
+tags: [ml/llm]           # cheme, ml/llm or qi/qc; the list is in src/lib/site.ts
 summary: One line shown under the title on the index.
 distillate: The boiled-down version, shown at the top of the note.
 rough: true              # unfinished thinking; shows a "rough" mark
-draft: true              # not published at all
+draft: true              # unfinished, not published at all
+hidden: true             # finished but withheld from the site; see ADMIN.md
 model: [Claude Opus 5.5] # model(s) that wrote or revised it; kept in the source, never shown on the site
 reviewed_by: [Claude Opus 5.5] # optional: model(s) that did a separate review pass; never shown
 ---
@@ -54,7 +55,8 @@ The "Currently" list lives at the top of `src/pages/about.astro`.
 ```sh
 npm install
 npm run dev      # local dev server at http://localhost:4321/3-way-distillation/
-npm run build    # static site into dist/
+npm run build    # static site into dist/ (regenerates ADMIN.md first)
+npm run admin    # just regenerate ADMIN.md, the list of all notes including hidden ones
 npm run preview  # serve dist/
 ```
 
@@ -67,7 +69,10 @@ src/pages/              index, notes/[id], tags/[tag], about, 404, rss.xml, sear
 src/components/NoteIndex.astro   the dated list, tag filter and find box
 src/layouts/Base.astro  page shell and masthead
 src/lib/notes.ts        loading, grouping, tags, backlinks, URL helpers
-src/lib/remark-note-links.mjs    turns note: links into real URLs
+src/lib/remark-note-links.mjs    turns note: links into real URLs (plain text if the note is hidden)
+src/lib/site.ts         site title, description and the three tags
+scripts/                ADMIN.md generator and the frontmatter reader it shares with astro.config.mjs
+ADMIN.md                generated list of every note, visible or hidden; not deployed
 src/styles/site.css     all styling; light and dark follow the system setting
 ```
 
