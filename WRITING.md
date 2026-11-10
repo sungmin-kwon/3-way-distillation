@@ -56,8 +56,7 @@ reviewed_by: [Claude Opus 5.5]         # optional: model(s) that did a separate 
 
 - **Tags:** only these four, which read as past, present and future: `cheme` (chemical
   engineering: separations, thermodynamics, fermentation and stills), `ml/llm` (machine learning
-  and language models), `genetics` (genetics and genomics, the primary data domain of the
-  research lab) and `qi/qc` (quantum information and computing). The list lives in
+  and language models), `genetics` (genetics, genomics and the clinical data around them) and `qi/qc` (quantum information and computing). The list lives in
   `src/lib/site.ts`, and the build fails on any other tag. Don't invent new tags; ask first.
 - **Hidden notes:** `hidden: true` keeps a finished note off the site: no page, and not in the
   index, tag pages, RSS or search. A `note:` link to it from a visible note turns into plain text
