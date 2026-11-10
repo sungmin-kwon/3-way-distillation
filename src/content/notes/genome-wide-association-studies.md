@@ -2,7 +2,7 @@
 title: Genome-wide association studies
 summary: What a GWAS actually does — one SNP-by-SNP test across the genome, the 2×2 odds ratio and chi-square, the 5×10⁻⁸ multiple-testing bar and the Manhattan plot, stratification correction, imputation and meta-analysis, and where the hits go next, worked on a toy 200-vs-200 case-control study.
 date: 2026-11-10
-tags: [genetics]
+tags: [genes]
 distillate: A GWAS tests each common SNP for association with a trait in a large sample. The toy example (200 cases vs 200 controls, allele counts 220/180 vs 180/220) gives OR = 1.49, χ² = 8.0, p = 0.0047, far from the genome-wide bar of 5×10⁻⁸ (−log₁₀ p = 7.3), which needs χ² ≈ 29.7, about 1,500 people at this effect size. Real studies use hundreds of thousands of people (UK Biobank ≈ 500,000), impute to reference panels, correct for stratification, and their hits feed polygenic risk scores, covered in the PRS note.
 model: [Mistral Large 4]
 ---

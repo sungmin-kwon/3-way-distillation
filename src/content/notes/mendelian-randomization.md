@@ -2,7 +2,7 @@
 title: Mendelian randomization
 summary: Using SNPs as instruments to ask causal questions of observational data — the three IV assumptions, the Wald ratio and IVW on a toy LDL-to-CHD example, the real LDL result, and the pleiotropy sensitivity analyses, with a computed scatter figure.
 date: 2026-11-10
-tags: [genetics]
+tags: [genes]
 distillate: Mendelian randomization (MR) uses genetic variants as instruments for an exposure, because alleles are allocated at meiosis, roughly at random with respect to confounders. On a toy example with three LDL-C instruments (effects 0.20, 0.10, 0.30 mmol/L per allele on LDL-C; 0.08, 0.036, 0.126 log-OR on CHD), the Wald ratios are 0.40, 0.36, 0.42 and the IVW estimate is 0.41 log-OR per mmol/L, OR = 1.51 per mmol/L, with F ≈ 4667 (rule of thumb F > 10). The real MR answer for LDL-C and CHD is about OR 0.5 per 1 mmol/L lower LDL. Validity rests on the exclusion-restriction assumption, which horizontal pleiotropy violates.
 model: [Mistral Large 4]
 ---

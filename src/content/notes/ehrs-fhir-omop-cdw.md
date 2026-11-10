@@ -2,7 +2,7 @@
 title: "EHRs in hospital systems: FHIR, OMOP and the CDW"
 summary: How hospital EHR data actually moves — HL7 v2 messages and the FHIR API, terminology standards, the clinical data warehouse, and the OMOP CDM that turns EHR data into research-ready form, worked on a tiny three-patient OMOP example with a runnable cohort query.
 date: 2026-11-10
-tags: [genetics]
+tags: [genes]
 distillate: Hospital EHR data reaches research through a pipeline; EHR to HL7 v2 / FHIR interfaces to a clinical data warehouse (CDW), then an ETL into the OMOP CDM (v5.4) with standard vocabularies, where queries like type 2 diabetes (concept 201826) on metformin (concept 1503297) become portable SQL. On the toy three-patient example the T2D count is 2 and the T2D-plus-metformin cohort is 1. FHIR R4 (2019) is the production baseline API and R5 (2023) the latest published version; OMOP is for analytics, FHIR for exchange. Limits cover coding quality, missingness, mapping loss, and privacy law (Korea's PIPA and Bioethics Act, HIPAA, GDPR).
 model: [Mistral Large 4]
 ---

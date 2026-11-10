@@ -2,7 +2,7 @@
 title: Polygenic risk scores
 summary: How a polygenic risk score turns a GWAS into an individual risk number — the weighted allele sum, clumping and p-value thresholding, liability-scale R² and AUC with real accuracy numbers, and the ancestry portability problem, worked on a toy five-SNP example.
 date: 2026-11-10
-tags: [genetics]
+tags: [genes]
 distillate: A polygenic risk score (PRS) is the sum of a person's risk-allele counts weighted by GWAS effect sizes, standardized against a reference panel; on the toy five-SNP example a person with dosages (2, 1, 0, 2, 1) scores PRS = 1.05, z = 1.20 above the panel. For a disease with 1% prevalence, a score explaining 10% of liability variance gives AUC = 0.73. Real scores range from height (common SNPs explain 40–50%) to schizophrenia (PRS liability R² about 7.3%, top- vs bottom-centile OR 39) to coronary disease (AUC 0.79–0.81), but all are most accurate in European-ancestry samples. The model is additive and the score is only as good as the match between discovery and target populations.
 model: [Mistral Large 4]
 ---
