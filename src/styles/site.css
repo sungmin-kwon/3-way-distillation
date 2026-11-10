@@ -516,7 +516,7 @@ a.row-date:hover {
   border-bottom-color: var(--ink);
 }
 .prose img,
-.prose svg {
+.prose svg:not(.katex svg) {
   max-width: 100%;
   height: auto;
 }
