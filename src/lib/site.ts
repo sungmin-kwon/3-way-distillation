@@ -26,6 +26,12 @@ export const TAGS = [
     description: 'Genetics, genomics and the clinical data around them: GWAS, polygenic scores, Mendelian randomization, medical codes and EHR/CDW infrastructure.',
   },
   {
+    name: 'stats',
+    era: 'present',
+    blurb: 'probability and statistics, the language the other notes are written in.',
+    description: 'Probability and statistics: distributions, estimation and hypothesis testing, the common machinery underneath the other tags.',
+  },
+  {
     name: 'qi/qc',
     era: 'future',
     blurb: 'quantum information and computing, something I’d like to learn properly someday.',

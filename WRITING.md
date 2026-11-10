@@ -73,7 +73,7 @@ it breaks links.
 title: Forward vs. reverse KL          # omit for a short note
 date: 2026-11-12                       # required, YYYY-MM-DD
 updated: 2026-11-20                    # only when a published note changes materially
-tags: [ml/llm]                         # cheme, ml/llm, genes, qi/qc; zero or more
+tags: [ml/llm]                         # cheme, ml/llm, genes, stats, qi/qc; zero or more
 summary: One line for the index.       # long notes
 distillate: The boiled-down version.   # long notes
 rough: true                            # unfinished thinking; leave out otherwise
@@ -84,9 +84,11 @@ reviewed_by: [Claude Opus 5.5]         # optional: model(s) that did a separate 
 ---
 ```
 
-- **Tags:** only these four, which read as past, present and future: `cheme` (chemical
+- **Tags:** only these five, which read as past, present and future: `cheme` (chemical
   engineering: separations, thermodynamics, fermentation and stills), `ml/llm` (machine learning
-  and language models), `genes` (genetics, genomics and the clinical data around them) and `qi/qc` (quantum information and computing). The list lives in
+  and language models), `genes` (genetics, genomics and the clinical data around them), `stats`
+  (probability and statistics, the machinery underneath the other tags) and `qi/qc` (quantum
+  information and computing). The list lives in
   `src/lib/site.ts`, and the build fails on any other tag. Don't invent new tags; ask first.
 - **Hidden notes:** `hidden: true` keeps a finished note off the site: no page, and not in the
   index, tag pages, RSS or search. A `note:` link to it from a visible note turns into plain text
@@ -207,7 +209,7 @@ many digits as the source supports, usually two or three significant figures.
 the first column. Cite the source of any data table in the sentence above it ("Carey and Lewis,
 1932, as tabulated in standard textbooks").
 
-**Code.** Python for `cheme`, `ml/llm` and `qi/qc` notes. **Base R for `genes` notes**, since R
+**Code.** Python for `cheme`, `ml/llm`, `stats` and `qi/qc` notes. **Base R for `genes` notes**, since R
 is the standard in that field: no packages from CRAN or Bioconductor, only what ships with R
 (`stats`, `graphics`). It must run as written: include imports, name the shapes in comments
 (`# [batch, seq, vocab]`), and keep it under about 30 lines (a simulation that feeds a figure may
@@ -352,7 +354,7 @@ errors. These rules matter more than anything above.
 title: <Short noun phrase or question>
 summary: <What it covers, in one line> — <part>, <part>, <part>.
 date: YYYY-MM-DD
-tags: [<cheme|ml/llm|genes|qi/qc>]
+tags: [<cheme|ml/llm|genes|stats|qi/qc>]
 distillate: <The answer in one sentence.> <The key number from the worked example.> <The main limit or caveat.>
 model: [<the model writing this>]
 ---
@@ -425,7 +427,7 @@ Go through this list and fix anything that fails. Then report which items you co
 - [ ] The page was opened in a browser, at full width and at phone width: no red KaTeX errors, no
       clipped equations, no literal `$`, `*` or `[`, figures and captions in place.
 - [ ] Frontmatter has `date` and `model` (plus `reviewed_by` if a separate review happened); a long note also has `title`, `summary`,
-      `distillate`, and tags from the allowed four.
+      `distillate`, and tags from the allowed five.
 - [ ] No "I", "me" or "my" anywhere; "we" only where unavoidable.
 - [ ] The distillate stands alone, gives the answer and a key number, and matches the body.
 - [ ] One worked example runs through the note, with its parameters in a table.
