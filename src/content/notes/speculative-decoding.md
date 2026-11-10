@@ -7,7 +7,7 @@ distillate: A cheap draft model proposes several tokens, and the large target mo
 model: [Claude Opus 5.5]
 ---
 
-Generating text from a large language model is slow for a mechanical reason: each new token needs a full forward pass, and at small batch sizes that pass is limited by reading the weights from memory, not by arithmetic. Checking several tokens in one pass costs about the same as producing one. **Speculative decoding** uses that slack: a small *draft* model guesses a few tokens ahead, and the large *target* model verifies them in parallel. Leviathan, Kalman and Matias (2023) and Chen et al. (2023, under the name *speculative sampling*) published the method independently; Stern, Shazeer and Uszkoreit's blockwise parallel decoding (2018) did the greedy version earlier.
+Generating text from a large language model is slow for a mechanical reason: each new token needs a full forward pass, and at small batch sizes that pass is limited by reading the weights from memory, not by arithmetic. Checking several tokens in one pass costs about the same as producing one. **Speculative decoding** uses that slack: a small *draft* model guesses a few tokens ahead, and the large *target* model verifies them in parallel. Leviathan, Kalman and Matias (2023) and Chen et al. (2023, under the name *speculative sampling*) published the method independently; Stern, Shazeer and Uszkoreit's blockwise parallel decoding (2018) did the greedy version earlier.[^papers]
 
 It is the natural partner of [model distillation](note:what-is-model-distillation). Distillation replaces the big model with a small one and accepts some loss of quality. Speculative decoding keeps the big model's output distribution exactly and uses the small one only to save time. The better the small model imitates the big one, the more time it saves.
 
@@ -166,7 +166,7 @@ The optimum here is $\gamma = 6$, but the curve is flat between 4 and 8. A bette
 </svg>
 *Expected speedup $S$ for a draft costing 5% of the target. The dot is the worked example: γ = 4, 2.36×. Each curve starts at 1× for γ = 0, which is plain decoding.*
 
-The two published results fit this range. Leviathan et al. report 2–3× on T5-XXL, and Chen et al. report 2–2.5× on Chinchilla 70B, both without any change to the outputs.
+The two published results fit this range. Leviathan et al. report 2–3× on T5-XXL, and Chen et al. report 2–2.5× on Chinchilla 70B in a distributed setup, both without any change to the outputs.[^speedups]
 
 ## Why a distilled draft helps
 
@@ -178,14 +178,14 @@ $$
 \mathrm{TV}(p, q) \le \sqrt{\tfrac12\,\mathrm{KL}(p \,\|\, q)}
 $$
 
-In the example $\mathrm{KL}(p\|q) = 0.28$ nats, so the bound is $\sqrt{0.14} = 0.374$, and the actual $\mathrm{TV}$ is 0.289. Driving the KL toward zero forces the acceptance rate toward 1. The bound is loose, though, so the divergence that gives the best student by quality is not necessarily the one that gives the best draft. DistillSpec (Zhou et al., 2024) trains the draft by distillation specifically for this job, on sequences the draft itself generates, and compares several divergences, including total variation directly. It reports 10–45% further speedups over speculative decoding with an undistilled draft, and finds that the best divergence depends on the task and decoding strategy.
+In the example $\mathrm{KL}(p\|q) = 0.28$ nats, so the bound is $\sqrt{0.14} = 0.374$, and the actual $\mathrm{TV}$ is 0.289. Driving the KL toward zero forces the acceptance rate toward 1. The bound is loose, though, so the divergence that gives the best student by quality is not necessarily the one that gives the best draft. DistillSpec (Zhou et al., 2024) trains the draft by distillation specifically for this job, on sequences the draft itself generates, and compares several divergences, including total variation directly. It reports 10–45% further speedups over speculative decoding with an undistilled draft,[^distillspec] and finds that the best divergence depends on the task and decoding strategy.
 
 On-policy data matters here for the same reason as in the distillation note: the draft is only ever evaluated on prefixes it helped write, so those are the prefixes it should be trained on.
 
 ## What the draft can be
 
 - **A smaller model from the same family**, which shares the tokenizer automatically. The draft and target must agree on the vocabulary, since the rule compares $p(x)$ and $q(x)$ token by token.
-- **Extra heads on the target itself**, as in Medusa (Cai et al., 2024) and EAGLE (Li et al., 2024). These predict several future tokens from the target's own hidden states, so there is no separate model to serve. Some of these variants relax the acceptance rule to accept more tokens, and then the output is no longer exactly the target's distribution.
+- **Extra heads on the target itself**, as in Medusa (Cai et al., 2024) and EAGLE (Li et al., 2024).[^heads] These predict several future tokens from the target's own hidden states, so there is no separate model to serve. Some of these variants relax the acceptance rule to accept more tokens, and then the output is no longer exactly the target's distribution.
 - **No model at all**: copying a span from the prompt (useful for editing or retrieval-heavy tasks) is a draft with $c \approx 0$, accepted when the target would have produced the same text.
 
 ## Limits
@@ -200,3 +200,8 @@ The method changes only latency, never quality. If the target is wrong, the outp
 
 - How much of the acceptance rate distillation can buy for a 1B draft and a 70B target, and whether that varies more by task or by temperature
 - How the speedup actually scales with batch size on one GPU, measured rather than modeled
+
+[^papers]: Leviathan, Kalman and Matias, [Fast inference from transformers via speculative decoding](https://arxiv.org/abs/2211.17192), ICML 2023 (arXiv November 2022). Chen et al., [Accelerating large language model decoding with speculative sampling](https://arxiv.org/abs/2302.01318), arXiv February 2023. Stern, Shazeer and Uszkoreit, Blockwise parallel decoding for deep autoregressive models, NeurIPS 2018; Leviathan et al. note that it "only supports greedy decoding (temperature=0)".
+[^speedups]: From the abstracts. Leviathan et al.: "a 2X-3X acceleration compared to the standard T5X implementation, with identical outputs." Chen et al.: "a 2-2.5x decoding speedup in a distributed setup, without compromising the sample quality."
+[^distillspec]: Zhou et al., [DistillSpec: improving speculative decoding via knowledge distillation](https://arxiv.org/abs/2310.08461), arXiv October 2023. The abstract gives 10–45%; section 5.1 of the same paper says 10–46%.
+[^heads]: Cai et al., [Medusa](https://arxiv.org/abs/2401.10774), ICML 2024; Li et al., [EAGLE](https://arxiv.org/abs/2401.15077), arXiv January 2024. Medusa's lossy variant is its "typical acceptance" scheme; Medusa with the standard rule is lossless.
