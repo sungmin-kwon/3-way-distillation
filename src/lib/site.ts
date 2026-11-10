@@ -3,7 +3,7 @@ export const SITE_DESCRIPTION =
   'My notebook on things that interest me, boiled down to the essentials.';
 
 /**
- * The tags, in display order: past, present, future. A note may only use these
+ * The tags, in display order (eras: past, present, future). A note may only use these
  * (the content schema enforces it). Add a tag here before using it in a note.
  */
 export const TAGS = [
@@ -18,6 +18,12 @@ export const TAGS = [
     era: 'present',
     blurb: 'machine learning and language models, what I work on now.',
     description: 'Machine learning and language models: how they are trained, compressed and served.',
+  },
+  {
+    name: 'genetics',
+    era: 'present',
+    blurb: 'genetics and genomics, the primary data domain of my research lab.',
+    description: 'Genetics and genomics: the sequence data and questions my research lab works on.',
   },
   {
     name: 'qi/qc',

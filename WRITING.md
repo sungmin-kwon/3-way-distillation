@@ -43,7 +43,7 @@ it breaks links.
 title: Forward vs. reverse KL          # omit for a short note
 date: 2026-11-12                       # required, YYYY-MM-DD
 updated: 2026-11-20                    # only when a published note changes materially
-tags: [ml/llm]                         # cheme, ml/llm, qi/qc; zero or more
+tags: [ml/llm]                         # cheme, ml/llm, genetics, qi/qc; zero or more
 summary: One line for the index.       # long notes
 distillate: The boiled-down version.   # long notes
 rough: true                            # unfinished thinking; leave out otherwise
@@ -54,9 +54,10 @@ reviewed_by: [Claude Opus 5.5]         # optional: model(s) that did a separate 
 ---
 ```
 
-- **Tags:** only these three, which read as past, present and future: `cheme` (chemical
+- **Tags:** only these four, which read as past, present and future: `cheme` (chemical
   engineering: separations, thermodynamics, fermentation and stills), `ml/llm` (machine learning
-  and language models) and `qi/qc` (quantum information and computing). The list lives in
+  and language models), `genetics` (genetics and genomics, the primary data domain of the
+  research lab) and `qi/qc` (quantum information and computing). The list lives in
   `src/lib/site.ts`, and the build fails on any other tag. Don't invent new tags; ask first.
 - **Hidden notes:** `hidden: true` keeps a finished note off the site: no page, and not in the
   index, tag pages, RSS or search. A `note:` link to it from a visible note turns into plain text
@@ -251,7 +252,7 @@ errors. These rules matter more than anything above.
 title: <Short noun phrase or question>
 summary: <What it covers, in one line> — <part>, <part>, <part>.
 date: YYYY-MM-DD
-tags: [<cheme|ml/llm|qi/qc>]
+tags: [<cheme|ml/llm|genetics|qi/qc>]
 distillate: <The answer in one sentence.> <The key number from the worked example.> <The main limit or caveat.>
 model: [<the model writing this>]
 ---
@@ -321,7 +322,7 @@ $c = \max_j z_j$. Library functions such as `torch.log_softmax` compute it this 
 Go through this list and fix anything that fails. Then report which items you could not verify.
 
 - [ ] Frontmatter has `date` and `model` (plus `reviewed_by` if a separate review happened); a long note also has `title`, `summary`,
-      `distillate`, and tags from the allowed three.
+      `distillate`, and tags from the allowed four.
 - [ ] No "I", "me" or "my" anywhere; "we" only where unavoidable.
 - [ ] The distillate stands alone, gives the answer and a key number, and matches the body.
 - [ ] One worked example runs through the note, with its parameters in a table.
