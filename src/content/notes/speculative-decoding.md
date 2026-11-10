@@ -4,13 +4,14 @@ summary: How a small draft model speeds up a large one without changing its outp
 date: 2026-11-10
 tags: [ml/llm]
 distillate: A cheap draft model proposes several tokens, and the large target model checks them all in one forward pass, accepting each with probability min(1, p/q) and resampling from the leftover distribution on the first rejection, so the output follows the target's distribution exactly. In the six-token example the draft is accepted 71.1% of the time, and with 4 drafted tokens and a draft costing 5% of the target that gives 2.83 tokens per target pass and a 2.36× speedup. The gain depends entirely on how closely the draft matches the target and on decoding being memory-bound, so it shrinks at large batch sizes.
+model: [Claude Opus 5.5]
 ---
 
 Generating text from a large language model is slow for a mechanical reason: each new token needs a full forward pass, and at small batch sizes that pass is limited by reading the weights from memory, not by arithmetic. Checking several tokens in one pass costs about the same as producing one. **Speculative decoding** uses that slack: a small *draft* model guesses a few tokens ahead, and the large *target* model verifies them in parallel. Leviathan, Kalman and Matias (2023) and Chen et al. (2023, under the name *speculative sampling*) published the method independently; Stern, Shazeer and Uszkoreit's blockwise parallel decoding (2018) did the greedy version earlier.
 
 It is the natural partner of [model distillation](note:what-is-model-distillation). Distillation replaces the big model with a small one and accepts some loss of quality. Speculative decoding keeps the big model's output distribution exactly and uses the small one only to save time. The better the small model imitates the big one, the more time it saves.
 
-Throughout, I'll use the next-token example from the distillation note, sampled at temperature 1, with the teacher as the target and the undistilled student as the draft:
+Throughout, the note uses the next-token example from the distillation note, sampled at temperature 1, with the teacher as the target and the undistilled student as the draft:
 
 | | value |
 | --- | --- |
@@ -195,7 +196,7 @@ The constant-$\alpha$ formula is an approximation. Real acceptance varies a lot 
 
 The method changes only latency, never quality. If the target is wrong, the output is wrong in exactly the same way, just sooner.
 
-## Open questions I want to work through
+## Open questions
 
 - How much of the acceptance rate distillation can buy for a 1B draft and a 70B target, and whether that varies more by task or by temperature
 - How the speedup actually scales with batch size on one GPU, measured rather than modeled

@@ -4,6 +4,7 @@ summary: Knowledge distillation for language models, worked through on one next-
 date: 2026-11-09
 tags: [ml/llm]
 distillate: A small student model is trained to match a large teacher's whole output distribution, not just its top answer, because the probabilities the teacher gives to wrong answers carry information about how it generalizes. Writing the loss is easy; choosing which divergence to minimize, on whose samples, and checking that the student really behaves like the teacher are the hard parts.
+model: [Mistral Vibe, Claude Opus 5.5]
 ---
 
 Large language models are expensive to serve: billions of parameters, memory-bound decoding, real cost per token. **Knowledge distillation** trains a small *student* model $q_\theta$ to imitate a large *teacher* $p$, aiming for most of the teacher's behavior at a fraction of the size. The name is Hinton, Vinyals and Dean's (2015), but the idea goes back to Buciluǎ, Caruana and Niculescu-Mizil's "model compression" (2006).
@@ -124,7 +125,7 @@ Every training token carries a full distribution instead of a single correct tok
 
 A low distillation loss does not mean behavioral equivalence. The KL is averaged over the training distribution, so a student can match the teacher well on average and still diverge on rare, important cases: long contexts, multi-step reasoning, refusals, tool use. Useful checks are held-out KL on real user-like prompts (not just the training mix), task benchmarks, side-by-side preference evaluations, and agreement rate with the teacher's own outputs. "Behaves like the teacher" is an empirical claim, not a loss value.
 
-## Open questions I want to work through
+## Open questions
 
 - How much teacher capability survives at 1B vs. 3B vs. 7B parameters, per task family
 - Forward vs. reverse KL vs. on-policy for long-form generation, and how temperature interacts with long-horizon coherence

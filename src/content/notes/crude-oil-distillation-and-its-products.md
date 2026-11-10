@@ -4,13 +4,14 @@ summary: How a refinery splits crude into fuels by boiling range, worked through
 date: 2026-11-10
 tags: [cheme]
 distillate: "A crude unit doesn't separate compounds; it slices a continuous boiling curve into cuts at chosen temperatures, first at about atmospheric pressure and then under vacuum so the heavy half can boil off below the temperatures where it would start to crack. For Johan Sverdrup crude, 50.3 wt % boils above 375 °C and 20.2 wt % still remains above 565 °C, so half the barrel needs the vacuum column. Almost none of the straight-run cuts is a finished product: sulfur rises from 0.00 wt % in the light naphtha to 1.84 wt % in the vacuum residue, and each cut goes on to further treatment."
+model: [Claude Opus 5.5]
 ---
 
 Crude oil is a mixture of more hydrocarbons than anyone can list, boiling from below room temperature to well beyond any temperature you can reach without decomposing it. The first unit in every refinery, the crude distillation unit, doesn't try to separate those compounds. It cuts the mixture into a handful of fractions by boiling range, and every later unit (reformer, hydrotreater, cracker, coker) works on one of those fractions. Atmospheric distillation of crude goes back to the first refineries of the 1860s, and vacuum distillation followed in the 1870s, first to make lubricants (OSHA Technical Manual, Section IV, Chapter 2).
 
 The tools from the [McCabe–Thiele note](note:reading-a-mccabe-thiele-diagram) don't apply directly, because there is no "light component" with a mole fraction to plot. What replaces the x–y diagram is the boiling curve of the whole crude.
 
-Throughout, I'll use one worked example, TotalEnergies' published assay of Johan Sverdrup, a Norwegian North Sea crude (assay date April 2021):
+Throughout, the worked example is TotalEnergies' published assay of Johan Sverdrup, a Norwegian North Sea crude (assay date April 2021):
 
 | | value |
 | --- | --- |
