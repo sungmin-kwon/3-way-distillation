@@ -4,7 +4,7 @@ summary: Knowledge distillation for language models, worked through on one next-
 date: 2026-11-09
 tags: [ml/llm]
 distillate: A small student model is trained to match a large teacher's whole output distribution, not just its top answer, because the probabilities the teacher gives to wrong answers carry information about how it generalizes. Writing the loss is easy; choosing which divergence to minimize, on whose samples, and checking that the student really behaves like the teacher are the hard parts.
-model: [Mistral Vibe, Claude Opus 5.5]
+model: [Mistral Large 4, Claude Opus 5.5]
 ---
 
 Large language models are expensive to serve: billions of parameters, memory-bound decoding, real cost per token. **Knowledge distillation** trains a small *student* model $q_\theta$ to imitate a large *teacher* $p$, aiming for most of the teacher's behavior at a fraction of the size. The name is Hinton, Vinyals and Dean's (2015), but the idea goes back to Buciluǎ, Caruana and Niculescu-Mizil's "model compression" (2006).

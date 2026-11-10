@@ -55,7 +55,7 @@ model: [Claude Opus 5.5]               # model(s) that wrote or revised it; neve
 - **Tags:** only `ml/llm` (machine learning and language models), `cheme` (chemical engineering, separations),
   and `spirits` (fermentation, distilling, drinks). Don't invent new tags; ask first.
 - **Model:** list every model that drafted or substantially revised the note, earliest first,
-  as it calls itself (`[Mistral Vibe, Claude Opus 5.5]`). Add a name when a model revises the
+  as it calls itself (`[Mistral Large 4, Claude Opus 5.5]`). Add a name when a model revises the
   note; never remove one. The site never shows it, but the repo is public, so anyone reading the
   source can see it. Leave it out for a note written by hand.
 - **No H1 in the body.** The title comes from frontmatter. Sections are `##`; use `###` rarely.
