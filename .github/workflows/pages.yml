@@ -26,6 +26,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+      # The build regenerates ADMIN.md; if that changed it, the committed copy is stale.
+      - run: git diff --quiet ADMIN.md || echo "::warning file=ADMIN.md::ADMIN.md is out of date. Run npm run admin and commit it."
       - uses: actions/upload-pages-artifact@v5
         with:
           path: dist
