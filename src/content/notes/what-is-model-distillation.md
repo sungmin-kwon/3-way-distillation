@@ -2,7 +2,7 @@
 title: What is model distillation?
 summary: Knowledge distillation for language models, worked through on one next-token example — soft targets and temperature, the T² factor, token- vs. sequence-level KD, forward vs. reverse KL, on-policy distillation, and why evaluation is the hard part.
 date: 2026-11-09
-tags: [model]
+tags: [ml/llm]
 distillate: A small student model is trained to match a large teacher's whole output distribution, not just its top answer, because the probabilities the teacher gives to wrong answers carry information about how it generalizes. Writing the loss is easy; choosing which divergence to minimize, on whose samples, and checking that the student really behaves like the teacher are the hard parts.
 ---
 
