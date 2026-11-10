@@ -7,7 +7,7 @@ distillate: Hospital EHR data reaches research through a pipeline; EHR to HL7 v2
 model: [Mistral Large 4]
 ---
 
-A hospital runs its operations on an **EHR** (in Korea, the broader "hospital information system", HIS), and almost everything clinical ends up stored there: diagnoses, drugs, labs, vitals, imaging, orders. The catch is that this data is locked inside vendor systems and written in local codes, so it is hard to use for anything beyond that patient's care. Making it research-usable is a plumbing job with two standards at its heart: **HL7 FHIR** for exchanging data, and the **OMOP Common Data Model (CDM)** for storing and analyzing it in a **clinical data warehouse (CDW)**. The EHR-derived cohorts behind the [GWAS note](note:genome-wide-association-studies), the [PRS note](note:polygenic-risk-scores) and the [MR note](note:mendelian-randomization) all start from exactly this pipeline. Seoul National University Bundang Hospital (SNUBH) is one of the best-documented Korean examples, with published OMOP conversions of its EHR data (Park et al., 2023; Ji et al., 2024)[^1].
+A hospital runs its operations on an **EHR** (in Korea, the broader "hospital information system", HIS), and almost everything clinical ends up stored there: diagnoses, drugs, labs, vitals, imaging, orders. The catch is that this data is locked inside vendor systems and written in local codes, so it is hard to use for anything beyond that patient's care. Making it research-usable is a plumbing job with two standards at its heart: **HL7 FHIR** for exchanging data, and the **OMOP Common Data Model (CDM)** for storing and analyzing it in a **clinical data warehouse (CDW)**. The [GWAS](note:genome-wide-association-studies), [PRS](note:polygenic-risk-scores) and [MR](note:mendelian-randomization) methods in the notes here run on consortium and biobank data (PGC, UK Biobank, GLGC-style summary statistics); hospital CDWs are where they meet routine clinical data, for example in EHR-linked biobanks such as UK Biobank's hospital-record linkage, eMERGE or the Million Veteran Program. Korean tertiary hospitals are well-documented examples of CDW-to-OMOP conversion (Yoon et al., 2016; Park et al., 2023; Ji et al., 2024)[^1].
 
 Throughout, the note uses one worked example: a toy OMOP-style dataset of three patients.
 
@@ -17,7 +17,7 @@ Throughout, the note uses one worked example: a toy OMOP-style dataset of three 
 | condition_occurrence | person 1 and 2: concept 201826 (type 2 diabetes); person 3: concept 320128 (essential hypertension) |
 | drug_exposure | person 1 and 3: concept 1503297 (metformin); person 2: no drug row |
 
-[^1]: Park et al. (2023), PLoS ONE 18(1), e0279641, doi:10.1371/journal.pone.0279641; Ji et al. (2024), JMIR Med Inform 12, e59187, doi:10.2196/59187.
+[^1]: Yoon et al. (2016), Healthc Inform Res 22, 54–58, doi:10.4258/hir.2016.22.1.54 (EHR-to-CDM conversion and data quality at a Korean tertiary teaching hospital); Park et al. (2023), PLoS ONE 18(1), e0279641, doi:10.1371/journal.pone.0279641 (process mining on OMOP CDM); Ji et al. (2024), JMIR Med Inform 12, e59187, doi:10.2196/59187 (imaging extension of OMOP in lung cancer).
 
 ## Exchange standards: HL7 v2 and FHIR
 
@@ -73,7 +73,7 @@ Access is governed: in Korea, the Personal Information Protection Act (PIPA) and
 
 ## OMOP CDM for research
 
-The OMOP CDM (v5.4, 2022) is the relational schema OHDSI standardized for multi-site observational research. Core tables: `person`, `observation_period`, `visit_occurrence`, `condition_occurrence`, `drug_exposure`, `measurement`, `procedure_occurrence`, plus the vocabulary tables (`concept`, `concept_relationship`, `concept_ancestor` for "descendants of" queries). Because every site maps to the same concepts, the same cohort SQL runs unchanged at SNUBH, at a US academic center, or in claims data, and patient-level rows never leave the site; analyses are run locally and only aggregate results shared. The tooling (ATLAS/WebAPI for cohort design, HADES packages for estimation, the Data Quality Dashboard) runs on the CDM (OHDSI Book of OHDSI)[^4].
+The OMOP CDM (v5.4, the current widely deployed release) is the relational schema OHDSI standardized for multi-site observational research. Core tables: `person`, `observation_period`, `visit_occurrence`, `condition_occurrence`, `drug_exposure`, `measurement`, `procedure_occurrence`, plus the vocabulary tables (`concept`, `concept_relationship`, `concept_ancestor` for "descendants of" queries). Because every site maps to the same concepts, the same cohort SQL runs unchanged at a Korean tertiary hospital, at a US academic center, or in claims data, and patient-level rows never leave the site; analyses are run locally and only aggregate results shared. The tooling (ATLAS/WebAPI for cohort design, HADES packages for estimation, the Data Quality Dashboard) runs on the CDM (OHDSI Book of OHDSI)[^4].
 
 [^4]: Book of OHDSI, <https://ohdsi.github.io/TheBookOfOhdsi/>.
 
@@ -113,8 +113,8 @@ persons with T2D (concept 201826): 2
 T2D + metformin cohort: 1
 ```
 
-Person 2 has the diagnosis but no drug row, and person 3 has the drug but only a hypertension diagnosis: real CDWs are full of exactly this missingness and mismatch, which is why phenotypes are usually defined with rules (e.g., condition plus drug within 90 days, via `concept_ancestor` descendants), not single codes.
+In a real CDM, drug_exposure rows are coded at clinical-drug level (e.g. metformin 500 mg tablets), so a query starts from the ingredient concept (1503297) and walks `concept_ancestor` down to the clinical drugs. Person 2 has the diagnosis but no drug row, and person 3 has the drug but only a hypertension diagnosis: real CDWs are full of exactly this missingness and mismatch, which is why phenotypes are usually defined with rules (e.g., condition plus drug within 90 days, via `concept_ancestor` descendants), not single codes.
 
 ## Limits
 
-EHR data reflects coding practice, not ground truth: diagnoses are recorded for billing and care, free-text notes hold much of the signal, and measurements are missing non-randomly. ETL into a CDM is lossy: timestamps, doses and units can be coarsened, and source-to-standard mapping drops or merges codes. FHIR adoption is uneven (v2 messaging still dominates inside hospitals), and versions drift (R4 vs R5). Terminology licensing matters (SNOMED CT is licensed in some countries; Korea uses KCD/EDI locally). And the privacy/utility tension is real: more de-identification, less research value. A CDW is infrastructure, not evidence by itself.
+EHR data reflects coding practice, not ground truth: diagnoses are recorded for billing and care, free-text notes hold much of the signal, and measurements are missing non-randomly. ETL into a CDM is lossy: timestamps, doses and units can be coarsened, and source-to-standard mapping drops or merges codes. FHIR adoption is uneven (v2 messaging still dominates inside hospitals), and versions drift (R4 vs R5). Terminology licensing matters (SNOMED CT requires a license in many countries), and local code systems such as Korea's KCD/EDI must be mapped. And the privacy/utility tension is real: more de-identification, less research value. A CDW is infrastructure, not evidence by itself.

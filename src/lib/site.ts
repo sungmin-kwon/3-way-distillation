@@ -22,8 +22,8 @@ export const TAGS = [
   {
     name: 'genetics',
     era: 'present',
-    blurb: 'genetics and genomics, the primary data domain of my research lab.',
-    description: 'Genetics and genomics: the sequence data and questions my research lab works on.',
+    blurb: 'genetics and genomics, what I work with now.',
+    description: 'Genetics, genomics and the clinical data around them: GWAS, polygenic scores, Mendelian randomization, EHR/CDW infrastructure.',
   },
   {
     name: 'qi/qc',

@@ -18,7 +18,7 @@ Throughout, the note uses one worked example: a toy two-sample MR of LDL cholest
 | instruments | 3 SNPs, effects below |
 | GWAS sizes | N = 100,000 per trait (for the F-statistic) |
 
-[^1]: Smith & Ebrahim (2003), Int J Epidemiol 32, 1–22, doi:10.1093/ije/dyh131; Davey Smith & Hemani (2014), Hum Mol Genet 23(R1), R89–R98, doi:10.1093/hmg/ddu328.
+[^1]: Smith & Ebrahim (2003), Int J Epidemiol 32, 1–22, doi:10.1093/ije/dyg070; Davey Smith & Hemani (2014), Hum Mol Genet 23(R1), R89–R98, doi:10.1093/hmg/ddu328.
 
 ## The three instrument assumptions
 
@@ -39,10 +39,14 @@ $$
 | SNP3 | 0.30 | 0.126 | 0.42 |
 
 $$
-\hat\theta_{\mathrm{IVW}} = \frac{0.20 \times 0.08 + 0.10 \times 0.036 + 0.30 \times 0.126}{0.20^2 + 0.10^2 + 0.30^2} = \frac{0.0574}{0.14} = 0.41 \text{ log-OR per mmol/L}
+\hat\theta_{\mathrm{IVW}} = \frac{0.20 \times 0.08 + 0.10 \times 0.036 + 0.30 \times 0.126}{0.20^2 + 0.10^2 + 0.30^2} = \frac{0.0574}{0.14}
 $$
 
-i.e. OR $= e^{0.41} = 1.51$ per 1 mmol/L higher LDL-C. The rough F-statistic, $F \approx N \sum_j \beta_{XGj}^2 / k = 100{,}000 \times 0.14 / 3 \approx 4667$, is far above 10, so the instruments are strong. Plotting SNP effects on the outcome against SNP effects on the exposure, the slope through the origin is the IVW estimate:
+$$
+= 0.41 \text{ log-OR per mmol/L}
+$$
+
+i.e. OR $= e^{0.41} = 1.51$ per 1 mmol/L higher LDL-C. The rough F-statistic, $F \approx N \sum_j \beta_{XGj}^2 / k = 100{,}000 \times 0.14 / 3 \approx 4667$ (omitting genotype and exposure variance, so an overestimate), is far above 10, so the instruments are strong. Plotting SNP effects on the outcome against SNP effects on the exposure, the slope through the origin is the IVW estimate:
 
 <svg viewBox="0 0 500 300" role="img" aria-label="Mendelian randomization scatter: three SNP effects on LDL-C (x) vs on CHD log-odds (y), with the IVW slope line through the origin at 0.41 log-OR per mmol/L." xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto;">
   <title>MR scatter plot</title>
@@ -72,24 +76,24 @@ i.e. OR $= e^{0.41} = 1.51$ per 1 mmol/L higher LDL-C. The rough F-statistic, $F
 
 The cleanest MR result in cardiovascular medicine: polymorphisms in NPC1L1, HMGCR or both (the targets of ezetimibe and statins) that lower LDL-C lower CHD risk log-linearly, about OR 0.5 per 1 mmol/L lower LDL-C over a lifetime (Ference et al., 2015, 2×2 factorial MR)[^3], consistent with the EAS consensus that LDL causes atherosclerotic disease (Ference et al., 2017)[^4]. Because the instruments act through different mechanisms, the agreement across genes argues against pleiotropy here.
 
-[^3]: Ference et al. (2015), JAMA 313, 1989–1997, doi:10.1001/jama.2015.0297.
+[^3]: Ference et al. (2015), J Am Coll Cardiol 65, 1552–1561, doi:10.1016/j.jacc.2015.02.020.
 [^4]: Ference et al. (2017), Eur Heart J 38, 2459–2472, doi:10.1093/eurheartj/ehx144.
 
 ## Where MR changed minds
 
-MR's value is as much in null results as in positive ones. A variant in LPA that raises HDL cholesterol did not lower myocardial infarction risk, arguing against HDL as a causal target (Voight et al., 2012)[^9]; likewise, CRP-raising variants did not raise CHD risk, so CRP is a marker rather than a cause (Engert et al., 2011)[^10]. These are the cases that made MR persuasive: observational associations that failed under genetic randomization.
+MR's value is as much in null results as in positive ones. A variant in LIPG (endothelial lipase, Asn396Ser) that raises HDL cholesterol did not lower myocardial infarction risk, arguing against HDL as a causal target (Voight et al., 2012)[^9]; likewise, CRP-raising variants did not raise CHD risk, so CRP is a marker rather than a cause (C Reactive Protein CHD Genetics Collaboration, 2011)[^10]. These are the cases that made MR persuasive: observational associations that failed under genetic randomization.
 
-[^9]: Voight et al. (2012), Nat Genet 44, 164–170, doi:10.1038/ng.2795.
-[^10]: Engert et al. (2011), BMJ 342, d548, doi:10.1136/bmj.d548.
+[^9]: Voight et al. (2012), Lancet 380, 572–580, doi:10.1016/S0140-6736(12)60312-2.
+[^10]: C Reactive Protein Coronary Heart Disease Genetics Collaboration (2011), BMJ 342, d548, doi:10.1136/bmj.d548.
 
 ## Two-sample MR and sensitivity analyses
 
-Usually $\beta_{XG}$ and $\beta_{GY}$ come from two different GWAS (two-sample MR, run at scale by MR-Base, Hemani et al., 2018)[^5], which also enables the [PRS note](note:polygenic-risk-scores)'s exposure scores as instruments. Because pleiotropy is the main threat, standard sensitivity analyses are: **MR-Egger** regression, whose intercept estimates average pleiotropy (Bowden et al., 2015)[^6]; the **weighted median**, valid if at least 50% of instruments are valid (Bowden et al., 2016)[^7]; **MR-PRESSO**, which detects and removes pleiotropic outliers (Verbanck et al., 2018)[^8]; leave-one-out and Cochran's Q for heterogeneity. Estimates from these usually agree with IVW when pleiotropy is small, and disagreeing estimates are a red flag.
+Usually $\beta_{XG}$ and $\beta_{GY}$ come from two different GWAS (two-sample MR, run at scale by MR-Base, Hemani et al., 2018)[^5], and an exposure PRS can be used as a single combined instrument (see the [PRS note](note:polygenic-risk-scores)). Because pleiotropy is the main threat, standard sensitivity analyses are: **MR-Egger** regression, whose intercept estimates average pleiotropy (Bowden et al., 2015)[^6]; the **weighted median**, valid if at least 50% of instruments are valid (Bowden et al., 2016)[^7]; **MR-PRESSO**, which detects and removes pleiotropic outliers (Verbanck et al., 2018)[^8]; leave-one-out and Cochran's Q for heterogeneity. Estimates from these usually agree with IVW when pleiotropy is small, and disagreeing estimates are a red flag.
 
-[^5]: Hemani et al. (2018), Eur J Epidemiol 33, 997–1003, doi:10.1007/s10654-017-0062-x.
+[^5]: Hemani et al. (2018), eLife 7, e34408, doi:10.7554/eLife.34408.
 [^6]: Bowden et al. (2015), Int J Epidemiol 44, 512–525, doi:10.1093/ije/dyv080.
 [^7]: Bowden et al. (2016), Genet Epidemiol 40, 304–314, doi:10.1002/gepi.21965.
-[^8]: Verbanck et al. (2018), Nat Genet 50, 1412–1418, doi:10.1038/s41588-018-0099-7.
+[^8]: Verbanck et al. (2018), Nat Genet 50, 693–698, doi:10.1038/s41588-018-0099-7.
 
 ## The toy MR in Python
 
@@ -119,4 +123,4 @@ F ~ 4667 (rule of thumb: F > 10)
 
 ## Limits
 
-The exclusion restriction cannot be tested directly, only probed by the sensitivity analyses above; horizontal pleiotropy is common, since most variants affect several traits. Weak instruments bias toward the null (winner's-curse-affected $\beta_{XG}$ underestimates strength), which is why F > 10 is required. MR estimates the effect of a **lifetime** difference in the exposure, which can exceed short trial effects (cumulative exposure), and developmental compensation (canalization) can mask genetic effects. As with all genetic analyses, discovery populations are mostly European-ancestry (see the [GWAS note](note:genome-wide-association-studies)), sample overlap between the two GWAS inflates two-sample estimates, and an MR estimate is an association of the instrument, valid only if all three assumptions hold.
+The exclusion restriction cannot be tested directly, only probed by the sensitivity analyses above; horizontal pleiotropy is common, since most variants affect several traits. Winner's curse inflates $\beta_{XG}$ in the discovery GWAS, which overstates F and biases a two-sample estimate toward the null; F > 10 guards against weak instruments. MR estimates the effect of a **lifetime** difference in the exposure, which can exceed short trial effects (cumulative exposure), and developmental compensation (canalization) can mask genetic effects. As with all genetic analyses, discovery populations are mostly European-ancestry (see the [GWAS note](note:genome-wide-association-studies)), sample overlap between the two GWAS inflates two-sample estimates, and an MR estimate is a causal estimate only if all three assumptions hold.
