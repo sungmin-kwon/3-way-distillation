@@ -122,10 +122,28 @@ Every number in the summary or distillate must also appear, identically, in the 
 
 ## 6. Conventions
 
-**Math (KaTeX).** Inline `$x_D$`, display `$$ … $$` on their own lines. Define every symbol in
-words the first time it appears ("where $W$ is the moles of liquid in the pot"). Show the
-general formula, then substitute the example's numbers:
-`$$ D = F\,\frac{x_F - x_B}{x_D - x_B} = 100 \cdot \frac{0.45}{0.90} = 50 \text{ kmol/h} $$`.
+**Math (KaTeX).** Inline `$x_D$`. For display math, the opening `$$` and the closing `$$` each
+go on **a line by themselves**, with the formula on the lines between:
+
+```md
+$$
+y = \frac{\alpha x}{1 + (\alpha - 1) x}
+$$
+```
+
+Written on one line (`$$y = \frac{…}{…}$$`), the parser treats it as *inline* math: fractions
+shrink to text size, sub- and superscripts get cramped, and the equation isn't centered. The
+build doesn't warn about it, so check the rendered page.
+
+Define every symbol in words the first time it appears ("where $W$ is the moles of liquid in
+the pot"). Show the general formula, then substitute the example's numbers:
+
+```md
+$$
+D = F\,\frac{x_F - x_B}{x_D - x_B} = 100 \cdot \frac{0.45}{0.90} = 50 \text{ kmol/h}
+$$
+```
+
 Use `\text{}` for units and words inside math, and `\mathrm{KL}`, `\mathrm{ABV}` for named
 operators.
 
@@ -209,6 +227,7 @@ errors. These rules matter more than anything above.
 | KD types | "distillation" means one thing | token-level KD matches teacher logits at each position (needs logits and a shared tokenizer); sequence-level KD trains on teacher-generated text (works through an API) |
 | example distilled models | TinyLlama, MiniCPM as KD examples | use documented cases: DistilBERT, Llama 3.2 1B/3B, Gemma 2 2B/9B, Minitron, DeepSeek-R1-Distill |
 | links | `../posts/other-note/` | `note:other-note` |
+| display math | `$$y = \frac{a}{b}$$` on one line (renders inline and cramped) | `$$` alone on the line above and the line below the formula |
 | Raoult's law | "assumes a binary mixture" | holds for any number of components; only the Txy and x–y diagrams are binary |
 | data citations | a textbook appendix cited from memory | a source that was actually opened: NIST WebBook, DOI, or edition and table |
 
@@ -298,6 +317,7 @@ Go through this list and fix anything that fails. Then report which items you co
 - [ ] Every named paper, model, and dataset is real and described correctly.
 - [ ] None of the known traps in section 7 appears.
 - [ ] Internal links use `note:` and point to notes that exist.
+- [ ] Display math has `$$` alone on its own line before and after the formula.
 - [ ] Code runs as written. SVG uses CSS variables and computed coordinates.
 - [ ] The figure was rendered and checked: no label crosses a curve, region labels sit in their
       regions, and it reads in dark mode.
