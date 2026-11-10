@@ -67,7 +67,7 @@ $$
 \rho = (1 - \varepsilon)\,\lvert A\rangle\langle A\rvert + \varepsilon\, Z\lvert A\rangle\langle A\rvert Z
 $$
 
-so each raw magic state is either correct or carries a $Z$ error, with probability $\varepsilon$. Here $\varepsilon = 0.01$.
+so each raw magic state is either correct or carries a $Z$ error, with probability $\varepsilon$. Here $\varepsilon = 0.01$. The random Clifford can always enforce this form, but the threshold of 0.141 below is for this model, and the real input error depends on how injection is done.
 
 A word on names: Bravyi and Kitaev call this an *H-type* magic state, since it is a Clifford rotation of the $+1$ eigenstate of the Hadamard gate, and they reserve $\lvert T\rangle$ for a different state, pointing along $(1, 1, 1)$ on the Bloch sphere. Most later papers call $\lvert A\rangle$ "the T state" because it implements the $T$ gate.
 
@@ -171,7 +171,7 @@ $$
 
 Hastings and Haah (2018) define this exponent for a protocol built on a code with $n$ inputs, $k$ outputs and distance $d$ as $\gamma = \log(n/k)/\log d$. Lowering it has been a long line of work. Bravyi and Haah (2012) got the degree down to $\log_2 3 \approx 1.6$; Hastings and Haah (2018) got below 1, $\gamma < 0.678$, though the smallest code that does it has about $2^{58}$ qubits; and Wills, Hsieh and Yamasaki (2024, preprint) gave qubit protocols with constant overhead, $\gamma = 0$, built from codes on 1024-level systems with each one represented as 10 qubits. These are asymptotic results. For practical error targets, small protocols like 15-to-1 remain the reference point.
 
-**The real cost is in space and time, not in states counted.** In a fault-tolerant machine, each of the 15 qubits is itself a logical qubit made of many physical ones, and the Clifford operations are slow multi-step procedures, so a distillation *factory* occupies a large part of the chip. Litinski (2019) worked out compact factory layouts that use smaller codes inside the factory than the main computation needs. At a physical error rate of $10^{-4}$, the smallest 15-to-1 layout in his table uses 810 physical qubits for 18.1 code cycles and outputs magic states with error $4.4 \times 10^{-8}$. This counts every fault in the factory, so it is a hardware estimate, unlike the idealized one-round figure of $35 \times (10^{-4})^3 = 3.5 \times 10^{-11}$, which Litinski quotes for comparison.
+**The real cost is in space and time, not in states counted.** In a fault-tolerant machine, each of the 15 qubits is itself a logical qubit made of many physical ones, and the Clifford operations are slow multi-step procedures, so a distillation *factory* occupies a large part of the chip. Litinski (2019) worked out compact factory layouts that use smaller codes inside the factory than the main computation needs. At a physical error rate of $10^{-4}$, the smallest 15-to-1 layout in his table uses 810 physical qubits for 18.1 code cycles and outputs magic states with error $4.4 \times 10^{-8}$. This counts every fault in the factory, so it is a hardware estimate, unlike the idealized one-round figure of $35 \times (10^{-4})^3 = 3.5 \times 10^{-11}$, which Litinski quotes for comparison. The gap is the floor set by the factory's own Clifford operations, which are error-corrected logical operations with a small error rate of their own. Time matters as much as space: a computation stalls if it waits for magic states, so the factories' output has to keep up with the rate of $T$ gates, which can mean running several at once.
 
 ## Two kinds of distillation
 
@@ -201,12 +201,7 @@ The suppression rates in the table come from iterating the maps in the entanglem
 
 Earlier experiments prepared encoded magic states without distilling them. Gupta et al. (2024) on IBM hardware encoded a magic state with higher fidelity than the device could prepare on any of its bare qubits.
 
-## Limits
-
-- **Perfect Cliffords are assumed.** Every number in the worked example takes the Clifford operations to be flawless. In a real factory they are error-corrected logical operations with their own small error rate, and they set a floor on the output: Litinski's factory at $10^{-4}$ gives $4.4 \times 10^{-8}$, not the idealized $3.5 \times 10^{-11}$.
-- **The noise model is a choice.** The dephased form above can always be enforced by the random Clifford, but the threshold of 0.141 is for that model, and the real input error depends on how injection is done.
-- **States are counted, but time matters too.** A computation can stall waiting for magic states, so the factory's output rate has to keep up with the rate of $T$ gates, which can mean running several factories at once.
-- **Other non-Clifford routes exist.** Switching between codes with complementary transversal gates, and cultivation, avoid or reduce distillation; which approach wins on real hardware isn't settled.
+Cultivation is not the only alternative. Switching between codes with complementary transversal gates also avoids distillation, and which approach wins on real hardware isn't settled.
 
 ## Sources
 

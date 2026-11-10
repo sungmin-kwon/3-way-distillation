@@ -48,6 +48,8 @@ $$
 
 At $x = 0.5$ and $\alpha = 2.5$, $y^* = 1.25 / 1.75 = 0.714$. The curve always lies above the diagonal because the vapor is richer in the light component than the liquid it's in equilibrium with. The further it bows away from the diagonal (bigger $\alpha$), the easier the separation and the fewer stages you need.
 
+The formula is only a convenience. When $\alpha$ isn't constant, plot measured VLE data instead and the rest of the method works unchanged; that's how ethanol–water is done. What the diagram can't get past is an azeotrope: there the curve meets the diagonal, the steps pinch, and no number of stages crosses it. The [spirits note](note:how-spirits-distillation-works) runs into exactly that wall at about 97% ABV. And with only one composition axis, the diagram has no room for a third component, so multicomponent columns are solved stage by stage in a simulator.
+
 ## The q-line
 
 The feed's thermal condition is $q$, the moles of liquid added to the stripping section per mole of feed (for a two-phase feed, its liquid fraction). The q-line is the locus where the two operating lines can meet:
@@ -187,7 +189,3 @@ Changing the reflux changes the answer a lot. At $R = 1.2\,R_{\min}$ the stage c
 ## Why the operating lines are straight: constant molar overflow
 
 If the two components have similar molar heats of vaporization (benzene and toluene: about 31 and 33 kJ/mol at their boiling points), then every mole of vapor that condenses on a tray boils off about one mole of liquid. The molar flows $L$ and $V$ then stay constant within each section, which is exactly what makes each mass-balance line straight. When the latent heats differ a lot, the flows change from stage to stage, the operating lines curve, and you need an enthalpy-based method such as Ponchon–Savarit.
-
-## Limits
-
-McCabe–Thiele assumes two components, constant molar overflow, and an equilibrium curve you can draw. It handles a non-constant $\alpha$ fine if you plot real VLE data instead of the formula (that's how ethanol–water is done). It can't by itself handle three or more components, large heat effects, or an azeotrope you're trying to cross: there the equilibrium curve meets the diagonal, the steps pinch, and no number of stages gets past it. The [spirits note](note:how-spirits-distillation-works) runs into exactly that wall at about 97% ABV.

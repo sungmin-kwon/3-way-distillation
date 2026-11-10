@@ -38,6 +38,8 @@ with $T$ in °C, $P^{\mathrm{sat}}$ in mmHg, and one set of constants per compon
 
 Setting $P^{\mathrm{sat}} = 760$ mmHg and solving for $T$ returns 80.1 °C for benzene and 110.6 °C for toluene, their normal boiling points. At the bubble point found below (95.15 °C), the equation gives $P^{\mathrm{sat}}_{\mathrm{benzene}} = 1181.4$ mmHg and $P^{\mathrm{sat}}_{\mathrm{toluene}} = 479.1$ mmHg.
 
+Each fit holds over a stated range. The toluene fit covers 35.4–111.5 °C, but the benzene fit covers only 14.6–80.9 °C, so above about 81 °C the benzene vapor pressures in this note are a mild extrapolation. NIST's separate benzene fit for 60.3–100.4 °C (Eon, Pommier, et al., 1971) agrees with it to within 0.4% up to 95 °C and about 1.4% at 110.6 °C.
+
 ## Raoult's law and the bubble point
 
 For an **ideal liquid**, each component contributes to the total pressure in proportion to its mole fraction: its partial pressure is $p_i = x_i P_i^{\mathrm{sat}}(T)$. For the **vapor** at low pressure, the ideal-gas law (Dalton's law) gives $p_i = y_i P$, where $y_i$ is the component's mole fraction in the vapor. At equilibrium,
@@ -153,6 +155,8 @@ A horizontal line on this diagram joins the liquid and vapor compositions in equ
 
 Consistency check: the dew-point equation at $y = 0.622$ returns $T = 95.15$ °C, the same temperature as the bubble point of $x = 0.40$, as it must.
 
+The bubble- and dew-point sums run over any number of components, so Raoult's law itself is not limited to binaries. The Txy diagram is: with temperature and one composition axis there is no room for a third component. It is also drawn at one fixed pressure. Higher pressure shifts both curves up, and the fixed-temperature alternative is the Pxy diagram.
+
 ## Relative volatility
 
 Under Raoult's law the ratio of the two equilibrium relations gives the **relative volatility**
@@ -171,8 +175,4 @@ At $x = 0.40$ and $\alpha = 2.47$: $y = 0.986 / 1.586 = 0.622$, matching the Rao
 
 ## Where Raoult's law fails
 
-Real liquids deviate from ideality, which is written as $p_i = x_i \gamma_i P_i^{\mathrm{sat}}(T)$ with an **activity coefficient** $\gamma_i$ that equals 1 for an ideal mixture. Benzene–toluene stays within a few percent of $\gamma = 1$ across the whole composition range, which is why Raoult's law works here. Mixtures with unlike molecules deviate more: **positive deviations** ($\gamma > 1$), as in ethanol–water, can produce a minimum-boiling **azeotrope**, where liquid and vapor have the same composition and no further enrichment is possible. At 1 atm the ethanol–water azeotrope is 95.6 wt % ethanol (about 97% ABV) and boils at 78.2 °C, below the boiling point of either pure component; the [spirits note](note:how-spirits-distillation-works) runs into exactly this wall. Negative deviations ($\gamma < 1$), as in chloroform–acetone, give maximum-boiling azeotropes instead. At high pressure the vapor is no longer ideal either, and fugacity coefficients replace partial pressures.
-
-## Limits
-
-Raoult's law assumes an ideal liquid and an ideal vapor, and the sum in the bubble-point equation runs over any number of components, so the law itself is not limited to binaries. It is the Txy diagram drawn here that is binary-only: with temperature and one composition axis there is no room for a third component. At 1 atm the vapor correction is small, but at high pressure it is not. The Antoine constants are empirical fits with a stated range per component: the Willingham fit used here for toluene covers 35.4–111.5 °C, but the benzene fit covers only 14.6–80.9 °C, so above about 81 °C the benzene vapor pressures in this diagram are a mild extrapolation; NIST's separate benzene fit for 60.3–100.4 °C (Eon, Pommier, et al., 1971) agrees with it to within 0.4% up to 95 °C and about 1.4% at 110.6 °C. The diagram is drawn at one fixed pressure: higher pressure shifts both curves up, and the fixed-temperature alternative is the Pxy diagram. Real column design replaces Raoult's law with an activity-coefficient model (Wilson, NRTL, UNIQUAC) fitted to measured data, plus enthalpy balances. For similar molecules such as benzene–toluene, Raoult's law is already a good first estimate.
+Real liquids deviate from ideality, which is written as $p_i = x_i \gamma_i P_i^{\mathrm{sat}}(T)$ with an **activity coefficient** $\gamma_i$ that equals 1 for an ideal mixture. Benzene–toluene stays within a few percent of $\gamma = 1$ across the whole composition range, which is why Raoult's law works here. Mixtures with unlike molecules deviate more: **positive deviations** ($\gamma > 1$), as in ethanol–water, can produce a minimum-boiling **azeotrope**, where liquid and vapor have the same composition and no further enrichment is possible. At 1 atm the ethanol–water azeotrope is 95.6 wt % ethanol (about 97% ABV) and boils at 78.2 °C, below the boiling point of either pure component; the [spirits note](note:how-spirits-distillation-works) runs into exactly this wall. Negative deviations ($\gamma < 1$), as in chloroform–acetone, give maximum-boiling azeotropes instead. At high pressure the vapor is no longer ideal either, and fugacity coefficients replace partial pressures. Real column design therefore replaces Raoult's law with an activity-coefficient model (Wilson, NRTL, UNIQUAC) fitted to measured data, plus enthalpy balances, but for similar molecules such as benzene–toluene, Raoult's law is already a good first estimate.

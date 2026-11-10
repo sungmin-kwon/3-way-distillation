@@ -9,7 +9,7 @@ model: [Claude Opus 5.5]
 
 Generating text from a large language model is slow for a mechanical reason: each new token needs a full forward pass, and at small batch sizes that pass is limited by reading the weights from memory, not by arithmetic. Checking several tokens in one pass costs about the same as producing one. **Speculative decoding** uses that slack: a small *draft* model guesses a few tokens ahead, and the large *target* model verifies them in parallel. Leviathan, Kalman and Matias (2023) and Chen et al. (2023, under the name *speculative sampling*) published the method independently; Stern, Shazeer and Uszkoreit's blockwise parallel decoding (2018) did the greedy version earlier.[^papers]
 
-It is the natural partner of [model distillation](note:what-is-model-distillation). Distillation replaces the big model with a small one and accepts some loss of quality. Speculative decoding keeps the big model's output distribution exactly and uses the small one only to save time. The better the small model imitates the big one, the more time it saves.
+It is the natural partner of [model distillation](note:what-is-model-distillation). Distillation replaces the big model with a small one and accepts some loss of quality. Speculative decoding keeps the big model's output distribution exactly and uses the small one only to save time. It changes only latency, never quality: if the target is wrong, the output is wrong in exactly the same way, just sooner. The better the small model imitates the big one, the more time it saves.
 
 Throughout, the note uses the next-token example from the distillation note, sampled at temperature 1, with the teacher as the target and the undistilled student as the draft:
 
@@ -169,6 +169,10 @@ The optimum here is $\gamma = 6$, but the curve is flat between 4 and 8. A bette
 
 The two published results fit this range. Leviathan et al. report 2–3× on T5-XXL, and Chen et al. report 2–2.5× on Chinchilla 70B in a distributed setup, both without any change to the outputs.[^speedups]
 
+The constant-$\alpha$ formula is an approximation. Real acceptance varies a lot by position: near 1 on boilerplate and predictable continuations, much lower on content words and at high sampling temperatures. The cost ratio $c$ is also not just the parameter ratio, since the draft has its own fixed overheads, and the draft's weights and KV cache take memory alongside the target's.
+
+The speedup comes from spare compute during memory-bound decoding. At large batch sizes the target's forward pass becomes compute-bound, verifying $\gamma + 1$ positions is no longer nearly free, and the gain shrinks or disappears. Serving systems that already batch heavily see less benefit than single-stream decoding.
+
 ## Why a distilled draft helps
 
 Since the speedup depends only on $\alpha$ and $c$, and $c$ is fixed once the draft's size is chosen, the way to go faster is to raise $\alpha$, which means making $q$ closer to $p$ in total variation. That is a distillation problem with an unusual target metric.
@@ -188,14 +192,6 @@ On-policy data matters here for the same reason as in the distillation note: the
 - **A smaller model from the same family**, which shares the tokenizer automatically. The draft and target must agree on the vocabulary, since the rule compares $p(x)$ and $q(x)$ token by token.
 - **Extra heads on the target itself**, as in Medusa (Cai et al., 2024) and EAGLE (Li et al., 2024).[^heads] These predict several future tokens from the target's own hidden states, so there is no separate model to serve. Some of these variants relax the acceptance rule to accept more tokens, and then the output is no longer exactly the target's distribution.
 - **No model at all**: copying a span from the prompt (useful for editing or retrieval-heavy tasks) is a draft with $c \approx 0$, accepted when the target would have produced the same text.
-
-## Limits
-
-The speedup comes from spare compute during memory-bound decoding. At large batch sizes the target's forward pass becomes compute-bound, verifying $\gamma + 1$ positions is no longer nearly free, and the gain shrinks or disappears. Serving systems that already batch heavily see less benefit than single-stream decoding.
-
-The constant-$\alpha$ formula is an approximation. Real acceptance varies a lot by position: near 1 on boilerplate and predictable continuations, much lower on content words and at high sampling temperatures. The cost ratio $c$ is also not just the parameter ratio, since the draft has its own fixed overheads, and the draft's weights and KV cache take memory alongside the target's.
-
-The method changes only latency, never quality. If the target is wrong, the output is wrong in exactly the same way, just sooner.
 
 ## Open questions
 

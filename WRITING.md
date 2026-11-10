@@ -127,7 +127,10 @@ Every number in the summary or distillate must also appear, identically, in the 
    in a small table (`| | value |`). Every later section returns to the same numbers.
 4. **Sections that each answer one question.** Headings are short noun phrases or questions:
    "The q-line", "Why match a distribution and not just the answer", "Evaluation is the hard part".
-5. **Limits** of the method or model, stated plainly.
+5. **Caveats where they bite, not in a closing section.** There is no `## Limits` section. When an
+   assumption changes a result, say so in the section that uses it ("this holds only for constant
+   molar overflow"). Keep a caveat only if a careful reader would be misled without it; cut generic
+   lines such as "real data is messier" or "this is not a verdict".
 6. **Optional ending:** a `## Summary` paragraph, or `## Open questions`
    as a short list. Don't do both.
 
@@ -274,10 +277,6 @@ Throughout, the note uses one worked example:
 ## <Second idea>
 
 ...
-
-## Limits
-
-<What this method or model assumes, and where it breaks.>
 ```
 
 ### A worked example in this style
@@ -338,6 +337,8 @@ Go through this list and fix anything that fails. Then report which items you co
 - [ ] Every citation points to something that can be looked up (DOI, NIST, edition and table).
 - [ ] Rounded values are the same everywhere, and each worked equation checks with them.
 - [ ] No H1, no em dashes in body text, no hype, no "in this note we will".
+- [ ] No `## Limits` section. Each caveat sits in the section it qualifies and would mislead a
+      careful reader if cut.
 - [ ] Anything unchecked is either cut or flagged, with `rough: true`.
 
 ## 10. Workflow: draft cheap, review strong

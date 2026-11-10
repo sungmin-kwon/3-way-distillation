@@ -21,7 +21,7 @@ Throughout, the worked example is TotalEnergies' published assay of Johan Sverdr
 | atmospheric cut point | 375 °C |
 | vacuum cut point | 565 °C |
 
-All yields in this note are weight percent of the whole crude, and all temperatures are true boiling point temperatures as defined below, from the assay sheet[^assay].
+All yields in this note are weight percent of the whole crude, and all temperatures are true boiling point temperatures as defined below, from the assay sheet[^assay]. An assay is one sample of one crude at one time, and crude quality drifts as a field ages.
 
 ## The true boiling point curve
 
@@ -33,7 +33,7 @@ Plotting temperature against the cumulative amount distilled gives a smooth risi
 | --- | --- | --- | --- | --- | --- |
 | cumulative distilled, wt % | 5.5 | 15.9 | 23.2 | 49.7 | 79.7 |
 
-The 80 °C value is printed in the assay; the others are linear interpolations between its 20 °C steps (for example 160 °C at 14.1 wt % and 180 °C at 16.5 wt % give 15.9 wt % at 175 °C).
+The 80 °C value is printed in the assay; the others are linear interpolations between its 20 °C steps (for example 160 °C at 14.1 wt % and 180 °C at 16.5 wt % give 15.9 wt % at 175 °C), which carries about ±0.1 wt % of interpolation error.
 
 A crude's character is mostly in that curve. A light crude or a condensate reaches 50 wt % at a much lower temperature; a heavy crude may have less than half of itself boiling below 375 °C. Johan Sverdrup is a medium crude: 28.7 °API, where API gravity is $141.5/\mathrm{SG} - 131.5$ and SG is the specific gravity relative to water at 60 °F. With SG ≈ 0.883 that gives about 28.8, matching the assay to the precision of the density basis.
 
@@ -119,7 +119,9 @@ The atmospheric column is not five binary columns stacked up. It is one tall col
 
 Each side draw goes to a small **side stripper**, a few stages with steam, which boils the lightest material in the draw back into the main column. Without it, a kerosene draw would contain enough naphtha to fail its flash point. **Pumparounds** take liquid off at several heights, cool it, and return it higher up. They remove heat along the column instead of all at the condenser, which evens out vapor traffic and lets the heat be recovered at useful temperatures to preheat the crude.
 
-The real cuts are not sharp. Adjacent products in a crude column overlap in boiling range: the heaviest part of the kerosene boils above the lightest part of the gas oil. A refiner specifies the separation by that overlap (or, when it's positive, the gap) between the end of one product's laboratory distillation and the start of the next, rather than by stage counts and mole fractions. The TBP column, at 15 plates and 5:1 reflux, is the near-sharp limit those real cuts fall short of, the same way McCabe–Thiele's total-reflux Fenske count is a limit a real column never reaches.
+The real cuts are not sharp. Adjacent products in a crude column overlap in boiling range: the heaviest part of the kerosene boils above the lightest part of the gas oil. A refiner specifies the separation by that overlap (or, when it's positive, the gap) between the end of one product's laboratory distillation and the start of the next, rather than by stage counts and mole fractions. The TBP column, at 15 plates and 5:1 reflux, is the near-sharp limit those real cuts fall short of, the same way McCabe–Thiele's total-reflux Fenske count is a limit a real column never reaches. So a refinery running Johan Sverdrup at these nominal cut points gets similar but not identical volumes.
+
+Nothing in this note models the column itself. Designing one means representing the crude as dozens of **pseudo-components**, each a narrow TBP slice with an assigned boiling point and density, and solving the stage-by-stage balances in a simulator. That is the multicomponent case McCabe–Thiele can't handle.
 
 ## Where each cut goes
 
@@ -134,10 +136,6 @@ The crude unit's products are **straight-run** streams. Each is a feedstock, and
 - **Vacuum residue** (> 565 °C) is denser than water (1033 kg/m³), with a Conradson carbon residue of 19.0 wt % and 78 mg/kg of nickel and vanadium. Those metals and that carbon-forming tendency poison and coke cracking catalysts, so it goes to a coker, to bitumen for roads, or to heavy fuel oil.
 
 The pattern across the table is the useful part: density, sulfur, nitrogen and metals all rise with boiling point, so the heavier the cut, the more work it needs before it's sellable. A refinery's configuration is largely a choice of how much of that bottom half it can turn into light products.
-
-## Limits
-
-An assay is one sample of one crude at one time, and crude quality drifts as a field ages. The yields here are from a TBP distillation, which is sharper than any real crude unit, so a refinery running Johan Sverdrup at these nominal cut points gets similar but not identical volumes, with overlapping tails between adjacent products. The interpolated cumulative values carry about ±0.1 wt % from the linear interpolation. Nothing in this note models the column itself: designing one means representing the crude as dozens of **pseudo-components**, each a narrow TBP slice with an assigned boiling point and density, and solving the stage-by-stage balances in a simulator. That is the multicomponent case McCabe–Thiele can't handle.
 
 [^assay]: TotalEnergies Trading, *Johan Sverdrup* crude assay, assay date 1 April 2021, [PDF](https://trading.totalenergies.com/wp-content/uploads/2025/11/JOHAN-SVERDRUP.pdf). The sheet is published for information only. Light-gas yields: ethane 0.1, propane 0.6, isobutane 0.4, n-butane 1.0 wt %.
 [^en228]: EN 228 unleaded petrol, RON 95.0 minimum, as listed in a supplier's [specification sheet for IS EN 228:2012](https://inverenergy.ie/wp-content/uploads/2019/11/Petrol.pdf). The standard itself is paywalled and wasn't checked.

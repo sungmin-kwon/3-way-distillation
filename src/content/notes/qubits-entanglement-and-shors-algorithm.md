@@ -9,7 +9,7 @@ model: [Claude Opus 5.5]
 
 A **qubit** is the quantum version of a bit: a two-level system, such as two energy levels of an ion or two current states of a superconducting circuit, that can be in a weighted combination of 0 and 1 instead of just one of them. The word first appeared in print in Schumacher (1995). What makes qubits worth building is that some problems have quantum algorithms far faster than any known classical one. The best known is Peter Shor's 1994 algorithm for factoring integers (journal version Shor, 1997), which would break the RSA encryption that much of the internet relied on when it was published.
 
-This note builds up to Shor's algorithm from the ground: what a qubit is, what superposition and measurement mean, what entanglement is and how it was tested, and then the algorithm itself, run on the smallest interesting case. It closes with a dated look at where the hardware stands. A companion note on [entanglement distillation](note:entanglement-distillation) goes further into entangled pairs.
+This note builds up to Shor's algorithm from the ground: what a qubit is, what superposition and measurement mean, what entanglement is and how it was tested, and then the algorithm itself, run on the smallest interesting case. It closes with a dated look at where the hardware stands. A companion note on [entanglement distillation](note:entanglement-distillation) goes further into entangled pairs. Factoring is only one application: the same period-finding method also solves discrete logarithms, which breaks elliptic-curve cryptography, and other quantum algorithms, such as simulating molecules and materials, or Grover's search with its smaller, quadratic speedup, aren't covered here.
 
 Throughout, the note uses one worked example:
 
@@ -227,7 +227,7 @@ Continued fractions turn 85 into $1/6$ and 171 into $1/3$. The outcomes near $k 
 
 ### Why it is fast, and what has actually been run
 
-Every step above can be done with a number of gates that grows polynomially in the number of digits of $N$. The modular exponentiation dominates, and with schoolbook arithmetic it takes on the order of $n^3$ gates for an $n$-bit number. The best known classical method, the number field sieve, takes time that grows faster than any polynomial in $n$. That gap, polynomial against super-polynomial, is the exponential speedup Shor's algorithm is known for. It is not a proof that factoring is classically hard; no such proof exists.
+Every step above can be done with a number of gates that grows polynomially in the number of digits of $N$. The modular exponentiation dominates, and with schoolbook arithmetic it takes on the order of $n^3$ gates for an $n$-bit number. The best known classical method, the number field sieve, takes time that grows faster than any polynomial in $n$. That gap, polynomial against super-polynomial, is the exponential speedup Shor's algorithm is known for. It is not a proof that factoring is classically hard; no such proof exists. And "polynomial" hides constants. The worked example assumes perfect gates and treats modular exponentiation as a black box, but building that circuit reversibly, and doing it fault-tolerantly, is where nearly all the cost in the resource estimates below comes from, and that cost can still mean very large hardware.
 
 **The experiments are smaller than the headlines suggest.** Vandersypen et al. (2001) factored 15 on a 7-qubit nuclear magnetic resonance device, and many later "factoring" demonstrations followed. Most used circuits simplified with knowledge of the answer. Smolin, Smith and Vargo (2013) showed that this kind of compiling can "factor" arbitrarily large numbers with just two qubits, and argued that the right measure of a demonstration is the length of the period found, not the size of the number. No experiment has yet run Shor's algorithm on a number that is hard to factor classically.
 
@@ -249,12 +249,6 @@ Physical qubits are noisy: every gate has some chance of error, and a qubit lose
 | Cain et al. (2026, preprint) | as few as 10,000 | 10–100 times a few days | reconfigurable neutral-atom qubits |
 
 The gap between the largest error-corrected demonstrations, around a hundred physical qubits per logical qubit and a few dozen logical qubits in total, and the $10^4$ to $10^6$ physical qubits running reliably for days that these estimates require is still the open engineering problem. The direction of travel is clear enough that the response is already under way: in August 2024 NIST published its first post-quantum cryptography standards, FIPS 203 (ML-KEM, for key establishment), FIPS 204 (ML-DSA) and FIPS 205 (SLH-DSA), both for digital signatures, built on problems for which no efficient quantum algorithm is known.
-
-## Limits of this introduction
-
-- **Factoring is one application.** Shor's same period-finding method also solves discrete logarithms, which breaks elliptic-curve cryptography. Other quantum algorithms, such as simulating molecules and materials, or Grover's search with its smaller, quadratic speedup, aren't covered here.
-- **The circuits are idealized.** The worked example assumes perfect gates and treats modular exponentiation as a black box. Building that circuit reversibly, and doing it fault-tolerantly, is where nearly all the cost in the estimates above comes from.
-- **"Polynomial" hides constants.** A polynomial-time algorithm can still need very large hardware, which is what the resource estimates measure.
 
 ## Sources
 
