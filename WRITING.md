@@ -49,6 +49,7 @@ distillate: The boiled-down version.   # long notes
 rough: true                            # unfinished thinking; leave out otherwise
 draft: true                            # not published; leave out otherwise
 model: [Claude Opus 5.5]               # model(s) that wrote or revised it; never shown on the site
+reviewed_by: [Claude Opus 5.5]         # optional: model(s) that did a separate review pass
 ---
 ```
 
@@ -58,6 +59,10 @@ model: [Claude Opus 5.5]               # model(s) that wrote or revised it; neve
   as it calls itself (`[Mistral Large 4, Claude Opus 5.5]`). Add a name when a model revises the
   note; never remove one. The site never shows it, but the repo is public, so anyone reading the
   source can see it. Leave it out for a note written by hand.
+- **Reviewed by (optional):** when a separate review pass checked the note (section 10), list the
+  reviewing model(s) here. A reviewer that also edits the text goes in `model` too, so `model`
+  is always the full list and `reviewed_by` only records who did a review. Not every note gets
+  a separate review; leave the field out when none happened. Never shown on the site.
 - **No H1 in the body.** The title comes from frontmatter. Sections are `##`; use `###` rarely.
 - Quote a frontmatter value with `"..."` if it contains a colon followed by a space.
 
@@ -142,7 +147,10 @@ illustrates the idea; it isn't a library.
 `var(--muted)`, `var(--accent)`, `var(--rule)`, and `fill="currentColor"` for text. Put an
 italic caption on the line right after the SVG. **Plot data from coordinates computed by a
 script, never by hand.** If you can't compute them, leave the figure out and write
-`<!-- TODO figure: … -->`.
+`<!-- TODO figure: … -->`. Computed coordinates aren't enough on their own: **render the figure**
+(open it in a browser, or screenshot it with a headless one) and check that no label or number
+crosses a curve or line, that each region label sits in the region it names, and that axis
+labels line up with their values. Check it in dark mode too.
 
 **Links.** Between notes: `[industrial column](note:reading-a-mccabe-thiele-diagram)`, using the
 other note's file name without `.md`. Never write relative paths like `../notes/…`. Link to a
@@ -152,6 +160,14 @@ official docs).
 **Citations.** Name the authors and year in the text: "Hinton, Vinyals and Dean (2015)", "Kim
 and Rush (2016)". Footnotes (`[^1]`) for asides and for sources you want to keep out of the
 sentence. Never cite a paper, model, or number you aren't sure exists.
+
+**Cite only what a reader can check.** A source must be specific enough to look up: a DOI or
+arXiv id, a standard's number, a stable database page (for physical data, the
+[NIST Chemistry WebBook](https://webbook.nist.gov/chemistry/)), or a book with its edition and
+the table or page. Never cite from memory: a textbook appendix named from memory, for constants
+that turn out not to be in it, is worse than no citation. If you can't open the source, say
+where the number came from ("standard Antoine constants, not checked against a primary source
+here") or mark the note `rough: true`.
 
 ## 7. Accuracy rules
 
@@ -163,11 +179,19 @@ errors. These rules matter more than anything above.
 2. **Check every factual claim against a source** you could name. If you can't, cut it, or mark
    the note `rough: true` and say what is unchecked.
 3. **Don't invent precision.** "About 97% ABV" beats a fake "96.85%".
-4. **Name a real example only if it is documented** to be what you say. A model trained from
+4. **Round once, then use the rounded numbers everywhere.** Every value in the distillate, the
+   tables, the prose, and each substituted equation must be the rounded value the body quotes,
+   and an equation written with rounded inputs must give its stated result with those inputs.
+   If the text says "at 95.1 °C", the vapor pressures shown must be the ones at 95.1 °C, not at
+   an unrounded 95.14 °C; if it says $\alpha = 2.47$, the next line computes with 2.47. When
+   rounding makes a check miss (759 instead of 760 mmHg), quote one more digit or say "about".
+5. **Stay inside a fit's range.** Empirical fits (Antoine constants, correlations) come with a
+   stated range; say so when a calculation or figure goes beyond it.
+6. **Name a real example only if it is documented** to be what you say. A model trained from
    scratch is not a distilled model because it is small.
-5. **Watch the basis of every percentage** (mole, mass, volume) and the sign and direction of
+7. **Watch the basis of every percentage** (mole, mass, volume) and the sign and direction of
    every effect (reads high or low, rises or falls, positive or negative slope).
-6. **Prefer mechanism over folklore.** Explain why something happens; if the usual explanation
+8. **Prefer mechanism over folklore.** Explain why something happens; if the usual explanation
    is wrong, say so and give the right one.
 
 ### Known traps (each one appeared in an earlier draft)
@@ -185,6 +209,8 @@ errors. These rules matter more than anything above.
 | KD types | "distillation" means one thing | token-level KD matches teacher logits at each position (needs logits and a shared tokenizer); sequence-level KD trains on teacher-generated text (works through an API) |
 | example distilled models | TinyLlama, MiniCPM as KD examples | use documented cases: DistilBERT, Llama 3.2 1B/3B, Gemma 2 2B/9B, Minitron, DeepSeek-R1-Distill |
 | links | `../posts/other-note/` | `note:other-note` |
+| Raoult's law | "assumes a binary mixture" | holds for any number of components; only the Txy and x–y diagrams are binary |
+| data citations | a textbook appendix cited from memory | a source that was actually opened: NIST WebBook, DOI, or edition and table |
 
 ## 8. Template for a long note
 
@@ -262,7 +288,7 @@ $c = \max_j z_j$. Library functions such as `torch.log_softmax` compute it this 
 
 Go through this list and fix anything that fails. Then report which items you could not verify.
 
-- [ ] Frontmatter has `date` and `model`; a long note also has `title`, `summary`,
+- [ ] Frontmatter has `date` and `model` (plus `reviewed_by` if a separate review happened); a long note also has `title`, `summary`,
       `distillate`, and tags from the allowed three.
 - [ ] No "I", "me" or "my" anywhere; "we" only where unavoidable.
 - [ ] The distillate stands alone, gives the answer and a key number, and matches the body.
@@ -273,6 +299,10 @@ Go through this list and fix anything that fails. Then report which items you co
 - [ ] None of the known traps in section 7 appears.
 - [ ] Internal links use `note:` and point to notes that exist.
 - [ ] Code runs as written. SVG uses CSS variables and computed coordinates.
+- [ ] The figure was rendered and checked: no label crosses a curve, region labels sit in their
+      regions, and it reads in dark mode.
+- [ ] Every citation points to something that can be looked up (DOI, NIST, edition and table).
+- [ ] Rounded values are the same everywhere, and each worked equation checks with them.
 - [ ] No H1, no em dashes in body text, no hype, no "in this note we will".
 - [ ] Anything unchecked is either cut or flagged, with `rough: true`.
 
@@ -291,12 +321,17 @@ errors. The cheapest way to keep quality is to split the work:
    Don't rewrite sentences that are already correct."*
 4. **Read it yourself** before merging. You are the last check.
 
+This split is one option, not a requirement. A note can also be written and checked by one
+model, or by hand. Whatever the route, the accuracy rules in section 7 still apply, `model`
+lists every model that wrote or revised the note, and `reviewed_by` is filled in only when a
+separate review pass took place.
+
 A review pass reads and corrects one note, so it costs a small fraction of having the strong
 model write it.
 
 ## Reference notes
 
-The three current notes show the target quality. Give a drafting model the one closest to the
+These notes show the target quality. Give a drafting model the one closest to the
 new note's topic:
 
 - `what-is-model-distillation.md` (`ml/llm`): soft targets, a six-token worked example with
@@ -305,5 +340,7 @@ new note's topic:
   count, cross-checked by shortcut methods, with a computed SVG figure.
 - `how-spirits-distillation-works.md` (`spirits`): real VLE data, numerically integrated runs,
   and corrections of common myths.
+- `raoults-law-and-vle.md` (`cheme`): Antoine constants cited to NIST, a bubble-point solver,
+  and a computed Txy figure with a tie line.
 
 When a new note becomes a better example, add it here and add any new trap to section 7.

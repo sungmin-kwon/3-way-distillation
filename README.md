@@ -35,7 +35,8 @@ summary: One line shown under the title on the index.
 distillate: The boiled-down version, shown at the top of the note.
 rough: true              # unfinished thinking; shows a "rough" mark
 draft: true              # not published at all
-model: [Claude Opus 5.5] # model(s) that wrote it; kept in the source, never shown on the site
+model: [Claude Opus 5.5] # model(s) that wrote or revised it; kept in the source, never shown on the site
+reviewed_by: [Claude Opus 5.5] # optional: model(s) that did a separate review pass; never shown
 ---
 ```
 

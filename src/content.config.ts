@@ -20,6 +20,8 @@ const notes = defineCollection({
     // Model(s) that drafted or revised the note, earliest first. Internal record only:
     // never rendered on the site (but visible to anyone reading the public source).
     model: z.union([z.string(), z.array(z.string())]).optional(),
+    // Model(s) that did a separate review pass, if one happened. Also internal only.
+    reviewed_by: z.union([z.string(), z.array(z.string())]).optional(),
   }),
 });
 
