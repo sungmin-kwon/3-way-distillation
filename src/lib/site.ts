@@ -1,6 +1,6 @@
 export const SITE_TITLE = 'notes from the 3-way distiller';
 export const SITE_DESCRIPTION =
-  'Sungmin’s notebook of chemical engineering, machine learning and quantum information, boiled down until only the useful part is left.';
+  'My notebook on things that interest me, boiled down to the essentials.';
 
 /**
  * The tags, in display order: past, present, future. A note may only use these
