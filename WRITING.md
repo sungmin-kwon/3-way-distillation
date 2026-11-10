@@ -299,7 +299,7 @@ model write it.
 The three current notes show the target quality. Give a drafting model the one closest to the
 new note's topic:
 
-- `what-is-model-distillation.md` (`model`): soft targets, a six-token worked example with
+- `what-is-model-distillation.md` (`ml/llm`): soft targets, a six-token worked example with
   gradients, a runnable loss function.
 - `reading-a-mccabe-thiele-diagram.md` (`cheme`): one worked column from mass balance to stage
   count, cross-checked by shortcut methods, with a computed SVG figure.
