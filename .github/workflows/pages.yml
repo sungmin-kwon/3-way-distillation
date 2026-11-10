@@ -9,9 +9,11 @@ on:
 permissions:
   contents: read
 
+# One queue per branch or PR, so a PR check never cancels a deploy from main.
+# A newer check on the same PR replaces an older one; deploys from main always finish.
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: pages-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
