@@ -15,8 +15,16 @@ export function noteHref(note: Note): string {
   return href(`notes/${note.id}/`);
 }
 
+/** URL-safe form of a tag, e.g. 'ml/llm' -> 'ml-llm'. */
+export function tagSlug(tag: string): string {
+  return tag
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 export function tagHref(tag: string): string {
-  return href(`tags/${tag}/`);
+  return href(`tags/${tagSlug(tag)}/`);
 }
 
 /** All published notes, newest first. */

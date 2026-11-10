@@ -1,11 +1,11 @@
 ---
 import Base from '../../layouts/Base.astro';
 import NoteIndex from '../../components/NoteIndex.astro';
-import { allTags, getNotes } from '../../lib/notes';
+import { allTags, getNotes, tagSlug } from '../../lib/notes';
 
 export async function getStaticPaths() {
   const notes = await getNotes();
-  return allTags(notes).map((tag) => ({ params: { tag }, props: { tag } }));
+  return allTags(notes).map((tag) => ({ params: { tag: tagSlug(tag) }, props: { tag } }));
 }
 
 const { tag } = Astro.props;
