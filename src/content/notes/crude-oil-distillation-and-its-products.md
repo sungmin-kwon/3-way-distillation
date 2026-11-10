@@ -99,6 +99,7 @@ where $w_i$ is the yield of cut $i$ in wt % and $S_i$ its sulfur content in wt %
   <text x="423.4" y="428" text-anchor="middle" font-size="11" fill="currentColor">vac. residue</text>
   <text x="394.4" y="43.3" text-anchor="start" font-size="10" style="fill: var(--muted)">580 °C, end of data</text>
 </svg>
+
 *Johan Sverdrup TBP curve from the TotalEnergies assay (data from 80 °C to 580 °C, linear between points). Bands mark the cuts in the table above; the dashed accent line at 375 °C is where the atmospheric column stops and the vacuum column takes over.*
 
 ## Why there are two columns

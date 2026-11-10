@@ -173,7 +173,8 @@ illustrates the idea; it isn't a library.
 **Figures.** Inline `<svg>` only, with `role="img"`, a descriptive `aria-label`, and a
 `<title>`. Colors come from CSS variables so dark mode works: `style="stroke: var(--ink)"`,
 `var(--muted)`, `var(--accent)`, `var(--rule)`, and `fill="currentColor"` for text. Put an
-italic caption on the line right after the SVG. **Plot data from coordinates computed by a
+italic caption after the SVG, with **a blank line** between `</svg>` and the caption (without it,
+the caption is swallowed into the HTML block and shows literal `*` and `$`). **Plot data from coordinates computed by a
 script, never by hand.** If you can't compute them, leave the figure out and write
 `<!-- TODO figure: … -->`. Computed coordinates aren't enough on their own: **render the figure**
 (open it in a browser, or screenshot it with a headless one) and check that no label or number
@@ -238,6 +239,7 @@ errors. These rules matter more than anything above.
 | KD types | "distillation" means one thing | token-level KD matches teacher logits at each position (needs logits and a shared tokenizer); sequence-level KD trains on teacher-generated text (works through an API) |
 | example distilled models | TinyLlama, MiniCPM as KD examples | use documented cases: DistilBERT, Llama 3.2 1B/3B, Gemma 2 2B/9B, Minitron, DeepSeek-R1-Distill |
 | links | `../posts/other-note/` | `note:other-note` |
+| figure captions | caption on the line straight after `</svg>` (shows literal `*…*` and raw `$…$`) | a blank line between `</svg>` and the italic caption |
 | display math | `$$y = \frac{a}{b}$$` on one line (renders inline and cramped) | `$$` alone on the line above and the line below the formula |
 | Raoult's law | "assumes a binary mixture" | holds for any number of components; only the Txy and x–y diagrams are binary |
 | data citations | a textbook appendix cited from memory | a source that was actually opened: NIST WebBook, DOI, or edition and table |

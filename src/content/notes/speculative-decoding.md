@@ -164,6 +164,7 @@ The optimum here is $\gamma = 6$, but the curve is flat between 4 and 8. A bette
   <text x="458" y="256" text-anchor="end" font-size="11" style="fill: var(--accent)">α = 0.711 (example)</text>
   <text x="458" y="62" text-anchor="end" font-size="11" style="fill: var(--ink)">α = 0.9</text>
 </svg>
+
 *Expected speedup $S$ for a draft costing 5% of the target. The dot is the worked example: γ = 4, 2.36×. Each curve starts at 1× for γ = 0, which is plain decoding.*
 
 The two published results fit this range. Leviathan et al. report 2–3× on T5-XXL, and Chen et al. report 2–2.5× on Chinchilla 70B in a distributed setup, both without any change to the outputs.[^speedups]

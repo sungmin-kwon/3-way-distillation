@@ -156,7 +156,8 @@ Stage 6 is the first whose liquid is leaner than the feed, so it's the optimal f
   <text x="92" y="430" text-anchor="start" font-size="11" style="fill: currentColor">x_B</text>
   <text x="264" y="254" text-anchor="middle" font-size="11" style="fill: currentColor">x_F</text>
 </svg>
-*The worked example: α = 2.5, saturated-liquid feed at x_F = 0.5, R = 1.65. The accent line steps off 12 theoretical stages; stages 1, 6 (feed) and 12 are numbered.*
+
+*The worked example: α = 2.5, saturated-liquid feed at $x_F = 0.5$, $R = 1.65$. The accent line steps off 12 theoretical stages; stages 1, 6 (feed) and 12 are numbered.*
 
 ## Checking the count: Fenske and Gilliland
 
