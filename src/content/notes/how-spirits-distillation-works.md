@@ -8,7 +8,7 @@ distillate: The vapor above a boiling ethanol–water mixture is richer in ethan
 
 Distilling a fermented wash is applied vapor–liquid equilibrium (VLE). Ethanol and water, plus hundreds of trace *congeners*, have different volatilities, so the vapor above a boiling liquid has a different composition from the liquid. For ethanol it is always richer, right up to the azeotrope. A still is a device for exploiting that difference, once or many times in a row.
 
-> Home distilling is illegal or requires a license in many places, so check the law where you live. Separately, foreshots and heads collect the most volatile compounds, such as acetaldehyde and ethyl acetate, and are not for drinking.
+> Home distilling is illegal or requires a license in many places, so check the law where you live; [a separate note](note:home-brewing-and-distilling-law) goes through the rules country by country. Separately, foreshots and heads collect the most volatile compounds, such as acetaldehyde and ethyl acetate, and are not for drinking.
 
 ## Three ways to say "how much alcohol"
 
