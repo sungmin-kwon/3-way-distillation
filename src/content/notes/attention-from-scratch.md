@@ -2,8 +2,9 @@
 title: Attention from scratch
 summary: One attention head computed by hand on a three-token sentence — embeddings, queries/keys/values, the scaled score matrix, softmax weights, and the output, plus why the 1/√d_k scaling exists and what multiple heads and masking add.
 date: 2026-11-10
+updated: 2026-11-10
 tags: [ml/llm]
-distillate: One attention head computes output = softmax(QKᵀ/√d_k)·V, with Q, K, V the token embeddings projected by learned matrices. On the three-token sentence "the cat sat" with 4-dimensional embeddings and identity weight matrices, "cat" attends 0.4519 to itself and 0.2741 each to "the" and "sat", giving the output (0.7260, 0.7260, 0.2741, 0.2741). With identity weights and embeddings of equal norm (√2 here) the scores are cosine similarities, so the example shows the mechanics, not learned behavior.
+distillate: One attention head computes output = softmax(QKᵀ/√d_k)·V, with Q, K, V the token embeddings projected by learned matrices. On the three-token sentence "the cat sat" with 4-dimensional embeddings and identity weight matrices, "cat" attends 0.4519 to itself and 0.2741 each to "the" and "sat", giving the output (0.7260, 0.7260, 0.2741, 0.2741). With identity weights the scores are proportional to the cosine similarities, and equal to them here because every embedding has norm √2, so its norm squared is 2 = √d_k; the example shows the mechanics, not learned behavior.
 model: [Mistral Large 4]
 reviewed_by: [Claude Opus 5.5]
 ---
@@ -35,7 +36,7 @@ Each token starts as a $d_{\mathrm{model}}$-dimensional vector, its **embedding*
 | sat | $(0, 1, 0, 1)$ |
 
 $$
-\begin{pmatrix}
+X = \begin{pmatrix}
 1 & 0 & 1 & 0\\
 1 & 1 & 0 & 0\\
 0 & 1 & 0 & 1
@@ -95,7 +96,11 @@ e^{0.5} = 1.6487, \quad e^{1} = 2.7183, \quad Z = 1.6487 + 2.7183 + 1.6487 = 6.0
 $$
 
 $$
-A_{21} = 1.6487/6.0157 = 0.2741, \quad A_{22} = 2.7183/6.0157 = 0.4519, \quad A_{23} = 0.2741
+A_{21} = 1.6487/6.0157 = 0.2741, \quad A_{22} = 2.7183/6.0157 = 0.4519
+$$
+
+$$
+A_{23} = A_{21} = 0.2741
 $$
 
 All three rows give the **attention matrix** (each row sums to 1 up to the last digit of rounding):
@@ -216,4 +221,4 @@ output for 'cat': ['0.7260', '0.7260', '0.2741', '0.2741']
 
 ## Limits
 
-The example uses identity weight matrices, no bias terms, one layer, one head, and no masking, so it shows the mechanics of a head, not learned behavior. The embeddings are chosen by hand; in a real model they are learned, and the original transformer adds sinusoidal **positional encodings** to them because attention itself is permutation-equivariant and carries no word-order information. The scaling factor is doing real work even at $d_k = 4$: without it the middle row's scores would be $(1, 2, 1)$, and softmax would put 0.5761 of "cat"'s attention on itself instead of 0.4519 (and 0.6652 on "the" instead of 0.5065). Computing $S$ costs $O(n^2 d_k)$ time and the attention matrix $O(n^2)$ memory per head in sequence length $n$; that quadratic growth is the main practical limit of attention, and the reason for KV caching during decoding and for the verify-in-one-pass trick in the [speculative decoding note](note:speculative-decoding).
+The example uses identity weight matrices, no bias terms, one layer, one head, and no masking, so it shows the mechanics of a head, not learned behavior. The embeddings are chosen by hand; in a real model they are learned, and the original transformer adds sinusoidal **positional encodings** to them because attention itself is permutation-equivariant and carries no word-order information. The scaling factor is doing real work even at $d_k = 4$: without it the middle row's scores would be $(1, 2, 1)$, and softmax would put 0.5761 of the weight on "cat" itself instead of 0.4519 (and 0.6652 on "the" instead of 0.5065). Computing $S$ costs $O(n^2 d_k)$ time and the attention matrix $O(n^2)$ memory per head in sequence length $n$; that quadratic growth is the main practical limit of attention on long sequences. KV caching and the verify-in-one-pass trick in the [speculative decoding note](note:speculative-decoding) attack different costs: caching keeps each token's $K$ and $V$ so a decoding step attends in $O(n)$ instead of recomputing them, and speculative decoding targets the per-token memory-bandwidth cost of reading the weights.
