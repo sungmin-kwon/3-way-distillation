@@ -7,7 +7,7 @@ distillate: A polygenic risk score (PRS) is the sum of a person's risk-allele co
 model: [Mistral Large 4]
 ---
 
-Most common diseases are polygenic: thousands of variants each shift risk a little, and no single one is decisive. A **polygenic risk score** (PRS) adds those small effects into one number per person. The landmark demonstration was the International Schizophrenia Consortium's 2009 GWAS, which showed that common variants collectively carry schizophrenia risk and that a weighted sum of them separated cases from controls (Purcell et al., 2009)[^1]. Since then PRS has become a standard tool in the lab's data domain: risk stratification, cohort selection for sequencing, and study design.
+Most common diseases are polygenic: thousands of variants each shift risk a little, and no single one is decisive. A **polygenic risk score** (PRS) adds those small effects into one number per person. The landmark demonstration was the International Schizophrenia Consortium's 2009 GWAS, which showed that common variants collectively carry schizophrenia risk and that a weighted sum of them separated cases from controls (Purcell et al., 2009)[^1]. Since then PRS has become a standard tool in human genetics: risk stratification, cohort selection for sequencing, and study design.
 
 Throughout, the note uses one worked example: a toy score built from five SNPs, applied to one person, plus a disease model for the accuracy calculation.
 
@@ -58,7 +58,7 @@ The β values are per-allele effect sizes from a **genome-wide association study
 
 ## Measuring accuracy
 
-For a binary disease, accuracy is usually reported on the **liability scale**: Falconer (1965)[^3] modeled disease as a threshold on a continuous, normally distributed liability, and the R² of a PRS on that liability scale is directly comparable to heritability. Lee et al. (2011, 2012)[^4] give the conversion between observed-scale and liability-scale R² given the prevalence and the case fraction of the sample. For the AUC, Dudbridge (2013)[^5] gives
+For a binary disease, accuracy is usually reported on the **liability scale**: Falconer (1965)[^3] modeled disease as a threshold on a continuous, normally distributed liability, and the R² of a PRS on that liability scale is directly comparable to heritability. Lee et al. (2011, 2012)[^4] give the conversion between observed-scale and liability-scale R² given the prevalence and the case fraction of the sample. For the AUC, Dudbridge (2013)[^5] gives the equal-variance (binormal) approximation; the exact liability-threshold value is given by Wray et al. (2010)[^15] and is 0.731 here, so 0.73 stands. The formula:
 
 $$
 \mathrm{AUC} = \Phi\!\left(\frac{\sqrt{R_L^2}\,\varphi(T)}{K(1-K)\,\sqrt{2}}\right), \qquad T = \Phi^{-1}(1-K)
@@ -109,16 +109,17 @@ Accuracy varies enormously by trait and sample size. For height, the largest GWA
 C+T throws away LD information. Methods that model it instead usually predict better: LDpred (Vilhjálmsson et al., 2015)[^9], lassosum (Mak et al., 2017)[^10], PRS-CS (Ge et al., 2019)[^11], and SBayesR (Lloyd-Jones et al., 2019)[^12] all adjust the GWAS effect sizes for LD and shrink them, each with its own tuning. The practical lesson from Wray et al. (2013)[^13] still stands: report accuracy in a held-out sample, not in the discovery sample, or the numbers are inflated.
 
 [^9]: Vilhjálmsson et al. (2015), Am J Hum Genet 97, 576–592, doi:10.1016/j.ajhg.2015.09.001.
-[^10]: Mak et al. (2017), Genet Epidemiol, doi:10.1002/gepi.22050.
+[^10]: Mak et al. (2017), Genet Epidemiol 41, 469–480, doi:10.1002/gepi.22050.
 [^11]: Ge et al. (2019), Nat Commun 10, 1776, doi:10.1038/s41467-019-09718-5.
 [^12]: Lloyd-Jones et al. (2019), Nat Commun 10, 5086, doi:10.1038/s41467-019-12653-0.
 [^13]: Wray, Yang, Hayes, et al. (2013), Nat Rev Genet 14, 507–515, doi:10.1038/nrg3457.
 
 ## The portability problem
 
-Almost all large GWAS have been run in European-ancestry cohorts, and a PRS trained there is **several times less accurate** in other ancestries, because allele frequencies and LD patterns differ and the tagged variants differ (Martin et al., 2019)[^14]. Using today's scores clinically would therefore widen health disparities unless discovery cohorts diversify. Within a ancestry, scores can also miscalibrate across cohorts because of ascertainment (e.g. the UK Biobank's healthy-volunteer bias).
+Almost all large GWAS have been run in European-ancestry cohorts, and a PRS trained there is **several times less accurate** in other ancestries, because allele frequencies and LD patterns differ and the tagged variants differ (Martin et al., 2019)[^14]. Using today's scores clinically would therefore widen health disparities unless discovery cohorts diversify. Within an ancestry, scores can also miscalibrate across cohorts because of ascertainment (e.g. the UK Biobank's healthy-volunteer bias).
 
 [^14]: Martin, Kanai, Kamatani, et al. (2019), Nat Genet 51, 584–591, doi:10.1038/s41588-019-0379-x.
+[^15]: Wray, Yang, Goddard & Visscher (2010), PLoS Genet 6, e1000864, doi:10.1371/journal.pgen.1000864.
 
 ## The whole computation in Python
 
