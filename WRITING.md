@@ -8,6 +8,33 @@ note as a model to imitate (see [Reference notes](#reference-notes)).
 The notebook is personal: Sungmin writes things down here to understand them properly. The
 reader is a curious, technical person, often Sungmin a year from now. Write for that reader.
 
+## The hard rules
+
+Every one of these was broken in an earlier draft and had to be fixed after review. If you
+remember nothing else from this file, follow these. Details are in the sections named.
+
+1. **Work on a branch from the current `main`, and open a pull request.** Never push to `main`,
+   and never merge your own PR. Fetch `main` first, so you follow the current version of this
+   file (section 10).
+2. **Run `npm run check` and `npm run build`; both must pass.** Then **open the page** in a
+   browser and look at it, at full width and at phone width. Don't write "it renders" unless you
+   did this (sections 6 and 9).
+3. **Every computed number comes from a calculation you ran.** Code output in a note is pasted
+   from a real run, never typed. If you couldn't run it, say so in the PR and leave the output out (section 7).
+4. **Don't state a cause, a direction or a mechanism you can't support** with a source you
+   opened or a calculation in the note. "X is the reason for Y" needs evidence (section 7).
+5. **Every cited work is in a `## Sources` list with a working link**, and every link was opened
+   or resolved. Never write a DOI, volume or page number from memory. Cite only what the text
+   uses (section 6).
+6. **No `## Limits` section, no "I", no em dashes in the body, `$$` on its own lines** (sections
+   1, 5 and 6).
+7. **No affiliation or personal details.** Don't name or hint at a lab, hospital, university,
+   employer or project (section 1).
+8. **Numbers shared between notes stay in sync.** If you change a number another note quotes,
+   change it there too (section 7).
+9. **End the PR description with what you could not verify.** An honest list is worth more than
+   a clean-looking draft (section 9).
+
 ## 1. Voice
 
 - **Plain, exact, and calm.** Say what is true and how we know. No hype, no "fascinating",
@@ -20,6 +47,9 @@ reader is a curious, technical person, often Sungmin a year from now. Write for 
   the note uses one worked example", "This rests on reporting, not the ruling itself", "isn't
   checked here". When a first person truly can't be avoided, use "we" ("Translations are our
   own"), and use even that sparingly. Contractions (it's, doesn't) are fine.
+- **No affiliation.** The site is a notebook, not a profile. Don't write "my lab", "our
+  group", "the hospital's data", or name a specific institution as the place the work happens.
+  Name an institution only as the author of a cited work.
 - **Punctuation:** en dash (–) for pairs and ranges: ethanol–water, McCabe–Thiele, 1–4.
   Avoid em dashes (—) in body text; use a comma, a colon, or a new sentence. One em dash in the
   `summary` line is fine. No arrow chains (A → B → C) in prose.
@@ -107,7 +137,8 @@ worked through on one next-token example — soft targets and temperature, the T
 **`distillate`** is shown at the top of the note. It is the note boiled down to two to four
 sentences that make sense alone: the conclusion, the key numbers, and the main limit. A reader
 who stops after the distillate should still come away knowing the answer. It is not a teaser
-and not a table of contents.
+and not a table of contents. It is **plain text**: no links, no `note:` targets, no bold, no
+code. Markdown there shows up on the page as literal brackets and asterisks.
 
 > Good: "For a 50/50 feed split into 95% and 5% products at α = 2.5 and 1.5 × minimum reflux,
 > that comes to 12 stages. It only holds for binary mixtures with constant molar overflow, so it
@@ -132,6 +163,7 @@ Every number in the summary or distillate must also appear, identically, in the 
    lines such as "real data is messier" or "this is not a verdict".
 6. **Optional ending:** a `## Summary` paragraph, or `## Open questions`
    as a short list. Don't do both.
+7. **`## Sources` last**, listing every cited work with its link (section 6).
 
 ## 6. Conventions
 
@@ -146,7 +178,13 @@ $$
 
 Written on one line (`$$y = \frac{…}{…}$$`), the parser treats it as *inline* math: fractions
 shrink to text size, sub- and superscripts get cramped, and the equation isn't centered. The
-build doesn't warn about it, so check the rendered page.
+build doesn't warn about it, but `npm run check` does.
+
+**Keep display equations narrow.** A long equation is clipped at the column edge, worst on a
+phone. If a formula, its substituted numbers and its result don't fit in about 60 characters of
+rendered width, split it into two display blocks (the general form, then the numbers), or move
+the unit into the sentence. Check every equation on the rendered page at phone width (about
+400 px). Matrix rows end with `\\`, never a single `\`.
 
 Define every symbol in words the first time it appears ("where $W$ is the moles of liquid in
 the pot"). Show the general formula, then substitute the example's numbers:
@@ -169,9 +207,17 @@ many digits as the source supports, usually two or three significant figures.
 the first column. Cite the source of any data table in the sentence above it ("Carey and Lewis,
 1932, as tabulated in standard textbooks").
 
-**Code.** Python unless there is a reason otherwise. It must run as written: include imports,
-name the shapes in comments (`# [batch, seq, vocab]`), and keep it under about 30 lines. Code
-illustrates the idea; it isn't a library.
+**Code.** Python for `cheme`, `ml/llm` and `qi/qc` notes. **Base R for `genes` notes**, since R
+is the standard in that field: no packages from CRAN or Bioconductor, only what ships with R
+(`stats`, `graphics`). It must run as written: include imports, name the shapes in comments
+(`# [batch, seq, vocab]`), and keep it under about 30 lines (a simulation that feeds a figure may
+run longer). Code illustrates the idea; it isn't a library.
+
+**Code output is pasted, never written.** Run the code exactly as it appears in the note, and copy
+what it printed into the output block below it. Every number the prose takes from the code must
+appear in that output. If the code uses random numbers, set a seed (`set.seed(1)`,
+`np.random.default_rng(1)`) so the output is reproducible. If you can't run the code, don't
+include an output block, and say in the PR that the code is unrun.
 
 **Figures.** Inline `<svg>` only, with `role="img"`, a descriptive `aria-label`, and a
 `<title>`. Colors come from CSS variables so dark mode works: `style="stroke: var(--ink)"`,
@@ -190,8 +236,30 @@ note only if it exists. External links only to primary or stable sources (papers
 official docs).
 
 **Citations.** Name the authors and year in the text: "Hinton, Vinyals and Dean (2015)", "Kim
-and Rush (2016)". Footnotes (`[^1]`) for asides and for sources you want to keep out of the
-sentence. Never cite a paper, model, or number you aren't sure exists.
+and Rush (2016)". Collect every cited work in a `## Sources` list at the end of the note, one
+entry per line, in this format (as in `magic-state-distillation.md`):
+
+```md
+## Sources
+
+- S. Bravyi, A. Kitaev, "Universal quantum computation with ideal Clifford gates and noisy ancillas", *Phys. Rev. A* 71, 022316 (2005). [arXiv:quant-ph/0403025](https://arxiv.org/abs/quant-ph/0403025)
+- B. F. Voight et al., "Plasma HDL cholesterol and risk of myocardial infarction: a mendelian randomisation study", *Lancet* 380, 572–580 (2012). [doi:10.1016/S0140-6736(12)60312-2](https://doi.org/10.1016/S0140-6736(12)60312-2)
+```
+
+- **Every entry has a link**: `https://doi.org/…` for a paper with a DOI, `https://arxiv.org/abs/…`
+  for a preprint, or the official page for a standard, dataset or piece of software. Link the DOI
+  and the arXiv id when both exist.
+- **Check every entry before you write it.** Resolve the DOI (`https://api.crossref.org/works/<doi>`
+  returns the title, authors, journal, volume and pages) and copy the details from what comes
+  back. About ten DOIs, volumes or page ranges written from memory were wrong in the first
+  drafts of the four `genes` notes. If you can't resolve a work, don't cite it; say in the PR that it needs a source.
+- **Cite only what the text needs**: a work the note quotes a number, result or method from. Not
+  background reading, not a second source for the same point.
+- **Describe a cited work only by what it says.** Before writing "Park et al. (2023) converted
+  the hospital's records to OMOP", read the abstract and check it says that. A paper's topic is
+  not its finding.
+- Footnotes (`[^1]`) are for asides, or for a source tied to one specific claim, such as a spec
+  limit from a data sheet. A footnote that cites a work still carries its link.
 
 **Cite only what a reader can check.** A source must be specific enough to look up: a DOI or
 arXiv id, a standard's number, a stable database page (for physical data, the
@@ -225,6 +293,25 @@ errors. These rules matter more than anything above.
    every effect (reads high or low, rises or falls, positive or negative slope).
 8. **Prefer mechanism over folklore.** Explain why something happens; if the usual explanation
    is wrong, say so and give the right one.
+9. **A cause needs evidence.** Write "X causes Y", "X is why Y", or "Y happens because X" only
+   when a source you opened says so, or the note's own numbers show it. When the note can compute
+   it, compute it: the fermentation note's gap between the 8.1% ceiling and the 5.3% result was
+   first blamed on volume contraction, but the extract left unfermented, worked out in the note,
+   accounts for it. Otherwise write what is known ("the two are related", "one proposed reason
+   is", with a source) or leave it out.
+10. **Check the direction twice.** For every effect, bias, correction or sign, ask which way it
+    goes and why, then check it against a source or a small calculation. Reviewers caught
+    reversed directions in two notes (the hydrometer correction and winner's curse in MR).
+11. **Count the right thing.** Say what each number counts and keep it the same through the
+    calculation: alleles or people, moles or kilograms, tokens or words, per head or per layer.
+12. **Check every identifier against its source**: gene names, concept ids, model names, version
+    numbers, dates. One letter turned LIPG into LPA and reversed a well-known result.
+13. **Keep shared numbers in sync.** Before changing a number, search the other notes for it
+    (`grep -rn "1.49" src/content/notes/`). If another note quotes it, update both in the same PR.
+    The medical-codes note reuses the GWAS note's toy numbers, for example.
+14. **Date anything that will go stale.** Records, the state of a field, a pending court case,
+    "the largest so far": put them in a section that says "as of" a month and year, so a later
+    edit knows what to refresh.
 
 ### Known traps (each one appeared in an earlier draft)
 
@@ -246,6 +333,17 @@ errors. These rules matter more than anything above.
 | display math | `$$y = \frac{a}{b}$$` on one line (renders inline and cramped) | `$$` alone on the line above and the line below the formula |
 | Raoult's law | "assumes a binary mixture" | holds for any number of components; only the Txy and x–y diagrams are binary |
 | data citations | a textbook appendix cited from memory | a source that was actually opened: NIST WebBook, DOI, or edition and table |
+| DOIs and page numbers | written from memory (wrong volume, pages, journal or author) | resolved through Crossref and copied from the result |
+| distillate | ends with a `[link](note:…)` | plain text; the link goes in the body |
+| apparent attenuation | "the fraction of extract the yeast consumed" | that is *real* attenuation; apparent attenuation overstates it, because ethanol pulls the final gravity down |
+| sugar left vs. ABV ceiling | gap blamed on volume contraction | ABV counts ethanol by mass ÷ 0.789, so contraction doesn't enter; the gap is unfermented extract and the yield below theory |
+| attention scaling | $1/\sqrt{d_k}$ "does no visible work" at small $d_k$ | it changes the weights noticeably even at $d_k = 4$; compute both versions before claiming either |
+| GWAS sample size | a 2×2 table of allele counts read as people | each person carries two alleles: 800 alleles = 400 people |
+| winner's curse in MR | understates the instrument | inflates the discovery effect $\beta_{XG}$, so a two-sample estimate is biased toward the null |
+| HDL Mendelian randomization | variant in LPA | LIPG Asn396Ser (Voight et al. 2012); Lp(a) is a separate, causal risk factor |
+| PRS clumping | the same as LD pruning | clumping keeps the most significant SNP in each LD block; pruning ignores p-values |
+| PRS accuracy | quoting heritability as the score's variance explained | heritability is the ceiling; the score explains less (for height about 40% in European ancestry, less elsewhere) |
+| OMOP drug queries | `drug_exposure` filtered on the ingredient concept | real rows are clinical drugs; go through `concept_ancestor` from the ingredient |
 
 ## 8. Template for a long note
 
@@ -276,6 +374,10 @@ Throughout, the note uses one worked example:
 ## <Second idea>
 
 ...
+
+## Sources
+
+- <Authors>, "<Title>", *<Journal>* <vol>, <pages> (<year>). [doi:<doi>](https://doi.org/<doi>)
 ```
 
 ### A worked example in this style
@@ -319,6 +421,9 @@ $c = \max_j z_j$. Library functions such as `torch.log_softmax` compute it this 
 
 Go through this list and fix anything that fails. Then report which items you could not verify.
 
+- [ ] `npm run check` and `npm run build` both pass.
+- [ ] The page was opened in a browser, at full width and at phone width: no red KaTeX errors, no
+      clipped equations, no literal `$`, `*` or `[`, figures and captions in place.
 - [ ] Frontmatter has `date` and `model` (plus `reviewed_by` if a separate review happened); a long note also has `title`, `summary`,
       `distillate`, and tags from the allowed four.
 - [ ] No "I", "me" or "my" anywhere; "we" only where unavoidable.
@@ -330,38 +435,51 @@ Go through this list and fix anything that fails. Then report which items you co
 - [ ] None of the known traps in section 7 appears.
 - [ ] Internal links use `note:` and point to notes that exist.
 - [ ] Display math has `$$` alone on its own line before and after the formula.
-- [ ] Code runs as written. SVG uses CSS variables and computed coordinates.
+- [ ] Code runs as written, and every output block was pasted from a real run (with a seed if
+      random). SVG uses CSS variables and computed coordinates.
 - [ ] The figure was rendered and checked: no label crosses a curve, region labels sit in their
       regions, and it reads in dark mode.
-- [ ] Every citation points to something that can be looked up (DOI, NIST, edition and table).
+- [ ] Every cited work is in `## Sources` with a link, and every DOI was resolved, not recalled.
+- [ ] Each cited work is described by what its abstract says, and each is used in the text.
+- [ ] Every "because", "causes" or "the reason" has a source or a calculation behind it, and
+      every direction (high/low, up/down, toward/away from the null) was checked.
+- [ ] Any number also used in another note matches there (search with `grep`).
+- [ ] No lab, hospital, university or employer named or implied as the author's.
 - [ ] Rounded values are the same everywhere, and each worked equation checks with them.
 - [ ] No H1, no em dashes in body text, no hype, no "in this note we will".
 - [ ] No `## Limits` section. Each caveat sits in the section it qualifies and would mislead a
       careful reader if cut.
 - [ ] Anything unchecked is either cut or flagged, with `rough: true`.
 
+Paste this list into the PR description with each box ticked or not, and add a section
+**Not verified** listing every claim, number or source you couldn't check. An empty list is fine
+only if it's true.
+
 ## 10. Workflow: draft cheap, review strong
 
-A guide like this fixes structure and voice well, but a smaller model will still make factual
-errors. The cheapest way to keep quality is to split the work:
+Most notes are drafted by a cheaper model and reviewed by a stronger one. A guide like this
+fixes structure and voice well, but a smaller model will still make factual errors, so the
+review is where accuracy comes from. The reviewer follows `REVIEWING.md`.
 
-1. **Draft** with the cheaper or local model. Give it this file, one reference note on the same
-   topic, and the source material (papers, data, your own notes). Ask it to finish with the
-   self-check in section 9 and to list what it couldn't verify.
-2. **Recompute** the worked example by running the numbers, ideally with a short script.
-3. **Review** with a stronger model in one pass. Prompt it with this file and the draft:
-   *"Review this note against WRITING.md. Check every factual claim, number, unit and citation;
-   recompute the worked example; list each error with the fix; then return the corrected note.
-   Don't rewrite sentences that are already correct."*
-4. **Read it yourself** before merging. You are the last check.
+1. **Branch.** `git fetch origin main` and `git switch -c <short-name> origin/main`. A branch cut
+   from an old `main` follows an old version of this file; one draft broke its whole page that way.
+2. **Draft** with this file, one reference note close to the topic, and the source material.
+   Run the code, run `npm run check` and `npm run build`, and open the page.
+3. **Open a PR**, never a direct push to `main`. The description has the self-check from section
+   9, the **Not verified** list, and the commands you ran with their result.
+4. **Review** with a stronger model, following `REVIEWING.md`. The review lists errors as *must
+   fix* and *should fix*.
+5. **Fix** on the same branch. Address every item; in the PR, say for each one what you changed,
+   or why you didn't. Don't fix things the review didn't ask for in the same commit.
+6. **Merge** only when Sungmin approves. A drafting model never merges its own PR.
+
+When a review finds a new kind of mistake, add it to the known-traps table in section 7, so the
+next draft avoids it.
 
 This split is one option, not a requirement. A note can also be written and checked by one
 model, or by hand. Whatever the route, the accuracy rules in section 7 still apply, `model`
 lists every model that wrote or revised the note, and `reviewed_by` is filled in only when a
 separate review pass took place.
-
-A review pass reads and corrects one note, so it costs a small fraction of having the strong
-model write it.
 
 ## Reference notes
 
@@ -376,5 +494,9 @@ new note's topic:
   numerically integrated runs, and corrections of common myths.
 - `raoults-law-and-vle.md` (`cheme`): Antoine constants cited to NIST, a bubble-point solver,
   and a computed Txy figure with a tie line.
+- `genome-wide-association-studies.md` (`genes`): a toy test and a simulated scan in base R, with
+  Manhattan and QQ plots computed from the simulation's output, and a linked Sources list.
+- `magic-state-distillation.md` (`qi/qc`): the Sources format, and a dated "Where things stand"
+  section.
 
 When a new note becomes a better example, add it here and add any new trap to section 7.
