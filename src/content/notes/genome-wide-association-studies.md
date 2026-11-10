@@ -36,7 +36,7 @@ $$
 \chi^2 = \sum \frac{(O - E)^2}{E} = 4 \times \frac{20^2}{200} = 8.0
 $$
 
-With 1 degree of freedom, $\chi^2 = 8.0$ gives $p = 0.0047$. A real association at this sample size would look exactly like this: suggestive, but nowhere near decisive.
+With 1 degree of freedom, $\chi^2 = 8.0$ gives $p = 0.0047$. A real association at this sample size would look exactly like this: suggestive, but nowhere near decisive. The test also assumes the case and control labels are right; when they come from diagnosis codes in health records, they often aren't, and the [medical codes note](note:medical-codes) works out what that costs in odds ratio and sample size.
 
 ## Multiple testing and the 5×10⁻⁸ bar
 
