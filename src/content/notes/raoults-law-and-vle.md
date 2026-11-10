@@ -23,7 +23,9 @@ Throughout, the note uses one worked example:
 
 The vapor pressure of a pure liquid, $P^{\mathrm{sat}}(T)$, rises steeply with temperature $T$. Over a limited range it is fit well by the **Antoine equation**,
 
-$$\log_{10}\!\left(\frac{P^{\mathrm{sat}}}{\mathrm{mmHg}}\right) = A - \frac{B}{C + T}$$
+$$
+\log_{10}\!\left(\frac{P^{\mathrm{sat}}}{\mathrm{mmHg}}\right) = A - \frac{B}{C + T}
+$$
 
 with $T$ in °C, $P^{\mathrm{sat}}$ in mmHg, and one set of constants per component, from Willingham, Taylor, Pignocco and Rossini (1945) via the NIST Chemistry WebBook[^1]:
 
@@ -40,21 +42,29 @@ Setting $P^{\mathrm{sat}} = 760$ mmHg and solving for $T$ returns 80.1 °C for b
 
 For an **ideal liquid**, each component contributes to the total pressure in proportion to its mole fraction: its partial pressure is $p_i = x_i P_i^{\mathrm{sat}}(T)$. For the **vapor** at low pressure, the ideal-gas law (Dalton's law) gives $p_i = y_i P$, where $y_i$ is the component's mole fraction in the vapor. At equilibrium,
 
-$$y_i P = x_i P_i^{\mathrm{sat}}(T)$$
+$$
+y_i P = x_i P_i^{\mathrm{sat}}(T)
+$$
 
 Summing over the components and using $\sum_i x_i = 1$ gives the **bubble-point equation** at fixed pressure,
 
-$$P = \sum_i x_i P_i^{\mathrm{sat}}(T)$$
+$$
+P = \sum_i x_i P_i^{\mathrm{sat}}(T)
+$$
 
 Given the liquid composition, the boiling temperature is the $T$ that satisfies this equation; the vapor composition then follows from $y_i = x_i P_i^{\mathrm{sat}}(T)/P$. The vapor is always richer in the more volatile component: at the bubble point $P_A^{\mathrm{sat}} > P > P_B^{\mathrm{sat}}$, so $y_A > x_A$.
 
 Worked example, $x = 0.40$ at $P = 760$ mmHg. Solving the bubble-point equation gives $T = 95.15$ °C (quoted as 95.1 °C from here on). At that temperature the Antoine equation gives the two vapor pressures above, and
 
-$$0.40 \times 1181.4 + 0.60 \times 479.1 = 760.0 \text{ mmHg}$$
+$$
+0.40 \times 1181.4 + 0.60 \times 479.1 = 760.0 \text{ mmHg}
+$$
 
 confirming the solve. The vapor in equilibrium with that liquid is
 
-$$y = \frac{x\, P_{\mathrm{benzene}}^{\mathrm{sat}}}{P} = \frac{0.40 \times 1181.4}{760} = 0.622$$
+$$
+y = \frac{x\, P_{\mathrm{benzene}}^{\mathrm{sat}}}{P} = \frac{0.40 \times 1181.4}{760} = 0.622
+$$
 
 One equilibrium contact enriches the vapor from $x = 0.40$ to $y = 0.62$ in benzene. Solving the bubble-point equation is a bisection on $T$:
 
@@ -92,7 +102,9 @@ which prints `bubble point of x = 0.4: T = 95.1 C, y_benzene = 0.62`.
 
 The same equilibrium can be run in reverse. Given a vapor composition $y$, the liquid in equilibrium with it has $x_i = y_i P / P_i^{\mathrm{sat}}(T)$, and the condition $\sum_i x_i = 1$ gives the **dew-point equation**,
 
-$$\sum_i \frac{y_i\, P}{P_i^{\mathrm{sat}}(T)} = 1$$
+$$
+\sum_i \frac{y_i\, P}{P_i^{\mathrm{sat}}(T)} = 1
+$$
 
 At fixed pressure, each liquid composition $x$ has one bubble temperature and each vapor composition $y$ has one dew temperature. Plotting temperature against composition gives the Txy diagram: the **bubble-point curve** traces the liquid compositions, the **dew-point curve** traces the vapor compositions, and the two meet at the pure-component boiling points. Below the bubble curve the mixture is all liquid, above the dew curve it is all vapor, and between the curves liquid and vapor coexist.
 
@@ -145,11 +157,15 @@ Consistency check: the dew-point equation at $y = 0.622$ returns $T = 95.15$ °C
 
 Under Raoult's law the ratio of the two equilibrium relations gives the **relative volatility**
 
-$$\alpha_{AB} = \frac{P_A^{\mathrm{sat}}}{P_B^{\mathrm{sat}}}$$
+$$
+\alpha_{AB} = \frac{P_A^{\mathrm{sat}}}{P_B^{\mathrm{sat}}}
+$$
 
 For benzene (A) over toluene (B) at 1 atm, $\alpha$ falls from 2.60 at benzene's boiling point to 2.35 at toluene's; at the worked example's 95.15 °C it is $\alpha = 2.47$. Eliminating $T$ gives the familiar x–y relation
 
-$$y = \frac{\alpha x}{1 + (\alpha - 1) x}$$
+$$
+y = \frac{\alpha x}{1 + (\alpha - 1) x}
+$$
 
 At $x = 0.40$ and $\alpha = 2.47$: $y = 0.986 / 1.586 = 0.622$, matching the Raoult's-law value above. Because $\alpha$ barely moves across this diagram, the [McCabe–Thiele note](note:reading-a-mccabe-thiele-diagram) can model the pair with a constant $\alpha = 2.5$.
 
