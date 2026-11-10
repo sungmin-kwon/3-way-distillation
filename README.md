@@ -30,7 +30,7 @@ A longer note adds a title and, optionally, more:
 title: Forward vs. reverse KL
 date: 2026-11-12
 updated: 2026-11-20      # optional
-tags: [ml/llm]           # cheme, ml/llm, genetics or qi/qc; the list is in src/lib/site.ts
+tags: [ml/llm]           # cheme, ml/llm, genes or qi/qc; the list is in src/lib/site.ts
 summary: One line shown under the title on the index.
 distillate: The boiled-down version, shown at the top of the note.
 rough: true              # unfinished thinking; shows a "rough" mark

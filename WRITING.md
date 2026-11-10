@@ -43,7 +43,7 @@ it breaks links.
 title: Forward vs. reverse KL          # omit for a short note
 date: 2026-11-12                       # required, YYYY-MM-DD
 updated: 2026-11-20                    # only when a published note changes materially
-tags: [ml/llm]                         # cheme, ml/llm, genetics, qi/qc; zero or more
+tags: [ml/llm]                         # cheme, ml/llm, genes, qi/qc; zero or more
 summary: One line for the index.       # long notes
 distillate: The boiled-down version.   # long notes
 rough: true                            # unfinished thinking; leave out otherwise
@@ -56,7 +56,7 @@ reviewed_by: [Claude Opus 5.5]         # optional: model(s) that did a separate 
 
 - **Tags:** only these four, which read as past, present and future: `cheme` (chemical
   engineering: separations, thermodynamics, fermentation and stills), `ml/llm` (machine learning
-  and language models), `genetics` (genetics, genomics and the clinical data around them) and `qi/qc` (quantum information and computing). The list lives in
+  and language models), `genes` (genetics, genomics and the clinical data around them) and `qi/qc` (quantum information and computing). The list lives in
   `src/lib/site.ts`, and the build fails on any other tag. Don't invent new tags; ask first.
 - **Hidden notes:** `hidden: true` keeps a finished note off the site: no page, and not in the
   index, tag pages, RSS or search. A `note:` link to it from a visible note turns into plain text
@@ -254,7 +254,7 @@ errors. These rules matter more than anything above.
 title: <Short noun phrase or question>
 summary: <What it covers, in one line> — <part>, <part>, <part>.
 date: YYYY-MM-DD
-tags: [<cheme|ml/llm|genetics|qi/qc>]
+tags: [<cheme|ml/llm|genes|qi/qc>]
 distillate: <The answer in one sentence.> <The key number from the worked example.> <The main limit or caveat.>
 model: [<the model writing this>]
 ---

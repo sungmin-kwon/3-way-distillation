@@ -2,9 +2,9 @@
 title: Polygenic risk scores
 summary: How a polygenic risk score turns a GWAS into an individual risk number — the weighted allele sum, clumping and p-value thresholding, liability-scale R² and AUC with real accuracy numbers, and the ancestry portability problem, worked on a toy five-SNP example.
 date: 2026-11-10
-tags: [genetics]
+tags: [genes]
 distillate: A polygenic risk score (PRS) is the sum of a person's risk-allele counts weighted by GWAS effect sizes, standardized against a reference panel; on the toy five-SNP example a person with dosages (2, 1, 0, 2, 1) scores PRS = 1.05, z = 1.20 above the panel. For a disease with 1% prevalence, a score explaining 10% of liability variance gives AUC = 0.73. Real scores range from height (common SNPs explain 40–50%) to schizophrenia (PRS liability R² about 7.3%, top- vs bottom-centile OR 39) to coronary disease (AUC 0.79–0.81), but all are most accurate in European-ancestry samples. The model is additive and the score is only as good as the match between discovery and target populations.
-model: [Mistral Large 4]
+model: [Mistral Large 4, Claude Opus 5.5]
 ---
 
 Most common diseases are polygenic: thousands of variants each shift risk a little, and no single one is decisive. A **polygenic risk score** (PRS) adds those small effects into one number per person. The landmark demonstration was the International Schizophrenia Consortium's 2009 GWAS, which showed that common variants collectively carry schizophrenia risk and that a weighted sum of them separated cases from controls (Purcell et al., 2009)[^1]. Since then PRS has become a standard tool in human genetics: risk stratification, cohort selection for sequencing, and study design.
@@ -48,7 +48,7 @@ $$
 z = \frac{1.05 - 0.7688}{0.2344} = 1.20
 $$
 
-so this person sits about 1.2 standard deviations above the panel average on this toy score.
+so this person sits about 1.2 standard deviations above the panel average on this toy score. The sum assumes the variants act additively; it ignores gene–environment interaction and rare variants of large effect, which a GWAS of common SNPs never sees.
 
 ## Where the weights come from
 
@@ -98,7 +98,7 @@ The case and control distributions of the score are two shifted normal curves:
 
 ## Real-world accuracy
 
-Accuracy varies enormously by trait and sample size. For height, the largest GWAS (5.4 million people) found 12,111 significant SNPs and estimated that common SNPs explain 40–50% of height variation (Yengo et al., 2022)[^6]. For schizophrenia, the 2022 PGC GWAS (76,755 cases, 243,649 controls, 287 loci) estimated SNP-based heritability of 0.24 in Europeans, with a PRS at p < 0.05 explaining a median 7.3% of liability variance and a top- vs bottom-centile odds ratio of 39 (Trubetskoy et al., 2022)[^7]. In UK Biobank, genome-wide scores reached AUC 0.79–0.81 for coronary artery disease and identified 8.0% of the population at more than threefold CAD risk (Khera et al., 2018)[^8]. Published scores and their metadata are cataloged in the [PGS Catalog](https://www.pgscatalog.org/).
+Accuracy varies enormously by trait and sample size. For height, the largest GWAS (5.4 million people) found 12,111 significant SNPs and estimated that common SNPs explain 40–50% of height variation (Yengo et al., 2022)[^6]. For schizophrenia, the 2022 PGC GWAS (76,755 cases, 243,649 controls, 287 loci) estimated SNP-based heritability of 0.24 in Europeans, with a PRS at p < 0.05 explaining a median 7.3% of liability variance and a top- vs bottom-centile odds ratio of 39 (Trubetskoy et al., 2022)[^7]. In UK Biobank, genome-wide scores reached AUC 0.79–0.81 for coronary artery disease and identified 8.0% of the population at more than threefold CAD risk (Khera et al., 2018)[^8]. Even an AUC of 0.8 stratifies a population rather than predicting an individual: most people in the top risk group never get the disease, and turning a score into an absolute risk also needs the prevalence and a calibration in the target population. Published scores and their metadata are cataloged in the [PGS Catalog](https://www.pgscatalog.org/).
 
 [^6]: Yengo et al. (2022), Nature 610, 704–712, doi:10.1038/s41586-022-05275-y.
 [^7]: Trubetskoy et al. (2022), Nature 604, 502–508, doi:10.1038/s41586-022-04434-5.
@@ -106,7 +106,7 @@ Accuracy varies enormously by trait and sample size. For height, the largest GWA
 
 ## Beyond clumping and thresholding
 
-C+T throws away LD information. Methods that model it instead usually predict better: LDpred (Vilhjálmsson et al., 2015)[^9], lassosum (Mak et al., 2017)[^10], PRS-CS (Ge et al., 2019)[^11], and SBayesR (Lloyd-Jones et al., 2019)[^12] all adjust the GWAS effect sizes for LD and shrink them, each with its own tuning. The practical lesson from Wray et al. (2013)[^13] still stands: report accuracy in a held-out sample, not in the discovery sample, or the numbers are inflated.
+C+T throws away LD information. Methods that model it instead usually predict better: LDpred (Vilhjálmsson et al., 2015)[^9], lassosum (Mak et al., 2017)[^10], PRS-CS (Ge et al., 2019)[^11], and SBayesR (Lloyd-Jones et al., 2019)[^12] all adjust the GWAS effect sizes for LD and shrink them, each with its own tuning. The practical lesson from Wray et al. (2013)[^13] still stands: report accuracy in a held-out sample, not in the discovery sample, or the numbers are inflated. And no method removes the sampling error in the GWAS β estimates, which caps accuracy at a given discovery sample size.
 
 [^9]: Vilhjálmsson et al. (2015), Am J Hum Genet 97, 576–592, doi:10.1016/j.ajhg.2015.09.001.
 [^10]: Mak et al. (2017), Genet Epidemiol 41, 469–480, doi:10.1002/gepi.22050.
@@ -117,6 +117,8 @@ C+T throws away LD information. Methods that model it instead usually predict be
 ## The portability problem
 
 Almost all large GWAS have been run in European-ancestry cohorts, and a PRS trained there is **several times less accurate** in other ancestries, because allele frequencies and LD patterns differ and the tagged variants differ (Martin et al., 2019)[^14]. Using today's scores clinically would therefore widen health disparities unless discovery cohorts diversify. Within an ancestry, scores can also miscalibrate across cohorts because of ascertainment (e.g. the UK Biobank's healthy-volunteer bias).
+
+Clinical and personal uses raise questions beyond accuracy: preimplantation embryo selection on PRS, the psychological effect of receiving a score, and discrimination. In the US, GINA (2008) bars the use of genetic information in health insurance and employment, but not in life, disability or long-term-care insurance.
 
 [^14]: Martin, Kanai, Kamatani, et al. (2019), Nat Genet 51, 584–591, doi:10.1038/s41588-019-0379-x.
 [^15]: Wray, Yang, Goddard & Visscher (2010), PLoS Genet 6, e1000864, doi:10.1371/journal.pgen.1000864.
@@ -154,7 +156,3 @@ which prints:
 PRS = 1.05; panel mean 0.7688, SD 0.2344; z = 1.20
 AUC = 0.73 at K = 1%, R2_L = 0.10
 ```
-
-## Limits
-
-The score assumes effects are additive and ignores gene–environment interaction and rare variants of large effect; the β estimates carry sampling error, which caps accuracy regardless of method. Accuracy numbers are only valid when the target sample resembles the discovery sample in ancestry and ascertainment. An AUC of 0.7–0.8 stratifies populations but does not determine an individual's outcome; absolute risk also needs prevalence and calibration. Uses raise real ethical questions: preimplantation embryo selection on PRS, psychological impact of receiving a score, and discrimination (in the US, GINA 2008 bars health-insurance and employment use of genetic information, but not life insurance). A PRS is a summary of current genetic knowledge, not a verdict.

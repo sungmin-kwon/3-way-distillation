@@ -2,9 +2,9 @@
 title: Genome-wide association studies
 summary: What a GWAS actually does — one SNP-by-SNP test across the genome, the 2×2 odds ratio and chi-square, the 5×10⁻⁸ multiple-testing bar and the Manhattan plot, stratification correction, imputation and meta-analysis, and where the hits go next, worked on a toy 200-vs-200 case-control study.
 date: 2026-11-10
-tags: [genetics]
+tags: [genes]
 distillate: A GWAS tests each common SNP for association with a trait in a large sample. The toy example (200 cases vs 200 controls, allele counts 220/180 vs 180/220) gives OR = 1.49, χ² = 8.0, p = 0.0047, far from the genome-wide bar of 5×10⁻⁸ (−log₁₀ p = 7.3), which needs χ² ≈ 29.7, about 1,500 people at this effect size. Real studies use hundreds of thousands of people (UK Biobank ≈ 500,000), impute to reference panels, correct for stratification, and their hits feed polygenic risk scores, covered in the PRS note.
-model: [Mistral Large 4]
+model: [Mistral Large 4, Claude Opus 5.5]
 ---
 
 A **genome-wide association study** (GWAS) asks a simple question of every common genetic variant: in this population, does carrying this allele change the trait? The method took off in 2005–2007, when the first robust hits appeared (complement factor H in age-related macular degeneration, Klein et al., 2005)[^1] and the Wellcome Trust Case Control Consortium ran 14,000 cases of seven diseases against 3,000 shared controls on a 500k-SNP array (WTCCC, 2007)[^2], followed the same year by FTO for obesity (Frayling et al., 2007)[^3]. Every published association is now indexed in the [GWAS Catalog](https://www.ebi.ac.uk/gwas/) (MacArthur et al., 2017)[^4].
@@ -83,7 +83,7 @@ A GWAS tests around a million common SNPs (and more after imputation), so even w
 
 *Toy Manhattan plot for 24 SNPs. The dashed line is the genome-wide bar 5×10⁻⁸ (7.3 on the −log₁₀ p axis); the strongest toy hit (χ² = 8.0, p = 0.0047, accent point) sits at 2.3, far below it.*
 
-For 1 df, $p = 5 \times 10^{-8}$ corresponds to $\chi^2 \approx 29.7$. Since $\chi^2$ grows roughly linearly with sample size at a fixed effect, the toy effect (OR 1.49, 400 people, χ² = 8.0 on 800 alleles) would need about $29.7/8.0 \approx 3.7$× the sample, roughly 1,500 people total, to clear the bar. That scaling is why GWAS sample sizes grew from thousands (WTCCC) to hundreds of thousands (UK Biobank, ≈ 500,000 participants, Bycroft et al., 2018)[^5].
+For 1 df, $p = 5 \times 10^{-8}$ corresponds to $\chi^2 \approx 29.7$. Since $\chi^2$ grows roughly linearly with sample size at a fixed effect, the toy effect (OR 1.49, 400 people, χ² = 8.0 on 800 alleles) would need about $29.7/8.0 \approx 3.7$× the sample, roughly 1,500 people total, to clear the bar. The same arithmetic shows that a p-value is not an effect size: at 5×10⁻⁸ in a sample of hundreds of thousands, the typical hit for a common disease has an odds ratio of only about 1.05 to 1.2. That scaling is why GWAS sample sizes grew from thousands (WTCCC) to hundreds of thousands (UK Biobank, ≈ 500,000 participants, Bycroft et al., 2018)[^5].
 
 [^5]: Bycroft et al. (2018), Nature 562, 203–209, doi:10.1038/s41586-018-0579-z.
 
@@ -97,7 +97,7 @@ The main false-positive source is **population stratification**: if cases and co
 
 ## Genotyping, imputation, meta-analysis
 
-Arrays measure ~0.5–2 million SNPs directly (WTCCC used the Affymetrix 500K). Because SNPs are correlated (linkage disequilibrium, LD), the measured SNPs **impute** the rest against a reference panel (1000 Genomes, 2015)[^9]; the HRC (2016)[^10] and TOPMed panels now underlie most studies, giving dosage (0–2) for tens of millions of variants. Cohorts are then combined by inverse-variance-weighted meta-analysis of per-SNP effect sizes and standard errors.
+Arrays measure ~0.5–2 million SNPs directly (WTCCC used the Affymetrix 500K). Because SNPs are correlated (linkage disequilibrium, LD), the measured SNPs **impute** the rest against a reference panel (1000 Genomes, 2015)[^9]; the HRC (2016)[^10] and TOPMed panels now underlie most studies, giving dosage (0–2) for tens of millions of variants. Imputation works for common variants; rare ones (below about 0.5% frequency) are poorly tagged and need sequencing. Cohorts are then combined by inverse-variance-weighted meta-analysis of per-SNP effect sizes and standard errors.
 
 [^9]: 1000 Genomes Project Consortium (2015), Nature 526, 68–74, doi:10.1038/nature15394.
 [^10]: McCarthy et al. (2016), Nat Genet 48, 1279–1283, doi:10.1038/ng.3643.
@@ -112,7 +112,7 @@ An associated SNP is rarely the causal one: it may just be in LD with the causal
 
 ## What GWAS showed about architecture
 
-Beyond individual loci, GWAS quantified the polygenic architecture: SNP-based heritability (GREML/GCTA; Yang et al., 2011)[^14] showed common SNPs capture a large share of heritability for many traits, resolving part of the "missing heritability" debate (Manolio et al., 2009)[^15]. Height's common-SNP heritability is 40–50% (Yengo et al., 2022), schizophrenia's is about 0.24 (Trubetskoy et al., 2022), and thousands of loci exist per trait, most of tiny effect.
+Beyond individual loci, GWAS quantified the polygenic architecture: SNP-based heritability (GREML/GCTA; Yang et al., 2011)[^14] showed common SNPs capture a large share of heritability for many traits, resolving part of the "missing heritability" debate (Manolio et al., 2009)[^15]. Height's common-SNP heritability is 40–50% (Yengo et al., 2022), schizophrenia's is about 0.24 (Trubetskoy et al., 2022), and thousands of loci exist per trait, most of tiny effect. For a disease, that comparison needs care: case-control sampling over-represents cases, so effect sizes and variance explained are converted to the liability scale first (see the [PRS note](note:polygenic-risk-scores)). Most of these samples are European-ancestry, which limits discovery in other ancestries and, as the PRS note explains, degrades the scores built from them.
 
 [^14]: Yang et al. (2011), Am J Hum Genet 88, 76–82, doi:10.1016/j.ajhg.2010.11.011.
 [^15]: Manolio et al. (2009), Nature 461, 747–753, doi:10.1038/nature08494.
@@ -151,7 +151,3 @@ which prints:
 OR = 1.49, chi2 = 8.0, p = 0.0047, -log10(p) = 2.33
 genome-wide: p < 5e-08 needs chi2 ~ 29.7; at this effect size that is ~1500 people total
 ```
-
-## Limits
-
-GWAS covers common variants on arrays plus imputed common variation; rare variants (below ~0.5% frequency) need sequencing, and gene–environment interaction is mostly invisible at these sample sizes. Case-control ascertainment inflates observed effect sizes, so disease effects must be converted to the liability scale before comparison with heritability (see the [PRS note](note:polygenic-risk-scores)). Accuracy and hit counts are strongly ancestry-dependent: most GWAS samples are European-ancestry, which both limits discovery and, as the [PRS note](note:polygenic-risk-scores) explains, degrades portability. And a p-value is not an effect size: at 5×10⁻⁸ the typical effect is tiny, which is exactly why scores aggregate thousands of loci.

@@ -20,7 +20,7 @@ export const TAGS = [
     description: 'Machine learning and language models: how they are trained, compressed and served.',
   },
   {
-    name: 'genetics',
+    name: 'genes',
     era: 'present',
     blurb: 'genetics and genomics, what I work with now.',
     description: 'Genetics, genomics and the clinical data around them: GWAS, polygenic scores, Mendelian randomization, EHR/CDW infrastructure.',
