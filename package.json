@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/admin-index.mjs && node -e \"require('fs').rmSync('node_modules/.astro', { recursive: true, force: true })\"",
     "build": "astro build",
+    "admin": "node scripts/admin-index.mjs",
     "preview": "astro preview"
   },
   "dependencies": {

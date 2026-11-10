@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import NoteIndex from '../../components/NoteIndex.astro';
-import { allTags, getNotes, tagSlug } from '../../lib/notes';
+import { allTags, getNotes, tagInfo, tagSlug } from '../../lib/notes';
 
 export async function getStaticPaths() {
   const notes = await getNotes();
@@ -10,9 +10,17 @@ export async function getStaticPaths() {
 
 const { tag } = Astro.props;
 const notes = await getNotes();
+const info = tagInfo(tag);
+const description = info
+  ? `${info.description}`
+  : tag === 'rough'
+    ? 'Unfinished thinking; may be wrong.'
+    : `Notes tagged ${tag}.`;
 ---
 
-<Base title={tag} description={`Notes tagged ${tag}.`}>
-  <p class="intro">Notes tagged <span class="mono">{tag}</span>.</p>
+<Base title={tag} description={description}>
+  <p class="intro">
+    <span class="mono">{tag}</span>{info && <> · {info.era}</>}. {description}
+  </p>
   <NoteIndex notes={notes} tag={tag} />
 </Base>

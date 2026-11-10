@@ -2,7 +2,8 @@
 title: "Fermentation math: sugar, gravity, and ABV"
 summary: How much ethanol a fermentable sugar can make and how to read it off a hydrometer — the Gay-Lussac stoichiometry, grams of sugar per liter per % ABV, Plato from specific gravity, and the OG–FG formulas, worked on one 20 L batch.
 date: 2026-11-10
-tags: [spirits]
+tags: [cheme]
+hidden: true
 distillate: Fermentation turns sugar into ethanol with a theoretical yield of 0.511 g ethanol per g of glucose; since 1% ABV is 7.89 g of ethanol per liter, that is 15.4 g of sugar per liter per % ABV, about 17 g/L in practice. A 20 L batch at OG 1.048 holds about 2.50 kg of sugar, a ceiling near 8.1% ABV, and when it ferments to FG 1.008 the standard rule gives 5.25% ABV (the accurate variant 5.31%). The ceiling assumes every gram of extract is fermentable sugar and the readings are at 20 °C; real worts and warm samples break both.
 model: [Mistral Large 4]
 ---
