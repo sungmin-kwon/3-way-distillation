@@ -3,7 +3,7 @@ title: Genome-wide association studies
 summary: What a GWAS actually does — one SNP-by-SNP test across the genome, the 2×2 odds ratio and chi-square, the 5×10⁻⁸ multiple-testing bar and the Manhattan plot, stratification correction, imputation and meta-analysis, and where the hits go next, worked on a toy 200-vs-200 case-control study.
 date: 2026-11-10
 tags: [genetics]
-distillate: A GWAS tests each common SNP for association with a trait in a large sample. The toy example (200 cases vs 200 controls, allele counts 220/180 vs 180/220) gives OR = 1.49, χ² = 8.0, p = 0.0047, far from the genome-wide bar of 5×10⁻⁸ (−log₁₀ p = 7.3), which needs χ² ≈ 29.7, about 3,000 people at this effect size. Real studies use hundreds of thousands of people (UK Biobank ≈ 500,000), impute to reference panels, correct for stratification, and their hits feed polygenic risk scores, covered in the [PRS note](note:polygenic-risk-scores).
+distillate: A GWAS tests each common SNP for association with a trait in a large sample. The toy example (200 cases vs 200 controls, allele counts 220/180 vs 180/220) gives OR = 1.49, χ² = 8.0, p = 0.0047, far from the genome-wide bar of 5×10⁻⁸ (−log₁₀ p = 7.3), which needs χ² ≈ 29.7, about 1,500 people at this effect size. Real studies use hundreds of thousands of people (UK Biobank ≈ 500,000), impute to reference panels, correct for stratification, and their hits feed polygenic risk scores, covered in the PRS note.
 model: [Mistral Large 4]
 ---
 
@@ -83,9 +83,9 @@ A GWAS tests around a million common SNPs (and more after imputation), so even w
 
 *Toy Manhattan plot for 24 SNPs. The dashed line is the genome-wide bar 5×10⁻⁸ (7.3 on the −log₁₀ p axis); the strongest toy hit (χ² = 8.0, p = 0.0047, accent point) sits at 2.3, far below it.*
 
-For 1 df, $p = 5 \times 10^{-8}$ corresponds to $\chi^2 \approx 29.7$. Since $\chi^2$ grows roughly linearly with sample size at a fixed effect, the toy effect (OR 1.49, 400 people, χ² = 8.0) would need about $29.7/8.0 \approx 3.7$× the sample, roughly 3,000 people total, to clear the bar. That scaling is why GWAS sample sizes grew from thousands (WTCCC) to hundreds of thousands (UK Biobank, ≈ 500,000 participants, Bycroft et al., 2018)[^5].
+For 1 df, $p = 5 \times 10^{-8}$ corresponds to $\chi^2 \approx 29.7$. Since $\chi^2$ grows roughly linearly with sample size at a fixed effect, the toy effect (OR 1.49, 400 people, χ² = 8.0 on 800 alleles) would need about $29.7/8.0 \approx 3.7$× the sample, roughly 1,500 people total, to clear the bar. That scaling is why GWAS sample sizes grew from thousands (WTCCC) to hundreds of thousands (UK Biobank, ≈ 500,000 participants, Bycroft et al., 2018)[^5].
 
-[^5]: Bycroft et al. (2018), Nature 559, 203–209, doi:10.1038/s41586-018-0579-z.
+[^5]: Bycroft et al. (2018), Nature 562, 203–209, doi:10.1038/s41586-018-0579-z.
 
 ## Confounding and population stratification
 
@@ -97,16 +97,16 @@ The main false-positive source is **population stratification**: if cases and co
 
 ## Genotyping, imputation, meta-analysis
 
-Arrays measure ~0.5–2 million SNPs directly (WTCCC used the Affymetrix 500K). Because SNPs are correlated (linkage disequilibrium, LD), the measured SNPs **impute** the rest against a reference panel (1000 Genomes, 2015)[^9]; the Haplotype Reference Consortium (2016)[^10] panel now underlies most studies, giving dosage (0–2) for tens of millions of variants. Cohorts are then combined by inverse-variance-weighted meta-analysis of per-SNP effect sizes and standard errors.
+Arrays measure ~0.5–2 million SNPs directly (WTCCC used the Affymetrix 500K). Because SNPs are correlated (linkage disequilibrium, LD), the measured SNPs **impute** the rest against a reference panel (1000 Genomes, 2015)[^9]; the HRC (2016)[^10] and TOPMed panels now underlie most studies, giving dosage (0–2) for tens of millions of variants. Cohorts are then combined by inverse-variance-weighted meta-analysis of per-SNP effect sizes and standard errors.
 
 [^9]: 1000 Genomes Project Consortium (2015), Nature 526, 68–74, doi:10.1038/nature15394.
-[^10]: McCarthy et al. (2016), Nat Genet 48, 1162–1170, doi:10.1038/ng.3643.
+[^10]: McCarthy et al. (2016), Nat Genet 48, 1279–1283, doi:10.1038/ng.3643.
 
 ## From hits to biology
 
 An associated SNP is rarely the causal one: it may just be in LD with the causal variant, so a locus usually contains many correlated hits. **Fine-mapping** (FINEMAP, SuSiE) computes credible sets of likely-causal variants (Benner et al., 2016; Wang et al., 2020)[^11]. Follow-up then links loci to genes via eQTLs (GTEx Consortium, 2017)[^12] and colocalization. Effect sizes from discovery are also inflated by the **winner's curse**, so estimates shrink in replication (Wray et al., 2013)[^13]. The hits feed downstream tools: clumping and thresholding, and ultimately the polygenic risk scores of the [PRS note](note:polygenic-risk-scores).
 
-[^11]: Benner et al. (2016), Bioinformatics 32, 1493–1501, doi:10.1093/bioinformatics/btw331; Wang et al. (2020), Nat Genet 52, 1355–1363, doi:10.1038/s41588-020-00801-w.
+[^11]: Benner et al. (2016), Bioinformatics 32, 1493–1501, doi:10.1093/bioinformatics/btw331; Wang, Sarkar, Carbonetto & Stephens (2020), JRSS B 82, 1273–1300, doi:10.1111/rssb.12388.
 [^12]: GTEx Consortium (2017), Nature 550, 204–213, doi:10.1038/nature24277.
 [^13]: Wray et al. (2013), Nat Rev Genet 14, 507–515, doi:10.1038/nrg3457.
 
@@ -142,14 +142,14 @@ def erfcinv(y):                                 # invert erfc by bisection
     return (lo + hi) / 2
 chi2_thr = 2 * erfcinv(thr) ** 2
 print(f"genome-wide: p < {thr:g} needs chi2 ~ {chi2_thr:.1f}; at this effect size "
-      f"that is ~{round(N * chi2_thr / chi2, -2):.0f} people total")
+      f"that is ~{round((N // 2) * chi2_thr / chi2, -2):.0f} people total")  # N counts alleles
 ```
 
 which prints:
 
 ```
 OR = 1.49, chi2 = 8.0, p = 0.0047, -log10(p) = 2.33
-genome-wide: p < 5e-08 needs chi2 ~ 29.7; at this effect size that is ~3000 people total
+genome-wide: p < 5e-08 needs chi2 ~ 29.7; at this effect size that is ~1500 people total
 ```
 
 ## Limits
