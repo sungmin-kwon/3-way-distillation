@@ -62,15 +62,15 @@ $$
 ^\circ\mathrm{P} = -616.868 + 1111.14\,\mathrm{SG} - 630.272\,\mathrm{SG}^2 + 135.997\,\mathrm{SG}^3
 $$
 
-which checks out at the ends: SG 1.000 gives about 0 °P and SG 1.040 gives 10.0 °P. For the example batch, °P at OG 1.048 is 11.91, and the wort weighs 20 L × 1.048 kg/L = 20.96 kg, so it holds
+which checks out at the ends: SG 1.000 gives about 0 °P and SG 1.040 gives 10.0 °P. Like the 131.25 rule and the 76.08 formula below, it is a standard homebrewing approximation, quoted here without checking it against a primary source. For the example batch, °P at OG 1.048 is 11.91, and the wort weighs 20 L × 1.048 kg/L = 20.96 kg, so it holds
 
 $$
 11.91\ \mathrm{g/100\,g} \times 20.96\ \mathrm{kg} = 2.50\ \mathrm{kg\ of\ extract}
 $$
 
-Under the note's assumption, that is 2.50 kg of sugar.
+Under the note's assumption, that is 2.50 kg of sugar. Real wort also contains unfermentable sugars and proteins, so this overstates the fermentable sugar.
 
-Hydrometers are calibrated at a temperature printed on the stem (often 20 °C, sometimes 15.6 °C / 60 °F). A warm sample is less dense, so the hydrometer sinks deeper and **reads low**; add the correction from the table that came with the meter, or cool the sample to the calibration temperature.
+Hydrometers are calibrated at a temperature printed on the stem (often 20 °C, sometimes 15.6 °C / 60 °F). A warm sample is less dense, so the hydrometer sinks deeper and **reads low**; add the correction from the table that came with the meter, or cool the sample to the calibration temperature. Both OG and FG need this correction.
 
 ## The ceiling on ABV
 
@@ -100,7 +100,7 @@ $$
 \mathrm{ABV} = 76.08\,\frac{\mathrm{OG}-\mathrm{FG}}{1.775-\mathrm{OG}} \times \frac{\mathrm{FG}}{0.794} = 76.08 \times \frac{0.040}{0.727} \times \frac{1.008}{0.794} = 5.31\%
 $$
 
-so the batch is about 5.3% ABV by either formula. The drop also gives the **apparent attenuation** $(1.048 - 1.008)/(1.048 - 1) = 83\%$. Because the ethanol produced is less dense than water and pulls the FG reading down, apparent attenuation overstates the fraction of extract consumed; the real attenuation is about 68%, computed next.
+so the batch is about 5.3% ABV by either formula. The simple rule drifts low as OG rises, which is what the second formula corrects. The drop also gives the **apparent attenuation** $(1.048 - 1.008)/(1.048 - 1) = 83\%$. Because the ethanol produced is less dense than water and pulls the FG reading down, apparent attenuation overstates the fraction of extract consumed; the real attenuation is about 68%, computed next.
 
 The gap between 5.3% and the 8.1% ceiling is mostly sugar left unfermented: FG 1.008 still contains extract. Balling's relation for the **real extract** in a fermented liquid is $\mathrm{RE} = 0.1808\,\mathrm{OE} + 0.8192\,\mathrm{AE}$, with OE the original extract and AE the Plato at FG. Here $\mathrm{AE} = 2.05\ ^\circ\mathrm{P}$, so
 
@@ -114,7 +114,7 @@ $$
 8.1\% \times 0.68 \times 0.946 = 5.2\%
 $$
 
-matching the gravity-drop formulas. (ABV counts ethanol as pure ethanol by volume, mass ÷ 0.789, so the contraction of mixing does not enter the ABV number.)
+matching the gravity-drop formulas. (ABV counts ethanol as pure ethanol by volume, mass ÷ 0.789, so the contraction of mixing does not enter the ABV number.) None of this predicts the attenuation itself: how far a fermentation gets depends on the yeast strain, temperature, and nutrients.
 
 ## Measuring ABV directly
 
@@ -155,7 +155,3 @@ ABV from gravity drop: 5.25% (simple), 5.31% (accurate)
 apparent attenuation: 83%
 real extract: 3.83 degP, real attenuation: 68%
 ```
-
-## Limits
-
-The ceiling assumes every gram of extract is fermentable sugar; real wort contains unfermentable sugars and proteins, and the °P polynomial is itself an approximation. The Plato polynomial, the 131.25 rule, and the 76.08 formula are standard homebrewing approximations, quoted here without checking them against a primary source; the simple rule drifts low as OG rises, which is what the second formula corrects. Both OG and FG must be corrected to the calibration temperature if the samples were warmer or cooler. ABV is defined at 20 °C; wt % and mole fraction are different bases. None of this models the yeast: how far a fermentation actually attenuates depends on the strain, temperature, and nutrients.

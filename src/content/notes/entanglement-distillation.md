@@ -41,6 +41,8 @@ Each non-target Bell state is a named error. Read in the computational basis, ${
 
 A Werner pair is entangled exactly when $F > 1/2$, and teleporting through it gives an average fidelity of $(2F+1)/3$ (Horodecki, Horodecki and Horodecki, 1999). That beats the classical limit of 2/3 by the same condition, $F > 1/2$. For the raw pairs it is $(2 \cdot 0.80 + 1)/3 = 0.867$; at the 0.95 goal it would be 0.967.
 
+The Werner model is a choice. Real noise is often dominated by one error type, and a protocol tuned to it can do much better than the figures below. For any entangled two-qubit state, some protocol can distill it (Horodecki, Horodecki and Horodecki, 1997), but the best possible yield, the *distillable entanglement*, is not known in closed form even for Werner states.
+
 ## The check: a bilateral CNOT
 
 Every recurrence protocol is built from one move. Take two pairs. Alice applies a CNOT from her half of pair 1 (the *source*) to her half of pair 2 (the *target*), and Bob does the same on his side. Both then measure their target qubit in the computational basis and phone each other the result. If the results agree, they keep pair 1; if not, they throw it away. Pair 2 is always consumed.
@@ -114,7 +116,7 @@ $F' > F$ for every $F$ between 1/2 and 1, and both ends are fixed points, so rep
 | 4 | 0.930 | 0.881 | 34.6 |
 | 5 | 0.950 | 0.911 | 75.9 |
 
-Five rounds pass the 0.95 goal, at about 76 raw pairs per kept pair. The cost is the product of $2/p$ over the rounds, so it at least doubles each round, while the gain per round keeps shrinking.
+Five rounds pass the 0.95 goal, at about 76 raw pairs per kept pair. The cost is the product of $2/p$ over the rounds, so it at least doubles each round, while the gain per round keeps shrinking. The cost is also an average: recurrence pairs up survivors of the same round, so a real run needs enough pairs at each level and loses some to odd counts.
 
 ## DEJMPS
 
@@ -219,16 +221,13 @@ $$
 Y = 1 - S(\rho), \qquad S(\rho) = -\sum_i \lambda_i \log_2 \lambda_i
 $$
 
-where $\lambda_i$ are the four Bell weights and $S$ is the von Neumann entropy. It needs only one-way classical communication.
+where $\lambda_i$ are the four Bell weights and $S$ is the von Neumann entropy. It needs only one-way classical communication, and the rate holds only in the limit of large blocks.
 
 For Werner pairs, $Y > 0$ only above $F = 0.811$. The raw pairs fall just short: $Y = -0.039$, so hashing alone gets nothing from them. One recurrence round fixes that. Its kept pairs, at $(0.838, 0.012, 0.012, 0.139)$, have $Y = 0.242$, so the combination gives $0.384 \times 0.242 \approx 0.093$ perfect pairs per raw pair, or about 11 raw pairs each. That is the square in the figure above. The original BBPSSW paper already used recurrence to prepare pairs for a second, asymptotic method (*breeding*, which has the same $1 - S$ yield for Werner pairs); hashing removes the need for a pre-purified supply.
 
-## Limits
+## On real hardware
 
-- **Perfect gates are assumed.** Every number above takes the CNOTs and measurements to be flawless. With noisy local operations, each round adds error, and the fidelity stops climbing at a ceiling set by the gate error rate instead of approaching 1. Briegel, Dür, Cirac and Zoller (1998) analysed this for quantum repeaters.
-- **Memories wait.** Each round needs a round trip of classical messages, and the kept pairs decohere while Alice and Bob wait, which costs more the longer the link.
-- **"Raw pairs per kept pair" is an average.** Recurrence pairs up survivors of the same round, so a real run needs enough pairs at each level and loses some to odd counts. Hashing's yield holds only in the limit of large blocks.
-- **The Werner model is a choice.** Real noise is often dominated by one error type, and a protocol tuned to it can do much better than these figures. For any entangled two-qubit state, some protocol can distill it (Horodecki, Horodecki and Horodecki, 1997), but the best possible yield, the *distillable entanglement*, is not known in closed form even for Werner states.
+Every number above takes the CNOTs and measurements to be flawless. With noisy local operations, each round adds error, and the fidelity stops climbing at a ceiling set by the gate error rate instead of approaching 1. Briegel, Dür, Cirac and Zoller (1998) analysed this for quantum repeaters. Each round needs a round trip of classical messages, and the kept pairs decohere while Alice and Bob wait, which costs more the longer the link.
 
 Experiments have shown the idea working with photons (Pan et al., 2003) and between two nitrogen-vacancy centres in diamond acting as network nodes (Kalb et al., 2017).
 

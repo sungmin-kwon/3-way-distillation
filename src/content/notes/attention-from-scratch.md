@@ -43,7 +43,7 @@ X = \begin{pmatrix}
 \end{pmatrix}
 $$
 
-Each embedding has norm $\sqrt{2}$, a fact that matters below. In a real model these vectors come from a learned embedding table plus positional encodings; here they are chosen by hand.
+Each embedding has norm $\sqrt{2}$, a fact that matters below. In a real model these vectors come from a learned embedding table; here they are chosen by hand. The original transformer also adds sinusoidal **positional encodings** to them, because attention itself is permutation-equivariant and carries no word-order information.
 
 ## Queries, keys, and values
 
@@ -79,7 +79,7 @@ $$
 
 for example $S_{12} = x_1 \cdot x_2 / 2 = 1/2 = 0.5$. Because every embedding here has norm $\sqrt{2}$, each scaled score is also the **cosine similarity** between the two tokens.
 
-The $1/\sqrt{d_k}$ factor is there because a dot product of two $d_k$-dimensional vectors with independent zero-mean, unit-variance entries has variance $d_k$. At large $d_k$ the raw scores grow large, the softmax below saturates toward one-hot, and its gradients vanish. Dividing by $\sqrt{d_k}$ keeps the variance near 1. This is the scaling Vaswani et al. (2017) proposed.
+The $1/\sqrt{d_k}$ factor is there because a dot product of two $d_k$-dimensional vectors with independent zero-mean, unit-variance entries has variance $d_k$. At large $d_k$ the raw scores grow large, the softmax below saturates toward one-hot, and its gradients vanish. Dividing by $\sqrt{d_k}$ keeps the variance near 1. This is the scaling Vaswani et al. (2017) proposed. The scaling factor is doing real work even at $d_k = 4$: without it the middle row's scores would be $(1, 2, 1)$, and softmax would put 0.5761 of the weight on "cat" itself instead of 0.4519 (and 0.6652 on "the" instead of 0.5065).
 
 ## Softmax: from scores to weights
 
@@ -173,11 +173,13 @@ and the full output matrix is:
 
 In this toy example the diagonal is largest because $x_i \cdot x_i = 2$ beats every cross dot product, so each token attends most to itself: "the" splits 0.5065 / 0.3072 / 0.1863 over "the" / "cat" / "sat". In a trained model the weight matrices project the embedding space so that *task-relevant* tokens get large dot products; "cat" attending to "sat" (a verb) or to "the" is exactly the kind of relation the learned $W_Q$ and $W_K$ are there to create.
 
-## One head vs. many, and masking
+## One head vs. many, masking, and cost
 
 A **multi-head** attention layer runs $h$ such heads in parallel, each with its own $W_Q$, $W_K$, $W_V$ of shape $d_{\mathrm{model}} \times d_k$, concatenates the $h$ outputs, and projects with $W_O$. The head size is usually chosen so that $h \cdot d_v = d_{\mathrm{model}}$; Vaswani et al. (2017) used $d_{\mathrm{model}} = 512$, $h = 8$ heads, and $d_k = d_v = 64$. Different heads can learn different relations, which is why the layer is more than $h$ copies of one head.
 
 In a decoder, self-attention is **masked**: future positions get score $-\infty$ before the softmax, so token $i$ can attend only to positions $\le i$. The example above is unmasked, as in an encoder.
+
+Computing $S$ costs $O(n^2 d_k)$ time and the attention matrix $O(n^2)$ memory per head in sequence length $n$; that quadratic growth is the main practical limit of attention on long sequences. KV caching and the verify-in-one-pass trick in the [speculative decoding note](note:speculative-decoding) attack different costs: caching keeps each token's $K$ and $V$ so a decoding step attends in $O(n)$ instead of recomputing them, and speculative decoding targets the per-token memory-bandwidth cost of reading the weights.
 
 ## The whole computation in Python
 
@@ -218,7 +220,3 @@ cat: 0.2741  0.4519  0.2741
 sat: 0.1863  0.3072  0.5065
 output for 'cat': ['0.7260', '0.7260', '0.2741', '0.2741']
 ```
-
-## Limits
-
-The example uses identity weight matrices, no bias terms, one layer, one head, and no masking, so it shows the mechanics of a head, not learned behavior. The embeddings are chosen by hand; in a real model they are learned, and the original transformer adds sinusoidal **positional encodings** to them because attention itself is permutation-equivariant and carries no word-order information. The scaling factor is doing real work even at $d_k = 4$: without it the middle row's scores would be $(1, 2, 1)$, and softmax would put 0.5761 of the weight on "cat" itself instead of 0.4519 (and 0.6652 on "the" instead of 0.5065). Computing $S$ costs $O(n^2 d_k)$ time and the attention matrix $O(n^2)$ memory per head in sequence length $n$; that quadratic growth is the main practical limit of attention on long sequences. KV caching and the verify-in-one-pass trick in the [speculative decoding note](note:speculative-decoding) attack different costs: caching keeps each token's $K$ and $V$ so a decoding step attends in $O(n)$ instead of recomputing them, and speculative decoding targets the per-token memory-bandwidth cost of reading the weights.
