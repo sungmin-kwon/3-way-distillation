@@ -41,7 +41,7 @@ it breaks links.
 title: Forward vs. reverse KL          # omit for a short note
 date: 2026-11-12                       # required, YYYY-MM-DD
 updated: 2026-11-20                    # only when a published note changes materially
-tags: [model]                          # model, cheme, spirits; zero or more
+tags: [ml/llm]                         # ml/llm, cheme, spirits; zero or more
 summary: One line for the index.       # long notes
 distillate: The boiled-down version.   # long notes
 rough: true                            # unfinished thinking; leave out otherwise
@@ -49,7 +49,7 @@ draft: true                            # not published; leave out otherwise
 ---
 ```
 
-- **Tags:** only `model` (language models, ML), `cheme` (chemical engineering, separations),
+- **Tags:** only `ml/llm` (machine learning and language models), `cheme` (chemical engineering, separations),
   and `spirits` (fermentation, distilling, drinks). Don't invent new tags; ask first.
 - **No H1 in the body.** The title comes from frontmatter. Sections are `##`; use `###` rarely.
 - Quote a frontmatter value with `"..."` if it contains a colon followed by a space.
@@ -186,7 +186,7 @@ errors. These rules matter more than anything above.
 title: <Short noun phrase or question>
 summary: <What it covers, in one line> — <part>, <part>, <part>.
 date: YYYY-MM-DD
-tags: [<model|cheme|spirits>]
+tags: [<ml/llm|cheme|spirits>]
 distillate: <The answer in one sentence.> <The key number from the worked example.> <The main limit or caveat.>
 ---
 
@@ -220,7 +220,7 @@ Throughout, I'll use one worked example:
 title: Why softmax subtracts the max
 summary: The overflow that a naive softmax hits on large logits, and the one-line fix — shift invariance, a two-token example, and log-softmax.
 date: 2026-11-15
-tags: [model]
+tags: [ml/llm]
 distillate: Softmax is unchanged when the same constant is added to every logit, so implementations subtract the largest logit before exponentiating. For logits (1000, 999) the naive version overflows, and the shifted one gives 0.731 and 0.269 exactly as for (1, 0). The same shift keeps log-softmax stable.
 ---
 
