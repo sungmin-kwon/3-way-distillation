@@ -8,6 +8,9 @@ The only client-side JavaScript is the find box on the index.
 
 ## Writing a note
 
+For voice, structure, accuracy rules and a self-check list (written so that any model can follow
+them), see [`WRITING.md`](WRITING.md).
+
 Every note is one Markdown file in `src/content/notes/`. The file name becomes its URL
 (`src/content/notes/soft-targets.md` → `/notes/soft-targets/`).
 
