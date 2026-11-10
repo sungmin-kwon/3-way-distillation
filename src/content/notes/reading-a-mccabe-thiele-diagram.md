@@ -4,11 +4,12 @@ summary: The graphical method for binary distillation, worked from start to fini
 date: 2026-11-09
 tags: [cheme]
 distillate: Draw the equilibrium curve and two straight operating lines on an x–y diagram, then step between them from the top product down to the bottom product; each step is one theoretical stage. For a 50/50 feed split into 95% and 5% products at α = 2.5 and 1.5 × minimum reflux, that comes to 12 stages. It only holds for binary mixtures with constant molar overflow, so it teaches how a column works rather than designing one.
+model: [Mistral Large 4, Claude Opus 5.5]
 ---
 
 The McCabe–Thiele method (1925) designs a binary distillation column on paper: plot a few lines on an x–y diagram and count the stages off graphically. Process simulators have long since taken over real design, but the geometry is still the clearest picture of what a column does, and it's the picture behind every "number of stages vs. reflux" trade-off.
 
-Throughout, I'll use one worked example:
+Throughout, the note uses one worked example:
 
 | | value |
 | --- | --- |

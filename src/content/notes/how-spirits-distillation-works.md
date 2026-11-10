@@ -4,6 +4,7 @@ summary: The physical chemistry behind pot stills and cuts, with numbers — eth
 date: 2026-11-09
 tags: [spirits]
 distillate: The vapor above a boiling ethanol–water mixture is richer in ethanol than the liquid, and a still exploits that once (a pot still) or many times over (a column). A single pot-still pass turns an 8% wash into low wines of about 20%, and a second pass gives hearts near 70%. The azeotrope at about 97% ABV (95.6% by mass) caps every still at atmospheric pressure, and cuts work because congeners come off at different points in the run, governed by their volatility in the mixture rather than by their boiling points alone.
+model: [Mistral Large 4, Claude Opus 5.5]
 ---
 
 Distilling a fermented wash is applied vapor–liquid equilibrium (VLE). Ethanol and water, plus hundreds of trace *congeners*, have different volatilities, so the vapor above a boiling liquid has a different composition from the liquid. For ethanol it is always richer, right up to the azeotrope. A still is a device for exploiting that difference, once or many times in a row.

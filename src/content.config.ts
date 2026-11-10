@@ -17,6 +17,9 @@ const notes = defineCollection({
     rough: z.boolean().default(false),
     // Not published at all.
     draft: z.boolean().default(false),
+    // Model(s) that drafted or revised the note, earliest first. Internal record only:
+    // never rendered on the site (but visible to anyone reading the public source).
+    model: z.union([z.string(), z.array(z.string())]).optional(),
   }),
 });
 

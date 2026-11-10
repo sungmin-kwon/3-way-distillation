@@ -16,8 +16,10 @@ reader is a curious, technical person, often Sungmin a year from now. Write for 
   an equation, or a worked example.
 - **Full sentences and short paragraphs** of two to five sentences. Lead each section with its
   point. Lists are for parallel items (sources, cases, options), not for a chain of reasoning.
-- **First person is fine but rare:** "I'll use one worked example", "Open questions I want to
-  work through". Contractions (it's, doesn't) are fine.
+- **No first-person singular.** Never "I", "me", "my" or "I'll". Write around it: "Throughout,
+  the note uses one worked example", "This rests on reporting, not the ruling itself", "isn't
+  checked here". When a first person truly can't be avoided, use "we" ("Translations are our
+  own"), and use even that sparingly. Contractions (it's, doesn't) are fine.
 - **Punctuation:** en dash (–) for pairs and ranges: ethanol–water, McCabe–Thiele, 1–4.
   Avoid em dashes (—) in body text; use a comma, a colon, or a new sentence. One em dash in the
   `summary` line is fine. No arrow chains (A → B → C) in prose.
@@ -46,11 +48,16 @@ summary: One line for the index.       # long notes
 distillate: The boiled-down version.   # long notes
 rough: true                            # unfinished thinking; leave out otherwise
 draft: true                            # not published; leave out otherwise
+model: [Claude Opus 5.5]               # model(s) that wrote or revised it; never shown on the site
 ---
 ```
 
 - **Tags:** only `ml/llm` (machine learning and language models), `cheme` (chemical engineering, separations),
   and `spirits` (fermentation, distilling, drinks). Don't invent new tags; ask first.
+- **Model:** list every model that drafted or substantially revised the note, earliest first,
+  as it calls itself (`[Mistral Large 4, Claude Opus 5.5]`). Add a name when a model revises the
+  note; never remove one. The site never shows it, but the repo is public, so anyone reading the
+  source can see it. Leave it out for a note written by hand.
 - **No H1 in the body.** The title comes from frontmatter. Sections are `##`; use `###` rarely.
 - Quote a frontmatter value with `"..."` if it contains a colon followed by a space.
 
@@ -105,7 +112,7 @@ Every number in the summary or distillate must also appear, identically, in the 
 4. **Sections that each answer one question.** Headings are short noun phrases or questions:
    "The q-line", "Why match a distribution and not just the answer", "Evaluation is the hard part".
 5. **Limits** of the method or model, stated plainly.
-6. **Optional ending:** a `## Summary` paragraph, or `## Open questions I want to work through`
+6. **Optional ending:** a `## Summary` paragraph, or `## Open questions`
    as a short list. Don't do both.
 
 ## 6. Conventions
@@ -188,13 +195,14 @@ summary: <What it covers, in one line> — <part>, <part>, <part>.
 date: YYYY-MM-DD
 tags: [<ml/llm|cheme|spirits>]
 distillate: <The answer in one sentence.> <The key number from the worked example.> <The main limit or caveat.>
+model: [<the model writing this>]
 ---
 
 <What it is and why it matters, two to four sentences. Who named it and when.>
 
 <Optional: > one-paragraph safety or legal note.>
 
-Throughout, I'll use one worked example:
+Throughout, the note uses one worked example:
 
 | | value |
 | --- | --- |
@@ -254,8 +262,9 @@ $c = \max_j z_j$. Library functions such as `torch.log_softmax` compute it this 
 
 Go through this list and fix anything that fails. Then report which items you could not verify.
 
-- [ ] Frontmatter has `date`; a long note also has `title`, `summary`, `distillate`, and tags
-      from the allowed three.
+- [ ] Frontmatter has `date` and `model`; a long note also has `title`, `summary`,
+      `distillate`, and tags from the allowed three.
+- [ ] No "I", "me" or "my" anywhere; "we" only where unavoidable.
 - [ ] The distillate stands alone, gives the answer and a key number, and matches the body.
 - [ ] One worked example runs through the note, with its parameters in a table.
 - [ ] Every number has units and a basis, and every number in the example was recomputed.
