@@ -23,7 +23,7 @@ Throughout, the note uses one worked example:
 | weight matrices | $W_Q = W_K = W_V = I_4$ (identity, to keep the arithmetic by hand) |
 | masking | none |
 
-[^1]: Vaswani, Shazeer, Parmar, et al. (2017), *Attention Is All You Need*, NeurIPS 2017, <https://arxiv.org/abs/1706.03762>.
+[^1]: A. Vaswani, N. Shazeer, N. Parmar, et al., "Attention is all you need", NeurIPS 2017. [arXiv:1706.03762](https://arxiv.org/abs/1706.03762)
 
 ## Embeddings
 

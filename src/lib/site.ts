@@ -23,7 +23,7 @@ export const TAGS = [
     name: 'genes',
     era: 'present',
     blurb: 'genetics and genomics, what I work with now.',
-    description: 'Genetics, genomics and the clinical data around them: GWAS, polygenic scores, Mendelian randomization, EHR/CDW infrastructure.',
+    description: 'Genetics, genomics and the clinical data around them: GWAS, polygenic scores, Mendelian randomization, medical codes and EHR/CDW infrastructure.',
   },
   {
     name: 'qi/qc',

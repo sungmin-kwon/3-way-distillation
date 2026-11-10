@@ -34,11 +34,11 @@ with $T$ in °C, $P^{\mathrm{sat}}$ in mmHg, and one set of constants per compon
 | benzene | 6.8932 | 1203.835 | 219.924 |
 | toluene | 6.9533 | 1343.943 | 219.377 |
 
-[^1]: NIST Chemistry WebBook Antoine parameters, log10(P/bar) = A − B/(T/K + C): [benzene](https://webbook.nist.gov/cgi/cbook.cgi?ID=C71432&Mask=4) with A = 4.01814, B = 1203.835, C = -53.226 over 287.70–354.07 K; [toluene](https://webbook.nist.gov/cgi/cbook.cgi?ID=C108883&Mask=4) with A = 4.07827, B = 1343.943, C = -53.773 over 308.52–384.66 K. Both from Willingham, Taylor, Pignocco and Rossini (1945), doi:10.6028/jres.035.009. The table above is that fit converted to mmHg and °C (A′ = A + log10(760/1.01325), B′ = B, C′ = C + 273.15); the displayed rounding changes pressures by less than 0.01%.
+[^1]: NIST Chemistry WebBook Antoine parameters, log10(P/bar) = A − B/(T/K + C): [benzene](https://webbook.nist.gov/cgi/cbook.cgi?ID=C71432&Mask=4) with A = 4.01814, B = 1203.835, C = -53.226 over 287.70–354.07 K; [toluene](https://webbook.nist.gov/cgi/cbook.cgi?ID=C108883&Mask=4) with A = 4.07827, B = 1343.943, C = -53.773 over 308.52–384.66 K. Both from Willingham, Taylor, Pignocco and Rossini (1945), *J. Res. Natl. Bur. Stand.* 35, 219, [doi:10.6028/jres.035.009](https://doi.org/10.6028/jres.035.009). The table above is that fit converted to mmHg and °C (A′ = A + log10(760/1.01325), B′ = B, C′ = C + 273.15); the displayed rounding changes pressures by less than 0.01%.
 
 Setting $P^{\mathrm{sat}} = 760$ mmHg and solving for $T$ returns 80.1 °C for benzene and 110.6 °C for toluene, their normal boiling points. At the bubble point found below (95.15 °C), the equation gives $P^{\mathrm{sat}}_{\mathrm{benzene}} = 1181.4$ mmHg and $P^{\mathrm{sat}}_{\mathrm{toluene}} = 479.1$ mmHg.
 
-Each fit holds over a stated range. The toluene fit covers 35.4–111.5 °C, but the benzene fit covers only 14.6–80.9 °C, so above about 81 °C the benzene vapor pressures in this note are a mild extrapolation. NIST's separate benzene fit for 60.3–100.4 °C (Eon, Pommier, et al., 1971) agrees with it to within 0.4% up to 95 °C and about 1.4% at 110.6 °C.
+Each fit holds over a stated range. The toluene fit covers 35.4–111.5 °C, but the benzene fit covers only 14.6–80.9 °C, so above about 81 °C the benzene vapor pressures in this note are a mild extrapolation. NIST's separate benzene fit for 60.3–100.4 °C (Eon, Pommier, et al., 1971, on the same [NIST benzene page](https://webbook.nist.gov/cgi/cbook.cgi?ID=C71432&Mask=4)) agrees with it to within 0.4% up to 95 °C and about 1.4% at 110.6 °C.
 
 ## Raoult's law and the bubble point
 

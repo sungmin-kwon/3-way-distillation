@@ -43,7 +43,7 @@ $$
 \chi^2 = \sum \frac{(O - E)^2}{E} = 4 \times \frac{20^2}{200} = 8.0
 $$
 
-With 1 degree of freedom, $\chi^2 = 8.0$ gives $p = 0.0047$. On its own that would count as suggestive. In a genome-wide scan it is nothing, because tests like it are run a million times.
+With 1 degree of freedom, $\chi^2 = 8.0$ gives $p = 0.0047$. On its own that would count as suggestive. In a genome-wide scan it is nothing, because tests like it are run a million times. The test also assumes the case and control labels are right; when they come from diagnosis codes in health records, they often aren't, and the [medical codes note](note:medical-codes) works out what that costs in odds ratio and sample size.
 
 The allele-count table treats the 800 alleles as independent draws, which holds only under Hardy–Weinberg equilibrium. Real pipelines instead regress the trait on genotype dosage (0, 1 or 2 copies of A) with covariates: logistic regression for a disease, linear for a quantitative trait. For one SNP without covariates the two give nearly the same answer, and the regression form is what the simulated scan below uses. In practice it is run with tools such as PLINK (Chang et al., 2015) or REGENIE (Mbatchou et al., 2021).
 

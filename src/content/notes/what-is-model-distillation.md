@@ -130,3 +130,18 @@ A low distillation loss does not mean behavioral equivalence. The KL is averaged
 - How much teacher capability survives at 1B vs. 3B vs. 7B parameters, per task family
 - Forward vs. reverse KL vs. on-policy for long-form generation, and how temperature interacts with long-horizon coherence
 - When sequence-level distillation on teacher traces loses to training on curated real data, especially for math and code where traces can be confidently wrong
+
+## Sources
+
+- G. Hinton, O. Vinyals, J. Dean, "Distilling the knowledge in a neural network", NIPS 2014 Deep Learning Workshop (2015). [arXiv:1503.02531](https://arxiv.org/abs/1503.02531)
+- C. Buciluǎ, R. Caruana, A. Niculescu-Mizil, "Model compression", KDD 2006, 535–541. [doi:10.1145/1150402.1150464](https://doi.org/10.1145/1150402.1150464)
+- V. Sanh, L. Debut, J. Chaumond, T. Wolf, "DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter" (2019). [arXiv:1910.01108](https://arxiv.org/abs/1910.01108)
+- A. Romero et al., "FitNets: hints for thin deep nets", ICLR 2015. [arXiv:1412.6550](https://arxiv.org/abs/1412.6550)
+- S. Zagoruyko, N. Komodakis, "Paying more attention to attention: improving the performance of convolutional neural networks via attention transfer", ICLR 2017. [arXiv:1612.03928](https://arxiv.org/abs/1612.03928)
+- Y. Kim, A. M. Rush, "Sequence-level knowledge distillation", EMNLP 2016. [arXiv:1606.07947](https://arxiv.org/abs/1606.07947)
+- Meta, "Llama 3.2: revolutionizing edge AI and vision with open, customizable models" (blog post, 25 September 2024). [ai.meta.com](https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/)
+- Gemma Team, "Gemma 2: improving open language models at a practical size" (2024). [arXiv:2408.00118](https://arxiv.org/abs/2408.00118)
+- S. Muralidharan et al., "Compact language models via pruning and knowledge distillation" (Minitron, 2024). [arXiv:2407.14679](https://arxiv.org/abs/2407.14679)
+- DeepSeek-AI, "DeepSeek-R1 incentivizes reasoning in LLMs through reinforcement learning", *Nature* 645, 633–638 (2025). [doi:10.1038/s41586-025-09422-z](https://doi.org/10.1038/s41586-025-09422-z), [arXiv:2501.12948](https://arxiv.org/abs/2501.12948)
+- Y. Gu, L. Dong, F. Wei, M. Huang, "MiniLLM: knowledge distillation of large language models", ICLR 2024. [arXiv:2306.08543](https://arxiv.org/abs/2306.08543)
+- R. Agarwal et al., "On-policy distillation of language models: learning from self-generated mistakes", ICLR 2024. [arXiv:2306.13649](https://arxiv.org/abs/2306.13649)
