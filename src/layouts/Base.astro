@@ -3,7 +3,8 @@ import 'katex/dist/katex.min.css';
 import '../styles/site.css';
 import FamilyMenu from '../components/FamilyMenu.astro';
 import { href } from '../lib/notes';
-import { PALETTE_CSS, SITE_TITLE, SITE_DESCRIPTION, SITE_LANG } from '../lib/site';
+import { FONT_CSS, FONT_STYLESHEET, PALETTE_CSS, SITE_TITLE, SITE_DESCRIPTION, SITE_LANG } from '../lib/site';
+import { UI, themeSwitch } from '../lib/i18n';
 
 interface Props {
   title?: string;
@@ -33,28 +34,35 @@ const pageTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
       } catch (e) {}
     </script>
     {PALETTE_CSS && <style is:inline set:html={PALETTE_CSS} />}
+    {FONT_CSS && <style is:inline set:html={FONT_CSS} />}
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href={href('favicon.svg')} />
     <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={href('rss.xml')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap"
-    />
+    <link rel="stylesheet" href={FONT_STYLESHEET} />
   </head>
   <body>
-    <a class="skip" href="#main">Skip to content</a>
+    <a class="skip" href="#main">{UI.skip}</a>
     <div class="page">
       <header class="masthead">
         <a class="site-name" href={href()} aria-current={current === 'index' ? 'page' : undefined}>
           {SITE_TITLE}
         </a>
-        <nav aria-label="Site">
-          <a href={href('about/')} aria-current={current === 'about' ? 'page' : undefined}>about</a>
-          <a href={href('rss.xml')}>rss</a>
-          <button class="theme-toggle" type="button" data-theme-toggle hidden>dark</button>
+        <nav aria-label={UI.navLabel}>
+          <a href={href('about/')} aria-current={current === 'about' ? 'page' : undefined}>{UI.about}</a>
+          <a href={href('rss.xml')}>{UI.rss}</a>
+          <button
+            class="theme-toggle"
+            type="button"
+            data-theme-toggle
+            data-name-light={UI.themeName.light}
+            data-name-dark={UI.themeName.dark}
+            data-label-light={themeSwitch('light')}
+            data-label-dark={themeSwitch('dark')}
+            hidden
+          >{UI.themeName.dark}</button>
         </nav>
       </header>
       <main id="main">
@@ -75,8 +83,8 @@ const pageTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
         };
         var sync = function () {
           var next = current() === 'dark' ? 'light' : 'dark';
-          btn.textContent = next;
-          btn.setAttribute('aria-label', 'Switch to ' + next + ' mode');
+          btn.textContent = btn.getAttribute('data-name-' + next);
+          btn.setAttribute('aria-label', btn.getAttribute('data-label-' + next));
         };
         btn.addEventListener('click', function () {
           var next = current() === 'dark' ? 'light' : 'dark';

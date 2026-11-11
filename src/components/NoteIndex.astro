@@ -13,6 +13,7 @@ import {
   shortDate,
   tagHref,
 } from '../lib/notes';
+import { UI, entries, matches, minutes } from '../lib/i18n';
 
 interface Props {
   notes: Note[]; // every published note, newest first
@@ -32,15 +33,22 @@ for (const n of shown) {
 ---
 
 <div class="index-bar">
-  <nav class="tag-filter" aria-label="Filter by tag">
-    <a href={href()} aria-current={!tag ? 'page' : undefined}>all</a>
+  <nav class="tag-filter" aria-label={UI.filterLabel}>
+    <a href={href()} aria-current={!tag ? 'page' : undefined}>{UI.all}</a>
     {tags.map((t) => (
-      <a href={tagHref(t)} aria-current={t === tag ? 'page' : undefined}>{t}</a>
+      <a href={tagHref(t)} aria-current={t === tag ? 'page' : undefined}>{t === 'rough' ? UI.rough : t}</a>
     ))}
   </nav>
-  <div class="find" data-find hidden>
-    <label for="find">find</label>
-    <input id="find" type="search" placeholder="title or text" autocomplete="off" />
+  <div
+    class="find"
+    data-find
+    data-failed={UI.findFailed}
+    data-match-one={matches(1)}
+    data-match-many={matches(2).replace('2', '{n}')}
+    hidden
+  >
+    <label for="find">{UI.find}</label>
+    <input id="find" type="search" placeholder={UI.findPlaceholder} autocomplete="off" />
   </div>
 </div>
 
@@ -52,11 +60,11 @@ for (const n of shown) {
     {g.notes.map((n) => {
       const Body = bodies.get(n.id);
       const meta = [...n.data.tags];
-      if (isShort(n)) meta.unshift('note');
+      if (isShort(n)) meta.unshift(UI.shortNote);
       return (
         <article class={`row${isShort(n) ? ' row-short' : ''}`} data-row data-id={n.id}>
           {isShort(n) ? (
-            <a class="row-date" href={noteHref(n)} title="Permalink">
+            <a class="row-date" href={noteHref(n)} title={UI.permalink}>
               <time datetime={isoDate(n.data.date)}>{shortDate(n.data.date)}</time>
             </a>
           ) : (
@@ -77,8 +85,8 @@ for (const n of shown) {
             )}
             <p class="row-meta">
               {meta.join(' · ')}
-              {n.data.rough && <>{meta.length > 0 && ' · '}<span class="rough">rough</span></>}
-              {!isShort(n) && <>{(meta.length > 0 || n.data.rough) && ' · '}{readingMinutes(n)} min</>}
+              {n.data.rough && <>{meta.length > 0 && ' · '}<span class="rough">{UI.rough}</span></>}
+              {!isShort(n) && <>{(meta.length > 0 || n.data.rough) && ' · '}{minutes(readingMinutes(n))}</>}
             </p>
           </div>
         </article>
@@ -87,14 +95,14 @@ for (const n of shown) {
   </section>
 ))}
 
-{shown.length === 0 && <p class="empty">Nothing here yet.</p>}
+{shown.length === 0 && <p class="empty">{UI.empty}</p>}
 
 <footer class="index-foot">
   <span>
-    {shown.length} {shown.length === 1 ? 'entry' : 'entries'}
-    {notes[0] && <> · last written {isoDate(notes[0].data.date)}</>}
+    {entries(shown.length)}
+    {notes[0] && <> · {UI.lastWritten} {isoDate(notes[0].data.date)}</>}
   </span>
-  <a href={href('rss.xml')}>subscribe by rss</a>
+  <a href={href('rss.xml')}>{UI.subscribe}</a>
 </footer>
 
 <script>
@@ -117,7 +125,7 @@ for (const n of shown) {
           index = data;
         })
         .catch(() => {
-          status.textContent = 'Search failed to load.';
+          status.textContent = box.dataset.failed ?? '';
         }));
 
     const apply = () => {
@@ -130,7 +138,11 @@ for (const n of shown) {
         if (match) hits++;
       }
       for (const m of months) m.hidden = !m.querySelector('[data-row]:not([hidden])');
-      status.textContent = terms.length ? `${hits} ${hits === 1 ? 'entry matches' : 'entries match'}` : '';
+      status.textContent = terms.length
+        ? hits === 1
+          ? (box.dataset.matchOne ?? '')
+          : (box.dataset.matchMany ?? '').replace('{n}', String(hits))
+        : '';
     };
 
     let timer: number | undefined;

@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import NoteIndex from '../../components/NoteIndex.astro';
 import { allTags, getNotes, tagInfo, tagSlug } from '../../lib/notes';
+import { UI } from '../../lib/i18n';
 
 export async function getStaticPaths() {
   const notes = await getNotes();
@@ -14,13 +15,14 @@ const info = tagInfo(tag);
 const description = info
   ? `${info.description}`
   : tag === 'rough'
-    ? 'Unfinished thinking; may be wrong.'
-    : `Notes tagged ${tag}.`;
+    ? UI.roughTagDescription
+    : UI.tagDescription.replace('{tag}', tag);
+const name = tag === 'rough' ? UI.rough : tag;
 ---
 
-<Base title={tag} description={description}>
+<Base title={name} description={description}>
   <p class="intro">
-    <span class="mono">{tag}</span>{info?.era && <> · {info.era}</>}. {description}
+    <span class="mono">{name}</span>{info?.era && <> · {info.era}</>}. {description}
   </p>
   <NoteIndex notes={notes} tag={tag} />
 </Base>
