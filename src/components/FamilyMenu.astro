@@ -1,31 +1,50 @@
 ---
-// Footer menu listing the sites in the family (FAMILY in site.config.mjs). Uses <details>,
-// so it opens and closes without JavaScript. The current site is shown but not linked.
+// The other sites in the family (FAMILY in site.config.mjs, minus this one), in two places:
+// - header: a small <details> menu in the masthead nav, so the other sites are one tap away
+//   on a phone. It opens and closes without JavaScript; Base.astro adds Escape and click-outside.
+// - footer: one plain line of links.
 import { SITE_FAMILY, SITE_FAMILY_LABEL, SITE_LANG, SITE_URL } from '../lib/site';
 import { UI } from '../lib/i18n';
 
+interface Props {
+  place?: 'header' | 'footer';
+}
+const { place = 'header' } = Astro.props;
+
 const sameSite = (url: string) => url.replace(/\/+$/, '') === SITE_URL.replace(/\/+$/, '');
+const langOf = (s: { lang?: string }) => (s.lang && s.lang !== SITE_LANG ? s.lang : undefined);
+const others = SITE_FAMILY.filter((s) => !sameSite(s.url));
 ---
 
-<details class="family">
-  <summary>{SITE_FAMILY_LABEL}</summary>
-  <ul>
-    {
-      SITE_FAMILY.map((s) => {
-        const lang = s.lang && s.lang !== SITE_LANG ? s.lang : undefined;
-        return (
-          <li lang={lang}>
-            {sameSite(s.url) ? (
-              <span class="family-site" aria-current="page">
-                {s.title}<span class="family-here"> · {UI.thisSite}</span>
-              </span>
-            ) : (
-              <a class="family-site" href={s.url} hreflang={lang}>{s.title}</a>
-            )}
-            <span class="family-blurb">{s.blurb}</span>
-          </li>
-        );
-      })
-    }
-  </ul>
-</details>
+{
+  place === 'header' ? (
+    <details class="family">
+      <summary>{UI.family}</summary>
+      <div class="family-panel">
+        <p class="family-label">{SITE_FAMILY_LABEL}</p>
+        <ul>
+          {others.map((s) => (
+            <li lang={langOf(s)}>
+              <a class="family-site" href={s.url} hreflang={langOf(s)}>
+                {s.title}
+              </a>
+              <span class="family-blurb">{s.blurb}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </details>
+  ) : (
+    <p class="family-line">
+      {SITE_FAMILY_LABEL}:{' '}
+      {others.map((s, i) => (
+        <>
+          {i > 0 && <span aria-hidden="true"> · </span>}
+          <a href={s.url} lang={langOf(s)} hreflang={langOf(s)}>
+            {s.title}
+          </a>
+        </>
+      ))}
+    </p>
+  )
+}
