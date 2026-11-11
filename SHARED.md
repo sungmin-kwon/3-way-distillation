@@ -33,7 +33,7 @@ Copy these unchanged. `scripts/sync-shared.mjs` holds the same list.
 ## Site-specific: never copied
 
 - `site.config.mjs`: title, description, URL and base path, language, tags, the label of the
-  distillate box, the 404 line, whether notes may name an affiliation, redirects, and the sibling
+  distillate box, the 404 line, whether notes may name an affiliation, redirects, colors, and the sibling
   sites shown on About.
 - `src/pages/about.astro`: the About text and the "Currently" list.
 - `public/favicon.svg` and `README.md`.
