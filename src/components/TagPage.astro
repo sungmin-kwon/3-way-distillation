@@ -1,0 +1,30 @@
+---
+// A tag's list, one page of it. Used by pages/tags/[tag].astro (page 1) and
+// pages/tags/[tag]/page/[page].astro.
+import Base from '../layouts/Base.astro';
+import NoteIndex from './NoteIndex.astro';
+import { getNotes, tagInfo } from '../lib/notes';
+import { UI, pageTitle } from '../lib/i18n';
+
+interface Props {
+  tag: string;
+  page: number;
+}
+
+const { tag, page } = Astro.props;
+const notes = await getNotes();
+const info = tagInfo(tag);
+const description = info
+  ? `${info.description}`
+  : tag === 'rough'
+    ? UI.roughTagDescription
+    : UI.tagDescription.replace('{tag}', tag);
+const name = tag === 'rough' ? UI.rough : tag;
+---
+
+<Base title={page > 1 ? `${name} · ${pageTitle(page)}` : name} description={description}>
+  <p class="intro">
+    <span class="mono">{name}</span>{info?.era && <> · {info.era}</>}. {description}
+  </p>
+  <NoteIndex notes={notes} tag={tag} page={page} />
+</Base>

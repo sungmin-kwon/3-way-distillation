@@ -1,0 +1,20 @@
+---
+// The index, one page of it. Used by pages/index.astro (page 1) and pages/page/[page].astro.
+import Base from '../layouts/Base.astro';
+import NoteIndex from './NoteIndex.astro';
+import { getNotes } from '../lib/notes';
+import { SITE_DESCRIPTION } from '../lib/site';
+import { pageTitle } from '../lib/i18n';
+
+interface Props {
+  page: number;
+}
+
+const { page } = Astro.props;
+const notes = await getNotes();
+---
+
+<Base current={page === 1 ? 'index' : undefined} title={page > 1 ? pageTitle(page) : undefined}>
+  <p class="intro">{SITE_DESCRIPTION}</p>
+  <NoteIndex notes={notes} page={page} />
+</Base>

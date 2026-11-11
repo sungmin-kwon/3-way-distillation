@@ -8,26 +8,32 @@ import {
   href,
   isShort,
   isoDate,
+  listHref,
   noteHref,
+  pageCount,
+  pageOf,
   readingMinutes,
   shortDate,
   tagHref,
 } from '../lib/notes';
-import { UI, entries, matches, minutes } from '../lib/i18n';
+import { UI, entries, matches, minutes, pagePosition } from '../lib/i18n';
 
 interface Props {
   notes: Note[]; // every published note, newest first
   tag?: string; // when set, only notes with this tag are listed
+  page?: number; // which page of the list, from 1 (PAGE_SIZE notes a page, see site.ts)
 }
 
-const { notes, tag } = Astro.props;
+const { notes, tag, page = 1 } = Astro.props;
 const tags = allTags(notes);
 const shown = tag ? notes.filter((n) => hasTag(n, tag)) : notes;
-const groups = groupByMonth(shown);
+const pages = pageCount(shown.length);
+const onPage = pageOf(shown, page);
+const groups = groupByMonth(onPage);
 
 // Short notes are rendered in full on the index.
 const bodies = new Map<string, Awaited<ReturnType<typeof render>>['Content']>();
-for (const n of shown) {
+for (const n of onPage) {
   if (isShort(n)) bodies.set(n.id, (await render(n)).Content);
 }
 ---
@@ -42,9 +48,11 @@ for (const n of shown) {
   <div
     class="find"
     data-find
+    data-tag={tag}
     data-failed={UI.findFailed}
     data-match-one={matches(1)}
     data-match-many={matches(2).replace('2', '{n}')}
+    data-rough={UI.rough}
     hidden
   >
     <label for="find">{UI.find}</label>
@@ -54,6 +62,7 @@ for (const n of shown) {
 
 <p class="find-status" data-find-status role="status"></p>
 
+<div data-listing>
 {groups.map((g) => (
   <section class="month" data-month>
     <h2 class="label">{g.heading}</h2>
@@ -97,6 +106,17 @@ for (const n of shown) {
 
 {shown.length === 0 && <p class="empty">{UI.empty}</p>}
 
+{pages > 1 && (
+  <nav class="pager" aria-label={UI.pagesLabel}>
+    {page > 1 ? <a href={listHref(page - 1, tag)} rel="prev">{UI.newer}</a> : <span />}
+    <span class="pager-at" aria-current="page">{pagePosition(page, pages)}</span>
+    {page < pages ? <a href={listHref(page + 1, tag)} rel="next">{UI.older}</a> : <span />}
+  </nav>
+)}
+</div>
+
+<div data-results hidden></div>
+
 <footer class="index-foot">
   <span>
     {entries(shown.length)}
@@ -106,43 +126,119 @@ for (const n of shown) {
 </footer>
 
 <script>
-  // Progressive enhancement: the find box only appears when JS runs.
+  // Progressive enhancement: the find box only appears when JS runs. The list is split into
+  // pages, so a search runs over search.json (every note) and its matches replace the page.
+  // If search.json can't be loaded, it falls back to filtering the rows on this page.
+  interface Entry {
+    id: string;
+    href: string;
+    title: string;
+    summary: string;
+    date: string;
+    day: string;
+    month: string;
+    tags: string[];
+    rough: boolean;
+    meta: string;
+    minutes: string;
+    text: string;
+  }
+
   const box = document.querySelector<HTMLElement>('[data-find]');
   const input = document.querySelector<HTMLInputElement>('#find');
   const status = document.querySelector<HTMLElement>('[data-find-status]');
+  const listing = document.querySelector<HTMLElement>('[data-listing]');
+  const results = document.querySelector<HTMLElement>('[data-results]');
   const rows = [...document.querySelectorAll<HTMLElement>('[data-row]')];
   const months = [...document.querySelectorAll<HTMLElement>('[data-month]')];
 
-  if (box && input && status) {
+  const el = <K extends keyof HTMLElementTagNameMap>(tag: K, cls?: string, text?: string) => {
+    const e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text) e.textContent = text;
+    return e;
+  };
+
+  /** A row like the server-rendered ones, with the title (or a short note's first words) linked. */
+  const row = (n: Entry) => {
+    const article = el('article', 'row');
+    const time = el('time', 'row-date', n.day);
+    time.dateTime = n.date;
+    const main = el('div', 'row-main');
+    const h = el('h3', 'row-title');
+    const a = el('a', undefined, n.title);
+    a.href = n.href;
+    h.append(a);
+    main.append(h);
+    if (n.summary) main.append(el('p', 'row-summary', n.summary));
+    const meta = el('p', 'row-meta', n.meta);
+    if (n.rough) {
+      if (n.meta) meta.append(' · ');
+      meta.append(el('span', 'rough', box?.dataset.rough));
+    }
+    if (n.minutes) meta.append(`${n.meta || n.rough ? ' · ' : ''}${n.minutes}`);
+    main.append(meta);
+    article.append(time, main);
+    return article;
+  };
+
+  if (box && input && status && listing && results) {
     box.hidden = false;
-    let index: Record<string, string> | null = null;
+    const scope = box.dataset.tag;
+    let index: Entry[] | null = null;
     let loading: Promise<void> | null = null;
 
     const load = () =>
       (loading ??= fetch(`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}search.json`)
         .then((r) => r.json())
-        .then((data: Record<string, string>) => {
-          index = data;
+        .then((data: Entry[]) => {
+          index = scope
+            ? data.filter((n) => (scope === 'rough' ? n.rough : n.tags.includes(scope)))
+            : data;
         })
         .catch(() => {
           status.textContent = box.dataset.failed ?? '';
         }));
 
-    const apply = () => {
-      const terms = input.value.toLowerCase().split(/\s+/).filter(Boolean);
-      let hits = 0;
-      for (const row of rows) {
-        const text = index?.[row.dataset.id ?? ''] ?? row.textContent?.toLowerCase() ?? '';
-        const match = terms.every((t) => text.includes(t));
-        row.hidden = !match;
-        if (match) hits++;
-      }
-      for (const m of months) m.hidden = !m.querySelector('[data-row]:not([hidden])');
+    const say = (terms: string[], hits: number) => {
       status.textContent = terms.length
         ? hits === 1
           ? (box.dataset.matchOne ?? '')
           : (box.dataset.matchMany ?? '').replace('{n}', String(hits))
         : '';
+    };
+
+    const apply = () => {
+      const terms = input.value.toLowerCase().split(/\s+/).filter(Boolean);
+      if (!index) {
+        // Fallback: filter this page's rows by their visible text.
+        let hits = 0;
+        for (const r of rows) {
+          const match = terms.every((t) => (r.textContent?.toLowerCase() ?? '').includes(t));
+          r.hidden = !match;
+          if (match) hits++;
+        }
+        for (const m of months) m.hidden = !m.querySelector('[data-row]:not([hidden])');
+        say(terms, hits);
+        return;
+      }
+      results.replaceChildren();
+      const searching = terms.length > 0;
+      listing.hidden = searching;
+      results.hidden = !searching;
+      if (!searching) return say(terms, 0);
+      const found = index.filter((n) => terms.every((t) => n.text.includes(t)));
+      let section: HTMLElement | null = null;
+      for (const n of found) {
+        if (section?.dataset.month !== n.month) {
+          section = el('section', 'month');
+          section.dataset.month = n.month;
+          section.append(el('h2', 'label', n.month));
+          results.append(section);
+        }
+        section.append(row(n));
+      }
+      say(terms, found.length);
     };
 
     let timer: number | undefined;

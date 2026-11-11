@@ -18,7 +18,9 @@ export const SHARED = [
   'scripts/notes-meta.mjs',
   'scripts/sync-shared.mjs',
   'src/components/FamilyMenu.astro',
+  'src/components/IndexPage.astro',
   'src/components/NoteIndex.astro',
+  'src/components/TagPage.astro',
   'src/content.config.ts',
   'src/env.d.ts',
   'src/layouts/Base.astro',
@@ -29,9 +31,11 @@ export const SHARED = [
   'src/pages/404.astro',
   'src/pages/index.astro',
   'src/pages/notes/[id].astro',
+  'src/pages/page/[page].astro',
   'src/pages/rss.xml.ts',
   'src/pages/search.json.ts',
   'src/pages/tags/[tag].astro',
+  'src/pages/tags/[tag]/page/[page].astro',
   'src/styles/site.css',
 ];
 const KEEP_NAME = ['package.json', 'package-lock.json'];

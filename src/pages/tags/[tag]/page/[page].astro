@@ -1,0 +1,20 @@
+---
+// Pages 2, 3, … of a tag's list. Page 1 is tags/[tag].astro.
+import TagPage from '../../../../components/TagPage.astro';
+import { allTags, getNotes, hasTag, pageCount, tagSlug } from '../../../../lib/notes';
+
+export async function getStaticPaths() {
+  const notes = await getNotes();
+  return allTags(notes).flatMap((tag) => {
+    const pages = pageCount(notes.filter((n) => hasTag(n, tag)).length);
+    return Array.from({ length: pages - 1 }, (_, i) => ({
+      params: { tag: tagSlug(tag), page: String(i + 2) },
+      props: { tag, page: i + 2 },
+    }));
+  });
+}
+
+const { tag, page } = Astro.props;
+---
+
+<TagPage tag={tag} page={page} />
