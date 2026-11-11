@@ -1,6 +1,7 @@
 ---
 import 'katex/dist/katex.min.css';
 import '../styles/site.css';
+import FamilyMenu from '../components/FamilyMenu.astro';
 import { href } from '../lib/notes';
 import { PALETTE_CSS, SITE_TITLE, SITE_DESCRIPTION, SITE_LANG } from '../lib/site';
 
@@ -59,6 +60,9 @@ const pageTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
       <main id="main">
         <slot />
       </main>
+      <footer class="colophon">
+        <FamilyMenu />
+      </footer>
     </div>
     <script is:inline>
       (function () {

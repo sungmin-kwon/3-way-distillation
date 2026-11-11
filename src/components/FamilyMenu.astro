@@ -1,0 +1,28 @@
+---
+// Footer menu listing the sites in the family (FAMILY in site.config.mjs). Uses <details>,
+// so it opens and closes without JavaScript. The current site is shown but not linked.
+import { SITE_FAMILY, SITE_FAMILY_LABEL, SITE_LANG, SITE_URL } from '../lib/site';
+
+const sameSite = (url: string) => url.replace(/\/+$/, '') === SITE_URL.replace(/\/+$/, '');
+---
+
+<details class="family">
+  <summary>{SITE_FAMILY_LABEL}</summary>
+  <ul>
+    {
+      SITE_FAMILY.map((s) => {
+        const lang = s.lang && s.lang !== SITE_LANG ? s.lang : undefined;
+        return (
+          <li lang={lang}>
+            {sameSite(s.url) ? (
+              <span class="family-site" aria-current="page">{s.title}</span>
+            ) : (
+              <a class="family-site" href={s.url} hreflang={lang}>{s.title}</a>
+            )}
+            <span class="family-blurb">{s.blurb}</span>
+          </li>
+        );
+      })
+    }
+  </ul>
+</details>
