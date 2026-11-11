@@ -1,6 +1,6 @@
 import type { APIContext } from 'astro';
 import { getNotes, label, noteHref, href } from '../lib/notes';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../lib/site';
+import { SITE_DESCRIPTION, SITE_LANG, SITE_TITLE } from '../lib/site';
 
 const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -33,7 +33,7 @@ export async function GET({ site }: APIContext) {
     <title>${esc(SITE_TITLE)}</title>
     <link>${esc(abs(href()))}</link>
     <description>${esc(SITE_DESCRIPTION)}</description>
-    <language>en</language>
+    <language>${esc(SITE_LANG)}</language>
     <atom:link href="${esc(abs(href('rss.xml')))}" rel="self" type="application/rss+xml" />
 ${items}
   </channel>

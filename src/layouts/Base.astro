@@ -2,7 +2,7 @@
 import 'katex/dist/katex.min.css';
 import '../styles/site.css';
 import { href } from '../lib/notes';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../lib/site';
+import { SITE_TITLE, SITE_DESCRIPTION, SITE_LANG } from '../lib/site';
 
 interface Props {
   title?: string;
@@ -19,7 +19,7 @@ const pageTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={SITE_LANG}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

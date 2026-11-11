@@ -20,7 +20,7 @@ const description = info
 
 <Base title={tag} description={description}>
   <p class="intro">
-    <span class="mono">{tag}</span>{info && <> · {info.era}</>}. {description}
+    <span class="mono">{tag}</span>{info?.era && <> · {info.era}</>}. {description}
   </p>
   <NoteIndex notes={notes} tag={tag} />
 </Base>
