@@ -1,0 +1,22 @@
+{
+  "name": "working-notes",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "prebuild": "node scripts/admin-index.mjs && node -e \"require('fs').rmSync('node_modules/.astro', { recursive: true, force: true })\"",
+    "build": "astro build",
+    "admin": "node scripts/admin-index.mjs",
+    "check": "node scripts/check-notes.mjs",
+    "preview": "astro preview",
+    "sync": "node scripts/sync-shared.mjs"
+  },
+  "dependencies": {
+    "@astrojs/markdown-remark": "^7.3.6",
+    "astro": "^7.4.7",
+    "katex": "^0.16.47",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0"
+  }
+}

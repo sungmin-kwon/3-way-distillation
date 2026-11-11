@@ -1,0 +1,143 @@
+---
+import { render } from 'astro:content';
+import {
+  type Note,
+  allTags,
+  groupByMonth,
+  hasTag,
+  href,
+  isShort,
+  isoDate,
+  noteHref,
+  readingMinutes,
+  shortDate,
+  tagHref,
+} from '../lib/notes';
+
+interface Props {
+  notes: Note[]; // every published note, newest first
+  tag?: string; // when set, only notes with this tag are listed
+}
+
+const { notes, tag } = Astro.props;
+const tags = allTags(notes);
+const shown = tag ? notes.filter((n) => hasTag(n, tag)) : notes;
+const groups = groupByMonth(shown);
+
+// Short notes are rendered in full on the index.
+const bodies = new Map<string, Awaited<ReturnType<typeof render>>['Content']>();
+for (const n of shown) {
+  if (isShort(n)) bodies.set(n.id, (await render(n)).Content);
+}
+---
+
+<div class="index-bar">
+  <nav class="tag-filter" aria-label="Filter by tag">
+    <a href={href()} aria-current={!tag ? 'page' : undefined}>all</a>
+    {tags.map((t) => (
+      <a href={tagHref(t)} aria-current={t === tag ? 'page' : undefined}>{t}</a>
+    ))}
+  </nav>
+  <div class="find" data-find hidden>
+    <label for="find">find</label>
+    <input id="find" type="search" placeholder="title or text" autocomplete="off" />
+  </div>
+</div>
+
+<p class="find-status" data-find-status role="status"></p>
+
+{groups.map((g) => (
+  <section class="month" data-month>
+    <h2 class="label">{g.heading}</h2>
+    {g.notes.map((n) => {
+      const Body = bodies.get(n.id);
+      const meta = [...n.data.tags];
+      if (isShort(n)) meta.unshift('note');
+      return (
+        <article class={`row${isShort(n) ? ' row-short' : ''}`} data-row data-id={n.id}>
+          {isShort(n) ? (
+            <a class="row-date" href={noteHref(n)} title="Permalink">
+              <time datetime={isoDate(n.data.date)}>{shortDate(n.data.date)}</time>
+            </a>
+          ) : (
+            <time class="row-date" datetime={isoDate(n.data.date)}>{shortDate(n.data.date)}</time>
+          )}
+          <div class="row-main">
+            {isShort(n) && Body ? (
+              <div class="prose prose-short">
+                <Body />
+              </div>
+            ) : (
+              <>
+                <h3 class="row-title">
+                  <a href={noteHref(n)}>{n.data.title}</a>
+                </h3>
+                {n.data.summary && <p class="row-summary">{n.data.summary}</p>}
+              </>
+            )}
+            <p class="row-meta">
+              {meta.join(' · ')}
+              {n.data.rough && <>{meta.length > 0 && ' · '}<span class="rough">rough</span></>}
+              {!isShort(n) && <>{(meta.length > 0 || n.data.rough) && ' · '}{readingMinutes(n)} min</>}
+            </p>
+          </div>
+        </article>
+      );
+    })}
+  </section>
+))}
+
+{shown.length === 0 && <p class="empty">Nothing here yet.</p>}
+
+<footer class="index-foot">
+  <span>
+    {shown.length} {shown.length === 1 ? 'entry' : 'entries'}
+    {notes[0] && <> · last written {isoDate(notes[0].data.date)}</>}
+  </span>
+  <a href={href('rss.xml')}>subscribe by rss</a>
+</footer>
+
+<script>
+  // Progressive enhancement: the find box only appears when JS runs.
+  const box = document.querySelector<HTMLElement>('[data-find]');
+  const input = document.querySelector<HTMLInputElement>('#find');
+  const status = document.querySelector<HTMLElement>('[data-find-status]');
+  const rows = [...document.querySelectorAll<HTMLElement>('[data-row]')];
+  const months = [...document.querySelectorAll<HTMLElement>('[data-month]')];
+
+  if (box && input && status) {
+    box.hidden = false;
+    let index: Record<string, string> | null = null;
+    let loading: Promise<void> | null = null;
+
+    const load = () =>
+      (loading ??= fetch(`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}search.json`)
+        .then((r) => r.json())
+        .then((data: Record<string, string>) => {
+          index = data;
+        })
+        .catch(() => {
+          status.textContent = 'Search failed to load.';
+        }));
+
+    const apply = () => {
+      const terms = input.value.toLowerCase().split(/\s+/).filter(Boolean);
+      let hits = 0;
+      for (const row of rows) {
+        const text = index?.[row.dataset.id ?? ''] ?? row.textContent?.toLowerCase() ?? '';
+        const match = terms.every((t) => text.includes(t));
+        row.hidden = !match;
+        if (match) hits++;
+      }
+      for (const m of months) m.hidden = !m.querySelector('[data-row]:not([hidden])');
+      status.textContent = terms.length ? `${hits} ${hits === 1 ? 'entry matches' : 'entries match'}` : '';
+    };
+
+    let timer: number | undefined;
+    input.addEventListener('focus', load, { once: true });
+    input.addEventListener('input', () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => load().then(apply), 100);
+    });
+  }
+</script>

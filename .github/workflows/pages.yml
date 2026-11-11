@@ -1,0 +1,47 @@
+name: Build and deploy to Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# One queue per branch or PR, so a PR check never cancels a deploy from main.
+# A newer check on the same PR replaces an older one; deploys from main always finish.
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # Mechanical checks from WRITING.md. Only on pull requests, so a hand edit on main never blocks a deploy.
+      - if: github.event_name == 'pull_request'
+        run: npm run check
+      - run: npm run build
+      # The build regenerates ADMIN.md; if that changed it, the committed copy is stale.
+      - run: git diff --quiet ADMIN.md || echo "::warning file=ADMIN.md::ADMIN.md is out of date. Run npm run admin and commit it."
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/deploy-pages@v5
+        id: deployment
