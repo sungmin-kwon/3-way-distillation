@@ -410,6 +410,61 @@ a.row-date:hover {
   line-height: 1.5;
 }
 
+/* Contents list of a long note: closed by default, like the family menu. */
+.contents {
+  margin: 0 0 8px;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 13px;
+}
+.contents summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  cursor: pointer;
+  list-style: none;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+}
+.contents summary::-webkit-details-marker {
+  display: none;
+}
+.contents summary::after {
+  content: '+';
+  color: var(--accent);
+}
+.contents details[open] summary::after {
+  content: '−';
+}
+.contents summary:hover {
+  color: var(--accent);
+}
+.contents ol {
+  margin: 0 0 16px;
+  padding-left: 2.2em;
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.5;
+}
+.contents li {
+  margin: 4px 0;
+}
+.contents li::marker {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--muted);
+}
+.contents a {
+  color: var(--ink-2);
+  text-decoration: none;
+}
+.contents a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
 .linked-from,
 .about-block {
   margin-top: 56px;
@@ -476,6 +531,37 @@ a.row-date:hover {
 }
 .prose a {
   color: var(--accent);
+}
+/* The link beside each section heading: faint until the heading is hovered or the link is
+   focused; always faint on touch screens, which have no hover. */
+.prose .heading-link {
+  margin-left: 0.35em;
+  padding: 0 0.15em;
+  font-family: var(--mono);
+  font-weight: 400;
+  font-size: 0.8em;
+  color: var(--muted);
+  text-decoration: none;
+  opacity: 0.45;
+}
+.prose .heading-link::before {
+  content: '#';
+}
+.prose h2:hover .heading-link,
+.prose h3:hover .heading-link,
+.prose .heading-link:focus-visible {
+  opacity: 1;
+  color: var(--accent);
+}
+@media (hover: hover) {
+  .prose .heading-link {
+    opacity: 0;
+  }
+}
+/* A section reached by its link isn't hidden under the top of the window. */
+.prose h2,
+.prose h3 {
+  scroll-margin-top: 16px;
 }
 .prose a:hover {
   color: var(--ink);
@@ -746,6 +832,8 @@ html:lang(ko) .label {
     font-size: 11pt;
   }
   .skip,
+  .contents,
+  .prose .heading-link,
   .masthead nav,
   .colophon,
   .back,

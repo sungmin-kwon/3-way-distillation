@@ -24,7 +24,11 @@ export async function getStaticPaths() {
 }
 
 const { note, older, newer, all } = Astro.props;
-const { Content } = await render(note);
+const { Content, remarkPluginFrontmatter } = await render(note);
+// A contents list for notes long enough to need one: four or more sections. The list of
+// sections comes from src/lib/rehype-section-links.mjs.
+const sections: { slug: string; text: string }[] = remarkPluginFrontmatter?.sections ?? [];
+const showContents = sections.length >= 4;
 const { title, date, updated, tags, summary, distillate, rough } = note.data;
 const linkedFrom = backlinks(note, all);
 ---
@@ -52,6 +56,19 @@ const linkedFrom = backlinks(note, all);
         <p class="label">{DISTILLATE_LABEL}</p>
         <p>{distillate}</p>
       </aside>
+    )}
+
+    {showContents && (
+      <nav class="contents" aria-label={UI.contents}>
+        <details>
+          <summary>{UI.contents}</summary>
+          <ol>
+            {sections.map((h) => (
+              <li><a href={`#${h.slug}`}>{h.text}</a></li>
+            ))}
+          </ol>
+        </details>
+      </nav>
     )}
 
     <div class="prose">

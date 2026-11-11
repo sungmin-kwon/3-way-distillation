@@ -3,6 +3,8 @@ import { unified } from '@astrojs/markdown-remark';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import { remarkNoteLinks } from './src/lib/remark-note-links.mjs';
+import { rehypeSectionLinks } from './src/lib/rehype-section-links.mjs';
+import { UI } from './src/lib/i18n.ts';
 import { unpublishedIds } from './scripts/notes-meta.mjs';
 import { SITE } from './site.config.mjs';
 
@@ -49,7 +51,7 @@ export default defineConfig({
   markdown: {
     processor: unified({
       remarkPlugins: [remarkMath, [remarkNoteLinks, { base, unpublished: unpublishedIds() }]],
-      rehypePlugins: [rehypeKatex],
+      rehypePlugins: [rehypeKatex, [rehypeSectionLinks, { label: UI.sectionLink }]],
     }),
     shikiConfig: {
       themes: { light: 'github-light', dark: 'github-dark' },
