@@ -28,6 +28,10 @@ export interface Ui {
   toIndex: string;
   linkedFrom: string;
   neighbours: string;
+  /** Heading of the contents list at the top of a long note. */
+  contents: string;
+  /** aria-label of the link beside each section heading. */
+  sectionLink: string;
   notFoundTitle: string;
   notFoundHeading: string;
   backToIndex: string;
@@ -68,6 +72,8 @@ const en: Ui = {
   toIndex: 'index →',
   linkedFrom: 'Linked from',
   neighbours: 'Neighbouring notes',
+  contents: 'Contents',
+  sectionLink: 'Link to this section',
   notFoundTitle: 'Not found',
   notFoundHeading: 'Not here',
   backToIndex: 'Back to the index.',
@@ -103,6 +109,8 @@ const ko: Ui = {
   toIndex: '목록 →',
   linkedFrom: '이 글을 가리키는 글',
   neighbours: '앞뒤 글',
+  contents: '차례',
+  sectionLink: '이 절로 가는 링크',
   notFoundTitle: '찾을 수 없음',
   notFoundHeading: '없는 페이지',
   backToIndex: '목록으로 돌아가기.',
