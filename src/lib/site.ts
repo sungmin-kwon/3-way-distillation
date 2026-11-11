@@ -14,7 +14,17 @@ export const SITE_LANG: string = SITE.lang;
 export const DISTILLATE_LABEL: string = SITE.distillateLabel;
 export const NOT_FOUND: string = SITE.notFound;
 export const TAGS: readonly Tag[] = TAG_LIST;
-export const SITE_FAMILY: readonly { title: string; url: string; blurb: string }[] = FAMILY;
+export const SITE_URL: string = SITE.url;
+/** A site in the family. `lang` is only needed when it differs from this site's. */
+export interface FamilySite {
+  title: string;
+  url: string;
+  blurb: string;
+  lang?: string;
+}
+export const SITE_FAMILY: readonly FamilySite[] = FAMILY;
+/** Label of the footer menu that lists the family. */
+export const SITE_FAMILY_LABEL: string = SITE.familyLabel ?? 'a family of notebooks';
 
 type Palette = Record<string, string>;
 const palette: { light?: Palette; dark?: Palette } = SITE.palette ?? {};
