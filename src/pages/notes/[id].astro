@@ -13,6 +13,7 @@ import {
   tagHref,
 } from '../../lib/notes';
 import { DISTILLATE_LABEL } from '../../lib/site';
+import { UI, minutes } from '../../lib/i18n';
 
 export async function getStaticPaths() {
   const notes = await getNotes();
@@ -30,14 +31,14 @@ const linkedFrom = backlinks(note, all);
 
 <Base title={label(note)} description={summary ?? distillate}>
   <article class="entry">
-    <p class="back"><a href={href()}>← index</a></p>
+    <p class="back"><a href={href()}>{UI.back}</a></p>
 
     <p class="entry-meta">
       <time datetime={isoDate(date)}>{isoDate(date)}</time>
-      {updated && <> · updated <time datetime={isoDate(updated)}>{isoDate(updated)}</time></>}
+      {updated && <> · {UI.updated} <time datetime={isoDate(updated)}>{isoDate(updated)}</time></>}
       {tags.map((t) => <> · <a href={tagHref(t)}>{t}</a></>)}
-      {rough && <> · <a class="rough" href={tagHref('rough')}>rough</a></>}
-      {!isShort(note) && <> · {readingMinutes(note)} min</>}
+      {rough && <> · <a class="rough" href={tagHref('rough')}>{UI.rough}</a></>}
+      {!isShort(note) && <> · {minutes(readingMinutes(note))}</>}
     </p>
 
     {title && <h1>{title}</h1>}
@@ -55,7 +56,7 @@ const linkedFrom = backlinks(note, all);
 
     {linkedFrom.length > 0 && (
       <section class="linked-from">
-        <h2 class="label">Linked from</h2>
+        <h2 class="label">{UI.linkedFrom}</h2>
         <ul>
           {linkedFrom.map((n) => (
             <li><a href={noteHref(n)}>{label(n)}</a></li>
@@ -64,9 +65,9 @@ const linkedFrom = backlinks(note, all);
       </section>
     )}
 
-    <nav class="neighbours" aria-label="Neighbouring notes">
+    <nav class="neighbours" aria-label={UI.neighbours}>
       {older ? <a href={noteHref(older)}>← {label(older, 48)}</a> : <span />}
-      {newer ? <a href={noteHref(newer)}>{label(newer, 48)} →</a> : <a href={href()}>index →</a>}
+      {newer ? <a href={noteHref(newer)}>{label(newer, 48)} →</a> : <a href={href()}>{UI.toIndex}</a>}
     </nav>
   </article>
 </Base>

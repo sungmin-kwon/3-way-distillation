@@ -2,11 +2,12 @@
 import Base from '../layouts/Base.astro';
 import { href } from '../lib/notes';
 import { NOT_FOUND } from '../lib/site';
+import { UI } from '../lib/i18n';
 ---
 
-<Base title="Not found">
+<Base title={UI.notFoundTitle}>
   <div class="entry">
-    <h1>Not here</h1>
-    <p>{NOT_FOUND} <a href={href()}>Back to the index.</a></p>
+    <h1>{UI.notFoundHeading}</h1>
+    <p>{NOT_FOUND} <a href={href()}>{UI.backToIndex}</a></p>
   </div>
 </Base>

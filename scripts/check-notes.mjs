@@ -40,7 +40,7 @@ for (const note of notes) {
 
     if (/^#\s/.test(line)) report(i, 'no H1 in the body; sections are ##');
     if (/^##\s+Limits\b/i.test(line)) report(i, 'no "## Limits" section; put each caveat in the section it qualifies');
-    if (/^##\s/.test(line)) inSources = /^##\s+Sources\s*$/.test(line);
+    if (/^##\s/.test(line)) inSources = /^##\s+(Sources|참고\s?문헌)\s*$/.test(line);
 
     // Display math: `$$` must be alone on its line.
     if (/\$\$/.test(line) && line.trim() !== '$$') {
@@ -57,6 +57,11 @@ for (const note of notes) {
     if (!inSources && !/^\[\^/.test(line)) {
       if (/(^|[^\w.'’-])(?<!\b(?:Type|Phase|Class|Stage|Grade|Part|Table|Figure|Appendix|War)\s)(I|I'm|I’m|I've|I’ve|I'll|I’ll|I'd|I’d|me|my|mine|myself)(?=[^\w.'’-]|$)/.test(prose)) {
         report(i, 'no first-person singular ("I", "me", "my"); use "we" only if unavoidable');
+      }
+      // Quoted speech (an interview excerpt, say) may use the first person, so it is skipped.
+      const unquoted = prose.replace(/"[^"]*"|“[^”]*”/g, '');
+      if (SITE.lang === 'ko' && /(^|[\s(‘])(나는|내가|나의|나를|나도|저는|제가|저의|저를|저도)(?=[\s,.!?)’]|$)/.test(unquoted)) {
+        report(i, 'no first-person singular ("나는", "제가"); write around it, or use "우리" only if unavoidable');
       }
       if (/—/.test(prose)) report(i, 'no em dash in body text; use a comma, colon, or new sentence');
     }
@@ -77,7 +82,7 @@ for (const note of notes) {
 
     // Every entry in a Sources list carries a link.
     if (inSources && /^\s*[-*]\s/.test(line) && !/\]\(https?:\/\//.test(line)) {
-      report(i, 'every entry in ## Sources needs a link (doi.org, arXiv, or an official page)');
+      report(i, 'every entry in ## Sources (## 참고문헌) needs a link (doi.org, arXiv, or an official page)');
     }
   }
 }
