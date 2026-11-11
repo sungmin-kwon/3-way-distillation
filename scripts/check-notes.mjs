@@ -6,7 +6,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { NOTES_DIR, readNotes } from './notes-meta.mjs';
 
-const TAGS = ['cheme', 'ml/llm', 'genes', 'qi/qc'];
+const TAGS = ['cheme', 'ml/llm', 'genes', 'stats', 'qi/qc'];
 const problems = [];
 const notes = readNotes();
 const ids = new Set(notes.map((n) => n.id));

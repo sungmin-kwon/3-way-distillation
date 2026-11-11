@@ -41,7 +41,7 @@ worth keeping, put them under **Optional**, in one short list.
 8. **Check against the traps table** in WRITING.md section 7, and against the other notes:
    any number shared with another note must match (`grep -rn` for it).
 9. **Check framing**: no affiliation, no first person, no `## Limits`, tags from the allowed
-   four, `model` lists every model involved.
+   five, `model` lists every model involved.
 
 ## Writing the review
 

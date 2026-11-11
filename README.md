@@ -30,7 +30,7 @@ A longer note adds a title and, optionally, more:
 title: Forward vs. reverse KL
 date: 2026-11-12
 updated: 2026-11-20      # optional
-tags: [ml/llm]           # cheme, ml/llm, genes or qi/qc; the list is in src/lib/site.ts
+tags: [ml/llm]           # cheme, ml/llm, genes, stats or qi/qc; the list is in src/lib/site.ts
 summary: One line shown under the title on the index.
 distillate: The boiled-down version, shown at the top of the note.
 rough: true              # unfinished thinking; shows a "rough" mark
@@ -70,7 +70,7 @@ src/components/NoteIndex.astro   the dated list, tag filter and find box
 src/layouts/Base.astro  page shell and masthead
 src/lib/notes.ts        loading, grouping, tags, backlinks, URL helpers
 src/lib/remark-note-links.mjs    turns note: links into real URLs (plain text if the note is hidden)
-src/lib/site.ts         site title, description and the four tags
+src/lib/site.ts         site title, description and the five tags
 scripts/                ADMIN.md generator and the frontmatter reader it shares with astro.config.mjs
 ADMIN.md                generated list of every note, visible or hidden; not deployed
 src/styles/site.css     all styling; light and dark follow the system setting
