@@ -324,24 +324,28 @@ errors. These rules matter more than anything above.
     edit knows what to refresh. A dated section is a snapshot, not a promise of upkeep: refresh it
     only when the note is edited for another reason.
 15. **Attribute each position to the person who holds it.** When a note contrasts schools or
-    authors, every claim says whose view it is and rests on that author's own work or a source
-    that states it. A draft gave Strauss and Corbin's view of the literature (read it early, as a
-    source of sensitivity) as Glaser's, who said the opposite.
+    authors, or quotes a result, every claim says whose it is and rests on that author's own
+    work or a source that states it. A speedup reported in one speculative-decoding paper
+    belongs to that paper's models and hardware, not to the method in general.
 16. **Check what a source argues, not only that it exists.** Read its abstract or the
     publisher's description and make sure it supports the sentence that cites it. A paper whose
     title criticizes a theory is not support for that theory. If you can open neither the work
-    nor its abstract, cut the claim instead of keeping it with an "unverified" note.
-17. **Keep look-alike distinctions apart.** When a framework has two distinctions that resemble
-    each other, state each from its source and never map one onto the other. A draft equated
-    critical realism's three domains (real, actual, empirical) with its two dimensions
-    (intransitive, transitive).
-18. **A worked example must agree with its own data.** Every code, category or conclusion drawn
-    from made-up excerpts points to excerpts that actually contain it, quoted word for word.
-    Don't claim the example's result is new or "absent from the literature".
+    nor its abstract, cut the claim instead of keeping it with an "unverified" note. A draft
+    cited vapor-pressure data to a textbook appendix that couldn't be checked.
+17. **Keep look-alike distinctions apart.** When two concepts or notations resemble each other,
+    state each from its source and never map one onto the other. A draft defined apparent
+    attenuation as the fraction of extract the yeast consumed, which is real attenuation, and
+    another carried the alcoholmeter's temperature correction over to the hydrometer, where it
+    runs the other way.
+18. **A worked example must agree with its own numbers.** Every conclusion drawn from the
+    example follows from what it shows, and the example shows what the text says it shows. Don't
+    claim the example's result is new or "absent from the literature". A draft said the
+    $1/\sqrt{d_k}$ scaling did no visible work at $d_k = 4$, while its own weights changed from
+    0.452 to 0.576 without it.
 19. **Crossref describes the edition the DOI points to.** A reissue's record gives the reissue
     year and sometimes the wrong author or subtitle. Take the original publisher, year and
     authors from the book or a library record, and when the link is a later edition, say so
-    ("링크는 3판").
+    ("linked: 3rd ed.").
 
 ### Known traps (each one appeared in an earlier draft)
 
