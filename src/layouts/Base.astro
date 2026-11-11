@@ -2,7 +2,7 @@
 import 'katex/dist/katex.min.css';
 import '../styles/site.css';
 import { href } from '../lib/notes';
-import { SITE_TITLE, SITE_DESCRIPTION, SITE_LANG } from '../lib/site';
+import { PALETTE_CSS, SITE_TITLE, SITE_DESCRIPTION, SITE_LANG } from '../lib/site';
 
 interface Props {
   title?: string;
@@ -31,6 +31,7 @@ const pageTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
         if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
       } catch (e) {}
     </script>
+    {PALETTE_CSS && <style is:inline set:html={PALETTE_CSS} />}
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href={href('favicon.svg')} />

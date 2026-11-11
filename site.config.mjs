@@ -21,6 +21,29 @@ export const SITE = {
   // Old paths (without the base) that send readers elsewhere, e.g. notes that moved to a
   // sibling site: { '/notes/old-id': 'https://…/notes/old-id/' }.
   redirects: {},
+  // Colors that override the shared ones in src/styles/site.css (any of --paper, --ink,
+  // --ink-2, --muted, --rule, --code-bg, --accent). Leave both empty to keep the shared look.
+  // Here: cooler paper and a fountain-pen blue, against the distiller's warm paper and copper.
+  palette: {
+    light: {
+      paper: '#f2f4f3',
+      ink: '#16191c',
+      'ink-2': '#3c434a',
+      muted: '#535b63',
+      rule: '#cdd4d9',
+      'code-bg': '#e6eaec',
+      accent: '#1458a6',
+    },
+    dark: {
+      paper: '#121518',
+      ink: '#e3e8ec',
+      'ink-2': '#bcc5cc',
+      muted: '#94a0aa',
+      rule: '#2f363d',
+      'code-bg': '#1a1f24',
+      accent: '#6fb0f2',
+    },
+  },
 };
 
 /**
