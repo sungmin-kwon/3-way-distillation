@@ -16,6 +16,8 @@ worth keeping, put them under **Optional**, in one short list.
 1. **Branch and process.** Is it a PR from a branch cut from current `main`? Did the drafter
    paste the self-check and a **Not verified** list? Anything listed there is the first thing to
    check. A note pushed straight to `main` gets reviewed the same way, and the fixes go through a PR.
+   Don't trust ticked boxes: compare each ticked item with the diff. A draft ticked the bracket
+   rule while using the wrong brackets throughout.
 2. **Run the mechanical checks.** `npm run check` and `npm run build`. Fix nothing yourself yet;
    list failures as *must fix*.
 3. **Render the page** with `npm run preview` (or `npm run dev`) and a headless browser.
@@ -38,9 +40,15 @@ worth keeping, put them under **Optional**, in one short list.
    compare authors, title, journal, volume, pages and year. Check arXiv ids on the abs page. Read
    the abstract and check the note describes the work by what it actually found. Flag any source
    the text doesn't use. If a page can't be fetched, say "unverified" rather than guessing.
+   Check each source's stance: a critique of a theory cited as support for it is a must-fix.
+   For a book linked through a reissue DOI, check the original publisher and year separately.
 8. **Check against the traps table** in WRITING.md section 7, and against the other notes:
    any number shared with another note must match (`grep -rn` for it).
-9. **Check framing**: the affiliation rule in WRITING.md section 1, no first person, no
+9. **Check attribution and concepts.** In a note that contrasts schools or authors, check that
+   each view is given to the person who holds it, and that look-alike distinctions in a framework
+   aren't merged (WRITING.md section 7, rules 15 and 17). For a note not in English, read it at
+   the level of characters: substituted brackets or misspelled names pass the build.
+10. **Check framing**: the affiliation rule in WRITING.md section 1, no first person, no
    `## Limits`, tags from the list in `site.config.mjs`, `model` lists every model involved.
 
 ## Writing the review
