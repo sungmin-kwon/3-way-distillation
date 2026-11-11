@@ -63,13 +63,14 @@ const pageTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
             data-label-dark={themeSwitch('dark')}
             hidden
           >{UI.themeName.dark}</button>
+          <FamilyMenu />
         </nav>
       </header>
       <main id="main">
         <slot />
       </main>
       <footer class="colophon">
-        <FamilyMenu />
+        <FamilyMenu place="footer" />
       </footer>
     </div>
     <script is:inline>
@@ -95,6 +96,20 @@ const pageTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
         media.addEventListener('change', sync);
         btn.hidden = false;
         sync();
+      })();
+      (function () {
+        // Close the header's family menu on Escape or a click outside it.
+        var menu = document.querySelector('details.family');
+        if (!menu) return;
+        document.addEventListener('click', function (e) {
+          if (menu.open && !menu.contains(e.target)) menu.open = false;
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && menu.open) {
+            menu.open = false;
+            menu.querySelector('summary').focus();
+          }
+        });
       })();
     </script>
   </body>

@@ -15,8 +15,8 @@ export const SITE = {
   distillateLabel: 'In short',
   // Line on the 404 page.
   notFound: 'This page doesn’t exist, or it has moved.',
-  // Label of the footer menu that lists the sites in FAMILY.
-  familyLabel: 'part of a loose family of notebooks',
+  // Heading of the list of the other sites in FAMILY (header menu and footer line).
+  familyLabel: 'part of a family of notebooks',
   // false: `npm run check` rejects "my lab", "our university" and the like in notes.
   // This site may name the school and its courses (WRITING.md, section 1).
   allowAffiliation: true,
@@ -75,7 +75,7 @@ export const TAGS = [
 ];
 
 /**
- * The sites in the family, listed in the footer menu of every page and on the About page.
+ * The sites in the family, listed in the header menu and footer of every page and on the About page.
  * `url` is the site's root. `lang` is the site's language, so that an entry is marked up in its
  * own language on a site whose language differs (the Korean site lists the English ones). Keep this list the same in every site.
  */

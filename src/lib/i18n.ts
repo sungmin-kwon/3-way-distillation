@@ -33,7 +33,8 @@ export interface Ui {
   backToIndex: string;
   roughTagDescription: string;
   tagDescription: string; // '{tag}' is replaced
-  thisSite: string;
+  /** Header menu that lists the family of sites. */
+  family: string;
   /** Words per minute for the reading time. */
   wordsPerMinute: number;
 }
@@ -66,7 +67,7 @@ const en: Ui = {
   backToIndex: 'Back to the index.',
   roughTagDescription: 'Unfinished thinking; may be wrong.',
   tagDescription: 'Notes tagged {tag}.',
-  thisSite: 'this site',
+  family: 'notebooks',
   wordsPerMinute: 220,
 };
 
@@ -98,7 +99,7 @@ const ko: Ui = {
   backToIndex: '목록으로 돌아가기.',
   roughTagDescription: '덜 다듬은 생각입니다. 틀린 곳이 있을 수 있습니다.',
   tagDescription: '{tag} 태그가 붙은 글.',
-  thisSite: '이 사이트',
+  family: '노트 모음',
   // Korean is counted in 어절 (space-separated words), which read more slowly than English words.
   wordsPerMinute: 180,
 };
