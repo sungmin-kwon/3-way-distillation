@@ -609,8 +609,7 @@ a.row-date:hover {
 .family-site {
   color: var(--ink);
 }
-.family-site[aria-current='page']::after {
-  content: ' · this site';
+.family-here {
   color: var(--muted);
 }
 .family-blurb {
@@ -618,6 +617,22 @@ a.row-date:hover {
   font-family: var(--sans);
   font-size: 14px;
   line-height: 1.5;
+}
+
+/* ---------- Korean ---------- */
+
+/* Break lines between words (어절), not inside them, and give Hangul a little more leading.
+   overflow-wrap still lets a long URL or code token break rather than overflow. */
+:lang(ko) {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-break: strict;
+}
+html:lang(ko) body {
+  line-height: 1.75;
+}
+html:lang(ko) .label {
+  letter-spacing: 0.02em;
 }
 
 /* ---------- small screens ---------- */

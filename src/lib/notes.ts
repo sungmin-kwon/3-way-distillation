@@ -1,5 +1,8 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { TAGS } from './site';
+import { UI, monthHeading } from './i18n';
+
+export { shortDate } from './i18n';
 
 export type Note = CollectionEntry<'notes'>;
 
@@ -16,11 +19,16 @@ export function noteHref(note: Note): string {
   return href(`notes/${note.id}/`);
 }
 
-/** URL-safe form of a tag, e.g. 'ml/llm' -> 'ml-llm'. */
+/**
+ * URL-safe form of a tag, e.g. 'ml/llm' -> 'ml-llm'. A tag in site.config.mjs may set its own
+ * `slug`, which a tag that isn't in Latin letters (e.g. '근거이론') should do.
+ */
 export function tagSlug(tag: string): string {
+  const own = TAGS.find((t) => t.name === tag)?.slug;
+  if (own) return own;
   return tag
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/[^\p{L}\p{N}]+/gu, '-')
     .replace(/^-+|-+$/g, '');
 }
 
@@ -62,16 +70,10 @@ export function label(note: Note, max = 60): string {
 
 export function readingMinutes(note: Note): number {
   const words = plainText(note.body).split(' ').filter(Boolean).length;
-  return Math.max(1, Math.round(words / 220));
+  return Math.max(1, Math.round(words / UI.wordsPerMinute));
 }
 
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const pad = (n: number) => String(n).padStart(2, '0');
-
-/** 'Nov 09' */
-export function shortDate(d: Date): string {
-  return `${MONTHS[d.getUTCMonth()]} ${pad(d.getUTCDate())}`;
-}
 
 /** '2026-11-09' */
 export function isoDate(d: Date): string {
@@ -84,7 +86,7 @@ export interface MonthGroup {
   notes: Note[];
 }
 
-/** Groups notes (already sorted) under '2026 · NOVEMBER' style headings. */
+/** Groups notes (already sorted) under '2026 · NOVEMBER' (or '2026년 11월') headings. */
 export function groupByMonth(notes: Note[]): MonthGroup[] {
   const groups: MonthGroup[] = [];
   for (const note of notes) {
@@ -92,8 +94,7 @@ export function groupByMonth(notes: Note[]): MonthGroup[] {
     const key = `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}`;
     let group = groups.at(-1);
     if (!group || group.key !== key) {
-      const month = d.toLocaleString('en-US', { month: 'long', timeZone: 'UTC' }).toUpperCase();
-      group = { key, heading: `${d.getUTCFullYear()} · ${month}`, notes: [] };
+      group = { key, heading: monthHeading(d), notes: [] };
       groups.push(group);
     }
     group.notes.push(note);

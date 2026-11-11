@@ -66,18 +66,26 @@ export const TAGS = [
 
 /**
  * The sites in the family, listed in the footer menu of every page and on the About page.
- * `url` is the site's root. Give `lang` (e.g. 'ko') for a site whose language differs from
- * this one's, so its entry is marked up in that language. Keep this list the same in every site.
+ * `url` is the site's root. `lang` is the site's language, so that an entry is marked up in its
+ * own language on a site whose language differs (the Korean site lists the English ones). Keep this list the same in every site.
  */
 export const FAMILY = [
   {
     title: 'notes from the 3-way distiller',
     url: 'https://sungmin-kwon.github.io/3-way-distillation/',
+    lang: 'en',
     blurb: 'a notebook on things that interest me: chemical engineering, language models and quantum computing.',
   },
   {
     title: 'working notes',
-    url: WORKING_NOTES,
+    url: 'https://sungmin-kwon.github.io/working-notes/',
+    lang: 'en',
     blurb: 'study and research notes from graduate school in data science, mostly statistics and genetics.',
+  },
+  {
+    title: '근거와 실재',
+    url: 'https://sungmin-kwon.github.io/korean-notes/',
+    lang: 'ko',
+    blurb: '근거이론과 실재론을 비롯한 사회과학 방법론 노트, 한국어로.',
   },
 ];

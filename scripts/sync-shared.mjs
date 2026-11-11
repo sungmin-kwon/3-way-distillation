@@ -22,6 +22,7 @@ export const SHARED = [
   'src/content.config.ts',
   'src/env.d.ts',
   'src/layouts/Base.astro',
+  'src/lib/i18n.ts',
   'src/lib/notes.ts',
   'src/lib/remark-note-links.mjs',
   'src/lib/site.ts',
