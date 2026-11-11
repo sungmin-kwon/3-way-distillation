@@ -48,13 +48,13 @@ const vars = (p: Palette = {}) => Object.entries(p).map(([k, v]) => `--${k}: ${v
 
 /**
  * CSS that applies this site's palette on top of the shared stylesheet. It uses site.css's
- * selectors for light, system dark and toggled dark, with `html` added so it wins over
+ * selectors for light, system dark and toggled dark (dark on screen only, so print stays light), with `html` added so it wins over
  * site.css whatever order the two load in. Empty if there is no palette.
  */
 export const PALETTE_CSS: string = [
   palette.light && `html:root { ${vars(palette.light)} }`,
-  palette.dark && `@media (prefers-color-scheme: dark) { html:root:not([data-theme='light']) { ${vars(palette.dark)} } }`,
-  palette.dark && `html:root[data-theme='dark'] { ${vars(palette.dark)} }`,
+  palette.dark && `@media screen and (prefers-color-scheme: dark) { html:root:not([data-theme='light']) { ${vars(palette.dark)} } }`,
+  palette.dark && `@media screen { html:root[data-theme='dark'] { ${vars(palette.dark)} } }`,
 ]
   .filter(Boolean)
   .join('\n');
