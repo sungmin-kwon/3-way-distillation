@@ -131,8 +131,14 @@ the sample to 20 °C or use the correction table that came with the meter.
 **A long note** has a title, `summary`, `distillate`, and sections. The existing long notes run
 1,500–3,000 words. Length should come from worked detail, not from repetition.
 
-Use `rough: true` for a note that is honest thinking-in-progress: unchecked numbers, open
-questions, an argument you're not sure of. Say in the text what is unchecked.
+Use `rough: true` for a note that is honest thinking-in-progress: unchecked
+numbers, open questions, an argument you're not sure of. Say in the text what is unchecked.
+**Not being able to read a book page by page is not, by itself, a reason for `rough`.** A claim
+about a book is checked when it rests on the book's table of contents or publisher description,
+on a peer-reviewed source whose abstract you read and that states the claim, or on a passage you
+quote. Leave `rough` off when every claim is checked that way, and list what rests on secondary
+sources in the PR's **Not verified**. Use `rough` only when a claim in the note itself is
+uncertain or contested and the text says so.
 
 ## 4. The summary and the distillate
 
@@ -317,6 +323,25 @@ errors. These rules matter more than anything above.
     "the largest so far": put them in a section that says "as of" a month and year, so a later
     edit knows what to refresh. A dated section is a snapshot, not a promise of upkeep: refresh it
     only when the note is edited for another reason.
+15. **Attribute each position to the person who holds it.** When a note contrasts schools or
+    authors, every claim says whose view it is and rests on that author's own work or a source
+    that states it. A draft gave Strauss and Corbin's view of the literature (read it early, as a
+    source of sensitivity) as Glaser's, who said the opposite.
+16. **Check what a source argues, not only that it exists.** Read its abstract or the
+    publisher's description and make sure it supports the sentence that cites it. A paper whose
+    title criticizes a theory is not support for that theory. If you can open neither the work
+    nor its abstract, cut the claim instead of keeping it with an "unverified" note.
+17. **Keep look-alike distinctions apart.** When a framework has two distinctions that resemble
+    each other, state each from its source and never map one onto the other. A draft equated
+    critical realism's three domains (real, actual, empirical) with its two dimensions
+    (intransitive, transitive).
+18. **A worked example must agree with its own data.** Every code, category or conclusion drawn
+    from made-up excerpts points to excerpts that actually contain it, quoted word for word.
+    Don't claim the example's result is new or "absent from the literature".
+19. **Crossref describes the edition the DOI points to.** A reissue's record gives the reissue
+    year and sometimes the wrong author or subtitle. Take the original publisher, year and
+    authors from the book or a library record, and when the link is a later edition, say so
+    ("링크는 3판").
 
 ### Known traps (each one appeared in an earlier draft)
 
@@ -440,6 +465,8 @@ Go through this list and fix anything that fails. Then report which items you co
 - [ ] The figure was rendered and checked: no label crosses a curve, region labels sit in their
       regions, and it reads in dark mode.
 - [ ] Every cited work is in `## Sources` with a link, and every DOI was resolved, not recalled.
+- [ ] Each source supports the sentence that cites it (its abstract was read), and each view in
+      a comparison is given to the author who holds it (section 7, rules 15–17).
 - [ ] Each cited work is described by what its abstract says, and each is used in the text.
 - [ ] Every "because", "causes" or "the reason" has a source or a calculation behind it, and
       every direction (high/low, up/down, toward/away from the null) was checked.
