@@ -241,7 +241,10 @@ crosses a curve or line, that each region label sits in the region it names, and
 labels line up with their values. Check it in dark mode too.
 
 **Links.** Between notes: `[industrial column](note:reading-a-mccabe-thiele-diagram)`, using the
-other note's file name without `.md`. Never write relative paths like `../notes/…`. Link to a
+other note's file name without `.md`. Never write relative paths like `../notes/…`. To point
+at one section, add the id of its heading: `note:reading-a-mccabe-thiele-diagram#the-q-line`
+(the `#` beside a heading on the page links to it). A note with four or more `##` sections
+gets a contents list at the top built from those headings, so keep headings short. Link to a
 note only if it exists. External links only to primary or stable sources (papers, standards,
 official docs).
 
