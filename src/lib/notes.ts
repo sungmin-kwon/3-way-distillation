@@ -1,5 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { TAGS } from './site';
+import { PAGE_SIZE, TAGS } from './site';
 import { UI, monthHeading } from './i18n';
 
 export { shortDate } from './i18n';
@@ -34,6 +34,25 @@ export function tagSlug(tag: string): string {
 
 export function tagHref(tag: string): string {
   return href(`tags/${tagSlug(tag)}/`);
+}
+
+/** Number of pages a list of `count` notes takes (at least 1, so an empty list still has a page). */
+export function pageCount(count: number): number {
+  return Math.max(1, Math.ceil(count / PAGE_SIZE));
+}
+
+/** The notes on page `page` (from 1) of a list. */
+export function pageOf<T>(list: T[], page: number): T[] {
+  return list.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+}
+
+/**
+ * URL of a page of the index, or of a tag's list when `tag` is set. Page 1 is the plain list
+ * ('/', '/tags/cheme/'); later pages add 'page/2/' and so on.
+ */
+export function listHref(page: number, tag?: string): string {
+  const root = tag ? `tags/${tagSlug(tag)}/` : '';
+  return href(page > 1 ? `${root}page/${page}/` : root);
 }
 
 /** All published notes (not draft, not hidden), newest first. */

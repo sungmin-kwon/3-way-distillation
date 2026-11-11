@@ -33,6 +33,12 @@ export interface Ui {
   backToIndex: string;
   roughTagDescription: string;
   tagDescription: string; // '{tag}' is replaced
+  /** aria-label of the page links under the index and tag lists. */
+  pagesLabel: string;
+  /** Link to the page of more recent notes. */
+  newer: string;
+  /** Link to the page of earlier notes. */
+  older: string;
   /** Header menu that lists the family of sites. */
   family: string;
   /** Words per minute for the reading time. */
@@ -67,6 +73,9 @@ const en: Ui = {
   backToIndex: 'Back to the index.',
   roughTagDescription: 'Unfinished thinking; may be wrong.',
   tagDescription: 'Notes tagged {tag}.',
+  pagesLabel: 'Pages',
+  newer: '← newer',
+  older: 'older →',
   family: 'notebooks',
   wordsPerMinute: 220,
 };
@@ -99,6 +108,9 @@ const ko: Ui = {
   backToIndex: '목록으로 돌아가기.',
   roughTagDescription: '덜 다듬은 생각입니다. 틀린 곳이 있을 수 있습니다.',
   tagDescription: '{tag} 태그가 붙은 글.',
+  pagesLabel: '쪽 넘기기',
+  newer: '← 최근 글',
+  older: '지난 글 →',
   family: '노트 모음',
   // Korean is counted in 어절 (space-separated words), which read more slowly than English words.
   wordsPerMinute: 180,
@@ -123,6 +135,17 @@ export function entries(n: number): string {
 export function matches(n: number): string {
   if (lang === 'ko') return `${n}편 찾음`;
   return `${n} ${n === 1 ? 'entry matches' : 'entries match'}`;
+}
+
+/** Where a page sits in a list: 'page 2 of 5', '5쪽 중 2쪽'. */
+export function pagePosition(page: number, total: number): string {
+  if (lang === 'ko') return `${total}쪽 중 ${page}쪽`;
+  return `page ${page} of ${total}`;
+}
+
+/** Page part of the browser title: 'page 2', '2쪽'. */
+export function pageTitle(page: number): string {
+  return lang === 'ko' ? `${page}쪽` : `page ${page}`;
 }
 
 /** Reading time: '4 min', '4분'. */
