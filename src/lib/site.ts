@@ -25,8 +25,8 @@ export interface FamilySite {
   lang?: string;
 }
 export const SITE_FAMILY: readonly FamilySite[] = FAMILY;
-/** Label of the footer menu that lists the family. */
-export const SITE_FAMILY_LABEL: string = SITE.familyLabel ?? 'a family of notebooks';
+/** Heading of the family list, in the header menu and the footer. */
+export const SITE_FAMILY_LABEL: string = SITE.familyLabel ?? 'part of a family of notebooks';
 
 /**
  * Web fonts: an optional stylesheet URL (e.g. Google Fonts) and the font stacks for body text

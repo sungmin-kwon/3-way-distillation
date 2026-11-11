@@ -37,7 +37,7 @@ Copy these unchanged. `scripts/sync-shared.mjs` holds the same list.
 - `site.config.mjs`: title, description, URL and base path, language (which picks the interface
   text in `src/lib/i18n.ts`; `ui` overrides single strings), web fonts, tags, the label of the
   distillate box, the 404 line, whether notes may name an affiliation, redirects, colors, the label of the
-  footer menu, and the family of sites (shown in that menu and on About). The family list
+  family list (header menu and footer), and the family of sites (shown there and on About). The family list
   itself should be the same in every site, so a new site is added to every copy.
 - `src/pages/about.astro`: the About text and the "Currently" list.
 - `public/favicon.svg` and `README.md`.

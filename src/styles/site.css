@@ -565,20 +565,16 @@ a.row-date:hover {
   color: var(--shiki-dark, inherit) !important;
 }
 
-/* ---------- footer: the family of sites ---------- */
+/* ---------- the family of sites: header menu and footer line ---------- */
 
-.colophon {
-  margin-top: 48px;
-  padding-top: 6px;
-  border-top: 1px solid var(--rule);
-  font-family: var(--mono);
-  font-size: 13px;
-  color: var(--muted);
+/* The menu's panel drops below the masthead, across its full width. */
+.masthead {
+  position: relative;
 }
 .family summary {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   min-height: 44px;
   cursor: pointer;
   list-style: none;
@@ -586,37 +582,68 @@ a.row-date:hover {
 .family summary::-webkit-details-marker {
   display: none;
 }
-.family summary::before {
+.family summary::after {
   content: '+';
-  display: inline-block;
-  width: 1ch;
   color: var(--accent);
 }
-.family[open] summary::before {
+.family[open] summary::after {
   content: '−';
 }
 .family summary:hover {
   color: var(--accent);
 }
-.family ul {
-  margin: 0 0 8px;
-  padding: 0 0 0 calc(1ch + 8px);
+.family-panel {
+  position: absolute;
+  z-index: 10;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 10px 0 6px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--ink);
+  /* A strip of paper under the rule, so the page behind never touches it. */
+  box-shadow: 0 10px 0 var(--paper);
+}
+.family-label {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.family-panel ul {
+  margin: 0;
+  padding: 0;
   list-style: none;
 }
-.family li {
-  padding: 6px 0;
+.family-panel li {
+  padding: 8px 0;
 }
 .family-site {
   color: var(--ink);
-}
-.family-here {
-  color: var(--muted);
 }
 .family-blurb {
   display: block;
   font-family: var(--sans);
   font-size: 14px;
   line-height: 1.5;
+  color: var(--muted);
+}
+
+.colophon {
+  margin-top: 48px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--muted);
+}
+.family-line {
+  margin: 0;
+}
+.family-line a {
+  color: var(--ink);
+}
+.family-line a:hover {
+  color: var(--accent);
 }
 
 /* ---------- Korean ---------- */
