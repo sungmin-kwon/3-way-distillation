@@ -17,6 +17,8 @@ export const DISTILLATE_LABEL: string = SITE.distillateLabel;
 export const NOT_FOUND: string = SITE.notFound;
 export const TAGS: readonly Tag[] = TAG_LIST;
 export const SITE_URL: string = SITE.url;
+/** Notes per page on the index and the tag pages (SITE.pageSize, default 10). */
+export const PAGE_SIZE: number = Math.max(1, Math.floor(SITE.pageSize ?? 10));
 /** A site in the family. `lang` is only needed when it differs from this site's. */
 export interface FamilySite {
   title: string;

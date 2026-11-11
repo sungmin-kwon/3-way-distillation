@@ -1,8 +1,7 @@
 ---
-import Base from '../../layouts/Base.astro';
-import NoteIndex from '../../components/NoteIndex.astro';
-import { allTags, getNotes, tagInfo, tagSlug } from '../../lib/notes';
-import { UI } from '../../lib/i18n';
+// First page of a tag's list. Later pages are in tags/[tag]/page/[page].astro.
+import TagPage from '../../components/TagPage.astro';
+import { allTags, getNotes, tagSlug } from '../../lib/notes';
 
 export async function getStaticPaths() {
   const notes = await getNotes();
@@ -10,19 +9,6 @@ export async function getStaticPaths() {
 }
 
 const { tag } = Astro.props;
-const notes = await getNotes();
-const info = tagInfo(tag);
-const description = info
-  ? `${info.description}`
-  : tag === 'rough'
-    ? UI.roughTagDescription
-    : UI.tagDescription.replace('{tag}', tag);
-const name = tag === 'rough' ? UI.rough : tag;
 ---
 
-<Base title={name} description={description}>
-  <p class="intro">
-    <span class="mono">{name}</span>{info?.era && <> · {info.era}</>}. {description}
-  </p>
-  <NoteIndex notes={notes} tag={tag} />
-</Base>
+<TagPage tag={tag} page={1} />

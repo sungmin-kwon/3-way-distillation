@@ -326,6 +326,31 @@ a.row-date:hover {
   padding: 12px 0;
 }
 
+/* Newer / older links under a list that runs to more than one page. */
+.pager {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0 16px;
+  margin-top: 32px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--muted);
+}
+.pager a {
+  padding: 12px 0;
+  text-decoration: none;
+}
+.pager a:hover {
+  text-decoration: underline;
+}
+.pager a[rel='next'] {
+  justify-self: end;
+}
+.pager-at {
+  white-space: nowrap;
+}
+
 /* ---------- entry ---------- */
 
 .entry {
