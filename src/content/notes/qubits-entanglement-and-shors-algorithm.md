@@ -233,7 +233,7 @@ Every step above can be done with a number of gates that grows polynomially in t
 
 ## Where things stand
 
-*This section describes the field as of November 2026. Each claim is from the source cited, checked on 2026-11-10, and it will go out of date.*
+*This section is a snapshot of the field as of November 2026 and is not kept up to date. Each claim is from the source cited, checked on 2026-11-10.*
 
 Physical qubits are noisy: every gate has some chance of error, and a qubit loses its state within a limited coherence time. Preskill (2018) named the machines of the late 2010s, with 50–100 noisy qubits and no error correction, *noisy intermediate-scale quantum* (NISQ) devices. Shor's algorithm on a 2048-bit number needs billions of gates, so it can't run on noisy qubits directly. It needs **quantum error correction**: spreading one *logical* qubit across many physical ones, and repeatedly measuring checks that reveal errors without revealing the encoded state. It only helps if the physical error rate is below a *threshold*, so that adding qubits lowers the logical error rather than raising it.
 

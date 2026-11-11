@@ -311,7 +311,8 @@ errors. These rules matter more than anything above.
     The medical-codes note reuses the GWAS note's toy numbers, for example.
 14. **Date anything that will go stale.** Records, the state of a field, a pending court case,
     "the largest so far": put them in a section that says "as of" a month and year, so a later
-    edit knows what to refresh.
+    edit knows what to refresh. A dated section is a snapshot, not a promise of upkeep: refresh it
+    only when the note is edited for another reason.
 
 ### Known traps (each one appeared in an earlier draft)
 

@@ -193,7 +193,7 @@ The suppression rates in the table come from iterating the maps in the entanglem
 
 ## Where things stand
 
-*This section describes the field as of November 2026. Each claim is from the source cited, checked on 2026-11-10, and it will go out of date.*
+*This section is a snapshot of the field as of November 2026 and is not kept up to date. Each claim is from the source cited, checked on 2026-11-10.*
 
 **Distillation on logical qubits has been demonstrated.** Sales Rodriguez et al. (2025) ran Bravyi and Kitaev's 5-to-1 protocol, which distills the $(1, 1, 1)$-pointing state that Bravyi and Kitaev call $\lvert T\rangle$, on a neutral-atom processor, with each of the five inputs encoded in a color code. At distance 3 the logical magic state fidelity rose from 95.1% to 99.4%, and at distance 5 from 92.5% to 98.6%, infidelity suppression of about 8 and 6 times as the paper quotes it. The inputs were well inside the protocol's fidelity threshold of 83%. The output fidelities hold after discarding runs flagged by the code's checks and the factory's, so the gain comes partly from postselection.
 
@@ -214,7 +214,7 @@ Cultivation is not the only alternative. Switching between codes with complement
 - A. Wills, M.-H. Hsieh, H. Yamasaki, "Constant-overhead magic state distillation" (preprint, 2024). [arXiv:2408.07764](https://arxiv.org/abs/2408.07764)
 - D. Litinski, "Magic state distillation: not as costly as you think", *Quantum* 3, 205 (2019). [arXiv:1905.06903](https://arxiv.org/abs/1905.06903)
 - C. H. Bennett, D. P. DiVincenzo, J. A. Smolin, W. K. Wootters, "Mixed-state entanglement and quantum error correction", *Phys. Rev. A* 54, 3824 (1996). [arXiv:quant-ph/9604024](https://arxiv.org/abs/quant-ph/9604024)
-- P. Sales Rodriguez et al., "Experimental demonstration of logical magic state distillation", *Nature* (2025). [doi:10.1038/s41586-025-09367-3](https://doi.org/10.1038/s41586-025-09367-3), [arXiv:2412.15165](https://arxiv.org/abs/2412.15165)
+- P. Sales Rodriguez et al., "Experimental demonstration of logical magic state distillation", *Nature* 645, 620–625 (2025). [doi:10.1038/s41586-025-09367-3](https://doi.org/10.1038/s41586-025-09367-3), [arXiv:2412.15165](https://arxiv.org/abs/2412.15165)
 - C. Gidney, N. Shutty, C. Jones, "Magic state cultivation: growing T states as cheap as CNOT gates" (preprint, 2024). [arXiv:2409.17595](https://arxiv.org/abs/2409.17595)
 - E. Rosenfeld et al., "Magic state cultivation on a superconducting quantum processor" (preprint, 2025). [arXiv:2512.13908](https://arxiv.org/abs/2512.13908)
-- R. S. Gupta et al., "Encoding a magic state with beyond break-even fidelity", *Nature* (2024). [doi:10.1038/s41586-023-06846-3](https://doi.org/10.1038/s41586-023-06846-3), [arXiv:2305.13581](https://arxiv.org/abs/2305.13581)
+- R. S. Gupta et al., "Encoding a magic state with beyond break-even fidelity", *Nature* 625, 259–263 (2024). [doi:10.1038/s41586-023-06846-3](https://doi.org/10.1038/s41586-023-06846-3), [arXiv:2305.13581](https://arxiv.org/abs/2305.13581)
