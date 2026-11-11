@@ -69,6 +69,15 @@ for (const note of notes) {
       report(i, 'no affiliation: don\'t name or point to a lab, hospital, university or employer');
     }
 
+    // Korean title brackets: 『』 for books and 「」 for articles and chapters (STYLE-KO.md).
+    // Drafts have used 》《, 《》 and 〈〉 instead, and spelled 스트라우스 as 스트라스.
+    if (SITE.lang === 'ko') {
+      if (/[》《〈〉]/.test(prose)) {
+        report(i, 'use 『』 for a book and 「」 for an article or chapter, not 》《, 《》 or 〈〉');
+      }
+      if (/스트라스/.test(prose)) report(i, 'Strauss is 스트라우스 on this site (STYLE-KO.md, section 2)');
+    }
+
     // Links between notes.
     for (const m of line.matchAll(/\]\(([^)]*)\)/g)) {
       const target = m[1];
