@@ -2,7 +2,7 @@
 title: "EHRs in hospital systems: FHIR, OMOP and the CDW"
 summary: How hospital EHR data actually moves — HL7 v2 messages and the FHIR API, the clinical data warehouse, what a common data model is and why research networks need one, and the OMOP CDM, worked on a tiny three-patient example from two hospitals with a runnable cohort query.
 date: 2026-11-10
-tags: [genes]
+tags: [data]
 distillate: Hospital EHR data reaches research through a pipeline; EHR to HL7 v2 / FHIR interfaces to a clinical data warehouse (CDW), then an ETL into a common data model (CDM). Every hospital's CDW has its own tables and codes, so a study across 10 hospitals and 5 questions needs 50 site-specific programs; with a shared CDM it needs 10 conversions and 5 programs, and patient rows never leave the sites. OMOP is the CDM that also standardizes vocabulary, so a query for type 2 diabetes (concept 201826) on metformin (concept 1503297) runs unchanged everywhere; on the toy three-patient example the T2D count is 2 and the T2D-plus-metformin cohort is 1.
 model: [Mistral Large 4, Claude Opus 5.5]
 ---

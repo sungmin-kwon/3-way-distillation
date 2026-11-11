@@ -9,9 +9,9 @@ This file is not deployed, but the repository is public, so anyone can read it a
 | status | date | note | tags | model |
 | --- | --- | --- | --- | --- |
 | visible | 2026-11-10 | [Discrete and continuous distributions](src/content/notes/discrete-and-continuous-distributions.md) | stats | Mistral Large 4 |
-| visible | 2026-11-10 | [EHRs in hospital systems: FHIR, OMOP and the CDW](src/content/notes/ehrs-fhir-omop-cdw.md) | genes | Mistral Large 4, Claude Opus 5.5 |
+| visible | 2026-11-10 | [EHRs in hospital systems: FHIR, OMOP and the CDW](src/content/notes/ehrs-fhir-omop-cdw.md) | data | Mistral Large 4, Claude Opus 5.5 |
 | visible | 2026-11-10 | [Genome-wide association studies](src/content/notes/genome-wide-association-studies.md) | genes | Mistral Large 4, Claude Opus 5.5 |
-| visible | 2026-11-10 | [Medical codes: ICD, SNOMED CT, LOINC, RxNorm and phecodes](src/content/notes/medical-codes.md) | genes | Claude Opus 5.5 |
+| visible | 2026-11-10 | [Medical codes: ICD, SNOMED CT, LOINC, RxNorm and phecodes](src/content/notes/medical-codes.md) | data | Claude Opus 5.5 |
 | visible | 2026-11-10 | [Mendelian randomization](src/content/notes/mendelian-randomization.md) | genes | Mistral Large 4, Claude Opus 5.5 |
 | visible | 2026-11-10 | [Polygenic risk scores](src/content/notes/polygenic-risk-scores.md) | genes | Mistral Large 4, Claude Opus 5.5 |
 

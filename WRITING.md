@@ -80,7 +80,7 @@ it breaks links.
 title: Forward vs. reverse KL          # omit for a short note
 date: 2026-11-12                       # required, YYYY-MM-DD
 updated: 2026-11-20                    # only when a published note changes materially
-tags: [stats]                          # stats, genes; zero or more
+tags: [stats]                          # stats, genes, data; zero or more
 summary: One line for the index.       # long notes
 distillate: The boiled-down version.   # long notes
 rough: true                            # unfinished thinking; leave out otherwise
@@ -91,8 +91,9 @@ reviewed_by: [Claude Opus 5.5]         # optional: model(s) that did a separate 
 ---
 ```
 
-- **Tags:** only these two: `stats` (probability and statistics, the machinery underneath the
-  other notes) and `genes` (genetics, genomics and the clinical data around them). The list lives
+- **Tags:** only these three: `stats` (probability and statistics, the machinery underneath the
+  other notes), `genes` (genetics and genomics) and `data` (health data and how it is stored,
+  coded and shared: EHRs, CDWs, common data models, medical codes). The list lives
   in `site.config.mjs`, and the build fails on any other tag. Don't invent new tags; ask first.
 - **Hidden notes:** `hidden: true` keeps a finished note off the site: no page, and not in the
   index, tag pages, RSS or search. A `note:` link to it from a visible note turns into plain text
@@ -219,7 +220,8 @@ many digits as the source supports, usually two or three significant figures.
 the first column. Cite the source of any data table in the sentence above it ("Carey and Lewis,
 1932, as tabulated in standard textbooks").
 
-**Code.** Python for `stats` notes. **Base R for `genes` notes**, since R
+**Code.** Python for `stats` and `data` notes (`data` notes use the standard library, such as
+`sqlite3` for a query). **Base R for `genes` notes**, since R
 is the standard in that field: no packages from CRAN or Bioconductor, only what ships with R
 (`stats`, `graphics`). It must run as written: include imports, name the shapes in comments
 (`# [batch, seq, vocab]`), and keep it under about 30 lines (a simulation that feeds a figure may
@@ -373,7 +375,7 @@ errors. These rules matter more than anything above.
 title: <Short noun phrase or question>
 summary: <What it covers, in one line> — <part>, <part>, <part>.
 date: YYYY-MM-DD
-tags: [<stats|genes>]
+tags: [<stats|genes|data>]
 distillate: <The answer in one sentence.> <The key number from the worked example.> <The main limit or caveat.>
 model: [<the model writing this>]
 ---
@@ -515,7 +517,7 @@ new note's topic:
   direction of each bias worked out.
 - `discrete-and-continuous-distributions.md` (`stats`): one discrete and one continuous example
   carried through every section in Python, with a computed figure.
-- `medical-codes.md` (`genes`): identifiers checked against their sources, and numbers kept in
+- `medical-codes.md` (`data`): identifiers checked against their sources, and numbers kept in
   sync with another note.
 
 When a new note becomes a better example, add it here and add any new trap to section 7.

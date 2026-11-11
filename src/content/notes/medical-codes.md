@@ -2,7 +2,7 @@
 title: "Medical codes: ICD, SNOMED CT, LOINC, RxNorm and phecodes"
 summary: "How a diagnosis, a lab test and a drug become codes in a health record, and how genetic studies turn those codes back into phenotypes — classifications vs terminologies, ICD-9 to ICD-11, SNOMED CT, LOINC, RxNorm, phecodes, and case and control rules, worked on one type 2 diabetes record and a ten-patient toy cohort."
 date: 2026-11-10
-tags: [genes]
+tags: [data]
 distillate: "Health records store facts as codes from several systems with different jobs. ICD classifies diagnoses into bins for statistics and billing (type 2 diabetes is 250.00 in ICD-9-CM, E11.9 in ICD-10-CM, 5A11 in ICD-11), SNOMED CT describes them in clinical detail (44054006), LOINC names lab tests (HbA1c is 4548-4) and RxNorm names drugs (metformin is 6809). Genetic studies regroup ICD codes into phecodes and apply case and control rules; on the ten-patient toy cohort, a one-code rule gives 3 cases and 7 controls, and a stricter rule gives 2 cases and 3 controls. The strictness pays for itself: if only 80% of code-defined cases are real, the toy GWAS's odds ratio of 1.49 shrinks to 1.38 and the sample it needs grows from about 1,500 to about 2,300 people."
 model: [Claude Opus 5.5]
 ---

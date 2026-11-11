@@ -34,7 +34,7 @@ A longer note adds a title and, optionally, more:
 title: The Wald ratio
 date: 2026-11-12
 updated: 2026-11-20      # optional
-tags: [genes]            # stats or genes; the list is in site.config.mjs
+tags: [genes]            # stats, genes or data; the list is in site.config.mjs
 summary: One line shown under the title on the index.
 distillate: The boiled-down version, shown at the top of the note.
 rough: true              # unfinished thinking; shows a "rough" mark

@@ -6,7 +6,7 @@
 export const SITE = {
   title: 'working notes',
   description:
-    'Notes from my graduate study and research in data science: statistics, genetics and methods, written to be looked up later.',
+    'Notes from my graduate study and research in data science: statistics, genetics, health data and methods, written to be looked up later.',
   // GitHub Pages project site. For a custom domain, set url to it and base to '/'.
   url: 'https://sungmin-kwon.github.io/working-notes/',
   base: '/working-notes/',
@@ -62,9 +62,15 @@ export const TAGS = [
   },
   {
     name: 'genes',
-    blurb: 'genetics, genomics and the clinical data around them.',
+    blurb: 'genetics and genomics, from association studies to polygenic scores and Mendelian randomization.',
     description:
-      'Genetics, genomics and the clinical data around them: GWAS, polygenic scores, Mendelian randomization, medical codes and EHR/CDW infrastructure.',
+      'Genetics and genomics: genome-wide association studies, polygenic scores and Mendelian randomization.',
+  },
+  {
+    name: 'data',
+    blurb: 'health data and how it is stored, coded and shared.',
+    description:
+      'Health data and its plumbing: EHRs, FHIR, clinical data warehouses, the OMOP common data model, and the medical codes that turn records into phenotypes.',
   },
 ];
 
