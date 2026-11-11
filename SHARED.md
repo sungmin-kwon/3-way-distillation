@@ -40,7 +40,8 @@ Copy these unchanged. `scripts/sync-shared.mjs` holds the same list.
   family list (header menu and footer), and the family of sites (shown there and on About). The family list
   itself should be the same in every site, so a new site is added to every copy.
 - `src/pages/about.astro`: the About text and the "Currently" list.
-- `public/favicon.svg` and `README.md`.
+- `public/favicon.svg`, `public/og.png` (the link-preview card; `npm run og-card` redraws it
+  from `site.config.mjs` and the favicon) and `README.md`.
 - `src/content/notes/` and the generated `ADMIN.md`.
 
 ## Making a shared change

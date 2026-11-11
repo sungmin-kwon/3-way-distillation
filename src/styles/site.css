@@ -19,8 +19,9 @@
   color-scheme: light;
 }
 
-/* Dark: follows the system unless the header toggle picked a theme (data-theme on <html>). */
-@media (prefers-color-scheme: dark) {
+/* Dark: follows the system unless the header toggle picked a theme (data-theme on <html>).
+   Screen only, so a page always prints dark ink on white paper. */
+@media screen and (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
     --paper: #171612;
     --ink: #ece7dc;
@@ -32,15 +33,17 @@
     color-scheme: dark;
   }
 }
-:root[data-theme='dark'] {
-  --paper: #171612;
-  --ink: #ece7dc;
-  --ink-2: #c9c2b4;
-  --muted: #a39b8b;
-  --rule: #3a362e;
-  --code-bg: #211e18;
-  --accent: #e08a55;
-  color-scheme: dark;
+@media screen {
+  :root[data-theme='dark'] {
+    --paper: #171612;
+    --ink: #ece7dc;
+    --ink-2: #c9c2b4;
+    --muted: #a39b8b;
+    --rule: #3a362e;
+    --code-bg: #211e18;
+    --accent: #e08a55;
+    color-scheme: dark;
+  }
 }
 
 *,
@@ -578,16 +581,18 @@ a.row-date:hover {
   text-decoration: none;
 }
 
-/* Shiki's code colours stay readable in dark mode. */
-@media (prefers-color-scheme: dark) {
+/* Shiki's code colours stay readable in dark mode (on screen; print uses the light colours). */
+@media screen and (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) .prose .astro-code,
   :root:not([data-theme='light']) .prose .astro-code span {
     color: var(--shiki-dark, inherit) !important;
   }
 }
-:root[data-theme='dark'] .prose .astro-code,
-:root[data-theme='dark'] .prose .astro-code span {
-  color: var(--shiki-dark, inherit) !important;
+@media screen {
+  :root[data-theme='dark'] .prose .astro-code,
+  :root[data-theme='dark'] .prose .astro-code span {
+    color: var(--shiki-dark, inherit) !important;
+  }
 }
 
 /* ---------- the family of sites: header menu and footer line ---------- */
@@ -720,5 +725,78 @@ html:lang(ko) .label {
   }
   .distillate p:last-child {
     font-size: 17px;
+  }
+}
+
+/* ---------- print ---------- */
+
+/* A printed note is the note: light colours (the dark rules above are screen-only), no
+   navigation, code wrapped instead of cut off, and the URLs of the sources written out. */
+@media print {
+  /* html:root:root outranks a site's own palette (html:root in site.ts), whatever the order. */
+  html:root:root {
+    --paper: #fff;
+    --ink: #000;
+    --ink-2: #222;
+    --muted: #444;
+    --rule: #bbb;
+    --code-bg: #f4f4f4;
+  }
+  body {
+    font-size: 11pt;
+  }
+  .skip,
+  .masthead nav,
+  .colophon,
+  .back,
+  .neighbours,
+  .index-bar,
+  .pager,
+  .find,
+  .find-status {
+    display: none !important;
+  }
+  .masthead {
+    border-bottom: 1px solid var(--rule);
+  }
+  .page {
+    max-width: none;
+    padding: 0;
+  }
+  a {
+    color: inherit;
+  }
+  .prose pre,
+  .prose .astro-code {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    overflow: visible !important;
+  }
+  .prose pre,
+  .prose figure,
+  .prose svg,
+  .prose table,
+  .prose .katex-display,
+  .distillate {
+    break-inside: avoid;
+  }
+  .prose .katex-display {
+    overflow: visible !important;
+  }
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+  /* Written-out URLs for the sources list (## Sources, ## 참고문헌). */
+  .prose h2#sources + ul a[href^='http']::after,
+  .prose h2#참고문헌 + ul a[href^='http']::after {
+    content: ' <' attr(href) '>';
+    font-family: var(--mono);
+    font-size: 0.8em;
+    overflow-wrap: anywhere;
+  }
+  @page {
+    margin: 18mm 16mm;
   }
 }
