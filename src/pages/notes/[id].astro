@@ -29,7 +29,11 @@ const { title, date, updated, tags, summary, distillate, rough } = note.data;
 const linkedFrom = backlinks(note, all);
 ---
 
-<Base title={label(note)} description={summary ?? distillate}>
+<Base
+  title={label(note)}
+  description={summary ?? distillate}
+  article={{ published: date, modified: updated, tags }}
+>
   <article class="entry">
     <p class="back"><a href={href()}>{UI.back}</a></p>
 

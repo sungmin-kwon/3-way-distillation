@@ -3,21 +3,28 @@ import 'katex/dist/katex.min.css';
 import '../styles/site.css';
 import FamilyMenu from '../components/FamilyMenu.astro';
 import { href } from '../lib/notes';
-import { FONT_CSS, FONT_STYLESHEET, PALETTE_CSS, SITE_TITLE, SITE_DESCRIPTION, SITE_LANG } from '../lib/site';
+import { FONT_CSS, FONT_STYLESHEET, PALETTE_CSS, SITE_TITLE, SITE_DESCRIPTION, SITE_LANG, SITE_URL } from '../lib/site';
 import { UI, themeSwitch } from '../lib/i18n';
 
 interface Props {
   title?: string;
   description?: string;
   current?: 'index' | 'about';
+  /** For a note's page: its dates and tags, for the link-preview tags. */
+  article?: { published: Date; modified?: Date; tags: readonly string[] };
 }
 
 const {
   title,
   description = SITE_DESCRIPTION,
   current,
+  article,
 } = Astro.props;
 const pageTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
+// Link previews (KakaoTalk, Slack, Messages and the like) read the Open Graph tags below.
+// The canonical URL is the page's full address on the live site.
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
+const ogLocale = SITE_LANG === 'ko' ? 'ko_KR' : 'en_US';
 ---
 
 <!doctype html>
@@ -37,6 +44,21 @@ const pageTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
     {FONT_CSS && <style is:inline set:html={FONT_CSS} />}
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:site_name" content={SITE_TITLE} />
+    <meta property="og:title" content={article ? title : pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content={article ? 'article' : 'website'} />
+    <meta property="og:locale" content={ogLocale} />
+    {article && <meta property="article:published_time" content={article.published.toISOString()} />}
+    {article?.modified && <meta property="article:modified_time" content={article.modified.toISOString()} />}
+    {article?.tags.map((t) => <meta property="article:tag" content={t} />)}
+    <meta property="og:image" content={new URL('og.png', SITE_URL).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={SITE_TITLE} />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" type="image/svg+xml" href={href('favicon.svg')} />
     <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={href('rss.xml')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
