@@ -565,6 +565,61 @@ a.row-date:hover {
   color: var(--shiki-dark, inherit) !important;
 }
 
+/* ---------- footer: the family of sites ---------- */
+
+.colophon {
+  margin-top: 48px;
+  padding-top: 6px;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--muted);
+}
+.family summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  cursor: pointer;
+  list-style: none;
+}
+.family summary::-webkit-details-marker {
+  display: none;
+}
+.family summary::before {
+  content: '+';
+  display: inline-block;
+  width: 1ch;
+  color: var(--accent);
+}
+.family[open] summary::before {
+  content: '−';
+}
+.family summary:hover {
+  color: var(--accent);
+}
+.family ul {
+  margin: 0 0 8px;
+  padding: 0 0 0 calc(1ch + 8px);
+  list-style: none;
+}
+.family li {
+  padding: 6px 0;
+}
+.family-site {
+  color: var(--ink);
+}
+.family-site[aria-current='page']::after {
+  content: ' · this site';
+  color: var(--muted);
+}
+.family-blurb {
+  display: block;
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
 /* ---------- small screens ---------- */
 
 @media (max-width: 560px) {

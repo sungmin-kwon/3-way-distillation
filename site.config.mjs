@@ -15,6 +15,8 @@ export const SITE = {
   distillateLabel: 'In short',
   // Line on the 404 page.
   notFound: 'This page doesn’t exist, or it has moved.',
+  // Label of the footer menu that lists the sites in FAMILY.
+  familyLabel: 'part of a loose family of notebooks',
   // false: `npm run check` rejects "my lab", "our university" and the like in notes.
   // This site may name the school and its courses (WRITING.md, section 1).
   allowAffiliation: true,
@@ -66,7 +68,11 @@ export const TAGS = [
   },
 ];
 
-/** The sites in the family, listed on each About page. `url` is the site's root. */
+/**
+ * The sites in the family, listed in the footer menu of every page and on the About page.
+ * `url` is the site's root. Give `lang` (e.g. 'ko') for a site whose language differs from
+ * this one's, so its entry is marked up in that language. Keep this list the same in every site.
+ */
 export const FAMILY = [
   {
     title: 'notes from the 3-way distiller',

@@ -17,6 +17,7 @@ export const SHARED = [
   'scripts/check-notes.mjs',
   'scripts/notes-meta.mjs',
   'scripts/sync-shared.mjs',
+  'src/components/FamilyMenu.astro',
   'src/components/NoteIndex.astro',
   'src/content.config.ts',
   'src/env.d.ts',
