@@ -25,7 +25,7 @@ export const SITE = {
   // Line on the 404 page.
   notFound: 'This page doesn’t exist, or it was boiled off.',
   // Notes per page on the index and the tag pages; older notes go on page/2/, page/3/ and so on.
-  pageSize: 20,
+  pageSize: 10,
   // Heading of the list of the other sites in FAMILY (header menu and footer line).
   familyLabel: 'part of a family of notebooks',
   // false: `npm run check` rejects "my lab", "our university" and the like in notes.
