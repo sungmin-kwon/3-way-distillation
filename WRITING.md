@@ -346,6 +346,8 @@ errors. These rules matter more than anything above.
 | PRS clumping | the same as LD pruning | clumping keeps the most significant SNP in each LD block; pruning ignores p-values |
 | PRS accuracy | quoting heritability as the score's variance explained | heritability is the ceiling; the score explains less (for height about 40% in European ancestry, less elsewhere) |
 | OMOP drug queries | `drug_exposure` filtered on the ingredient concept | real rows are clinical drugs; go through `concept_ancestor` from the ingredient |
+| Sources link text | the full URL as the link text | a short label (itl.nist.gov, 1.3.6.6); a long URL can't wrap and scrolls the page sideways on a phone |
+| moments don't determine a distribution | comparing two distributions that share only the mean | match both moments, e.g. a normal N(μ, σ²) with the same mean and variance |
 
 ## 8. Template for a long note
 

@@ -7,7 +7,7 @@ distillate: "A random quantity is described by a distribution: a mass function p
 model: [Mistral Large 4]
 ---
 
-A **probability distribution** assigns probabilities to the possible outcomes of a random quantity. The outcomes come in two kinds. If they are countable, a list of numbers: how many tests out of ten come back significant, the number on a die, the count of calls in an hour, the variable is *discrete* and the distribution is a **probability mass function (PMF)**. If the outcome is a measurement on a continuous scale, a temperature, a concentration, a reaction time, the variable is *continuous* and the distribution is a **probability density function (PDF)**. Every note on this site ends in one of these: the p-values in the [GWAS note](note:genome-wide-association-studies) are draws from a known distribution under the null hypothesis, and the next-token probabilities in the [model distillation note](note:what-is-model-distillation) are a discrete distribution over a vocabulary.
+A **probability distribution** assigns probabilities to the possible outcomes of a random quantity. The outcomes come in two kinds. If they are countable, a list of numbers: how many tests out of ten come back significant, the number on a die, the count of calls in an hour, the variable is *discrete* and the distribution is a **probability mass function (PMF)**. If the outcome is a measurement on a continuous scale, a temperature, a concentration, a reaction time, the variable is *continuous* and the distribution is a **probability density function (PDF)**. Many notes on this site rest on one of these: the p-values in the [GWAS note](note:genome-wide-association-studies) are draws from a known distribution under the null hypothesis, and the next-token probabilities in the [model distillation note](note:what-is-model-distillation) are a discrete distribution over a vocabulary.
 
 The families have deep roots: the binomial goes back to Bernoulli's *Ars Conjectandi* (1713), De Moivre derived the normal curve in 1733 as an approximation to the binomial, Laplace generalized it in 1812, Gauss made it the model of measurement error in 1809, and Poisson introduced his count distribution in 1837 (Hald, 2007). The NIST e-Handbook's gallery lists the common ones, split into exactly these two groups (NIST/SEMATECH e-Handbook, section 1.3.6.6).
 
@@ -70,13 +70,13 @@ $$
 
 A density can exceed 1; only the area is constrained. The other two families you meet first are the *uniform*, flat on an interval, and the *exponential*, $f(x) = \lambda e^{-\lambda x}$ for $x \ge 0$, the distribution of waiting times (NIST e-Handbook, section 1.3.6.6).
 
-The **normal** (or Gaussian) distribution with mean $\mu$ and standard deviation $\sigma$ has density
+The **normal** (or Gaussian) distribution, written $N(\mu, \sigma^2)$ with mean $\mu$ and variance $\sigma^2$ (standard deviation $\sigma$), has density
 
 $$
 f(x) = \frac{1}{\sigma\sqrt{2\pi}} \exp\!\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)
 $$
 
-The case $\mu = 0$, $\sigma = 1$ is the **standard normal**, with density $\phi(z) = e^{-z^2/2} / \sqrt{2\pi}$ and CDF $\Phi(z)$. For the running example $Z \sim N(0, 1)$:
+The case $\mu = 0$, $\sigma^2 = 1$ is the **standard normal**, with density $\phi(z) = e^{-z^2/2} / \sqrt{2\pi}$ and CDF $\Phi(z)$. For the running example $Z \sim N(0, 1)$:
 
 $$
 P(|Z| > 1.96) = 2\,(1 - \Phi(1.96)) = 0.0500
@@ -122,7 +122,7 @@ $$
 
 For the running binomial, $\mu = np = 0.5$ and $\sigma^2 = np(1-p) = 0.475$; for the normal they are exactly the parameters $\mu$ and $\sigma^2$ (NIST e-Handbook, normal page).
 
-But the pair $(\mu, \sigma^2)$ does not determine a distribution. Here the binomial and its Poisson approximation share the mean 0.5, yet their upper tails differ: $P(X \ge 3)$ is 0.0115 under Binomial(10, 0.05) and 0.0144 under Poisson(0.5), and both are skewed to the right, unlike the symmetric normal. The distribution is the object; the moments are a summary, and the tails are where two distributions with the same mean usually part ways.
+But the pair $(\mu, \sigma^2)$ does not determine a distribution. The normal $N(0.5, 0.475)$, with standard deviation $\sigma = 0.6892$, has exactly the binomial's mean and variance, yet it puts 0.2341 of its probability below zero, where a count can't go, and its upper tail is far too thin: $P(Y \ge 2.5) = 0.0019$ with the continuity correction, against the binomial's $P(X \ge 3) = 0.0115$. The Poisson(0.5) is closer, since it shares the mean and nearly the variance (0.5 against 0.475), and it gives 0.0144. The distribution is the object, and the moments are a summary.
 
 ## Sampling makes it concrete
 
@@ -142,25 +142,37 @@ for k in range(4):
     print(f"  P(X={k}) = {binom(k):.4f}")
 print(f"  P(X>=1) = {1 - binom(0):.4f},  P(X>=3) = {sum(binom(k) for k in range(3, 11)):.4f}")
 print(f"  mean = {n*p},  variance = {n*p*(1-p):.3f}")
-print(f"Poisson(0.5): P(X=1) = {pois(1, 0.5):.4f},  P(X>=1) = {1 - pois(0, 0.5):.4f},  P(X>=3) = {sum(pois(k, 0.5) for k in range(3, 20)):.4f}")
+print(f"Poisson(0.5): P(X=1) = {pois(1, 0.5):.4f},  "
+      f"P(X>=1) = {1 - pois(0, 0.5):.4f},  "
+      f"P(X>=3) = {sum(pois(k, 0.5) for k in range(3, 20)):.4f}")
 print(f"Bonferroni (per-test 0.005): P(X>=1) = {1 - 0.995**n:.4f}")
-print(f"Normal(0,1): P(|Z|>1.96) = {2*(1 - Phi(1.96)):.4f},  P(Z>1.645) = {1 - Phi(1.645):.4f}")
-print(f"  P(|Z|<=1) = {Phi(1) - Phi(-1):.4f},  P(|Z|<=2) = {Phi(2) - Phi(-2):.4f},  P(|Z|<=3) = {Phi(3) - Phi(-3):.4f}")
+print(f"Normal(0,1): P(|Z|>1.96) = {2*(1 - Phi(1.96)):.4f},  "
+      f"P(Z>1.645) = {1 - Phi(1.645):.4f}")
+print(f"  P(|Z|<=1) = {Phi(1) - Phi(-1):.4f},  P(|Z|<=2) = {Phi(2) - Phi(-2):.4f},  "
+      f"P(|Z|<=3) = {Phi(3) - Phi(-3):.4f}")
 
 # normal approximation to Binomial(100, 0.5), with and without continuity correction
 exact = sum(math.comb(100, k) * 0.5**100 for k in range(60, 101))
 print(f"Binomial(100, 0.5) P(X>=60): exact {exact:.4f}, "
       f"normal cc {1 - Phi((59.5 - 50) / 5):.4f}, no cc {1 - Phi((60 - 50) / 5):.4f}")
 
+# a normal with the running binomial's mean and variance, N(0.5, 0.475)
+sig = math.sqrt(0.475)
+print(f"N(0.5, 0.475): sd {sig:.4f}, P(Y<0) = {Phi(-0.5/sig):.4f}, "
+      f"P(Y>=2.5) = {1 - Phi(2.0/sig):.4f}")
+
 rng = random.Random(1)
 trials = 100_000
-x = [sum(rng.random() < p for _ in range(n)) for _ in range(trials)]   # draws from Binomial(10, 0.05)
-z = [rng.gauss(0, 1) for _ in range(trials)]                           # draws from N(0, 1)
+# draws from Binomial(10, 0.05) and from N(0, 1)
+x = [sum(rng.random() < p for _ in range(n)) for _ in range(trials)]
+z = [rng.gauss(0, 1) for _ in range(trials)]
 mx = sum(x) / trials
-print(f"sampled {trials:,} draws: X mean {mx:.3f}, P(X>=1) {sum(v >= 1 for v in x)/trials:.4f}")
+print(f"sampled {trials:,} draws: X mean {mx:.3f}, "
+      f"P(X>=1) {sum(v >= 1 for v in x)/trials:.4f}")
 mz = sum(z) / trials
 sd = (sum((v - mz)**2 for v in z) / trials) ** 0.5
-print(f"                    Z mean {mz:.3f}, sd {sd:.3f}, P(|Z|>1.96) {sum(abs(v) > 1.96 for v in z)/trials:.4f}")
+print(f"                    Z mean {mz:.3f}, sd {sd:.3f}, "
+      f"P(|Z|>1.96) {sum(abs(v) > 1.96 for v in z)/trials:.4f}")
 ```
 
 which prints:
@@ -178,6 +190,7 @@ Bonferroni (per-test 0.005): P(X>=1) = 0.0489
 Normal(0,1): P(|Z|>1.96) = 0.0500,  P(Z>1.645) = 0.0500
   P(|Z|<=1) = 0.6827,  P(|Z|<=2) = 0.9545,  P(|Z|<=3) = 0.9973
 Binomial(100, 0.5) P(X>=60): exact 0.0284, normal cc 0.0287, no cc 0.0228
+N(0.5, 0.475): sd 0.6892, P(Y<0) = 0.2341, P(Y>=2.5) = 0.0019
 sampled 100,000 draws: X mean 0.498, P(X>=1) 0.4000
                     Z mean 0.002, sd 0.998, P(|Z|>1.96) 0.0504
 ```
@@ -225,7 +238,7 @@ The empirical frequencies land within sampling noise of the exact values: $P(X \
   <text x="374" y="140.2" text-anchor="end" font-size="10" fill="currentColor">0.2</text>
   <text x="374" y="46.8" text-anchor="end" font-size="10" fill="currentColor">0.4</text>
   <text x="500.0" y="260" text-anchor="middle" font-size="12" fill="currentColor">z</text>
-  <text transform="translate(364 125.0) rotate(-90)" text-anchor="middle" font-size="12" fill="currentColor">density</text>
+  <text transform="translate(350 125.0) rotate(-90)" text-anchor="middle" font-size="12" fill="currentColor">density</text>
   <text x="612" y="36" text-anchor="end" font-size="10" fill="currentColor">5% in the shaded tails</text>
 </svg>
 
@@ -237,9 +250,9 @@ A random quantity needs a distribution, and the split is over the outcomes: coun
 
 ## Sources
 
-- NIST/SEMATECH e-Handbook of Statistical Methods, "1.3.6.6. Gallery of Distributions". [https://www.itl.nist.gov/div898/handbook/eda/section3/eda366.htm](https://www.itl.nist.gov/div898/handbook/eda/section3/eda366.htm)
-- NIST/SEMATECH e-Handbook of Statistical Methods, "1.3.6.6.1. Normal Distribution" (density, CDF, central limit theorem, moments). [https://www.itl.nist.gov/div898/handbook/eda/section3/eda3661.htm](https://www.itl.nist.gov/div898/handbook/eda/section3/eda3661.htm)
-- NIST/SEMATECH e-Handbook of Statistical Methods, "1.3.6.6.18. Binomial Distribution" (PMF, mean np). [https://www.itl.nist.gov/div898/handbook/eda/section3/eda366i.htm](https://www.itl.nist.gov/div898/handbook/eda/section3/eda366i.htm)
-- NIST/SEMATECH e-Handbook of Statistical Methods, "1.3.6.6.19. Poisson Distribution" (PMF, mean λ). [https://www.itl.nist.gov/div898/handbook/eda/section3/eda366j.htm](https://www.itl.nist.gov/div898/handbook/eda/section3/eda366j.htm)
+- NIST/SEMATECH e-Handbook of Statistical Methods, "1.3.6.6. Gallery of Distributions". [itl.nist.gov, 1.3.6.6](https://www.itl.nist.gov/div898/handbook/eda/section3/eda366.htm)
+- NIST/SEMATECH e-Handbook of Statistical Methods, "1.3.6.6.1. Normal Distribution" (density, CDF, central limit theorem, moments). [itl.nist.gov, 1.3.6.6.1](https://www.itl.nist.gov/div898/handbook/eda/section3/eda3661.htm)
+- NIST/SEMATECH e-Handbook of Statistical Methods, "1.3.6.6.18. Binomial Distribution" (PMF, mean np). [itl.nist.gov, 1.3.6.6.18](https://www.itl.nist.gov/div898/handbook/eda/section3/eda366i.htm)
+- NIST/SEMATECH e-Handbook of Statistical Methods, "1.3.6.6.19. Poisson Distribution" (PMF, mean λ). [itl.nist.gov, 1.3.6.6.19](https://www.itl.nist.gov/div898/handbook/eda/section3/eda366j.htm)
 - J. K. Blitzstein, J. Hwang, *Introduction to Probability*, 2nd ed., Chapman & Hall/CRC, 2019. [doi:10.1201/9780429428357](https://doi.org/10.1201/9780429428357)
 - A. Hald, *A History of Parametric Statistical Inference from Bernoulli to Fisher, 1713–1935*, Springer, 2007. [doi:10.1007/978-0-387-46409-1](https://doi.org/10.1007/978-0-387-46409-1)
