@@ -12,6 +12,7 @@ import {
   readingMinutes,
   tagHref,
 } from '../../lib/notes';
+import { DISTILLATE_LABEL } from '../../lib/site';
 
 export async function getStaticPaths() {
   const notes = await getNotes();
@@ -42,8 +43,8 @@ const linkedFrom = backlinks(note, all);
     {title && <h1>{title}</h1>}
 
     {distillate && (
-      <aside class="distillate" aria-label="Distillate">
-        <p class="label">Distillate</p>
+      <aside class="distillate" aria-label={DISTILLATE_LABEL}>
+        <p class="label">{DISTILLATE_LABEL}</p>
         <p>{distillate}</p>
       </aside>
     )}

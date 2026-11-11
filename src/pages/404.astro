@@ -1,11 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
 import { href } from '../lib/notes';
+import { NOT_FOUND } from '../lib/site';
 ---
 
 <Base title="Not found">
   <div class="entry">
     <h1>Not here</h1>
-    <p>This page doesn’t exist, or it was boiled off. <a href={href()}>Back to the index.</a></p>
+    <p>{NOT_FOUND} <a href={href()}>Back to the index.</a></p>
   </div>
 </Base>

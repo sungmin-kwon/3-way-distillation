@@ -7,7 +7,7 @@ const BASE = import.meta.env.BASE_URL.endsWith('/')
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
 
-/** A site path with the base prefix, e.g. href('about/') -> '/3-way-distillation/about/'. */
+/** A site path with the base prefix, e.g. href('about/') -> '/<base>/about/', with the base from site.config.mjs. */
 export function href(path = ''): string {
   return `${BASE}${path.replace(/^\/+/, '')}`;
 }
@@ -102,7 +102,7 @@ export function groupByMonth(notes: Note[]): MonthGroup[] {
 }
 
 /**
- * The tags, in their fixed order (past, present, future), whether or not any
+ * The tags, in their fixed order (as in site.config.mjs), whether or not any
  * published note uses them yet. "rough" is added when any note is rough.
  */
 export function allTags(notes: Note[]): string[] {

@@ -8,6 +8,11 @@ note as a model to imitate (see [Reference notes](#reference-notes)).
 The notebook is personal: Sungmin writes things down here to understand them properly. The
 reader is a curious, technical person, often Sungmin a year from now. Write for that reader.
 
+This file is shared with the other sites in the family (study notes in genetics and statistics
+now live in [working-notes](https://github.com/sungmin-kwon/working-notes)). The parts that
+belong to this site only are the tags (section 2), the language for code (section 6), the
+affiliation rule (section 1), the known traps (section 7) and the reference notes. See `SHARED.md`.
+
 ## The hard rules
 
 Every one of these was broken in an earlier draft and had to be fixed after review. If you
@@ -73,7 +78,7 @@ it breaks links.
 title: Forward vs. reverse KL          # omit for a short note
 date: 2026-11-12                       # required, YYYY-MM-DD
 updated: 2026-11-20                    # only when a published note changes materially
-tags: [ml/llm]                         # cheme, ml/llm, genes, stats, qi/qc; zero or more
+tags: [ml/llm]                         # cheme, ml/llm, qi/qc; zero or more
 summary: One line for the index.       # long notes
 distillate: The boiled-down version.   # long notes
 rough: true                            # unfinished thinking; leave out otherwise
@@ -84,12 +89,11 @@ reviewed_by: [Claude Opus 5.5]         # optional: model(s) that did a separate 
 ---
 ```
 
-- **Tags:** only these five, which read as past, present and future: `cheme` (chemical
+- **Tags:** only these three, which read as past, present and future: `cheme` (chemical
   engineering: separations, thermodynamics, fermentation and stills), `ml/llm` (machine learning
-  and language models), `genes` (genetics, genomics and the clinical data around them), `stats`
-  (probability and statistics, the machinery underneath the other tags) and `qi/qc` (quantum
-  information and computing). The list lives in
-  `src/lib/site.ts`, and the build fails on any other tag. Don't invent new tags; ask first.
+  and language models) and `qi/qc` (quantum information and computing). The list lives in
+  `site.config.mjs`, and the build fails on any other tag. Don't invent new tags; ask first.
+  Genetics and statistics notes go on the working-notes site instead.
 - **Hidden notes:** `hidden: true` keeps a finished note off the site: no page, and not in the
   index, tag pages, RSS or search. A `note:` link to it from a visible note turns into plain text
   and becomes a link again when the note is unhidden. `draft: true` builds the same way but means
@@ -209,9 +213,7 @@ many digits as the source supports, usually two or three significant figures.
 the first column. Cite the source of any data table in the sentence above it ("Carey and Lewis,
 1932, as tabulated in standard textbooks").
 
-**Code.** Python for `cheme`, `ml/llm`, `stats` and `qi/qc` notes. **Base R for `genes` notes**, since R
-is the standard in that field: no packages from CRAN or Bioconductor, only what ships with R
-(`stats`, `graphics`). It must run as written: include imports, name the shapes in comments
+**Code.** Python. It must run as written: include imports, name the shapes in comments
 (`# [batch, seq, vocab]`), and keep it under about 30 lines (a simulation that feeds a figure may
 run longer). Code illustrates the idea; it isn't a library.
 
@@ -254,7 +256,7 @@ entry per line, in this format (as in `magic-state-distillation.md`):
 - **Check every entry before you write it.** Resolve the DOI (`https://api.crossref.org/works/<doi>`
   returns the title, authors, journal, volume and pages) and copy the details from what comes
   back. About ten DOIs, volumes or page ranges written from memory were wrong in the first
-  drafts of the four `genes` notes. If you can't resolve a work, don't cite it; say in the PR that it needs a source.
+  drafts of four genetics notes. If you can't resolve a work, don't cite it; say in the PR that it needs a source.
 - **Cite only what the text needs**: a work the note quotes a number, result or method from. Not
   background reading, not a second source for the same point.
 - **Describe a cited work only by what it says.** Before writing "Park et al. (2023) converted
@@ -341,14 +343,7 @@ errors. These rules matter more than anything above.
 | apparent attenuation | "the fraction of extract the yeast consumed" | that is *real* attenuation; apparent attenuation overstates it, because ethanol pulls the final gravity down |
 | sugar left vs. ABV ceiling | gap blamed on volume contraction | ABV counts ethanol by mass ÷ 0.789, so contraction doesn't enter; the gap is unfermented extract and the yield below theory |
 | attention scaling | $1/\sqrt{d_k}$ "does no visible work" at small $d_k$ | it changes the weights noticeably even at $d_k = 4$; compute both versions before claiming either |
-| GWAS sample size | a 2×2 table of allele counts read as people | each person carries two alleles: 800 alleles = 400 people |
-| winner's curse in MR | understates the instrument | inflates the discovery effect $\beta_{XG}$, so a two-sample estimate is biased toward the null |
-| HDL Mendelian randomization | variant in LPA | LIPG Asn396Ser (Voight et al. 2012); Lp(a) is a separate, causal risk factor |
-| PRS clumping | the same as LD pruning | clumping keeps the most significant SNP in each LD block; pruning ignores p-values |
-| PRS accuracy | quoting heritability as the score's variance explained | heritability is the ceiling; the score explains less (for height about 40% in European ancestry, less elsewhere) |
-| OMOP drug queries | `drug_exposure` filtered on the ingredient concept | real rows are clinical drugs; go through `concept_ancestor` from the ingredient |
 | Sources link text | the full URL as the link text | a short label (itl.nist.gov, 1.3.6.6); a long URL can't wrap and scrolls the page sideways on a phone |
-| moments don't determine a distribution | comparing two distributions that share only the mean | match both moments, e.g. a normal N(μ, σ²) with the same mean and variance |
 
 ## 8. Template for a long note
 
@@ -357,7 +352,7 @@ errors. These rules matter more than anything above.
 title: <Short noun phrase or question>
 summary: <What it covers, in one line> — <part>, <part>, <part>.
 date: YYYY-MM-DD
-tags: [<cheme|ml/llm|genes|stats|qi/qc>]
+tags: [<cheme|ml/llm|qi/qc>]
 distillate: <The answer in one sentence.> <The key number from the worked example.> <The main limit or caveat.>
 model: [<the model writing this>]
 ---
@@ -430,7 +425,7 @@ Go through this list and fix anything that fails. Then report which items you co
 - [ ] The page was opened in a browser, at full width and at phone width: no red KaTeX errors, no
       clipped equations, no literal `$`, `*` or `[`, figures and captions in place.
 - [ ] Frontmatter has `date` and `model` (plus `reviewed_by` if a separate review happened); a long note also has `title`, `summary`,
-      `distillate`, and tags from the allowed five.
+      `distillate`, and tags from the list in `site.config.mjs`.
 - [ ] No "I", "me" or "my" anywhere; "we" only where unavoidable.
 - [ ] The distillate stands alone, gives the answer and a key number, and matches the body.
 - [ ] One worked example runs through the note, with its parameters in a table.
@@ -499,8 +494,6 @@ new note's topic:
   numerically integrated runs, and corrections of common myths.
 - `raoults-law-and-vle.md` (`cheme`): Antoine constants cited to NIST, a bubble-point solver,
   and a computed Txy figure with a tie line.
-- `genome-wide-association-studies.md` (`genes`): a toy test and a simulated scan in base R, with
-  Manhattan and QQ plots computed from the simulation's output, and a linked Sources list.
 - `magic-state-distillation.md` (`qi/qc`): the Sources format, and a dated "Where things stand"
   section.
 

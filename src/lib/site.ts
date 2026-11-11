@@ -1,43 +1,19 @@
-export const SITE_TITLE = 'notes from the 3-way distiller';
-export const SITE_DESCRIPTION =
-  'My notebook on things that interest me, boiled down to the essentials.';
+// Typed view of site.config.mjs at the repo root, where each site's own settings live.
+import { SITE, TAGS as TAG_LIST, FAMILY } from '../../site.config.mjs';
 
-/**
- * The tags, in display order (eras: past, present, future). A note may only use these
- * (the content schema enforces it). Add a tag here before using it in a note.
- */
-export const TAGS = [
-  {
-    name: 'cheme',
-    era: 'past',
-    blurb: 'chemical engineering, separations and thermodynamics.',
-    description: 'Chemical engineering: separations, thermodynamics and the unit operations.',
-  },
-  {
-    name: 'ml/llm',
-    era: 'present',
-    blurb: 'machine learning and language models, what I work on now.',
-    description: 'Machine learning and language models: how they are trained, compressed and served.',
-  },
-  {
-    name: 'genes',
-    era: 'present',
-    blurb: 'genetics and genomics, what I work with now.',
-    description: 'Genetics, genomics and the clinical data around them: GWAS, polygenic scores, Mendelian randomization, medical codes and EHR/CDW infrastructure.',
-  },
-  {
-    name: 'stats',
-    era: 'present',
-    blurb: 'probability and statistics, the language the other notes are written in.',
-    description: 'Probability and statistics: distributions, estimation and hypothesis testing, the common machinery underneath the other tags.',
-  },
-  {
-    name: 'qi/qc',
-    era: 'future',
-    blurb: 'quantum information and computing, something I’d like to learn properly someday.',
-    description: 'Quantum information and computing: qubits, entanglement and what they make possible. Learning in progress.',
-  },
-] as const;
+export interface Tag {
+  name: string;
+  era?: string;
+  blurb: string;
+  description: string;
+}
 
-export type TagName = (typeof TAGS)[number]['name'];
-export const TAG_NAMES = TAGS.map((t) => t.name) as [TagName, ...TagName[]];
+export const SITE_TITLE: string = SITE.title;
+export const SITE_DESCRIPTION: string = SITE.description;
+export const SITE_LANG: string = SITE.lang;
+export const DISTILLATE_LABEL: string = SITE.distillateLabel;
+export const NOT_FOUND: string = SITE.notFound;
+export const TAGS: readonly Tag[] = TAG_LIST;
+export const SITE_FAMILY: readonly { title: string; url: string; blurb: string }[] = FAMILY;
+
+export const TAG_NAMES = TAGS.map((t) => t.name) as [string, ...string[]];

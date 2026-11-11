@@ -1,12 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
 import { href, tagHref } from '../lib/notes';
-import { TAGS } from '../lib/site';
+import { SITE_FAMILY, SITE_TITLE, TAGS } from '../lib/site';
 
 // Edit this list whenever the focus shifts, and bump the date.
 // Each item: text before the link, the linked note's id and title, text after.
 const currentlyUpdated = '2026-11-10';
-const currently = [
+const currently: { before: string; note: string; title: string; after: string }[] = [
   {
     before: 'Working through the open questions at the end of ',
     note: 'what-is-model-distillation',
@@ -20,9 +20,11 @@ const currently = [
     after: ' end to end on a 50/50 feed, checked against Fenske and Gilliland.',
   },
 ];
+
+const others = SITE_FAMILY.filter((s) => s.title !== SITE_TITLE);
 ---
 
-<Base title="About" description="Whose notebook this is, what its five tags cover, and why it’s called the 3-way distiller." current="about">
+<Base title="About" description="Whose notebook this is, what its tags cover, and why it’s called the 3-way distiller." current="about">
   <article class="entry">
     <h1>About</h1>
     <div class="prose">
@@ -31,15 +33,15 @@ const currently = [
         write things down properly.
       </p>
       <p>
-        The notes fall under five tags, roughly past, present and future:
+        The notes fall under three tags: past, present and future.
       </p>
       <ul class="eras">
         {TAGS.map((t) => (
-          <li><span class="label">{t.era}</span> <a href={tagHref(t.name)}>{t.name}</a>: {t.blurb}</li>
+          <li>{t.era && <><span class="label">{t.era}</span> </>}<a href={tagHref(t.name)}>{t.name}</a>: {t.blurb}</li>
         ))}
       </ul>
       <p>
-        The name comes from the kind of distillation that turns up in three of them: separating
+        The name comes from the kind of distillation that turns up in all three: separating
         mixtures in a column, training a small model to imitate a large one, and distilling many
         noisy entangled pairs into a few good ones. All three are the same move. Take something
         complex and keep only what matters. That is also what I try to do in each entry here.
@@ -54,6 +56,17 @@ const currently = [
         ))}
       </ul>
     </section>
+
+    {others.length > 0 && (
+      <section class="about-block">
+        <h2 class="label">Elsewhere</h2>
+        <ul>
+          {others.map((s) => (
+            <li><a href={s.url}>{s.title}</a>: {s.blurb}</li>
+          ))}
+        </ul>
+      </section>
+    )}
 
     <section class="about-block about-block-quiet">
       <h2 class="label">How to read this</h2>

@@ -5,8 +5,9 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { NOTES_DIR, readNotes } from './notes-meta.mjs';
+import { SITE, TAGS as TAG_LIST } from '../site.config.mjs';
 
-const TAGS = ['cheme', 'ml/llm', 'genes', 'stats', 'qi/qc'];
+const TAGS = TAG_LIST.map((t) => t.name);
 const problems = [];
 const notes = readNotes();
 const ids = new Set(notes.map((n) => n.id));
@@ -59,7 +60,7 @@ for (const note of notes) {
       }
       if (/—/.test(prose)) report(i, 'no em dash in body text; use a comma, colon, or new sentence');
     }
-    if (/\b(my|our)\s+(lab|labs|group|advisor|supervisor|PI|hospital|university|institute|employer|company|team)\b/i.test(prose)) {
+    if (!SITE.allowAffiliation && /\b(my|our)\s+(lab|labs|group|advisor|supervisor|PI|hospital|university|institute|employer|company|team)\b/i.test(prose)) {
       report(i, 'no affiliation: don\'t name or point to a lab, hospital, university or employer');
     }
 

@@ -4,16 +4,16 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import { remarkNoteLinks } from './src/lib/remark-note-links.mjs';
 import { unpublishedIds } from './scripts/notes-meta.mjs';
+import { SITE } from './site.config.mjs';
 
-// GitHub Pages project site. If this ever moves to a domain root,
-// set `site` to that domain and remove `base`.
-const site = 'https://sungmin-kwon.github.io/3-way-distillation/';
-const base = '/3-way-distillation/';
+// The URL, sub-path and any redirects come from site.config.mjs.
+const { url: site, base, redirects = {} } = SITE;
 
 export default defineConfig({
   output: 'static',
   site,
   base,
+  redirects,
   markdown: {
     processor: unified({
       remarkPlugins: [remarkMath, [remarkNoteLinks, { base, unpublished: unpublishedIds() }]],

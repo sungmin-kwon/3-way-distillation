@@ -23,7 +23,7 @@ worth keeping, put them under **Optional**, in one short list.
    KaTeX errors, equations clipped at the column edge, literal `$`, `*`, `[` or `note:`, captions
    swallowed into a figure, and labels that cross curves. A page that breaks partway down often
    shows only in the lower half.
-4. **Run the code** exactly as written in the note (Python, or base R for `genes`), and compare
+4. **Run the code** exactly as written in the note (in the language WRITING.md section 6 sets for its tag), and compare
    its output with the output block and with every number the prose takes from it.
 5. **Recompute the worked example** independently: each substituted equation, each table row, and
    every number in the summary and distillate. Check that rounded values are used consistently.
@@ -40,8 +40,8 @@ worth keeping, put them under **Optional**, in one short list.
    the text doesn't use. If a page can't be fetched, say "unverified" rather than guessing.
 8. **Check against the traps table** in WRITING.md section 7, and against the other notes:
    any number shared with another note must match (`grep -rn` for it).
-9. **Check framing**: no affiliation, no first person, no `## Limits`, tags from the allowed
-   five, `model` lists every model involved.
+9. **Check framing**: the affiliation rule in WRITING.md section 1, no first person, no
+   `## Limits`, tags from the list in `site.config.mjs`, `model` lists every model involved.
 
 ## Writing the review
 
