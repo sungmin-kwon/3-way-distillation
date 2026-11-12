@@ -3,7 +3,7 @@ title: Attention from scratch
 summary: One attention head computed by hand on a three-token sentence — embeddings, queries/keys/values, the scaled score matrix, softmax weights, and the output, plus why the 1/√d_k scaling exists and what multiple heads and masking add.
 date: 2026-11-10
 updated: 2026-11-10
-tags: [ml/llm]
+tags: []
 distillate: One attention head computes output = softmax(QKᵀ/√d_k)·V, with Q, K, V the token embeddings projected by learned matrices. On the three-token sentence "the cat sat" with 4-dimensional embeddings and identity weight matrices, "cat" attends 0.4519 to itself and 0.2741 each to "the" and "sat", giving the output (0.7260, 0.7260, 0.2741, 0.2741). With identity weights the scores are proportional to the cosine similarities, and equal to them here because every embedding has norm √2, so its norm squared is 2 = √d_k; the example shows the mechanics, not learned behavior.
 model: [Mistral Large 4]
 reviewed_by: [Claude Opus 5.5]

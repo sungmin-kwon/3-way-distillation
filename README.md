@@ -7,6 +7,9 @@ Source for Sungmin's notebooks, published at <https://sungmin-kwon.github.io/>:
 - [working notes](https://sungmin-kwon.github.io/working-notes/): study and research notes from
   graduate school in data science (statistics, genetics, health data). Until 2026-11 these lived
   in their own repository, `working-notes`, now archived; its history was merged in here.
+- [purgatorial thoughts](https://sungmin-kwon.github.io/purgatorial-thoughts/): notes from
+  either notebook that don't yet clear the bar in `WRITING.md`, kept without tags until they
+  are reworked.
 
 The root of the site is a home page that lists them. The Korean notebook, 인문학 개론, is a
 separate repository ([korean-notes](https://github.com/sungmin-kwon/korean-notes)).
@@ -24,13 +27,15 @@ them), see [`WRITING.md`](WRITING.md).
 
 Every note is one Markdown file in `src/content/notes/`, whichever notebook it belongs to. Its
 tags decide the notebook, and the file name becomes its URL inside that notebook
-(`soft-targets.md` with tag `ml/llm` → `/3-way-distillation/notes/soft-targets/`).
+(`soft-targets.md` with tag `ml/llm` → `/3-way-distillation/notes/soft-targets/`). A note
+without tags goes to purgatorial thoughts.
 
-The only required field is `date`:
+The only required fields are `date` and, outside purgatorial thoughts, `tags`:
 
 ```md
 ---
 date: 2026-11-12
+tags: [cheme]
 ---
 Two or three sentences. A note without a title is a short note and is shown in full on the index.
 ```

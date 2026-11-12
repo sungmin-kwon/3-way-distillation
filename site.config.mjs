@@ -8,6 +8,11 @@
 // site root (/) is a home page that lists them; with one section at path '' (the Korean site)
 // the section is the root.
 
+// Six notes moved from the distiller to working notes on 2026-11-11, and three of them moved on
+// to purgatorial thoughts on 2026-11-13; their old distiller paths point to where they are now.
+const PURGATORY = new Set(['mendelian-randomization', 'ehrs-fhir-omop-cdw', 'discrete-and-continuous-distributions']);
+const notePath = (id) => `/${PURGATORY.has(id) ? 'purgatorial-thoughts' : 'working-notes'}/notes/${id}/`;
+
 export const SITE = {
   // Title and description of the home page that lists the notebooks.
   title: 'notebooks',
@@ -35,9 +40,16 @@ export const SITE = {
       'ehrs-fhir-omop-cdw',
       'medical-codes',
       'discrete-and-continuous-distributions',
-    ].map((id) => [`/3-way-distillation/notes/${id}`, `/working-notes/notes/${id}/`]),
+    ].map((id) => [`/3-way-distillation/notes/${id}`, notePath(id)]),
     ['/3-way-distillation/tags/genes', '/working-notes/tags/genes/'],
     ['/3-way-distillation/tags/stats', '/working-notes/tags/stats/'],
+    // Notes below the bar (WRITING.md) moved to purgatorial thoughts on 2026-11-13.
+    ...[
+      ['3-way-distillation', 'attention-from-scratch'],
+      ['working-notes', 'mendelian-randomization'],
+      ['working-notes', 'ehrs-fhir-omop-cdw'],
+      ['working-notes', 'discrete-and-continuous-distributions'],
+    ].map(([from, id]) => [`/${from}/notes/${id}`, `/purgatorial-thoughts/notes/${id}/`]),
   ]),
   // Colors of the home page and the 404 page, over the shared ones in src/styles/site.css
   // (any of --paper, --ink, --ink-2, --muted, --rule, --code-bg, --accent). Here: plain grey
@@ -73,6 +85,7 @@ export const SITE = {
  *   optional and shown next to the tag. `slug` is optional: the tag's URL, for a name that isn't
  *   in Latin letters.
  * - `distillateLabel`: heading of the box that shows a long note's `distillate` field.
+ * - `untagged`: true makes this the section of notes without tags (at most one section).
  * - `allowAffiliation`: false makes `npm run check` reject "my lab", "our university" and the
  *   like in this section's notes.
  * - `palette`: colors over the shared ones, as in SITE.palette. Leave it out for the shared look.
@@ -178,6 +191,46 @@ export const SECTIONS = [
           'Health data and its plumbing: EHRs, FHIR, clinical data warehouses, the OMOP common data model, and the medical codes that turn records into phenotypes.',
       },
     ],
+  },
+  {
+    path: 'purgatorial-thoughts',
+    title: 'purgatorial thoughts',
+    description: 'Notes that don’t yet clear the bar of the other notebooks, kept here until they are reworked.',
+    blurb: 'notes that don’t yet clear the bar: they describe more than they explain.',
+    distillateLabel: 'In short',
+    // Holds notes from both notebooks, including working notes that name the school.
+    allowAffiliation: true,
+    // Notes without tags land here (src/lib/sections.mjs). Moving a note in means deleting its
+    // tags; moving it back means restoring them.
+    untagged: true,
+    about: [
+      'I’m Sungmin. Every note on this site has to pass a bar: it derives its central result, its example shows something the formula alone doesn’t, it connects its ideas, it says where they break, and it is more than a survey.',
+      'The notes here don’t pass it yet. They are mostly accurate, but they describe more than they explain. They wait here, without tags, until they are reworked and go back to their notebook, or are retired.',
+    ],
+    aboutDescription: 'What this notebook holds, and why its notes are here.',
+    howToRead: 'Treat these as drafts. Longer entries open with a short summary, so you can stop there.',
+    // Ash-grey paper and an ember accent, apart from the other two notebooks.
+    palette: {
+      light: {
+        paper: '#f3f1ef',
+        ink: '#1d1a19',
+        'ink-2': '#433d3a',
+        muted: '#5e5652',
+        rule: '#d6d0cc',
+        'code-bg': '#e9e5e2',
+        accent: '#a2401c',
+      },
+      dark: {
+        paper: '#171413',
+        ink: '#e8e3e0',
+        'ink-2': '#c6beb9',
+        muted: '#a0958f',
+        rule: '#36302d',
+        'code-bg': '#201c1a',
+        accent: '#f08a5d',
+      },
+    },
+    tags: [],
   },
 ];
 
