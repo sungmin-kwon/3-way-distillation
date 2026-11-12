@@ -18,16 +18,16 @@ nor 222 but 263.
 
 The sources are Chen Shou's *Records of the Three Kingdoms* (三國志, finished around 290),
 Pei Songzhi's commentary on it (429), which quotes many works now lost, the *Book of Jin* (晉書)
-and Du You's *Comprehensive Institutions* (通典, 801). These works are divided into *juan* (卷),
-literally "scrolls": a *juan* began as one roll of text and is closer to a long chapter than to
-a modern book, so citations below give the *juan* number ("*juan* 7"). Quotations are given in the original
+and Du You's *Comprehensive Institutions* (通典, 801). These works are divided into volumes (卷),
+literally "scrolls": a volume began as one roll of text and is closer to a long chapter than to
+a modern book, so citations below give the volume number ("vol. 7"). Quotations are given in the original
 with a translation; translations are our own. A complete Korean translation of Chen Shou with
 all of Pei's commentary, by Kim Yeong-mun (김영문), appeared in 2026 (Lee, 2026).
 
 ## The registers
 
 Throughout, the note returns to one set of numbers: the households (戶) and persons (口) that
-each state had on its registers, as Du You collected them in *Comprehensive Institutions*, *juan* 7. They are the
+each state had on its registers, as Du You collected them in *Comprehensive Institutions*, vol. 7. They are the
 nearest thing the period has to a measure of strength.
 
 | Register | Households | Persons | Persons per household |
@@ -57,7 +57,7 @@ could. The persons per household say the same thing from another side: 3.36 in S
 surrender and 6.68 in Wei in the same year are too far apart to be two populations living the
 same way, and more likely reflect what each state's clerks counted. Even the same register is
 quoted differently: Du You gives Wu in 242 as 520,000 households and 2,300,000 persons, while
-the *Book of Jin*'s treatise on geography (*juan* 14) gives 523,000 and 2,400,000. Shu's surrender
+the *Book of Jin*'s treatise on geography (vol. 14) gives 523,000 and 2,400,000. Shu's surrender
 list also counted 102,000 soldiers and 40,000 officials against 940,000 persons, one soldier
 for every 9.2 registered persons, and Wu's register at its surrender in 280 counted 230,000
 soldiers against 2,300,000 persons, one in 10. Ratios that high suggest the register missed many of the people the soldiers came from.
@@ -73,7 +73,7 @@ Guandu decided who would hold the north, and with it the plain whose registers, 
 outnumbered the other two states' together. It did not decide it easily, and the sources disagree about how close it
 was.
 
-Chen Shou's annals of Cao Cao (*juan* 1) make Guandu a victory of the few. Cao's force at one point
+Chen Shou's annals of Cao Cao (vol. 1) make Guandu a victory of the few. Cao's force at one point
 was "under ten thousand, and two or three in ten wounded" (公兵不滿萬，傷者十二三), against
 Yuan Shao's "more than a hundred thousand" (紹衆十餘萬). Pei Songzhi doesn't believe it. His
 note gives four arguments: Cao matched Yuan's camps across tens of *li*, which a tiny army
@@ -87,7 +87,7 @@ is repeating the version Pei already rejected.
 
 What the sources do agree on is that Cao nearly gave up. The annals say his grain ran short
 and he wrote to Xun Yu "proposing to go back to Xu" (時公糧少，與荀彧書，議欲還許). Xun Yu's
-biography (*juan* 10) keeps the reply: "Our food is short, but not as short as Chu and Han between
+biography (vol. 10) keeps the reply: "Our food is short, but not as short as Chu and Han between
 Xingyang and Chenggao. Then neither Liu nor Xiang would be the first to pull back, because the
 first to pull back loses" (今軍食雖少，未若楚、漢在滎陽、成皐間也。是時劉、項莫肯先退，先退者勢屈也).
 Cao stayed, a defector told him where Yuan's grain was, and the raid on Wuchao ended the
@@ -110,11 +110,11 @@ The best evidence that Guandu made the north the favourite comes from the south.
 written within seven years of it, by the two men who shaped Wu's and Shu's strategy, both
 start from the north's advantage.
 
-Lu Su (biography, *juan* 54) gave his plan to Sun Quan soon after Sun Ce's death in 200: "The house of
+Lu Su (biography, vol. 54) gave his plan to Sun Quan soon after Sun Ce's death in 200: "The house of
 Han cannot be restored, and Cao Cao cannot be removed quickly. The only plan for you is to
 stand as one leg of a tripod in Jiangdong and watch for a crack in the realm"
 (漢室不可復興，曹操不可卒除。為將軍計，惟有鼎足江東，以觀天下之釁). Zhuge Liang's plan
-at Longzhong (biography of Zhuge Liang, *juan* 35), dated by tradition to 207, says it more sharply. Cao against Yuan
+at Longzhong (biography of Zhuge Liang, vol. 35), dated by tradition to 207, says it more sharply. Cao against Yuan
 had "a smaller name and fewer men", and won, "not by the timing of Heaven alone but by human
 planning"; "now Cao already has a million men and holds the Son of Heaven to command the
 lords, and truly cannot be met head-on" (此誠不可與爭鋒).
@@ -133,7 +133,7 @@ long wait: first take Huang Zu and Liu Biao, "hold the whole length of the Yangz
 Chibi is the battle the novel made famous, and the one the sources agree on least. Chen Shou's
 annals of Cao Cao give it one line: "Cao reached Chibi and fought Liu Bei without advantage.
 Then a great plague came, and many officers and men died, so he withdrew"
-(公至赤壁，與備戰，不利。於是大疫，吏士多死者，乃引軍還). Zhou Yu's biography (*juan* 54) quotes a
+(公至赤壁，與備戰，不利。於是大疫，吏士多死者，乃引軍還). Zhou Yu's biography (vol. 54) quotes a
 letter Cao later wrote to Sun Quan: at Chibi "there happened to be sickness"; he burned his own
 ships and withdrew, and so "let Zhou Yu falsely take the name for it"
 (赤壁之役，值有疾病，孤燒船自退，橫使周瑜虛獲此名). Pei Songzhi's note on the annals quotes the
@@ -146,8 +146,8 @@ sources disagree.
 Two of the three accounts, the annals and Cao's own letter, put sickness first, and the theme
 that the south itself defeated northern armies recurs. In 225 Cao Pi brought more than a
 hundred thousand men to Guangling to cross the river, found it too cold for his boats to
-enter, and, in a passage Zhang Bo's *Records of Wu* (吳錄) preserves in Pei's commentary on Sun Quan
-(*juan* 47),
+enter, and, in a passage Zhang Bo's *Records of Wu* (吳錄)[^zhangbo] preserves in Pei's commentary on Sun Quan
+(vol. 47),
 looked at the waves and said "Ah! Heaven surely made this to divide south from north!"
 (嗟乎！固天所以隔南北也！) and turned back. Nam Deok-hyeon writes that after
 Chibi Cao had to give up his dream of winning the realm by marching south
@@ -163,9 +163,9 @@ hands while Wu stayed an ally. Wu's own documents show that Wu could not accept 
 
 Lu Su's plan of 200 already claims "the whole length of the Yangzi". In 210 Zhou Yu proposed to
 Sun Quan that they "advance and take Shu" (進取蜀), join Ma Chao, and then press Cao from
-Xiangyang (biography of Zhou Yu, *juan* 54). Later Lü Meng advised against an attack north on Xu province, which
+Xiangyang (biography of Zhou Yu, vol. 54). Later Lü Meng advised against an attack north on Xu province, which
 open land made hard to hold, and for the alternative: "better to take Guan Yu and hold the whole
-Yangzi; our position would be far stronger" (不如取羽，全據長江，形勢益張) (biography of Lü Meng, *juan* 54). The
+Yangzi; our position would be far stronger" (不如取羽，全據長江，形勢益張) (biography of Lü Meng, vol. 54). The
 geography is why. Jingzhou lies upstream of Wu's heartland, so whoever holds it can float an
 army down onto Jianye. The Longzhong plan's "hold both Jingzhou and Yizhou" (跨有荊、益) and
 Wu's "hold the whole Yangzi" claim the same province.
@@ -185,7 +185,7 @@ thousand *li* (Huang and Sun, 2019). Even the defenders concede the march.
 For a few months in 219 the Longzhong plan's conditions were closer to met than at any other
 time. That year Liu Bei took Hanzhong, killing Cao Cao's general Xiahou Yuan, and named himself
 King of Hanzhong, so Shu held Yizhou and the gate north through the mountains, while Guan Yu
-held Jingzhou. Guan Yu's biography (*juan* 36) gives the rest of the
+held Jingzhou. Guan Yu's biography (vol. 36) gives the rest of the
 year, the Xiangyang–Fancheng campaign (襄樊之戰, 양번 전투), in a few lines:
 
 > 是歲，羽率眾攻曹仁於樊。曹公遣于禁助仁。秋，大霖雨，漢水汎溢，禁所督七軍皆沒。禁降羽，羽又斬將軍龐德。梁、郟、陸渾群盜或遙受羽印號，為之支黨，羽威震華夏。曹公議徙許都以避其銳。
@@ -197,7 +197,7 @@ year, the Xiangyang–Fancheng campaign (襄樊之戰, 양번 전투), in a few 
 > partisans, and his might shook the central lands. Lord Cao discussed moving the capital away
 > from Xu to avoid his edge.
 
-Yu Jin's own biography (*juan* 17) adds that the water stood "several *zhang* deep on level
+Yu Jin's own biography (vol. 17) adds that the water stood "several *zhang* deep on level
 ground" (平地水數丈), and that Guan Yu came at the stranded army in large boats. Liang, Jia and
 Luhun are counties south of Luoyang, well inside Wei. A Shu general had destroyed a field army,
 raised revolts in the north's own territory, and made Cao Cao think of moving his court. If the
@@ -217,7 +217,7 @@ Its offensive was a march from Jingzhou toward Wan and Luoyang *together with* a
 Yizhou; in 219 only Jingzhou moved, while Liu Bei's army, just back from Hanzhong, stayed in the
 west.
 
-Lü Meng's biography (*juan* 54) shows how Guan Yu's victory itself set off
+Lü Meng's biography (vol. 54) shows how Guan Yu's victory itself set off
 the attack on him. Lü Meng had feigned illness so that Guan Yu would strip the garrisons he
 had left behind against Wu, and Guan Yu did. Then "Guan Yu took Yu Jin and all his men, tens
 of thousands of men and horses; pleading a shortage of grain, he seized the rice at Xiang pass
@@ -226,7 +226,7 @@ The prisoners from the flood had to be fed, and the grain Guan Yu took to feed t
 Lü Meng hid his best soldiers in covered boats rowed by men in plain white clothes dressed as merchants,
 seized Guan Yu's river posts so that no warning reached him, and received the surrender of
 Shi Ren at Gong'an and Mi Fang at Jiangling. Xu Huang's relief force meanwhile broke the siege
-of Fan (biography of Zhang Liao, *juan* 17). Guan Yu's biography ends the year: "Sun Quan already held Jiangling and had captured
+of Fan (biography of Zhang Liao, vol. 17). Guan Yu's biography ends the year: "Sun Quan already held Jiangling and had captured
 the wives and children of all Guan Yu's officers and men, so his army scattered. Sun Quan sent
 generals to meet him, and they beheaded Guan Yu and his son Ping at Linju"
 (權已據江陵，盡虜羽士眾妻子，羽軍遂散。權遣將逆擊羽，斬羽及子平於臨沮).
@@ -255,7 +255,7 @@ Liu Bei's march down the Yangzi in 221 was the attempt to take Jingzhou back. At
 let the two armies face each other for seven or eight months, then set fire to its camps, broke
 more than forty of them, and sent Liu Bei fleeing to Baidi; "its boats, weapons and stores, by
 water and land, were nearly all lost at once" (其舟船器械，水步軍資，一時略盡) (biography of
-Lu Xun, *juan* 58).
+Lu Xun, vol. 58).
 
 So the south's chance, as its own plan defined it, did not end at Yiling. It ended in 219 when
 Jingzhou changed hands, and it was flawed from the start, because the plan needed an ally whose
@@ -271,7 +271,7 @@ river, the remaining question is what changed that. The answer the sources give 
 Yangzi.
 
 Wei took Shu in 263, and the registers moved from 58% to 70%. The larger change was the
-river. The *Book of Jin*'s biography of Wang Jun (*juan* 42) describes the fleet Jin built
+river. The *Book of Jin*'s biography of Wang Jun (vol. 42) describes the fleet Jin built
 in Yizhou for the attack on Wu: linked ships 120 paces square holding more than two thousand
 men, with wooden walls and towers. Wood shavings from the yards floated down past the Wu
 garrison, and its commander Wu Yan warned Sun Hao that "if Jianping does not fall, they will
@@ -290,10 +290,10 @@ How the question is posed also depends on whose history is read. Chen Shou, a fo
 official writing under Jin, gave Wei the imperial annals and Liu Bei only a biography. The *Book
 of Jin* records that his father had been punished under Zhuge Liang and that Chen Shou judged
 Zhuge Liang's generalship "not his strength" (將略非長), which some held against him
-(biography of Chen Shou, *juan* 82). In the 4th century Xi Zuochi wrote the *Annals of Han and Jin* (漢晉春秋) to rebuke
+(biography of Chen Shou, vol. 82). In the 4th century Xi Zuochi wrote the *Annals of Han and Jin* (漢晉春秋) to rebuke
 Huan Wen's ambitions; it treated Shu as the legitimate Han, Wei as usurpers, and dated the end
 of Han and the start of Jin to the fall of Shu (至文帝平蜀，乃為漢亡而晉始興焉)
-(biography of Xi Zuochi, *juan* 82). The *Romance of the Three Kingdoms*, which shapes how most readers in Korea and
+(biography of Xi Zuochi, vol. 82). The *Romance of the Three Kingdoms*, which shapes how most readers in Korea and
 China meet the period, follows the Shu-centred line, and the view that the south "still had a
 chance" after Chibi is partly that line's sympathy.
 
@@ -318,9 +318,9 @@ household differ too much between states to trust the shares to better than a ro
 
 ## Sources
 
-- Chen Shou 陳壽, *Records of the Three Kingdoms* (*Sanguozhi* 三國志, c. 290), with Pei Songzhi 裴松之's commentary (429). *Juan* 1, 10, 17, 33, 35, 36, 47, 48, 54 and 58. [zh.wikisource.org](https://zh.wikisource.org/wiki/%E4%B8%89%E5%9C%8B%E5%BF%97/%E5%8D%B754), [chinesenotes.com](https://chinesenotes.com/sanguozhi.html)
-- Fang Xuanling 房玄齡 et al., *Book of Jin* (*Jin shu* 晉書, 648). *Juan* 14 (treatise on geography), *juan* 42 (Wang Jun), *juan* 82 (Chen Shou, Xi Zuochi). [chinesenotes.com](https://chinesenotes.com/jinshu.html)
-- Du You 杜佑, *Comprehensive Institutions* (*Tongdian* 通典, 801), *juan* 7 (食貨七, "Food and Goods 7"), on households and persons. [zh.wikisource.org](https://zh.wikisource.org/wiki/%E9%80%9A%E5%85%B8), [ctext.org](https://ctext.org/tongdian/zh)
+- Chen Shou 陳壽, *Records of the Three Kingdoms* (*Sanguozhi* 三國志, c. 290), with Pei Songzhi 裴松之's commentary (429). Vols. 1, 10, 17, 33, 35, 36, 47, 48, 54 and 58. [zh.wikisource.org](https://zh.wikisource.org/wiki/%E4%B8%89%E5%9C%8B%E5%BF%97/%E5%8D%B754), [chinesenotes.com](https://chinesenotes.com/sanguozhi.html)
+- Fang Xuanling 房玄齡 et al., *Book of Jin* (*Jin shu* 晉書, 648). Vol. 14 (treatise on geography), vol. 42 (Wang Jun), vol. 82 (Chen Shou, Xi Zuochi). [chinesenotes.com](https://chinesenotes.com/jinshu.html)
+- Du You 杜佑, *Comprehensive Institutions* (*Tongdian* 通典, 801), vol. 7 (食貨七, "Food and Goods 7"), on households and persons. [zh.wikisource.org](https://zh.wikisource.org/wiki/%E9%80%9A%E5%85%B8), [ctext.org](https://ctext.org/tongdian/zh)
 - 阎步克 Yan Buke, "田余庆先生弟子集体追忆老师︱阎步克：由小见大，见微知著" [Tian Yuqing's students remember their teacher: Yan Buke, "Seeing the large in the small"], *The Paper* 澎湃新闻 (10 January 2015). On Tian Yuqing's "《隆中对》的再认识" [The Longzhong plan reconsidered], collected in his 秦汉魏晋史探微 [Studies in Qin, Han, Wei and Jin history] (Zhonghua shuju 中华书局, 1993). [thepaper.cn](https://www.thepaper.cn/newsDetail_forward_1292895)
 - 张守哲 Zhang Shouzhe, "“隆中对”在地缘上的成败得失" [The Longzhong plan's gains and losses in geopolitics], *Jiemian* 界面新闻 (26 April 2017; a reprint). [jiemian.com](https://www.jiemian.com/article/1276783.html)
 - 黄朴民 Huang Pumin, 孙建民 Sun Jianmin, "诸葛亮《隆中对》的战略决策思维" [Strategic decision-making in Zhuge Liang's Longzhong plan], from 中国兵学思想史 [A history of Chinese military thought] (Nanjing University Press 南京大学出版社, 2018), reprinted on *Aisixiang* 爱思想 (2019). [aisixiang.com](https://www.aisixiang.com/data/114574.html)
@@ -328,3 +328,5 @@ household differ too much between states to trust the shares to better than a ro
 - 김운회 Kim Un-hoe, "김운회의 ‘삼국지 바로 읽기’ <10> 조조, 모돈을 죽이다" [Reading the Three Kingdoms rightly, 10: Cao Cao kills Modu], *Pressian* 프레시안 (8 March 2004). [pressian.com](https://pressian.com/pages/articles/110865)
 - 남덕현 Nam Deok-hyeon, "삼국지문화유산을 찾아서 (7) 적벽전투지" [In search of the Three Kingdoms' heritage, 7: the Chibi battlefield], *Kyunghyang Shinmun* 경향신문 (14 November 2000). [khan.co.kr](https://www.khan.co.kr/article/200011141634231)
 - 이규희 Lee Gyu-hui, "국내 첫 ‘배송지 주’ 원문 완역" [First complete Korean translation of Pei Songzhi's commentary], *Segye Ilbo* 세계일보 (3 January 2026), on 정사 삼국지 [The official Records of the Three Kingdoms] (8 vols.), tr. 김영문 Kim Yeong-mun (Geulhangari 글항아리). [segye.com](https://www.segye.com/newsView/20260101508408)
+
+[^zhangbo]: Pei's commentary in vol. 47 cites the *Records of Wu* by title only. Its author, Zhang Bo (張勃) of Jin, is the usual attribution, given here from memory and not checked against a source.

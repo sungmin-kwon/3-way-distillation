@@ -55,8 +55,9 @@ remember nothing else from this file, follow these. Details are in the sections 
    may not (section 1).
 8. **Numbers shared between notes stay in sync.** If you change a number another note quotes,
    change it there too (section 7).
-9. **End the PR description with what you could not verify.** An honest list is worth more than
-   a clean-looking draft (section 9).
+9. **Mark what you could not verify in the note itself, and list it at the end of the PR.** A
+   detail added from memory and flagged only in the PR reads as checked to everyone who sees the
+   page. An honest list is worth more than a clean-looking draft (sections 7 and 9).
 10. **Meet the bar below, and don't link to other notes.** Each note stands on its own: explain
     what it needs in place rather than pointing elsewhere (section 6).
 
@@ -142,7 +143,11 @@ English title, then the romanization and the original. Don't mix a translated ti
 with a bare romanization or bare original in another. A modern title in another language keeps
 its original in Sources, followed by an English translation in square brackets. A name or term
 written in a non-Latin script gives, at first mention, the original script plus its reading in
-the language the history belongs to. **When citing Chinese, Korean or Japanese sources, also
+the language the history belongs to. A word quoted from an older source keeps that source's
+spelling, and its first mention also says how the word or sound is spelled today, from a
+source for the modern spelling: Cushing (1901) writes the Zuni sound now spelled *ł* as *thl*,
+and a note quoting him keeps *thl* and says so where the first such word appears. Never silently
+modernize a quotation, and never leave a reader to guess that an old spelling is old. **When citing Chinese, Korean or Japanese sources, also
 follow [`conventions/east-asian.md`](conventions/east-asian.md).**
 A newspaper column or a reprinted essay may be cited for its author's position, if
 the position is attributed to that author by name. A scholar's argument known only from someone
@@ -220,8 +225,10 @@ reviewed_by: [Claude Opus 5.5]         # optional: model(s) that did a separate 
   coded and shared: EHRs, CDWs, common data models, medical codes). Marginalia: `history` and
   `language` (languages, their history and the words people use). The
   list lives in
-  `site.config.mjs` under each notebook, and the build fails on any other tag. A note's tags all
-  come from one notebook; `npm run check` rejects a mix. Don't invent new tags; ask first.
+  `site.config.mjs` under each notebook, and the build fails on any other tag. A note may carry more than one tag, all
+  from one notebook (`npm run check` rejects a mix): give a second tag when a reader browsing
+  that tag would want the note too, as with a note on a word's history (`[language, history]`).
+  The first tag is the main one. Don't invent new tags; ask first.
   **Every new note needs a tag:** a note without tags lands in purgatorial thoughts (see the
   bar).
 - **Hidden notes:** `hidden: true` keeps a finished note off the site: no page, and not in the
@@ -412,6 +419,9 @@ entry per line, in this format (as in `magic-state-distillation.md`):
 - **Describe a cited work only by what it says.** Before writing "Park et al. (2023) converted
   the hospital's records to OMOP", read the abstract and check it says that. A paper's topic is
   not its finding.
+- **Cite a novel, play or poem by its own divisions**: chapter, or act and scene, or line, not
+  by page, because page numbers change between editions ("*Brave New World*, ch. 12"). A page
+  number is fine on top of that, for a scholarly edition named in Sources.
 - Footnotes (`[^1]`) are for asides, or for a source tied to one specific claim, such as a spec
   limit from a data sheet. A footnote that cites a work still carries its link.
 
@@ -431,7 +441,7 @@ errors. These rules matter more than anything above.
 1. **Recompute every number** in a worked example, preferably with code, and check that tables,
    prose, distillate, and figure agree with each other.
 2. **Check every factual claim against a source** you could name. If you can't, cut it, or mark
-   the note `rough: true` and say what is unchecked.
+   it in the text as unchecked (rule 20).
 3. **Don't invent precision.** "About 97% ABV" beats a fake "96.85%".
 4. **Round once, then use the rounded numbers everywhere.** Every value in the distillate, the
    tables, the prose, and each substituted equation must be the rounded value the body quotes,
@@ -496,6 +506,14 @@ errors. These rules matter more than anything above.
     year and sometimes the wrong author or subtitle. Take the original publisher, year and
     authors from the book or a library record, and when the link is a later edition, say so
     ("linked: 3rd ed.").
+20. **Mark in the note anything that wasn't checked against a source.** Cutting comes first
+    (rules 2 and 16). A detail that stays, such as an author's name, a reading or a date added
+    from memory, gets a footnote in the note saying what it rests on and that it wasn't checked
+    ("from memory; not found in the sources above"), and it also goes in the PR's **Not
+    verified**. Never mention it only in the PR: the reader of the page never sees the PR. Two
+    threads added details from memory (an author for a lost Chinese work, Korean readings of
+    hanja) and said so only in their reports. If a whole argument is unchecked, use `rough: true`
+    instead (section 3).
 
 ### Known traps (each one appeared in an earlier draft)
 
@@ -642,7 +660,7 @@ Go through this list and fix anything that fails. Then report which items you co
 - [ ] No H1, no em dashes in body text, no hype, no "in this note we will".
 - [ ] No `## Limits` section. Each caveat sits in the section it qualifies and would mislead a
       careful reader if cut.
-- [ ] Anything unchecked is either cut or flagged, with `rough: true`.
+- [ ] Anything unchecked is cut, or marked in the note itself (rule 20), or the note is `rough: true`.
 
 Paste this list into the PR description with each box ticked or not, and add a section
 **Not verified** listing every claim, number or source you couldn't check. An empty list is fine

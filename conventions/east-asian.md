@@ -25,13 +25,17 @@ One exception: when two titles would translate into near-twins, keep the romaniz
 running name and gloss it at first mention, as the Silla note does with *Samguk sagi* (三國史記,
 삼국사기, "History of the Three Kingdoms") and *Samguk yusa*.
 
-## *Juan* (卷)
+## Volumes (卷)
 
-卷 is written *juan*, never "book" or "chapter": a *juan* was one scroll, so a modern "book"
-overstates it, and "chapter" hides the unit the editions number by. Gloss it once near the top of
-the note. Cite a primary text by work, author, date and *juan*.
+卷 is translated "volume", and cited as "vol. 5" (plural "vols. 4 and 5"), in Chinese, Korean
+and Japanese (巻) sources alike. Don't write the romanization *juan* (or *gwon*): it means
+nothing to an English reader. Don't write "book" or "chapter" either: a volume was one scroll, so "book" overstates
+it, and "chapter" hides the unit the editions number by. Gloss it once near the top of the note,
+with the character: "divided into volumes (卷), literally scrolls, closer to a long chapter than
+to a modern book". In a note on Korean history the gloss also gives the Korean reading, (卷, 권).
+Cite a primary text by work, author, date and volume.
 
-Biographies are cited in English too: "(biography of Lü Meng, *juan* 54)", not "(呂蒙傳, 卷54)".
+Biographies are cited in English too: "(biography of Lü Meng, vol. 54)", not "(呂蒙傳, 卷54)".
 
 ## Readings of hanja
 
