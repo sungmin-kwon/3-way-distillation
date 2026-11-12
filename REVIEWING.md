@@ -59,6 +59,8 @@ worth keeping, put them under **Optional**, in one short list.
    each view is given to the person who holds it, and that look-alike distinctions in a framework
    aren't merged (WRITING.md section 7, rules 15 and 17). For a note not in English, read it at
    the level of characters: substituted brackets or misspelled names pass the build.
+   A note citing Chinese, Korean or Japanese sources is also checked against
+   `conventions/east-asian.md`.
 12. **Check framing**: the affiliation rule in WRITING.md section 1, no first person, no
    `## Limits`, tags from the list in `site.config.mjs`, `model` lists every model involved.
 
