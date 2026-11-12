@@ -134,9 +134,18 @@ tests take this form. It is the default for marginalia. The Three Kingdoms note
 Sources for marginalia and other qualitative notes: classical Chinese originals and Korean and Chinese scholarship count as
 much as English, and English coverage of East Asian history is often the thinnest. Quote the
 original, then translate it ("translations are our own" when they are). Cite a primary text by
-work, author, date and chapter (卷), linked to an online text (Chinese Wikisource, Chinese Text
+work, author, date and *juan* (卷), linked to an online text (Chinese Wikisource, Chinese Text
 Project, chinesenotes.com) that you opened, and check every quotation against it, character by
-character. A newspaper column or a reprinted essay may be cited for its author's position, if
+character. Titles are always translated: in the text a work goes by its English title, with the
+original in parentheses at first mention (*Book of Wei* (魏書), *Records of Wu* (吳錄)); in
+Sources it gets the English title, then the romanization and original (*Comprehensive
+Institutions* (*Tongdian* 通典, 801)). Don't mix a translated title in one place with a bare
+romanization or bare characters in another. A modern title in Korean, Chinese or Japanese keeps
+its original in Sources, followed by an English translation in square brackets. 卷 is written
+*juan*, never "book" or "chapter" (a *juan* was one scroll, so a modern "book" overstates it
+and "chapter" hides the unit the editions number by); gloss it once near the top of the note.
+Biographies are cited in English too: "(biography of Lü Meng, *juan* 54)", not "(呂蒙傳, 卷54)".
+A newspaper column or a reprinted essay may be cited for its author's position, if
 the position is attributed to that author by name. A scholar's argument known only from someone
 else's summary is cited through that summary, and the text says so. No code is needed in these
 notes, but every number computed from a source (a share, a ratio, a growth rate) still comes
