@@ -130,6 +130,9 @@ a:hover {
 .masthead nav {
   display: flex;
   gap: 24px;
+  /* When the nav wraps below the site name (phones), keep it at the right edge, over the
+     right-aligned notebooks menu. */
+  margin-left: auto;
   font-family: var(--mono);
   font-size: 14px;
 }
