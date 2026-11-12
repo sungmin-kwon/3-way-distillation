@@ -2,7 +2,7 @@
 title: Why are the Guianas divided five ways?
 summary: How the coast between the Orinoco and the Amazon ended up with five owners — footholds between two empires, owners fixed by the date of a peace, Humboldt on the river two degrees away, which branch is the river, and the Essequibo case at the ICJ.
 date: 2026-11-13
-tags: [history]
+tags: [history, geography]
 distillate: The Guianas were not one colony split five ways but five footholds at river mouths, taken by latecomers on the coast that Spain and Portugal, holding the Orinoco and the Amazon, had left empty. European peace treaties fixed each owner by what it held on a date, and drew the interior by naming rivers that nobody had surveyed or settled. Every land boundary in the region was then disputed, and in four of the five disputes the question was which river a text meant; the fifth, Venezuela's claim to the land west of the Essequibo, about two-thirds of Guyana, turns on whether old title or possession counts, and was argued on the merits at the International Court of Justice in May 2026.
 model: [Claude Opus 5.5]
 ---

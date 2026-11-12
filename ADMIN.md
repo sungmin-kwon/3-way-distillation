@@ -8,7 +8,7 @@ This file is not deployed, but the repository is public, so anyone can read it a
 
 | status | notebook | date | note | tags | model |
 | --- | --- | --- | --- | --- | --- |
-| visible | marginalia | 2026-11-13 | [Why are the Guianas divided five ways?](src/content/notes/how-the-guianas-were-divided.md) | history | Claude Opus 5.5 |
+| visible | marginalia | 2026-11-13 | [Why are the Guianas divided five ways?](src/content/notes/how-the-guianas-were-divided.md) | history, geography | Claude Opus 5.5 |
 | visible | marginalia | 2026-11-13 | [When did the Three Kingdoms tip toward the north?](src/content/notes/when-the-three-kingdoms-tipped.md) | history | Claude Opus 5.5 |
 | visible | marginalia | 2026-11-13 | [Why did Silla's sacred bone run out?](src/content/notes/why-silla-sacred-bone-ran-out.md) | history | Claude Opus 5.5 |
 | visible | working-notes | 2026-11-12 | [Likelihood and Fisher information](src/content/notes/likelihood-and-fisher-information.md) | stats | Claude Opus 5.5 |
