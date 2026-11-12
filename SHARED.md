@@ -3,8 +3,8 @@
 Two repositories are built from the same code:
 
 - [sungmin-kwon.github.io](https://github.com/sungmin-kwon/sungmin-kwon.github.io): the English
-  notebooks, notes from the 3-way distiller and working notes, as two sections of one site with a
-  home page at the root. (Until 2026-11 these were two repositories, `3-way-distillation` and
+  notebooks (notes from the 3-way distiller, working notes, marginalia and purgatorial
+  thoughts) as sections of one site with a home page at the root. (Until 2026-11 these were two repositories, `3-way-distillation` and
   `working-notes`.)
 - [korean-notes](https://github.com/sungmin-kwon/korean-notes): 사회학 개론, in Korean, a site
   with a single section at its root.

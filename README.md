@@ -7,8 +7,10 @@ Source for Sungmin's notebooks, published at <https://sungmin-kwon.github.io/>:
 - [working notes](https://sungmin-kwon.github.io/working-notes/): study and research notes from
   graduate school in data science (statistics, genetics, health data). Until 2026-11 these lived
   in their own repository, `working-notes`, now archived; its history was merged in here.
+- [marginalia](https://sungmin-kwon.github.io/marginalia/): history and other topics outside
+  science, argued from the sources, with its own version of the bar in `WRITING.md`.
 - [purgatorial thoughts](https://sungmin-kwon.github.io/purgatorial-thoughts/): notes from
-  either notebook that don't yet clear the bar in `WRITING.md`, kept without tags until they
+  any notebook that don't yet clear the bar in `WRITING.md`, kept without tags until they
   are reworked.
 
 The root of the site is a home page that lists them. The Korean notebook, 사회학 개론, is a
