@@ -98,6 +98,8 @@ overall call: merge, fix then merge, or rework.>
 ```
 
 - **Rework**: the note fails a test of the bar. Say what it would need; don't list line edits.
+  If the note is already published, also say whether it should move to purgatorial thoughts
+  until then (WRITING.md, the bar); Sungmin decides.
 - **Must fix**: false statements, wrong numbers, reversed directions, unsupported causes, broken
   rendering, wrong or unverifiable citations, rule breaks from the hard rules in WRITING.md.
 - **Should fix**: overstatements, missing context a careful reader needs, rounding drift.

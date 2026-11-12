@@ -12,17 +12,17 @@ This file is not deployed, but the repository is public, so anyone can read it a
 | visible | working-notes | 2026-11-12 | [Moments of a distribution](src/content/notes/moments-of-a-distribution.md) | stats | Claude Opus 5.5 |
 | visible | 3-way-distillation | 2026-11-11 | [How quantum computers break today's cryptography](src/content/notes/quantum-attacks-on-cryptography.md) | qi/qc | Claude Opus 5.5 |
 | visible | 3-way-distillation | 2026-11-11 | [Running a language model on your own machine](src/content/notes/running-llms-locally.md) | ml/llm | Claude Opus 5.5 |
-| visible | 3-way-distillation | 2026-11-10 | [Attention from scratch](src/content/notes/attention-from-scratch.md) | ml/llm | Mistral Large 4 |
+| visible | purgatorial-thoughts | 2026-11-10 | [Attention from scratch](src/content/notes/attention-from-scratch.md) |  | Mistral Large 4 |
 | visible | 3-way-distillation | 2026-11-10 | [Crude oil distillation and its products](src/content/notes/crude-oil-distillation-and-its-products.md) | cheme | Claude Opus 5.5 |
-| visible | working-notes | 2026-11-10 | [Discrete and continuous distributions](src/content/notes/discrete-and-continuous-distributions.md) | stats | Mistral Large 4 |
-| visible | working-notes | 2026-11-10 | [EHRs in hospital systems: FHIR, OMOP and the CDW](src/content/notes/ehrs-fhir-omop-cdw.md) | data | Mistral Large 4, Claude Opus 5.5 |
+| visible | purgatorial-thoughts | 2026-11-10 | [Discrete and continuous distributions](src/content/notes/discrete-and-continuous-distributions.md) |  | Mistral Large 4 |
+| visible | purgatorial-thoughts | 2026-11-10 | [EHRs in hospital systems: FHIR, OMOP and the CDW](src/content/notes/ehrs-fhir-omop-cdw.md) |  | Mistral Large 4, Claude Opus 5.5 |
 | visible | 3-way-distillation | 2026-11-10 | [Entanglement distillation](src/content/notes/entanglement-distillation.md) | qi/qc | Claude Opus 5.5 |
 | hidden | 3-way-distillation | 2026-11-10 | [Fermentation math: sugar, gravity, and ABV](src/content/notes/fermentation-math.md) | cheme | Mistral Large 4 |
 | visible | working-notes | 2026-11-10 | [Genome-wide association studies](src/content/notes/genome-wide-association-studies.md) | genes | Mistral Large 4, Claude Opus 5.5 |
 | hidden | 3-way-distillation | 2026-11-10 | [Is home brewing and distilling legal?](src/content/notes/home-brewing-and-distilling-law.md) | cheme | Claude Opus 5.5 |
 | visible | 3-way-distillation | 2026-11-10 | [Magic state distillation](src/content/notes/magic-state-distillation.md) | qi/qc | Claude Opus 5.5 |
 | visible | working-notes | 2026-11-10 | [Medical codes: ICD, SNOMED CT, LOINC, RxNorm and phecodes](src/content/notes/medical-codes.md) | data | Claude Opus 5.5 |
-| visible | working-notes | 2026-11-10 | [Mendelian randomization](src/content/notes/mendelian-randomization.md) | genes | Mistral Large 4, Claude Opus 5.5 |
+| visible | purgatorial-thoughts | 2026-11-10 | [Mendelian randomization](src/content/notes/mendelian-randomization.md) |  | Mistral Large 4, Claude Opus 5.5 |
 | visible | working-notes | 2026-11-10 | [Polygenic risk scores](src/content/notes/polygenic-risk-scores.md) | genes | Mistral Large 4, Claude Opus 5.5 |
 | visible | 3-way-distillation | 2026-11-10 | [Qubits, entanglement and Shor's algorithm](src/content/notes/qubits-entanglement-and-shors-algorithm.md) | qi/qc | Claude Opus 5.5 |
 | visible | 3-way-distillation | 2026-11-10 | [Raoult's law and VLE](src/content/notes/raoults-law-and-vle.md) | cheme | Mistral Large 4, Claude Opus 5.5 |

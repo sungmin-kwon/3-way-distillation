@@ -26,15 +26,16 @@ export function sectionOfTag(tag) {
 }
 
 /**
- * The section a note's tags put it in: the section of its first known tag, or the first section
- * for a note without tags. `npm run check` makes sure a note's tags don't span two sections.
+ * The section a note's tags put it in: the section of its first known tag. A note without tags
+ * goes to the section marked `untagged` if there is one (purgatorial thoughts), otherwise to the
+ * first section. `npm run check` makes sure a note's tags don't span two sections.
  */
 export function sectionOfTags(tags = []) {
   for (const t of tags) {
     const s = sectionOfTag(t);
     if (s) return s;
   }
-  return SECTIONS[0];
+  return SECTIONS.find((s) => s.untagged) ?? SECTIONS[0];
 }
 
 /** Every tag name, across all sections. */

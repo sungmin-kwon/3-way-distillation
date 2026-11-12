@@ -18,7 +18,9 @@ To keep a fix from having to be made twice, every setting that differs between t
 the notebooks. Each section has a `path`, its own title, tags, colors, distillate label,
 affiliation rule and About text. With more than one section, every section has a path and the
 site root is a home page (`HAS_HOME` in `src/lib/sections.mjs`). With a single section at path
-`''`, as on the Korean site, that section is the root and there is no home page. The routes in
+`''`, as on the Korean site, that section is the root and there is no home page. A section
+with `untagged: true` (purgatorial thoughts here) holds the notes that have no tags; without
+one, untagged notes go to the first section. The routes in
 `src/pages/[...section]/` build each section's pages under its path, and the home page when
 there is one.
 

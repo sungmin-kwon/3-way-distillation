@@ -33,6 +33,8 @@ export interface Section {
   blurb: string;
   distillateLabel: string;
   allowAffiliation?: boolean;
+  /** True for the section that holds notes without tags. */
+  untagged?: boolean;
   /** Paragraphs of the About page; '{tags}' stands for the tag list. */
   about?: string[];
   aboutDescription?: string;

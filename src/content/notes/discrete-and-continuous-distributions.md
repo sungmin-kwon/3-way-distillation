@@ -2,7 +2,7 @@
 title: Discrete and continuous distributions
 summary: The split that organizes probability, countable outcomes vs. a continuous scale — PMF vs. PDF, the CDF as the common object, binomial, Poisson and normal worked end to end in Python, with means, variances, quantiles and a sampling check.
 date: 2026-11-10
-tags: [stats]
+tags: []
 distillate: "A random quantity is described by a distribution: a mass function p(k) over countable outcomes when the variable is discrete, a density f(x) whose areas give probabilities when it is continuous, and a cumulative distribution F(x) = P(X ≤ x) that covers both. In the worked example, 10 independent tests at p = 0.05 each give a hit count X ~ Binomial(10, 0.05) with P(X ≥ 1) = 0.4013, while a standardized statistic under the null is Z ~ N(0, 1) with P(|Z| > 1.96) = 0.0500; the Poisson(0.5) approximates the first at 0.3935. Means and variances summarize a distribution (np = 0.5 and np(1-p) = 0.475 for the binomial, μ and σ² for the normal) but two distributions can share them and still differ in the tails."
 model: [Mistral Large 4]
 ---
