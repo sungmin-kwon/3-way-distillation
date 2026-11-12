@@ -10,8 +10,10 @@
   --code-bg: #ede9df;
   --accent: #9a4a1c;
 
-  --sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* 'IBM Plex Sans KR' is only loaded for the Korean site's title in the family lists
+     (FAMILY_FONT_STYLESHEETS in src/lib/site.ts). */
+  --sans: 'IBM Plex Sans', 'IBM Plex Sans KR', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', 'IBM Plex Sans KR', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   --page: 760px; /* index and about */
   --measure: 640px; /* reading column */
@@ -683,7 +685,8 @@ a.row-date:hover {
 
 /* ---------- the family of sites: header menu and footer line ---------- */
 
-/* The menu's panel drops below the masthead, across its full width. */
+/* The menu's panel drops below the masthead, across its full width, with the titles set
+   flush right, under the menu's own label at the right end of the nav. */
 .masthead {
   position: relative;
 }
@@ -715,6 +718,7 @@ a.row-date:hover {
   left: 0;
   right: 0;
   padding: 10px 0 6px;
+  text-align: right;
   background: var(--paper);
   border-bottom: 1px solid var(--ink);
   /* A strip of paper under the rule, so the page behind never touches it. */
