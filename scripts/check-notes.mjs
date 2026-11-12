@@ -62,7 +62,8 @@ for (const note of notes) {
     // Prose checks: strip inline code and inline math first.
     const prose = line.replace(/`[^`]*`/g, '').replace(/\$[^$]*\$/g, '');
     if (!inSources && !/^\[\^/.test(line)) {
-      if (/(^|[^\w.'’-])(?<!\b(?:Type|Phase|Class|Stage|Grade|Part|Table|Figure|Appendix|War)\s)(I|I'm|I’m|I've|I’ve|I'll|I’ll|I'd|I’d|me|my|mine|myself)(?=[^\w.'’-]|$)/.test(prose)) {
+      // A blockquote quotes a source (a narrator, a letter), whose own "I" is not the note's voice.
+      if (!/^\s*>/.test(line) && /(^|[^\w.'’-])(?<!\b(?:Type|Phase|Class|Stage|Grade|Part|Table|Figure|Appendix|War)\s)(I|I'm|I’m|I've|I’ve|I'll|I’ll|I'd|I’d|me|my|mine|myself)(?=[^\w.'’-]|$)/.test(prose)) {
         report(i, 'no first-person singular ("I", "me", "my"); use "we" only if unavoidable');
       }
       // Quoted speech (an interview excerpt, say) may use the first person, so it is skipped.
