@@ -16,7 +16,7 @@ const notePath = (id) => `/${PURGATORY.has(id) ? 'purgatorial-thoughts' : 'worki
 export const SITE = {
   // Title and description of the home page that lists the notebooks.
   title: 'notebooks',
-  description: 'Notebooks on things that interest me, boiled down to the essentials.',
+  description: 'Three notebooks kept in public: one on things that interest me, one from graduate study, and one for notes that don’t yet clear the bar.',
   // How the home page is described in the notebooks' About pages.
   blurb: 'all the notebooks, with the latest notes from each.',
   // GitHub Pages user site (repository sungmin-kwon.github.io), served at the domain root.
