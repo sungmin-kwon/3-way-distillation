@@ -38,6 +38,26 @@ const fonts: { stylesheet?: string; sans?: string; mono?: string } = SITE.fonts 
 export const FONT_STYLESHEET: string =
   fonts.stylesheet ??
   'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap';
+
+/**
+ * Family titles in another script, e.g. the Korean site's title on the English sites. They would
+ * otherwise fall back to a system font (Apple SD Gothic Neo, Malgun Gothic…) that looks nothing
+ * like the Korean site itself. So load IBM Plex Sans KR, the font the Korean site uses, cut down
+ * by Google Fonts' `text=` to just the letters of those titles (a few kB). site.css lists
+ * 'IBM Plex Sans KR' after the Latin Plex fonts, so the browser takes only those letters from it.
+ */
+const FAMILY_FONTS: Record<string, string> = { ko: 'IBM Plex Sans KR' };
+const foreignFonts = Object.entries(FAMILY_FONTS).flatMap(([lang, family]) => {
+  if (lang === SITE_LANG) return [];
+  const text = [...new Set(SITE_FAMILY.filter((s) => s.lang === lang).flatMap((s) => [...s.title]))]
+    .filter((c) => c.trim())
+    .join('');
+  if (!text) return [];
+  const name = family.replace(/ /g, '+');
+  return [`https://fonts.googleapis.com/css2?family=${name}:wght@400;600&text=${encodeURIComponent(text)}&display=swap`];
+});
+/** Extra stylesheets for family titles in another script (empty on the site in that language). */
+export const FAMILY_FONT_STYLESHEETS: readonly string[] = foreignFonts;
 const fontVars = [fonts.sans && `--sans: ${fonts.sans};`, fonts.mono && `--mono: ${fonts.mono};`].filter(Boolean);
 /** CSS that sets this site's font stacks over the shared ones. Empty if it keeps the defaults. */
 export const FONT_CSS: string = fontVars.length ? `html:root { ${fontVars.join(' ')} }` : '';
