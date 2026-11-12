@@ -242,9 +242,9 @@ export const SECTIONS = [
  */
 export const FAMILY = [
   {
-    title: '인문학 개론',
+    title: '사회학 개론',
     url: 'https://sungmin-kwon.github.io/korean-notes/',
     lang: 'ko',
-    blurb: '근거이론, 실재론, 음악교육 등을 정리한 노트, 한국어로.',
+    blurb: '근거이론, 실재론, 음악교육 등을 정리한 노트.',
   },
 ];

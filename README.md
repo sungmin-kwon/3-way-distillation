@@ -11,7 +11,7 @@ Source for Sungmin's notebooks, published at <https://sungmin-kwon.github.io/>:
   either notebook that don't yet clear the bar in `WRITING.md`, kept without tags until they
   are reworked.
 
-The root of the site is a home page that lists them. The Korean notebook, 인문학 개론, is a
+The root of the site is a home page that lists them. The Korean notebook, 사회학 개론, is a
 separate repository ([korean-notes](https://github.com/sungmin-kwon/korean-notes)).
 
 It is a static [Astro](https://astro.build) site: Markdown in, plain HTML and CSS out.

@@ -20,7 +20,7 @@ Write for that reader. A note's tags decide its notebook, so its tags all come f
 The rules below are the same for both, except where a rule names a notebook: the affiliation
 rule (section 1), the tags (section 2) and the language for code (section 6).
 
-The Korean notebook (인문학 개론) is a separate repository, `korean-notes`, with its own copy of
+The Korean notebook (사회학 개론) is a separate repository, `korean-notes`, with its own copy of
 this guide. Shared code is kept in step with it (see `SHARED.md`).
 
 ## The hard rules
