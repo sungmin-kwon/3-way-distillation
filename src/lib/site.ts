@@ -1,5 +1,13 @@
-// Typed view of site.config.mjs at the repo root, where each site's own settings live.
-import { SITE, TAGS as TAG_LIST, FAMILY } from '../../site.config.mjs';
+// Typed view of site.config.mjs at the repo root, where the site's own settings live, and of
+// its sections (the notebooks), whose URLs src/lib/sections.mjs works out.
+import { SITE, FAMILY } from '../../site.config.mjs';
+import {
+  HAS_HOME as HOME,
+  SECTIONS as SECTION_LIST,
+  SITE_BASE as BASE,
+  sectionOfTag as ofTag,
+  sectionOfTags as ofTags,
+} from './sections.mjs';
 
 export interface Tag {
   name: string;
@@ -10,25 +18,74 @@ export interface Tag {
   description: string;
 }
 
+type Palette = Record<string, string>;
+
+/** A notebook: its own path, title, tags and look (SECTIONS in site.config.mjs). */
+export interface Section {
+  /** Path under the site, without slashes ('working-notes'), or '' for the site root. */
+  path: string;
+  /** Path from the domain root, with slashes: '/working-notes/'. */
+  base: string;
+  /** Full address: 'https://…/working-notes/'. */
+  url: string;
+  title: string;
+  description: string;
+  blurb: string;
+  distillateLabel: string;
+  allowAffiliation?: boolean;
+  /** Paragraphs of the About page; '{tags}' stands for the tag list. */
+  about?: string[];
+  aboutDescription?: string;
+  /** Last paragraph of the About page; 'rough' in it is shown as the rough mark. */
+  howToRead?: string;
+  palette?: { light?: Palette; dark?: Palette };
+  tags: Tag[];
+}
+
+export const SECTIONS: readonly Section[] = SECTION_LIST;
+/** True when the site root is a home page that lists the sections. */
+export const HAS_HOME: boolean = HOME;
+export const SITE_BASE: string = BASE;
+export const sectionOfTag: (tag: string) => Section | undefined = ofTag;
+export const sectionOfTags: (tags?: readonly string[]) => Section = ofTags;
+
+/** Title and description of the home page (or of the site, with a single section). */
 export const SITE_TITLE: string = SITE.title;
 export const SITE_DESCRIPTION: string = SITE.description;
 export const SITE_LANG: string = SITE.lang;
-export const DISTILLATE_LABEL: string = SITE.distillateLabel;
 export const NOT_FOUND: string = SITE.notFound;
-export const TAGS: readonly Tag[] = TAG_LIST;
+/** Every tag, across the sections. */
+export const TAGS: readonly Tag[] = SECTIONS.flatMap((s) => s.tags);
 export const SITE_URL: string = SITE.url;
 /** Notes per page on the index and the tag pages (SITE.pageSize, default 10). */
 export const PAGE_SIZE: number = Math.max(1, Math.floor(SITE.pageSize ?? 10));
-/** A site in the family. `lang` is only needed when it differs from this site's. */
+/** A notebook in the family list. `lang` is only needed when it differs from this site's. */
 export interface FamilySite {
   title: string;
   url: string;
   blurb: string;
   lang?: string;
 }
+/** Notebooks on other sites (FAMILY in site.config.mjs). */
 export const SITE_FAMILY: readonly FamilySite[] = FAMILY;
 /** Heading of the family list, in the header menu and the footer. */
 export const SITE_FAMILY_LABEL: string = SITE.familyLabel ?? 'part of a family of notebooks';
+
+/**
+ * The notebooks to list from a page: the home page (when there is one), this site's sections and
+ * the notebooks on other sites, without the one the page is in. On the home page, `current` is
+ * undefined and every section is listed.
+ */
+export function familyFrom(current?: Section): FamilySite[] {
+  const home: FamilySite[] =
+    HAS_HOME && current ? [{ title: SITE_TITLE, url: SITE_URL, blurb: SITE.blurb ?? SITE_DESCRIPTION }] : [];
+  const sections = SECTIONS.filter((s) => s.path !== current?.path).map((s) => ({
+    title: s.title,
+    url: s.url,
+    blurb: s.blurb,
+  }));
+  return [...home, ...sections, ...SITE_FAMILY];
+}
 
 /**
  * Web fonts: an optional stylesheet URL (e.g. Google Fonts) and the font stacks for body text
@@ -62,21 +119,25 @@ const fontVars = [fonts.sans && `--sans: ${fonts.sans};`, fonts.mono && `--mono:
 /** CSS that sets this site's font stacks over the shared ones. Empty if it keeps the defaults. */
 export const FONT_CSS: string = fontVars.length ? `html:root { ${fontVars.join(' ')} }` : '';
 
-type Palette = Record<string, string>;
-const palette: { light?: Palette; dark?: Palette } = SITE.palette ?? {};
 const vars = (p: Palette = {}) => Object.entries(p).map(([k, v]) => `--${k}: ${v};`).join(' ');
 
 /**
- * CSS that applies this site's palette on top of the shared stylesheet. It uses site.css's
- * selectors for light, system dark and toggled dark (dark on screen only, so print stays light), with `html` added so it wins over
- * site.css whatever order the two load in. Empty if there is no palette.
+ * CSS that applies a palette (a section's, or SITE.palette for the home page) on top of the
+ * shared stylesheet. It uses site.css's selectors for light, system dark and toggled dark (dark
+ * on screen only, so print stays light), with `html` added so it wins over site.css whatever
+ * order the two load in. Empty if there is no palette.
  */
-export const PALETTE_CSS: string = [
-  palette.light && `html:root { ${vars(palette.light)} }`,
-  palette.dark && `@media screen and (prefers-color-scheme: dark) { html:root:not([data-theme='light']) { ${vars(palette.dark)} } }`,
-  palette.dark && `@media screen { html:root[data-theme='dark'] { ${vars(palette.dark)} } }`,
-]
-  .filter(Boolean)
-  .join('\n');
+export function paletteCss(palette: { light?: Palette; dark?: Palette } = {}): string {
+  return [
+    palette.light && `html:root { ${vars(palette.light)} }`,
+    palette.dark && `@media screen and (prefers-color-scheme: dark) { html:root:not([data-theme='light']) { ${vars(palette.dark)} } }`,
+    palette.dark && `@media screen { html:root[data-theme='dark'] { ${vars(palette.dark)} } }`,
+  ]
+    .filter(Boolean)
+    .join('\n');
+}
+
+/** The home page's palette (SITE.palette). */
+export const HOME_PALETTE: { light?: Palette; dark?: Palette } = SITE.palette ?? {};
 
 export const TAG_NAMES = TAGS.map((t) => t.name) as [string, ...string[]];

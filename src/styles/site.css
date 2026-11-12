@@ -470,6 +470,59 @@ a.row-date:hover {
   text-decoration: underline;
 }
 
+/* ---------- home page (a site with several sections) ---------- */
+
+.notebook {
+  margin-top: 48px;
+  padding-top: 16px;
+  border-top: 1px solid var(--ink);
+}
+.notebook-title {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 20px;
+  font-weight: 500;
+}
+.notebook-title a {
+  text-decoration: none;
+}
+.notebook-title a:hover {
+  text-decoration: underline;
+}
+.notebook-description {
+  margin: 8px 0 0;
+  max-width: 600px;
+  color: var(--ink-2);
+}
+.notebook-latest {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.notebook-latest li {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  gap: 0 16px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.notebook-latest .row-date {
+  padding-top: 3px;
+}
+.notebook-more {
+  margin: 12px 0 0;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--muted);
+}
+.notebook-elsewhere ul {
+  margin: 12px 0 0;
+  padding-left: 22px;
+}
+.notebook-elsewhere .label {
+  margin-bottom: 0;
+}
+
 .linked-from,
 .about-block {
   margin-top: 56px;

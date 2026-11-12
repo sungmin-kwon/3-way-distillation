@@ -1,0 +1,20 @@
+---
+// First page of a tag's list. Later pages are in tags/[tag]/page/[page].astro.
+import TagPage from '../../../components/TagPage.astro';
+import { allTags, getNotes, sectionPaths, tagSlug } from '../../../lib/notes';
+
+export async function getStaticPaths() {
+  const paths = [];
+  for (const { params, props } of sectionPaths()) {
+    const notes = await getNotes(props.section);
+    for (const tag of allTags(props.section, notes)) {
+      paths.push({ params: { ...params, tag: tagSlug(tag) }, props: { ...props, tag } });
+    }
+  }
+  return paths;
+}
+
+const { section, tag } = Astro.props;
+---
+
+<TagPage section={section} tag={tag} page={1} />

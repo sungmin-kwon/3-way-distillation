@@ -1,17 +1,25 @@
-# Writing notes for the 3-way distiller
+# Writing notes
 
 This is the style and accuracy guide for the notes in `src/content/notes/`. It is written so that
 any model, including a small local one, can read it and draft a note that matches the existing
 ones. Read all of it before drafting. If there is room in the context, also read one finished
 note as a model to imitate (see [Reference notes](#reference-notes)).
 
-The notebook is personal: Sungmin writes things down here to understand them properly. The
-reader is a curious, technical person, often Sungmin a year from now. Write for that reader.
+The site holds two notebooks (sections), each with its own tags, look and path:
 
-This file is shared with the other sites in the family (study notes in genetics and statistics
-now live in [working-notes](https://github.com/sungmin-kwon/working-notes)). The parts that
-belong to this site only are the tags (section 2), the language for code (section 6), the
-affiliation rule (section 1), the known traps (section 7) and the reference notes. See `SHARED.md`.
+- **notes from the 3-way distiller** (`/3-way-distillation/`, tags `cheme`, `ml/llm`, `qi/qc`): a
+  personal notebook. Sungmin writes things down here to understand them properly. The reader is a
+  curious, technical person, often Sungmin a year from now.
+- **working notes** (`/working-notes/`, tags `stats`, `genes`, `data`): study and research notes
+  from graduate school in data science, kept so that methods and results can be looked up later.
+  The reader is a technical person who knows some statistics, often Sungmin a year from now.
+
+Write for that reader. A note's tags decide its notebook, so its tags all come from one of them.
+The rules below are the same for both, except where a rule names a notebook: the affiliation
+rule (section 1), the tags (section 2) and the language for code (section 6).
+
+The Korean notebook (인문학 개론) is a separate repository, `korean-notes`, with its own copy of
+this guide. Shared code is kept in step with it (see `SHARED.md`).
 
 ## The hard rules
 
@@ -33,8 +41,10 @@ remember nothing else from this file, follow these. Details are in the sections 
    uses (section 6).
 6. **No `## Limits` section, no "I", no em dashes in the body, `$$` on its own lines** (sections
    1, 5 and 6).
-7. **No affiliation or personal details.** Don't name or hint at a lab, hospital, university,
-   employer or project (section 1).
+7. **No affiliation or private details.** In the distiller, don't name or hint at a lab,
+   hospital, university, employer or project. In working notes, the school and its courses may be
+   named; unpublished research, internal or patient data, and people other than the cited authors
+   may not (section 1).
 8. **Numbers shared between notes stay in sync.** If you change a number another note quotes,
    change it there too (section 7).
 9. **End the PR description with what you could not verify.** An honest list is worth more than
@@ -52,9 +62,15 @@ remember nothing else from this file, follow these. Details are in the sections 
   the note uses one worked example", "This rests on reporting, not the ruling itself", "isn't
   checked here". When a first person truly can't be avoided, use "we" ("Translations are our
   own"), and use even that sparingly. Contractions (it's, doesn't) are fine.
-- **No affiliation.** The site is a notebook, not a profile. Don't write "my lab", "our
+- **No affiliation (the distiller).** The notebook is not a profile. Don't write "my lab", "our
   group", "the hospital's data", or name a specific institution as the place the work happens.
   Name an institution only as the author of a cited work.
+- **Affiliation, within limits (working notes).** These are notes from study at Seoul National
+  University, so the school, a course ("from the GSDS regression course") or a public dataset used
+  in one may be named. Never describe unpublished research results, internal or patient-level
+  data, a hospital's or lab's systems, or colleagues. A method is fine to write up; what a lab
+  found with it before publication is not. `npm run check` applies each notebook's rule
+  (`allowAffiliation` in `site.config.mjs`).
 - **Punctuation:** en dash (–) for pairs and ranges: ethanol–water, McCabe–Thiele, 1–4.
   Avoid em dashes (—) in body text; use a comma, a colon, or a new sentence. One em dash in the
   `summary` line is fine. No arrow chains (A → B → C) in prose.
@@ -78,7 +94,7 @@ it breaks links.
 title: Forward vs. reverse KL          # omit for a short note
 date: 2026-11-12                       # required, YYYY-MM-DD
 updated: 2026-11-20                    # only when a published note changes materially
-tags: [ml/llm]                         # cheme, ml/llm, qi/qc; zero or more
+tags: [ml/llm]                         # one notebook's tags: cheme, ml/llm, qi/qc | stats, genes, data
 summary: One line for the index.       # long notes
 distillate: The boiled-down version.   # long notes
 rough: true                            # unfinished thinking; leave out otherwise
@@ -89,11 +105,14 @@ reviewed_by: [Claude Opus 5.5]         # optional: model(s) that did a separate 
 ---
 ```
 
-- **Tags:** only these three, which read as past, present and future: `cheme` (chemical
-  engineering: separations, thermodynamics, fermentation and stills), `ml/llm` (machine learning
-  and language models) and `qi/qc` (quantum information and computing). The list lives in
-  `site.config.mjs`, and the build fails on any other tag. Don't invent new tags; ask first.
-  Genetics and statistics notes go on the working-notes site instead.
+- **Tags:** only these six, three per notebook. The distiller's read as past, present and
+  future: `cheme` (chemical engineering: separations, thermodynamics, fermentation and stills),
+  `ml/llm` (machine learning and language models) and `qi/qc` (quantum information and
+  computing). Working notes: `stats` (probability and statistics, the machinery underneath the
+  other notes), `genes` (genetics and genomics) and `data` (health data and how it is stored,
+  coded and shared: EHRs, CDWs, common data models, medical codes). The list lives in
+  `site.config.mjs` under each notebook, and the build fails on any other tag. A note's tags all
+  come from one notebook; `npm run check` rejects a mix. Don't invent new tags; ask first.
 - **Hidden notes:** `hidden: true` keeps a finished note off the site: no page, and not in the
   index, tag pages, RSS or search. A `note:` link to it from a visible note turns into plain text
   and becomes a link again when the note is unhidden. `draft: true` builds the same way but means
@@ -219,7 +238,9 @@ many digits as the source supports, usually two or three significant figures.
 the first column. Cite the source of any data table in the sentence above it ("Carey and Lewis,
 1932, as tabulated in standard textbooks").
 
-**Code.** Python. It must run as written: include imports, name the shapes in comments
+**Code.** Python, except in `genes` notes. `data` notes use the standard library, such as
+`sqlite3` for a query. **Base R for `genes` notes**, since R is the standard in that field: no
+packages from CRAN or Bioconductor, only what ships with R (`stats`, `graphics`). It must run as written: include imports, name the shapes in comments
 (`# [batch, seq, vocab]`), and keep it under about 30 lines (a simulation that feeds a figure may
 run longer). Code illustrates the idea; it isn't a library.
 
@@ -244,7 +265,8 @@ labels line up with their values. Check it in dark mode too.
 than a table or a sentence: the shape of a curve, a tail, a comparison between two models, a
 geometric construction. Don't add one that only repeats a table. Keep each figure compact:
 about 640 units wide and at most about 300 tall in its `viewBox`, so that on a phone it takes
-up less than a screen. Two related plots can sit side by side as two panels in one SVG. Every figure is computed and render-checked on its
+up less than a screen. Two related plots can sit side by side as two panels in one SVG, as in
+`discrete-and-continuous-distributions.md`. Every figure is computed and render-checked on its
 own, by the rules above.
 
 **Links.** Between notes: `[industrial column](note:reading-a-mccabe-thiele-diagram)`, using the
@@ -291,7 +313,7 @@ here") or mark the note `rough: true`.
 
 ## 7. Accuracy rules
 
-The style is easy to copy; the accuracy is not. Earlier drafts of all three notes had real
+The style is easy to copy; the accuracy is not. Earlier drafts of most notes had real
 errors. These rules matter more than anything above.
 
 1. **Recompute every number** in a worked example, preferably with code, and check that tables,
@@ -336,22 +358,28 @@ errors. These rules matter more than anything above.
 15. **Attribute each position to the person who holds it.** When a note contrasts schools or
     authors, or quotes a result, every claim says whose it is and rests on that author's own
     work or a source that states it. A speedup reported in one speculative-decoding paper
-    belongs to that paper's models and hardware, not to the method in general.
+    belongs to that paper's models and hardware, not to the method in general. Another draft gave
+    the equal-variance binormal approximation for AUC as if it were the exact liability-threshold
+    result (Wray et al., 2010).
 16. **Check what a source argues, not only that it exists.** Read its abstract or the
     publisher's description and make sure it supports the sentence that cites it. A paper whose
     title criticizes a theory is not support for that theory. If you can open neither the work
     nor its abstract, cut the claim instead of keeping it with an "unverified" note. A draft
-    cited vapor-pressure data to a textbook appendix that couldn't be checked.
+    cited vapor-pressure data to a textbook appendix that couldn't be checked, and another cited
+    a process-mining study on OMOP data as if it documented a hospital's OMOP conversion, which
+    its abstract doesn't describe.
 17. **Keep look-alike distinctions apart.** When two concepts or notations resemble each other,
     state each from its source and never map one onto the other. A draft defined apparent
     attenuation as the fraction of extract the yeast consumed, which is real attenuation, and
     another carried the alcoholmeter's temperature correction over to the hydrometer, where it
-    runs the other way.
+    runs the other way. Another wrote the normal as $N(\mu, \sigma)$ and later as
+    $N(np, np(1-p))$, switching the second argument from standard deviation to variance.
 18. **A worked example must agree with its own numbers.** Every conclusion drawn from the
     example follows from what it shows, and the example shows what the text says it shows. Don't
     claim the example's result is new or "absent from the literature". A draft said the
     $1/\sqrt{d_k}$ scaling did no visible work at $d_k = 4$, while its own weights changed from
-    0.452 to 0.576 without it.
+    0.452 to 0.576 without it. Another illustrated "mean and variance don't determine a
+    distribution" with Binomial(10, 0.05) and Poisson(0.5), which share only the mean.
 19. **Crossref describes the edition the DOI points to.** A reissue's record gives the reissue
     year and sometimes the wrong author or subtitle. Take the original publisher, year and
     authors from the book or a library record, and when the link is a later edition, say so
@@ -382,6 +410,13 @@ errors. These rules matter more than anything above.
 | apparent attenuation | "the fraction of extract the yeast consumed" | that is *real* attenuation; apparent attenuation overstates it, because ethanol pulls the final gravity down |
 | sugar left vs. ABV ceiling | gap blamed on volume contraction | ABV counts ethanol by mass ÷ 0.789, so contraction doesn't enter; the gap is unfermented extract and the yield below theory |
 | attention scaling | $1/\sqrt{d_k}$ "does no visible work" at small $d_k$ | it changes the weights noticeably even at $d_k = 4$; compute both versions before claiming either |
+| GWAS sample size | a 2×2 table of allele counts read as people | each person carries two alleles: 800 alleles = 400 people |
+| winner's curse in MR | understates the instrument | inflates the discovery effect $\beta_{XG}$, so a two-sample estimate is biased toward the null |
+| HDL Mendelian randomization | variant in LPA | LIPG Asn396Ser (Voight et al. 2012); Lp(a) is a separate, causal risk factor |
+| PRS clumping | the same as LD pruning | clumping keeps the most significant SNP in each LD block; pruning ignores p-values |
+| PRS accuracy | quoting heritability as the score's variance explained | heritability is the ceiling; the score explains less (for height about 40% in European ancestry, less elsewhere) |
+| OMOP drug queries | `drug_exposure` filtered on the ingredient concept | real rows are clinical drugs; go through `concept_ancestor` from the ingredient |
+| moments don't determine a distribution | comparing two distributions that share only the mean | match both moments, e.g. a normal N(μ, σ²) with the same mean and variance |
 | Sources link text | the full URL as the link text | a short label (itl.nist.gov, 1.3.6.6); a long URL can't wrap and scrolls the page sideways on a phone |
 
 ## 8. Template for a long note
@@ -391,7 +426,7 @@ errors. These rules matter more than anything above.
 title: <Short noun phrase or question>
 summary: <What it covers, in one line> — <part>, <part>, <part>.
 date: YYYY-MM-DD
-tags: [<cheme|ml/llm|qi/qc>]
+tags: [<cheme|ml/llm|qi/qc> or <stats|genes|data>, from one notebook]
 distillate: <The answer in one sentence.> <The key number from the worked example.> <The main limit or caveat.>
 model: [<the model writing this>]
 ---
@@ -485,7 +520,8 @@ Go through this list and fix anything that fails. Then report which items you co
 - [ ] Every "because", "causes" or "the reason" has a source or a calculation behind it, and
       every direction (high/low, up/down, toward/away from the null) was checked.
 - [ ] Any number also used in another note matches there (search with `grep`).
-- [ ] No lab, hospital, university or employer named or implied as the author's.
+- [ ] Distiller: no lab, hospital, university or employer named or implied as the author's.
+  Working notes: no unpublished results, internal or patient data, or colleagues; the school and courses only.
 - [ ] Rounded values are the same everywhere, and each worked equation checks with them.
 - [ ] No H1, no em dashes in body text, no hype, no "in this note we will".
 - [ ] No `## Limits` section. Each caveat sits in the section it qualifies and would mislead a
@@ -537,5 +573,14 @@ new note's topic:
   and a computed Txy figure with a tie line.
 - `magic-state-distillation.md` (`qi/qc`): the Sources format, and a dated "Where things stand"
   section.
+- `genome-wide-association-studies.md` (`genes`): a toy test and a simulated scan in base R, with
+  Manhattan and QQ plots computed from the simulation's output, and a linked Sources list.
+- `mendelian-randomization.md` (`genes`): a worked two-sample estimate in base R, with the
+  direction of each bias worked out.
+- `discrete-and-continuous-distributions.md` (`stats`): one discrete and one continuous example
+  carried through every section in Python, with a computed figure.
+- `medical-codes.md` (`data`): identifiers checked against their sources, and numbers kept in
+  sync with another note.
+
 
 When a new note becomes a better example, add it here and add any new trap to section 7.

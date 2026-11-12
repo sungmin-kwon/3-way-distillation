@@ -1,22 +1,28 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { PAGE_SIZE, TAGS } from './site';
+import { PAGE_SIZE, SECTIONS, SITE_BASE, TAGS, sectionOfTag, sectionOfTags, type Section } from './site';
 import { UI, monthHeading } from './i18n';
 
 export { shortDate } from './i18n';
 
 export type Note = CollectionEntry<'notes'>;
 
-const BASE = import.meta.env.BASE_URL.endsWith('/')
-  ? import.meta.env.BASE_URL
-  : `${import.meta.env.BASE_URL}/`;
-
-/** A site path with the base prefix, e.g. href('about/') -> '/<base>/about/', with the base from site.config.mjs. */
+/** A path from the site root, e.g. href('search.json') -> '/search.json' (with the site's base). */
 export function href(path = ''): string {
-  return `${BASE}${path.replace(/^\/+/, '')}`;
+  return `${SITE_BASE}${path.replace(/^\/+/, '')}`;
+}
+
+/** A path inside a section: sectionHref(s, 'about/') -> '/working-notes/about/'. */
+export function sectionHref(section: Section, path = ''): string {
+  return `${section.base}${path.replace(/^\/+/, '')}`;
+}
+
+/** The section (notebook) a note is in, from its tags. */
+export function noteSection(note: Note): Section {
+  return sectionOfTags(note.data.tags as string[]);
 }
 
 export function noteHref(note: Note): string {
-  return href(`notes/${note.id}/`);
+  return sectionHref(noteSection(note), `notes/${note.id}/`);
 }
 
 /**
@@ -32,8 +38,10 @@ export function tagSlug(tag: string): string {
     .replace(/^-+|-+$/g, '');
 }
 
-export function tagHref(tag: string): string {
-  return href(`tags/${tagSlug(tag)}/`);
+/** A tag's page, in the section the tag belongs to ('rough' needs the section passed). */
+export function tagHref(tag: string, section?: Section): string {
+  const s = section ?? sectionOfTag(tag);
+  return s ? sectionHref(s, `tags/${tagSlug(tag)}/`) : href();
 }
 
 /** Number of pages a list of `count` notes takes (at least 1, so an empty list still has a page). */
@@ -47,17 +55,20 @@ export function pageOf<T>(list: T[], page: number): T[] {
 }
 
 /**
- * URL of a page of the index, or of a tag's list when `tag` is set. Page 1 is the plain list
- * ('/', '/tags/cheme/'); later pages add 'page/2/' and so on.
+ * URL of a page of a section's index, or of a tag's list when `tag` is set. Page 1 is the plain
+ * list ('/working-notes/', '/working-notes/tags/stats/'); later pages add 'page/2/' and so on.
  */
-export function listHref(page: number, tag?: string): string {
+export function listHref(section: Section, page: number, tag?: string): string {
   const root = tag ? `tags/${tagSlug(tag)}/` : '';
-  return href(page > 1 ? `${root}page/${page}/` : root);
+  return sectionHref(section, page > 1 ? `${root}page/${page}/` : root);
 }
 
-/** All published notes (not draft, not hidden), newest first. */
-export async function getNotes(): Promise<Note[]> {
-  const notes = await getCollection('notes', ({ data }) => !data.draft && !data.hidden);
+/** All published notes (not draft, not hidden), newest first; only one section's when given. */
+export async function getNotes(section?: Section): Promise<Note[]> {
+  const notes = await getCollection(
+    'notes',
+    (n) => !n.data.draft && !n.data.hidden && (!section || sectionOfTags(n.data.tags as string[]).path === section.path),
+  );
   return notes.sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf() || a.id.localeCompare(b.id),
   );
@@ -122,11 +133,11 @@ export function groupByMonth(notes: Note[]): MonthGroup[] {
 }
 
 /**
- * The tags, in their fixed order (as in site.config.mjs), whether or not any
- * published note uses them yet. "rough" is added when any note is rough.
+ * A section's tags, in their fixed order (as in site.config.mjs), whether or not any
+ * published note uses them yet. "rough" is added when any of `notes` (the section's) is rough.
  */
-export function allTags(notes: Note[]): string[] {
-  const tags: string[] = TAGS.map((t) => t.name);
+export function allTags(section: Section, notes: Note[]): string[] {
+  const tags: string[] = section.tags.map((t) => t.name);
   if (notes.some((n) => n.data.rough)) tags.push('rough');
   return tags;
 }
@@ -144,4 +155,12 @@ export function hasTag(note: Note, tag: string): boolean {
 export function backlinks(target: Note, notes: Note[]): Note[] {
   const pattern = new RegExp(`\\]\\(\\s*note:${target.id}(?:#[^)]*)?\\s*\\)|^\\[[^\\]]+\\]:\\s*note:${target.id}\\b`, 'm');
   return notes.filter((n) => n.id !== target.id && pattern.test(n.body ?? ''));
+}
+
+/**
+ * getStaticPaths entries for a route under src/pages/[...section]/: one per section, with the
+ * section's path as the `section` parameter (undefined for a section at the site root).
+ */
+export function sectionPaths() {
+  return SECTIONS.map((section) => ({ params: { section: section.path || undefined }, props: { section } }));
 }

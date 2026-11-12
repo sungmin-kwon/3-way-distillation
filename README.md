@@ -1,23 +1,30 @@
-# notes from the 3-way distiller
+# notebooks
 
-Source for Sungmin's personal notebook, published at
-<https://sungmin-kwon.github.io/3-way-distillation/>.
+Source for Sungmin's notebooks, published at <https://sungmin-kwon.github.io/>:
+
+- [notes from the 3-way distiller](https://sungmin-kwon.github.io/3-way-distillation/): chemical
+  engineering, language models and quantum computing.
+- [working notes](https://sungmin-kwon.github.io/working-notes/): study and research notes from
+  graduate school in data science (statistics, genetics, health data). Until 2026-11 these lived
+  in their own repository, `working-notes`, now archived; its history was merged in here.
+
+The root of the site is a home page that lists them. The Korean notebook, 인문학 개론, is a
+separate repository ([korean-notes](https://github.com/sungmin-kwon/korean-notes)).
 
 It is a static [Astro](https://astro.build) site: Markdown in, plain HTML and CSS out.
 The only client-side JavaScript is the find box on the index.
 
-It is one of a family of sites built from the same code. The sibling is
-[working notes](https://github.com/sungmin-kwon/working-notes), which took over the genetics and
-statistics notes on 2026-11-11 (their old URLs here redirect to it).
-[`SHARED.md`](SHARED.md) lists which files are shared and how to keep them in sync.
+The Korean site is built from the same code. [`SHARED.md`](SHARED.md) lists which files are
+shared and how to keep them in sync.
 
 ## Writing a note
 
 For voice, structure, accuracy rules and a self-check list (written so that any model can follow
 them), see [`WRITING.md`](WRITING.md).
 
-Every note is one Markdown file in `src/content/notes/`. The file name becomes its URL
-(`src/content/notes/soft-targets.md` → `/notes/soft-targets/`).
+Every note is one Markdown file in `src/content/notes/`, whichever notebook it belongs to. Its
+tags decide the notebook, and the file name becomes its URL inside that notebook
+(`soft-targets.md` with tag `ml/llm` → `/3-way-distillation/notes/soft-targets/`).
 
 The only required field is `date`:
 
@@ -35,7 +42,7 @@ A longer note adds a title and, optionally, more:
 title: Forward vs. reverse KL
 date: 2026-11-12
 updated: 2026-11-20      # optional
-tags: [ml/llm]           # cheme, ml/llm or qi/qc; the list is in site.config.mjs
+tags: [ml/llm]           # one notebook's tags; the lists are in site.config.mjs
 summary: One line shown under the title on the index.
 distillate: The boiled-down version, shown at the top of the note.
 rough: true              # unfinished thinking; shows a "rough" mark
@@ -57,25 +64,31 @@ reviewed_by: [Claude Opus 5.5] # optional: model(s) that did a separate review p
 
 ```sh
 npm install
-npm run dev      # local dev server at http://localhost:4321/3-way-distillation/
+npm run dev      # local dev server at http://localhost:4321/
 npm run build    # static site into dist/ (regenerates ADMIN.md first)
 npm run admin    # just regenerate ADMIN.md, the list of all notes including hidden ones
 npm run check    # the mechanical checks from WRITING.md (CI runs it on pull requests)
 npm run preview  # serve dist/
-npm run sync -- ../working-notes   # copy the shared files from a sibling site; see SHARED.md
+npm run og-card  # redraw the link-preview cards (needs Playwright)
+npm run sync -- ../korean-notes   # copy the shared files from the Korean site; see SHARED.md
 ```
 
 ## Layout
 
 ```
-site.config.mjs         this site's title, description, URL, tags, redirects and sibling sites
+site.config.mjs         the site's URL and home page, and each notebook (section): path, title,
+                        tags, colors, About text; plus redirects and the Korean site
 src/content/notes/      the notes
 src/content.config.ts   note frontmatter schema
-src/pages/              index, notes/[id], tags/[tag], about, 404, rss.xml, search.json
+src/pages/[...section]/ each notebook's index, notes/[id], tags/[tag], about and rss.xml
+                        (the index route also builds the home page at /)
+src/pages/              404 and search.json, one each for the whole site
+src/components/Home.astro        the home page
 src/components/NoteIndex.astro   the dated list, tag filter and find box
 src/layouts/Base.astro  page shell and masthead
 src/lib/notes.ts        loading, grouping, tags, backlinks, URL helpers
 src/lib/remark-note-links.mjs    turns note: links into real URLs (plain text if the note is hidden)
+src/lib/sections.mjs    the notebooks with their URLs, and which notebook a tag is in
 src/lib/site.ts         typed view of site.config.mjs
 scripts/                ADMIN.md generator, note linter, shared-file sync, and the frontmatter reader
 ADMIN.md                generated list of every note, visible or hidden; not deployed
@@ -87,9 +100,12 @@ src/styles/site.css     all styling; light and dark follow the system setting
 GitHub Pages, deployed by `.github/workflows/pages.yml` on every push to `main`
 (pull requests only build). In the repo settings, Pages → Source must be **GitHub Actions**.
 
-The site lives under the `/3-way-distillation/` sub-path, set by `base` in `site.config.mjs`.
-Always build internal links with `href()` from `src/lib/notes.ts` so the prefix is kept.
-For a custom domain, set `url` to it and `base` to `/`.
+The repository is named `sungmin-kwon.github.io`, which makes it GitHub's user site, served at the
+domain root (`base: '/'` in `site.config.mjs`). Each notebook is a path under it. The Korean site
+is a separate project site at `/korean-notes/`, which GitHub serves from its own repository.
+Build internal links with `href()` and `sectionHref()` from `src/lib/notes.ts`. Each notebook's
+favicon and link-preview card are `public/<path>/favicon.svg` and `og.png`; the home page's are
+`public/favicon.svg` and `og.png`. For a custom domain, set `url` to it.
 
 ## License
 

@@ -5,10 +5,11 @@ import rehypeKatex from 'rehype-katex';
 import { remarkNoteLinks } from './src/lib/remark-note-links.mjs';
 import { rehypeSectionLinks } from './src/lib/rehype-section-links.mjs';
 import { UI } from './src/lib/i18n.ts';
-import { unpublishedIds } from './scripts/notes-meta.mjs';
+import { noteBases, unpublishedIds } from './scripts/notes-meta.mjs';
 import { SITE } from './site.config.mjs';
 
-// The URL, sub-path and any redirects come from site.config.mjs.
+// The URL, base path and any redirects come from site.config.mjs. The sections' paths are
+// ordinary routes under that base (src/pages/[...section]/).
 const { url: site, base, redirects = {} } = SITE;
 
 // GitHub's code themes were tuned for white and near-black backgrounds. On the tinted code
@@ -50,7 +51,7 @@ export default defineConfig({
   redirects,
   markdown: {
     processor: unified({
-      remarkPlugins: [remarkMath, [remarkNoteLinks, { base, unpublished: unpublishedIds() }]],
+      remarkPlugins: [remarkMath, [remarkNoteLinks, { bases: noteBases(), unpublished: unpublishedIds() }]],
       rehypePlugins: [rehypeKatex, [rehypeSectionLinks, { label: UI.sectionLink }]],
     }),
     shikiConfig: {

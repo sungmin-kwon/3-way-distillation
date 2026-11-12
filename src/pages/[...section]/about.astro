@@ -1,0 +1,58 @@
+---
+// A section's About page. Its text is `about` in the section's entry in site.config.mjs, where
+// '{tags}' marks the place for the list of the section's tags.
+import Base from '../../layouts/Base.astro';
+import { sectionHref, sectionPaths, tagHref } from '../../lib/notes';
+import { familyFrom } from '../../lib/site';
+
+export function getStaticPaths() {
+  return sectionPaths();
+}
+
+const { section } = Astro.props;
+const others = familyFrom(section);
+const paragraphs: string[] = section.about ?? [];
+---
+
+<Base section={section} title="About" description={section.aboutDescription} current="about">
+  <article class="entry">
+    <h1>About</h1>
+    <div class="prose">
+      {paragraphs.map((p) =>
+        p === '{tags}' ? (
+          <ul class="eras">
+            {section.tags.map((t) => (
+              <li>{t.era && <><span class="label">{t.era}</span> </>}<a href={tagHref(t.name, section)}>{t.name}</a>: {t.blurb}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>{p}</p>
+        ),
+      )}
+    </div>
+
+    {others.length > 0 && (
+      <section class="about-block">
+        <h2 class="label">Elsewhere</h2>
+        <ul>
+          {others.map((s) => (
+            <li><a href={s.url} lang={s.lang} hreflang={s.lang}>{s.title}</a>: {s.blurb}</li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {section.howToRead && (
+      <section class="about-block about-block-quiet">
+        <h2 class="label">How to read this</h2>
+        <p>
+          {section.howToRead.split(/\b(rough)\b/).map((part, i) =>
+            i % 2 ? <span class="rough">{part}</span> : part,
+          )}
+        </p>
+      </section>
+    )}
+
+    <p class="back"><a href={sectionHref(section)}>← index</a></p>
+  </article>
+</Base>

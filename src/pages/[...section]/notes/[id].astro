@@ -1,29 +1,37 @@
 ---
 import { render } from 'astro:content';
-import Base from '../../layouts/Base.astro';
+import Base from '../../../layouts/Base.astro';
 import {
   backlinks,
   getNotes,
-  href,
   isShort,
   isoDate,
   label,
   noteHref,
   readingMinutes,
+  sectionHref,
+  sectionPaths,
   tagHref,
-} from '../../lib/notes';
-import { DISTILLATE_LABEL } from '../../lib/site';
-import { UI, minutes } from '../../lib/i18n';
+} from '../../../lib/notes';
+import { UI, minutes } from '../../../lib/i18n';
 
+// A note's page, in its section. Older and newer are its neighbours within the section.
 export async function getStaticPaths() {
-  const notes = await getNotes();
-  return notes.map((note, i) => ({
-    params: { id: note.id },
-    props: { note, older: notes[i + 1] ?? null, newer: notes[i - 1] ?? null, all: notes },
-  }));
+  const paths = [];
+  for (const { params, props } of sectionPaths()) {
+    const notes = await getNotes(props.section);
+    notes.forEach((note, i) =>
+      paths.push({
+        params: { ...params, id: note.id },
+        props: { ...props, note, older: notes[i + 1] ?? null, newer: notes[i - 1] ?? null, all: notes },
+      }),
+    );
+  }
+  return paths;
 }
 
-const { note, older, newer, all } = Astro.props;
+const { section, note, older, newer, all } = Astro.props;
+const DISTILLATE_LABEL = section.distillateLabel;
 const { Content, remarkPluginFrontmatter } = await render(note);
 // A contents list for notes long enough to need one: four or more sections. The list of
 // sections comes from src/lib/rehype-section-links.mjs.
@@ -34,18 +42,19 @@ const linkedFrom = backlinks(note, all);
 ---
 
 <Base
+  section={section}
   title={label(note)}
   description={summary ?? distillate}
   article={{ published: date, modified: updated, tags }}
 >
   <article class="entry">
-    <p class="back"><a href={href()}>{UI.back}</a></p>
+    <p class="back"><a href={sectionHref(section)}>{UI.back}</a></p>
 
     <p class="entry-meta">
       <time datetime={isoDate(date)}>{isoDate(date)}</time>
       {updated && <> · {UI.updated} <time datetime={isoDate(updated)}>{isoDate(updated)}</time></>}
       {tags.map((t) => <> · <a href={tagHref(t)}>{t}</a></>)}
-      {rough && <> · <a class="rough" href={tagHref('rough')}>{UI.rough}</a></>}
+      {rough && <> · <a class="rough" href={tagHref('rough', section)}>{UI.rough}</a></>}
       {!isShort(note) && <> · {minutes(readingMinutes(note))}</>}
     </p>
 
@@ -88,7 +97,7 @@ const linkedFrom = backlinks(note, all);
 
     <nav class="neighbours" aria-label={UI.neighbours}>
       {older ? <a href={noteHref(older)}>← {label(older, 48)}</a> : <span />}
-      {newer ? <a href={noteHref(newer)}>{label(newer, 48)} →</a> : <a href={href()}>{UI.toIndex}</a>}
+      {newer ? <a href={noteHref(newer)}>{label(newer, 48)} →</a> : <a href={sectionHref(section)}>{UI.toIndex}</a>}
     </nav>
   </article>
 </Base>

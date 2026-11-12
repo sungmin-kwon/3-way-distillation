@@ -1,8 +1,10 @@
-// Draws public/og.png, the 1200×630 card that link previews (KakaoTalk, Slack, Messages) show
-// for every page of the site, from its title, description, favicon and light palette in
-// site.config.mjs. Run it again after changing any of those:
+// Draws the 1200×630 cards that link previews (KakaoTalk, Slack, Messages) show: one for each
+// section, public/<path>/og.png, shown for every page in it, and with a home page also
+// public/og.png for the home page. Each is drawn from the title, description, favicon and light
+// palette in site.config.mjs. Run it again after changing any of those:
 //
-//   npm run og-card
+//   npm run og-card                 every card
+//   npm run og-card -- working-notes  one section's card ('/' for the home page's)
 //
 // It needs Playwright with Chromium, which isn't a dependency of the site:
 //   npm i --no-save playwright && npx playwright install chromium
@@ -12,8 +14,22 @@ import path from 'node:path';
 
 const dir = process.cwd();
 const { SITE } = await import(new URL('../site.config.mjs', import.meta.url).href);
-const svg = fs.readFileSync(path.join(dir, 'public/favicon.svg'), 'utf8');
-const p = SITE.palette?.light ?? {};
+const { SECTIONS, HAS_HOME } = await import(new URL('../src/lib/sections.mjs', import.meta.url).href);
+
+// Each card: the folder under public/ ('' for the root), and the title, description, palette and
+// address it shows.
+const cards = [
+  ...(HAS_HOME ? [{ folder: '', title: SITE.title, description: SITE.description, palette: SITE.palette, url: SITE.url }] : []),
+  ...SECTIONS.map((s) => ({ folder: s.path, title: s.title, description: s.description, palette: s.palette, url: s.url })),
+];
+const only = process.argv[2]?.replace(/^\/+|\/+$/g, '');
+const chosen = only === undefined ? cards : cards.filter((c) => c.folder === only);
+if (!chosen.length) throw new Error(`og-card: no section at "${process.argv[2]}"`);
+
+const b = await chromium.launch();
+for (const card of chosen) {
+const svg = fs.readFileSync(path.join(dir, 'public', card.folder, 'favicon.svg'), 'utf8');
+const p = card.palette?.light ?? {};
 const paper = p.paper ?? '#f6f4ee';
 const ink = p.ink ?? '#1b1a17';
 const muted = p.muted ?? '#5c574d';
@@ -24,7 +40,7 @@ const fontUrl = ko
   ? 'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;600&display=block'
   : 'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;600&display=block';
 const sans = ko ? "'IBM Plex Sans KR'" : "'IBM Plex Sans'";
-const host = new URL(SITE.url).host + new URL(SITE.url).pathname.replace(/\/$/, '');
+const host = new URL(card.url).host + new URL(card.url).pathname.replace(/\/$/, '');
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
 const html = `<!doctype html><html lang="${SITE.lang}"><head><meta charset="utf-8">
@@ -41,15 +57,17 @@ const html = `<!doctype html><html lang="${SITE.lang}"><head><meta charset="utf-
   .url{margin-top:auto;font-family:'IBM Plex Mono',monospace;font-size:24px;color:${accent}}
 </style></head><body>
 <div class="mark">${svg}</div>
-<h1>${esc(SITE.title)}</h1>
-<p>${esc(SITE.description)}</p>
+<h1>${esc(card.title)}</h1>
+<p>${esc(card.description)}</p>
 <div class="url">${esc(host)}</div>
 </body></html>`;
 
-const b = await chromium.launch();
 const pg = await b.newPage({ viewport: { width: 1200, height: 630 } });
 await pg.setContent(html, { waitUntil: 'networkidle' });
 await pg.evaluate(() => document.fonts.ready);
-await pg.screenshot({ path: path.join(dir, 'public/og.png') });
+const out = path.join('public', card.folder, 'og.png');
+await pg.screenshot({ path: path.join(dir, out) });
+await pg.close();
+console.log(`og-card: wrote ${out}`);
+}
 await b.close();
-console.log('og-card: wrote public/og.png');
