@@ -7,7 +7,7 @@ distillate: "The sacred bone as Kim Busik describes it, twenty-eight kings from 
 model: [Claude Opus 5.5]
 ---
 
-Silla ranked its people by "bone" (骨, 골) and "head rank" (頭品, 두품). At the top were two bones: the
+Silla ranked its people by "bone" (骨, 골)[^readings] and "head rank" (頭品, 두품). At the top were two bones: the
 sacred bone (聖骨, 성골) and the true bone (眞骨, 진골). The usual account gives the same
 ending: the sacred bone died out with Queen Jindeok in 654, and Kim Chunchu became the first
 true-bone king, King Muyeol. Two questions hide in that sentence. Was the sacred bone a real
@@ -385,3 +385,5 @@ quoted here, and the leading readings of the one later inscription disagree.
 - 최병헌 Choe Byeong-heon, "결론: 왕권의 신성화와 불교 (15), 맺음말" [Conclusion: the sacralization of kingship and Buddhism (15), closing words], in the series 최병헌의 한국역사와 불교 [Choe Byeong-heon's Korean history and Buddhism], *Beopbo Shinmun* 법보신문 (11 January 2021). [beopbo.com](https://www.beopbo.com/news/articleView.html?idxno=213932)
 - 성준선 Seong Jun-seon, "신라 진흥왕 대 성골의 출현과 그 배경" [The emergence of the sacred bone under King Jinheung of Silla and its background], *Daegu Sahak* 대구사학 143, 153–187 (2021). [doi:10.17751/DHR.143.153](https://doi.org/10.17751/DHR.143.153)
 - 박수진 Park Su-jin, "신라 성골연구의 현황과 과제" [The state of research on Silla's sacred bone and its tasks], *Silla Sahakbo* 신라사학보 52, 433–454 (2021). [dbpia.co.kr](https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE10604640)
+
+[^readings]: The Korean readings given with hanja names and terms throughout are the standard Sino-Korean readings, supplied from memory and not checked one by one against a Korean source.

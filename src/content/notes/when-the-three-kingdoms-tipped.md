@@ -146,7 +146,7 @@ sources disagree.
 Two of the three accounts, the annals and Cao's own letter, put sickness first, and the theme
 that the south itself defeated northern armies recurs. In 225 Cao Pi brought more than a
 hundred thousand men to Guangling to cross the river, found it too cold for his boats to
-enter, and, in a passage Zhang Bo's *Records of Wu* (吳錄) preserves in Pei's commentary on Sun Quan
+enter, and, in a passage Zhang Bo's *Records of Wu* (吳錄)[^zhangbo] preserves in Pei's commentary on Sun Quan
 (vol. 47),
 looked at the waves and said "Ah! Heaven surely made this to divide south from north!"
 (嗟乎！固天所以隔南北也！) and turned back. Nam Deok-hyeon writes that after
@@ -328,3 +328,5 @@ household differ too much between states to trust the shares to better than a ro
 - 김운회 Kim Un-hoe, "김운회의 ‘삼국지 바로 읽기’ <10> 조조, 모돈을 죽이다" [Reading the Three Kingdoms rightly, 10: Cao Cao kills Modu], *Pressian* 프레시안 (8 March 2004). [pressian.com](https://pressian.com/pages/articles/110865)
 - 남덕현 Nam Deok-hyeon, "삼국지문화유산을 찾아서 (7) 적벽전투지" [In search of the Three Kingdoms' heritage, 7: the Chibi battlefield], *Kyunghyang Shinmun* 경향신문 (14 November 2000). [khan.co.kr](https://www.khan.co.kr/article/200011141634231)
 - 이규희 Lee Gyu-hui, "국내 첫 ‘배송지 주’ 원문 완역" [First complete Korean translation of Pei Songzhi's commentary], *Segye Ilbo* 세계일보 (3 January 2026), on 정사 삼국지 [The official Records of the Three Kingdoms] (8 vols.), tr. 김영문 Kim Yeong-mun (Geulhangari 글항아리). [segye.com](https://www.segye.com/newsView/20260101508408)
+
+[^zhangbo]: Pei's commentary in vol. 47 cites the *Records of Wu* by title only. Its author, Zhang Bo (張勃) of Jin, is the usual attribution, given here from memory and not checked against a source.
