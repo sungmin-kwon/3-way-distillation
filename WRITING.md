@@ -17,7 +17,7 @@ The site holds four notebooks (sections), each with its own tags, look and path:
   The reader is a technical person who knows some statistics, often Sungmin a year from now.
 - **marginalia** (`/marginalia/`, tag `history`): notes on things outside mathematics, science
   and technology, starting with history, written in English. The reader is curious and
-  careful but not a specialist, and may not read classical Chinese or Korean.
+  careful but not a specialist, and may not read the languages its sources are written in.
 - **purgatorial thoughts** (`/purgatorial-thoughts/`, no tags): notes that fell below the bar
   (see below).
 
@@ -131,26 +131,19 @@ tests take this form. It is the default for marginalia. The Three Kingdoms note
    against it.
 5. **It is more than a survey**, as in the main test.
 
-Sources for marginalia and other qualitative notes: classical Chinese originals and Korean and Chinese scholarship count as
-much as English, and English coverage of East Asian history is often the thinnest. Quote the
-original, then translate it ("translations are our own" when they are). Cite a primary text by
-work, author, date and *juan* (卷), linked to an online text (Chinese Wikisource, Chinese Text
-Project, chinesenotes.com) that you opened, and check every quotation against it, character by
-character. Titles are always translated: in the text a work goes by its English title, with the
-original in parentheses at first mention (*Book of Wei* (魏書), *Records of Wu* (吳錄)); in
-Sources it gets the English title, then the romanization and original (*Comprehensive
-Institutions* (*Tongdian* 通典, 801)). Don't mix a translated title in one place with a bare
-romanization or bare characters in another. A modern title in Korean, Chinese or Japanese keeps
-its original in Sources, followed by an English translation in square brackets. 卷 is written
-*juan*, never "book" or "chapter" (a *juan* was one scroll, so a modern "book" overstates it
-and "chapter" hides the unit the editions number by); gloss it once near the top of the note.
-Biographies are cited in English too: "(biography of Lü Meng, *juan* 54)", not "(呂蒙傳, 卷54)".
-One exception: when two titles would translate into near-twins, keep the romanization as the
-running name and gloss it at first mention, as the Silla note does with *Samguk sagi*
-(三國史記, 삼국사기, "History of the Three Kingdoms") and *Samguk yusa*. In a note on Korean
-history, every Korean name or term written in hanja also gives its Korean reading at first
-mention: (聖骨, 성골), (上大等, 상대등). Without it a reader can take the note for Chinese
-history. Quoted sentences in classical Chinese don't need a reading; their translation follows.
+Sources for marginalia and other qualitative notes: primary texts in their original language,
+and scholarship written in the language of the history, count as much as English; English
+coverage is often the thinnest. Quote the original, then translate it ("translations are our
+own" when they are). Cite a primary text by work, author, date and the division its editions
+number by, linked to an online text that you opened, and check every quotation against it,
+character by character. Every title and unit is translated into English: in the text a work goes
+by its English title, with the original in parentheses at first mention; in Sources it gets the
+English title, then the romanization and the original. Don't mix a translated title in one place
+with a bare romanization or bare original in another. A modern title in another language keeps
+its original in Sources, followed by an English translation in square brackets. A name or term
+written in a non-Latin script gives, at first mention, the original script plus its reading in
+the language the history belongs to. **When citing Chinese, Korean or Japanese sources, also
+follow [`conventions/east-asian.md`](conventions/east-asian.md).**
 A newspaper column or a reprinted essay may be cited for its author's position, if
 the position is attributed to that author by name. A scholar's argument known only from someone
 else's summary is cited through that summary, and the text says so. No code is needed in these
