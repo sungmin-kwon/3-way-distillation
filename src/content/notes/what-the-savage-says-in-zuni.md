@@ -2,7 +2,7 @@
 title: What does the Savage say in Zuni?
 summary: 'John''s "Indian words" in Brave New World traced to Frank Hamilton Cushing''s Zuñi Folk Tales — the phrases and what Cushing says they mean, the composite reservation around them, and the Zuni language itself, an isolate.'
 date: 2026-11-12
-tags: [history]
+tags: [language]
 distillate: 'The Savage''s words in Brave New World are Zuni, as Huxley says, and almost all come from one book, Frank Hamilton Cushing''s Zuñi Folk Tales (1901): his curse "Sons éso tse-ná!" is a storyteller''s retort that Cushing glosses as "Cool your ''sons éso!'' and wait till I begin", printed on the same page as two names Huxley reuses in Malpais, and Mitsima''s magic is a squirrel''s song for making a hemlock grow. Only "Ai yaa tákwa!" has no source that could be found, and the reservation around the words mixes in Hopi, Navajo, Tewa and Keresan names. Zuni itself is a language isolate with about 9,500 speakers by the usual count; the best-argued proposal to relate it, Newman''s link to Penutian (1964), is generally rejected.'
 model: [Claude Opus 5.5]
 ---

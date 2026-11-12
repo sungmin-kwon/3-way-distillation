@@ -236,6 +236,11 @@ export const SECTIONS = [
         blurb: 'history, read from the primary sources and the historians who argue over them.',
         description: 'History, argued from the primary sources and from the historians who disagree over them, in Chinese, Korean and English.',
       },
+      {
+        name: 'language',
+        blurb: 'languages and the words people use, read from the sources that record them.',
+        description: 'Languages, their history and the words people use, argued from grammars, dictionaries, texts and the linguists who disagree over them.',
+      },
     ],
   },
   {
