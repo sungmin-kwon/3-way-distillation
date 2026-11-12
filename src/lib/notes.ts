@@ -151,12 +151,6 @@ export function hasTag(note: Note, tag: string): boolean {
   return tag === 'rough' ? note.data.rough : (note.data.tags as string[]).includes(tag);
 }
 
-/** Notes whose body links to `target` with a `note:` link. */
-export function backlinks(target: Note, notes: Note[]): Note[] {
-  const pattern = new RegExp(`\\]\\(\\s*note:${target.id}(?:#[^)]*)?\\s*\\)|^\\[[^\\]]+\\]:\\s*note:${target.id}\\b`, 'm');
-  return notes.filter((n) => n.id !== target.id && pattern.test(n.body ?? ''));
-}
-
 /**
  * getStaticPaths entries for a route under src/pages/[...section]/: one per section, with the
  * section's path as the `section` parameter (undefined for a section at the site root).

@@ -1,10 +1,9 @@
 // Reads the frontmatter of every note without going through Astro, so that
-// astro.config.mjs and scripts/admin-index.mjs can see which notes are published.
+// the scripts can see which notes are published.
 // It understands the flat frontmatter the notes use: `key: value`, quoted strings,
 // booleans and one-line `[a, b]` lists. The real schema is in src/content.config.ts.
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { sectionOfTags } from '../src/lib/sections.mjs';
 
 export const NOTES_DIR = new URL('../src/content/notes/', import.meta.url);
 
@@ -46,12 +45,3 @@ export function readNotes() {
     .sort((a, b) => String(b.data.date).localeCompare(String(a.data.date)) || a.id.localeCompare(b.id));
 }
 
-/** Ids of notes that are not on the public site (hidden or draft). */
-export function unpublishedIds() {
-  return new Set(readNotes().filter((n) => n.status !== 'visible').map((n) => n.id));
-}
-
-/** Each note's section path from the domain root ('/working-notes/'), by note id. */
-export function noteBases() {
-  return new Map(readNotes().map((n) => [n.id, sectionOfTags(Array.isArray(n.data.tags) ? n.data.tags : []).base]));
-}

@@ -54,8 +54,8 @@ reviewed_by: [Claude Opus 5.5] # optional: model(s) that did a separate review p
 ```
 
 - **Math:** `$inline$` and `$$display$$` (KaTeX).
-- **Links between notes:** `[text](note:other-note-id)`. The note that is linked to lists the
-  linking note under "Linked from".
+- **No links between notes.** Each note stands on its own (see `WRITING.md`); `npm run check`
+  rejects a link to another note. Links to a heading in the same note (`#section`) are fine.
 - **Footnotes:** `text[^1]` and `[^1]: the footnote`.
 - **Figures:** inline `<svg>` works. Use `style="stroke: var(--accent)"` (or `--ink`, `--muted`)
   instead of fixed colors so it follows dark mode.
@@ -86,8 +86,7 @@ src/pages/              404 and search.json, one each for the whole site
 src/components/Home.astro        the home page
 src/components/NoteIndex.astro   the dated list, tag filter and find box
 src/layouts/Base.astro  page shell and masthead
-src/lib/notes.ts        loading, grouping, tags, backlinks, URL helpers
-src/lib/remark-note-links.mjs    turns note: links into real URLs (plain text if the note is hidden)
+src/lib/notes.ts        loading, grouping, tags, URL helpers
 src/lib/sections.mjs    the notebooks with their URLs, and which notebook a tag is in
 src/lib/site.ts         typed view of site.config.mjs
 scripts/                ADMIN.md generator, note linter, shared-file sync, and the frontmatter reader

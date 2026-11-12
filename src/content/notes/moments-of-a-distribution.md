@@ -9,7 +9,7 @@ model: [Claude Opus 5.5]
 
 A **moment** in mechanics is a force or a mass weighted by its distance from a point: a weight far from a pivot turns a lever more than the same weight close to it. Probability borrowed the word because a distribution is a unit of mass spread along the number line, and the same weighted sums describe it. Karl Pearson used moments in 1894 to split a measured frequency curve into a mixture of normal curves, by matching what he called the "higher moments" of the data to those of the model (Pearson, 1894). The mean, the variance, skewness and kurtosis are all moments, and so is a good deal of what an optimizer such as Adam keeps track of.
 
-The note uses the hit count from the [distributions note](note:discrete-and-continuous-distributions) as its worked example, and a gamma sample for fitting:
+The note uses a binomial hit count as its worked example, and a gamma sample for fitting:
 
 | | value |
 | --- | --- |
@@ -194,7 +194,7 @@ $$
 
 Every normal distribution has skewness 0 and kurtosis 3, so kurtosis is often reported as **excess kurtosis** $\beta_2 - 3$, here 1.505. Software differs on which one it prints under the name "kurtosis" (the NIST e-Handbook uses the plain fourth moment and calls the other excess kurtosis), so check before comparing numbers.
 
-These two numbers explain the gap seen in the [distributions note](note:discrete-and-continuous-distributions#means-and-variances-summarize-not-determine). There, the normal $N(0.5, 0.475)$ matches the binomial's mean and variance exactly, yet it gives $P(Y \ge 2.5) = 0.0019$ against the binomial's $P(X \ge 3) = 0.0115$. The normal has skewness 0 and kurtosis 3; the binomial has 1.306 and 4.505. The first two moments fix location and scale, and the shape they leave free is what the third and fourth moments begin to describe.
+These two numbers explain a gap that the mean and variance alone can't. The normal $N(0.5, 0.475)$ matches the binomial's mean and variance exactly, yet it gives $P(Y \ge 2.5) = 0.0019$ against the binomial's $P(X \ge 3) = 0.0115$. The normal has skewness 0 and kurtosis 3; the binomial has 1.306 and 4.505. The first two moments fix location and scale, and the shape they leave free is what the third and fourth moments begin to describe.
 
 ## Kurtosis measures tails, not the peak
 
@@ -328,7 +328,7 @@ $$
 \hat k = \frac{\bar x^2}{s^2}, \quad \hat\theta = \frac{s^2}{\bar x}
 $$
 
-in closed form. [Maximum likelihood](note:likelihood-and-fisher-information) for the same model has no closed form for the shape: it solves $\log k - \psi(k) = \log \bar x - \overline{\log x}$, where $\psi$ is the digamma function, the derivative of $\log \Gamma$, and $\overline{\log x}$ is the mean of the logged data. The code fits one sample of 200 draws from a gamma with $k = 2$ and $\theta = 3$ both ways, then repeats the fit on 2,000 fresh samples to see how much each estimate varies:
+in closed form. Maximum likelihood for the same model has no closed form for the shape: it solves $\log k - \psi(k) = \log \bar x - \overline{\log x}$, where $\psi$ is the digamma function, the derivative of $\log \Gamma$, and $\overline{\log x}$ is the mean of the logged data. The code fits one sample of 200 draws from a gamma with $k = 2$ and $\theta = 3$ both ways, then repeats the fit on 2,000 fresh samples to see how much each estimate varies:
 
 ```python
 import math
@@ -427,7 +427,7 @@ Two common deep learning components are moment estimators. **Adam** (Kingma and 
 
 **Batch normalization** (Ioffe and Szegedy, 2015) standardizes each feature with the first two moments of the current mini-batch, $\hat x = (x - \mu_B)/\sqrt{\sigma_B^2 + \epsilon}$, where $\mu_B$ and $\sigma_B^2$ are the mini-batch mean and variance (with denominator $m$, the batch size) and $\epsilon$ is a small constant for numerical safety. That is the standardization of the previous sections, with sample moments in place of true ones.
 
-Moments also sit under the [likelihood note](note:likelihood-and-fisher-information#the-log-likelihood-and-the-score): the score has first moment zero at the true parameter, and the Fisher information is its second moment, $E[s^2]$.
+Moments also sit under likelihood theory: the score has first moment zero at the true parameter, and the Fisher information is its second moment, $E[s^2]$.
 
 ## Sources
 

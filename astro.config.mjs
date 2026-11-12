@@ -2,10 +2,8 @@ import { defineConfig } from 'astro/config';
 import { unified } from '@astrojs/markdown-remark';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
-import { remarkNoteLinks } from './src/lib/remark-note-links.mjs';
 import { rehypeSectionLinks } from './src/lib/rehype-section-links.mjs';
 import { UI } from './src/lib/i18n.ts';
-import { noteBases, unpublishedIds } from './scripts/notes-meta.mjs';
 import { SITE } from './site.config.mjs';
 
 // The URL, base path and any redirects come from site.config.mjs. The sections' paths are
@@ -51,7 +49,7 @@ export default defineConfig({
   redirects,
   markdown: {
     processor: unified({
-      remarkPlugins: [remarkMath, [remarkNoteLinks, { bases: noteBases(), unpublished: unpublishedIds() }]],
+      remarkPlugins: [remarkMath],
       rehypePlugins: [rehypeKatex, [rehypeSectionLinks, { label: UI.sectionLink }]],
     }),
     shikiConfig: {

@@ -77,7 +77,7 @@ $$
 
 So 77% of attempts pass, and those that do lift the fidelity from 0.80 to 0.838. Each attempt uses two pairs, so one round leaves $0.7689/2 = 0.384$ kept pairs per raw pair, or 2.6 raw pairs per kept one.
 
-$F' > F$ for every $F$ between 1/2 and 1, and both ends are fixed points, so repeating the round climbs toward 1 from any entangled start, with steps that shrink as it goes. Stepping between the map and the diagonal, much as one steps off stages on a [McCabe–Thiele diagram](note:reading-a-mccabe-thiele-diagram), shows the climb from 0.80:
+$F' > F$ for every $F$ between 1/2 and 1, and both ends are fixed points, so repeating the round climbs toward 1 from any entangled start, with steps that shrink as it goes. Stepping between the map and the diagonal, much as one steps off stages on a McCabe–Thiele diagram, shows the climb from 0.80:
 
 <svg viewBox="0 0 500 490" role="img" aria-label="Cobweb plot of the BBPSSW fidelity map. The output fidelity after one round lies just above the diagonal for every input fidelity between one half and one. Starting at 0.80, five rounds step up the staircase to 0.950." xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto;">
   <title>Five BBPSSW rounds stepped off on the fidelity map</title>

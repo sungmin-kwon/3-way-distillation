@@ -9,7 +9,7 @@ model: [Claude Opus 5.5]
 
 Quantum error correction protects some operations far more easily than others. In the codes that most hardware is built around, the **Clifford** gates (Hadamard, the phase gate $S$, and CNOT) and Pauli measurements can be done on encoded qubits with low error, but those operations alone can be simulated efficiently on an ordinary computer, so they can't give any quantum speedup. The missing ingredient is a non-Clifford gate, usually the $T$ gate, and the standard way to supply it is to prepare special ancilla states, **magic states**, and consume one per $T$ gate. Bravyi and Kitaev (2005) named them and showed that noisy copies can be purified using only Clifford operations, by **magic state distillation**.
 
-It is the second kind of distillation in this notebook's quantum notes. The [qubits introduction](note:qubits-entanglement-and-shors-algorithm) covers the basics used here (amplitudes, Hadamard, CNOT, error correction), and [entanglement distillation](note:entanglement-distillation) purifies a different resource; the two are compared near the end.
+The note assumes the basics of qubits (amplitudes, Hadamard, CNOT, error correction). Entanglement distillation purifies a different resource; the two are compared near the end.
 
 Throughout, the note uses one worked example:
 
@@ -29,7 +29,7 @@ The Clifford gates are the ones that map Pauli operators ($X$, $Y$, $Z$ and thei
 
 That property is what makes them easy to simulate. A state made from $\lvert 0\cdots 0\rangle$ by Clifford gates is a **stabilizer state**: it is fixed by $n$ independent Pauli operators, its *stabilizers*. A Clifford gate just rewrites each stabilizer as another Pauli string, and a Pauli measurement can be worked out from the list as well. So instead of $2^n$ amplitudes, a simulation stores $n$ strings of $n$ Paulis each, which grows as $n^2$. This is the **Gottesman–Knill theorem**: any circuit of Clifford gates, Pauli measurements, and Clifford gates conditioned on measurement results can be simulated in polynomial time on a classical computer (Gottesman, 1998, who credits the observation to Knill). Aaronson and Gottesman (2004) gave a fast algorithm and code for it.
 
-Clifford circuits still produce entanglement: the Bell state of the qubits note is a stabilizer state, fixed by $X \otimes X$ and $Z \otimes Z$. So entanglement alone doesn't give a speedup; something outside the Clifford group is needed. The usual choice is
+Clifford circuits still produce entanglement: the Bell state is a stabilizer state, fixed by $X \otimes X$ and $Z \otimes Z$. So entanglement alone doesn't give a speedup; something outside the Clifford group is needed. The usual choice is
 
 $$
 T = \begin{pmatrix} 1 & 0 \\ 0 & e^{i\pi/4} \end{pmatrix}
@@ -189,7 +189,7 @@ They differ in what is cheap, where the qubits are, and how fast the error falls
 | error suppression near perfect | ×0.67 per round (BBPSSW), roughly squared (DEJMPS) | cubed (15-to-1) |
 | used for | teleportation, quantum networks | non-Clifford gates in a computer |
 
-The suppression rates in the table come from iterating the maps in the entanglement note at infidelity $10^{-3}$: one BBPSSW round on Werner pairs lowers it only to $6.7 \times 10^{-4}$, because the two-pair check misses phase errors, a third of a Werner pair's error, and a phase error on either pair passes to the kept one, so about two-thirds of the error survives; meanwhile DEJMPS falls roughly quadratically, to $8.9 \times 10^{-7}$ after its second round. A two-copy check can catch one error at most, so at best it squares the error; the 15-qubit code catches any two, so it cubes it. The link between the two is also formal. Bennett, DiVincenzo, Smolin and Wootters (1996) showed that entanglement distillation with one-way classical communication is equivalent to a quantum error-correcting code, and magic state distillation is built directly on one.
+The suppression rates in the table come from iterating the BBPSSW and DEJMPS maps at infidelity $10^{-3}$: one BBPSSW round on Werner pairs lowers it only to $6.7 \times 10^{-4}$, because the two-pair check misses phase errors, a third of a Werner pair's error, and a phase error on either pair passes to the kept one, so about two-thirds of the error survives; meanwhile DEJMPS falls roughly quadratically, to $8.9 \times 10^{-7}$ after its second round. A two-copy check can catch one error at most, so at best it squares the error; the 15-qubit code catches any two, so it cubes it. The link between the two is also formal. Bennett, DiVincenzo, Smolin and Wootters (1996) showed that entanglement distillation with one-way classical communication is equivalent to a quantum error-correcting code, and magic state distillation is built directly on one.
 
 ## Where things stand
 

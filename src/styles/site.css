@@ -523,7 +523,6 @@ a.row-date:hover {
   margin-bottom: 0;
 }
 
-.linked-from,
 .about-block {
   margin-top: 56px;
   padding-top: 16px;
@@ -533,12 +532,10 @@ a.row-date:hover {
   margin-top: 40px;
   border-top-color: var(--rule);
 }
-.linked-from ul,
 .about-block ul {
   margin: 12px 0 0;
   padding-left: 22px;
 }
-.linked-from li + li,
 .about-block li + li {
   margin-top: 6px;
 }

@@ -10,7 +10,7 @@ model: [Mistral Large 4, Claude Opus 5.5]
 
 Distilling a fermented wash is applied vapor–liquid equilibrium (VLE). Ethanol and water, plus hundreds of trace *congeners*, have different volatilities, so the vapor above a boiling liquid has a different composition from the liquid. For ethanol it is always richer, right up to the azeotrope. A still is a device for exploiting that difference, once or many times in a row.
 
-> Home distilling is illegal or requires a license in many places, so check the law where you live; [a separate note](note:home-brewing-and-distilling-law) goes through the rules country by country. Separately, foreshots and heads collect the most volatile compounds, such as acetaldehyde and ethyl acetate, and are not for drinking.
+> Home distilling is illegal or requires a license in many places, so check the law where you live. Separately, foreshots and heads collect the most volatile compounds, such as acetaldehyde and ethyl acetate, and are not for drinking.
 
 ## Three ways to say "how much alcohol"
 
@@ -85,7 +85,7 @@ If the hearts are cut from the start of the run (after setting aside a small hea
 
 ## Reflux stills: stacking stages
 
-A **reflux still** puts a packed or plated column between the pot and the condenser and returns part of the condensate down it. The rising vapor goes through many cycles of partial condensation and re-boiling, so a single run gets many theoretical stages. It's the same staircase as an [industrial column](note:reading-a-mccabe-thiele-diagram), drawn on the ethanol–water curve, where the steps pinch together as they approach the azeotrope. More stages and more reflux bring the distillate closer to 97% but strip out flavor along with the congeners. That's why vodka and neutral spirit come off columns and most whisky and brandy come off pots.
+A **reflux still** puts a packed or plated column between the pot and the condenser and returns part of the condensate down it. The rising vapor goes through many cycles of partial condensation and re-boiling, so a single run gets many theoretical stages. It's the same staircase as an industrial column's McCabe–Thiele diagram, drawn on the ethanol–water curve, where the steps pinch together as they approach the azeotrope. More stages and more reflux bring the distillate closer to 97% but strip out flavor along with the congeners. That's why vodka and neutral spirit come off columns and most whisky and brandy come off pots.
 
 ## Why cuts exist: congener volatility
 

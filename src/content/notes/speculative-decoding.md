@@ -1,6 +1,6 @@
 ---
 title: Speculative decoding
-summary: How a small draft model speeds up a large one without changing its output, worked through on the same next-token example as the distillation note — the accept/reject rule, why it is exact, acceptance as one minus total variation, expected speedup, and why a distilled draft helps.
+summary: How a small draft model speeds up a large one without changing its output, worked through on one next-token example — the accept/reject rule, why it is exact, acceptance as one minus total variation, expected speedup, and why a distilled draft helps.
 date: 2026-11-10
 tags: [ml/llm]
 distillate: A cheap draft model proposes several tokens, and the large target model checks them all in one forward pass, accepting each with probability min(1, p/q) and resampling from the leftover distribution on the first rejection, so the output follows the target's distribution exactly. In the six-token example the draft is accepted 71.1% of the time, and with 4 drafted tokens and a draft costing 5% of the target that gives 2.83 tokens per target pass and a 2.36× speedup. The gain depends entirely on how closely the draft matches the target and on decoding being memory-bound, so it shrinks at large batch sizes.
@@ -9,9 +9,9 @@ model: [Claude Opus 5.5]
 
 Generating text from a large language model is slow for a mechanical reason: each new token needs a full forward pass, and at small batch sizes that pass is limited by reading the weights from memory, not by arithmetic. Checking several tokens in one pass costs about the same as producing one. **Speculative decoding** uses that slack: a small *draft* model guesses a few tokens ahead, and the large *target* model verifies them in parallel. Leviathan, Kalman and Matias (2023) and Chen et al. (2023, under the name *speculative sampling*) published the method independently; Stern, Shazeer and Uszkoreit's blockwise parallel decoding (2018) did the greedy version earlier.[^papers]
 
-It is the natural partner of [model distillation](note:what-is-model-distillation). Distillation replaces the big model with a small one and accepts some loss of quality. Speculative decoding keeps the big model's output distribution exactly and uses the small one only to save time. It changes only latency, never quality: if the target is wrong, the output is wrong in exactly the same way, just sooner. The better the small model imitates the big one, the more time it saves.
+It is the natural partner of model distillation. Distillation replaces the big model with a small one and accepts some loss of quality. Speculative decoding keeps the big model's output distribution exactly and uses the small one only to save time. It changes only latency, never quality: if the target is wrong, the output is wrong in exactly the same way, just sooner. The better the small model imitates the big one, the more time it saves.
 
-Throughout, the note uses the next-token example from the distillation note, sampled at temperature 1, with the teacher as the target and the undistilled student as the draft:
+Throughout, the note uses one next-token example, sampled at temperature 1, with a large model as the target and a small, undistilled one as the draft:
 
 | | value |
 | --- | --- |
@@ -185,7 +185,7 @@ $$
 
 In the example $\mathrm{KL}(p\|q) = 0.28$ nats, so the bound is $\sqrt{0.14} = 0.374$, and the actual $\mathrm{TV}$ is 0.289. Driving the KL toward zero forces the acceptance rate toward 1. The bound is loose, though, so the divergence that gives the best student by quality is not necessarily the one that gives the best draft. DistillSpec (Zhou et al., 2024) trains the draft by distillation specifically for this job, on sequences the draft itself generates, and compares several divergences, including total variation directly. It reports 10–45% further speedups over speculative decoding with an undistilled draft,[^distillspec] and finds that the best divergence depends on the task and decoding strategy.
 
-On-policy data matters here for the same reason as in the distillation note: the draft is only ever evaluated on prefixes it helped write, so those are the prefixes it should be trained on.
+On-policy data matters here for the same reason as in distillation generally: the draft is only ever evaluated on prefixes it helped write, so those are the prefixes it should be trained on.
 
 ## What the draft can be
 

@@ -2,7 +2,6 @@
 import { render } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
 import {
-  backlinks,
   getNotes,
   isShort,
   isoDate,
@@ -23,14 +22,14 @@ export async function getStaticPaths() {
     notes.forEach((note, i) =>
       paths.push({
         params: { ...params, id: note.id },
-        props: { ...props, note, older: notes[i + 1] ?? null, newer: notes[i - 1] ?? null, all: notes },
+        props: { ...props, note, older: notes[i + 1] ?? null, newer: notes[i - 1] ?? null },
       }),
     );
   }
   return paths;
 }
 
-const { section, note, older, newer, all } = Astro.props;
+const { section, note, older, newer } = Astro.props;
 const DISTILLATE_LABEL = section.distillateLabel;
 const { Content, remarkPluginFrontmatter } = await render(note);
 // A contents list for notes long enough to need one: four or more sections. The list of
@@ -38,7 +37,6 @@ const { Content, remarkPluginFrontmatter } = await render(note);
 const sections: { slug: string; text: string }[] = remarkPluginFrontmatter?.sections ?? [];
 const showContents = sections.length >= 4;
 const { title, date, updated, tags, summary, distillate, rough } = note.data;
-const linkedFrom = backlinks(note, all);
 ---
 
 <Base
@@ -83,17 +81,6 @@ const linkedFrom = backlinks(note, all);
     <div class="prose">
       <Content />
     </div>
-
-    {linkedFrom.length > 0 && (
-      <section class="linked-from">
-        <h2 class="label">{UI.linkedFrom}</h2>
-        <ul>
-          {linkedFrom.map((n) => (
-            <li><a href={noteHref(n)}>{label(n)}</a></li>
-          ))}
-        </ul>
-      </section>
-    )}
 
     <nav class="neighbours" aria-label={UI.neighbours}>
       {older ? <a href={noteHref(older)}>← {label(older, 48)}</a> : <span />}

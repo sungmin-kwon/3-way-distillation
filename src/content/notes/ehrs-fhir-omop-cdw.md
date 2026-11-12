@@ -7,7 +7,7 @@ distillate: Hospital EHR data reaches research through a pipeline; EHR to HL7 v2
 model: [Mistral Large 4, Claude Opus 5.5]
 ---
 
-A hospital runs its operations on an **EHR** (in Korea, the broader "hospital information system", HIS), and almost everything clinical ends up stored there: diagnoses, drugs, labs, vitals, imaging, orders. The catch is that this data is locked inside vendor systems and written in local codes, so it is hard to use for anything beyond that patient's care. Making it research-usable is a plumbing job: **HL7 FHIR** and older messaging standards for exchanging data, a **clinical data warehouse (CDW)** for keeping an integrated copy, and a **common data model (CDM)**, most often OMOP, for making that copy look the same as every other hospital's. The [GWAS](note:genome-wide-association-studies), [PRS](note:polygenic-risk-scores) and [MR](note:mendelian-randomization) methods in the notes here run on consortium and biobank data (PGC, UK Biobank, GLGC-style summary statistics); hospital CDWs are where they meet routine clinical data, for example in EHR-linked biobanks such as UK Biobank's hospital-record linkage, eMERGE or the Million Veteran Program.
+A hospital runs its operations on an **EHR** (in Korea, the broader "hospital information system", HIS), and almost everything clinical ends up stored there: diagnoses, drugs, labs, vitals, imaging, orders. The catch is that this data is locked inside vendor systems and written in local codes, so it is hard to use for anything beyond that patient's care. Making it research-usable is a plumbing job: **HL7 FHIR** and older messaging standards for exchanging data, a **clinical data warehouse (CDW)** for keeping an integrated copy, and a **common data model (CDM)**, most often OMOP, for making that copy look the same as every other hospital's. Genetic methods such as GWAS, polygenic scores and Mendelian randomization mostly run on consortium and biobank data (PGC, UK Biobank, GLGC-style summary statistics); hospital CDWs are where they meet routine clinical data, for example in EHR-linked biobanks such as UK Biobank's hospital-record linkage, eMERGE or the Million Veteran Program.
 
 Throughout, the note uses one worked example: three patients from two hospitals, which store them differently until both are converted to OMOP.
 
@@ -25,7 +25,7 @@ For decades hospitals have exchanged data as **HL7 v2 messages** (ADT for admiss
 
 ## Terminologies
 
-Every clinical fact needs a code: diagnoses in ICD-10 (in Korea, KCD, the Korean adaptation) for billing and SNOMED CT for clinical detail, labs in LOINC, drugs in RxNorm or a national drug code. The [medical codes note](note:medical-codes) goes through each system, the difference between a classification and a terminology, and how genetic studies turn codes into case and control labels. For this note, one fact matters: two hospitals rarely code the same thing the same way, and some codes are purely local, so somewhere in the pipeline they must be mapped to a shared set.
+Every clinical fact needs a code: diagnoses in ICD-10 (in Korea, KCD, the Korean adaptation) for billing and SNOMED CT for clinical detail, labs in LOINC, drugs in RxNorm or a national drug code. Here one fact matters: two hospitals rarely code the same thing the same way, and some codes are purely local, so somewhere in the pipeline they must be mapped to a shared set.
 
 ## The clinical data warehouse
 
