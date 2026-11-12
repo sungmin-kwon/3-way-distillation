@@ -16,7 +16,7 @@ const notePath = (id) => `/${PURGATORY.has(id) ? 'purgatorial-thoughts' : 'worki
 export const SITE = {
   // Title and description of the home page that lists the notebooks.
   title: 'notebooks',
-  description: 'Three notebooks kept in public: one on things that interest me, one from graduate study, and one for notes that don’t yet clear the bar.',
+  description: 'Four notebooks kept in public: one on things that interest me, one from graduate study, one on history and other things that aren’t science, and one for notes that don’t yet clear the bar.',
   // How the home page is described in the notebooks' About pages.
   blurb: 'all the notebooks, with the latest notes from each.',
   // GitHub Pages user site (repository sungmin-kwon.github.io), served at the domain root.
@@ -191,6 +191,50 @@ export const SECTIONS = [
         blurb: 'health data and how it is stored, coded and shared.',
         description:
           'Health data and its plumbing: EHRs, FHIR, clinical data warehouses, the OMOP common data model, and the medical codes that turn records into phenotypes.',
+      },
+    ],
+  },
+  {
+    path: 'marginalia',
+    title: 'marginalia',
+    description: 'Notes written in the margins of what I read: history first, argued from the sources.',
+    blurb: 'notes on history and other things outside science, argued from the sources.',
+    distillateLabel: 'In short',
+    allowAffiliation: false,
+    about: [
+      'I’m Sungmin. The other notebooks are about mathematics, science and technology. This one is for everything else, starting with history: the questions I keep coming back to when I read, worked out from the sources rather than retold.',
+      'The notes fall under these tags:',
+      '{tags}',
+      'Many of the sources are in classical Chinese or in Korean, and they count as much as the English ones. Quotations are given in the original, then translated.',
+    ],
+    aboutDescription: 'Whose notebook this is, what it covers, and how it uses its sources.',
+    howToRead: 'Entries marked rough are unfinished thinking and may be wrong. Longer entries open with a short summary, so you can stop there.',
+    // Rice paper and a pine-green ink, apart from the copper, blue and ember of the others.
+    palette: {
+      light: {
+        paper: '#f4f3ec',
+        ink: '#191b17',
+        'ink-2': '#3d4239',
+        muted: '#555b50',
+        rule: '#d3d4c8',
+        'code-bg': '#e8e8de',
+        accent: '#2c6a4a',
+      },
+      dark: {
+        paper: '#131612',
+        ink: '#e4e8e1',
+        'ink-2': '#bfc6bb',
+        muted: '#97a092',
+        rule: '#30362e',
+        'code-bg': '#1b201a',
+        accent: '#7cc39c',
+      },
+    },
+    tags: [
+      {
+        name: 'history',
+        blurb: 'history, read from the primary sources and the historians who argue over them.',
+        description: 'History, argued from the primary sources and from the historians who disagree over them, in Chinese, Korean and English.',
       },
     ],
   },

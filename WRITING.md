@@ -7,7 +7,7 @@ is room in the context, also read one finished note as a model to imitate (see
 [Reference notes](#reference-notes)). Don't read the other notes on nearby topics before
 drafting: the overlap check comes after the draft (section 10).
 
-The site holds two notebooks (sections), each with its own tags, look and path:
+The site holds four notebooks (sections), each with its own tags, look and path:
 
 - **notes from the 3-way distiller** (`/3-way-distillation/`, tags `cheme`, `ml/llm`, `qi/qc`): a
   personal notebook. Sungmin writes things down here to understand them properly. The reader is a
@@ -15,10 +15,16 @@ The site holds two notebooks (sections), each with its own tags, look and path:
 - **working notes** (`/working-notes/`, tags `stats`, `genes`, `data`): study and research notes
   from graduate school in data science, kept so that methods and results can be looked up later.
   The reader is a technical person who knows some statistics, often Sungmin a year from now.
+- **marginalia** (`/marginalia/`, tag `history`): notes on things outside mathematics, science
+  and technology, starting with history, written in English. The reader is curious and
+  careful but not a specialist, and may not read classical Chinese or Korean.
+- **purgatorial thoughts** (`/purgatorial-thoughts/`, no tags): notes that fell below the bar
+  (see below).
 
 Write for that reader. A note's tags decide its notebook, so its tags all come from one of them.
-The rules below are the same for both, except where a rule names a notebook: the affiliation
-rule (section 1), the tags (section 2) and the language for code (section 6).
+The rules below are the same for all of them, except where a rule names a notebook: the
+affiliation rule (section 1), the tags (section 2), the language for code (section 6), and the
+bar and the sources for marginalia (The bar, and section 6).
 
 The Korean notebook (사회학 개론) is a separate repository, `korean-notes`, with its own copy of
 this guide. Shared code is kept in step with it (see `SHARED.md`).
@@ -92,6 +98,37 @@ table of codes. For those, tests 1 and 2 are met by the reasoning behind the rul
 rather than by a derivation. Sungmin decides when a note gets that exception. A note that fails
 a test is held with `draft: true` until it is reworked; it is not published to be improved later.
 
+**The bar for marginalia.** A history note has no formula to derive, so the five tests take
+this form there. The Three Kingdoms note (`when-the-three-kingdoms-tipped.md`) is the example.
+
+1. **It makes a case from evidence, not a retelling.** The note takes a position on a question
+   and shows the evidence that decides it. A narrative of events, however accurate, doesn't
+   count. The Three Kingdoms note argues that 263, not 200 or 222, is when the north's victory
+   became near certain, and rests that on the census registers and the sources' own plans.
+2. **It reads a source closely, to show what a summary misses.** At least one passage is
+   quoted in the original and read for what it says, not only for its gist: Pei Songzhi's four
+   arguments against Chen Shou's troop numbers at Guandu, or the condition "when the realm
+   changes" (天下有變) inside Zhuge Liang's plan. A worked example here is a source, a table of
+   numbers from one, or a comparison of two accounts of the same event.
+3. **It connects causes or ideas.** At least one link is explained, not just named: land and
+   grain to an army's reach, a river's direction to which side can attack, a historian's
+   loyalties to the date he chooses.
+4. **It says where the sources are thin, biased or disputed, and where historians disagree.**
+   Who wrote each source, when and for whom; what the numbers can and can't bear; and each
+   historian's view given to that historian, with the opposing one.
+5. **It is more than a survey**, as in the main test.
+
+Sources for marginalia: classical Chinese originals and Korean and Chinese scholarship count as
+much as English, and English coverage of East Asian history is often the thinnest. Quote the
+original, then translate it ("translations are our own" when they are). Cite a primary text by
+work, author, date and chapter (卷), linked to an online text (Chinese Wikisource, Chinese Text
+Project, chinesenotes.com) that you opened, and check every quotation against it, character by
+character. A newspaper column or a reprinted essay may be cited for its author's position, if
+the position is attributed to that author by name. A scholar's argument known only from someone
+else's summary is cited through that summary, and the text says so. No code is needed in these
+notes, but every number computed from a source (a share, a ratio, a growth rate) still comes
+from a calculation that was run.
+
 **Purgatorial thoughts.** A published note that turns out to fall below the bar goes to the third
 notebook, purgatorial thoughts (`/purgatorial-thoughts/`), until it is reworked or retired. To
 move it there, replace its tags with `tags: []`: a note without tags belongs to that notebook.
@@ -143,7 +180,7 @@ it breaks links.
 title: Forward vs. reverse KL          # omit for a short note
 date: 2026-11-12                       # required, YYYY-MM-DD
 updated: 2026-11-20                    # only when a published note changes materially
-tags: [ml/llm]                         # one notebook's tags: cheme, ml/llm, qi/qc | stats, genes, data
+tags: [ml/llm]                         # one notebook's tags: cheme, ml/llm, qi/qc | stats, genes, data | history
 summary: One line for the index.       # long notes
 distillate: The boiled-down version.   # long notes
 rough: true                            # unfinished thinking; leave out otherwise
@@ -154,12 +191,13 @@ reviewed_by: [Claude Opus 5.5]         # optional: model(s) that did a separate 
 ---
 ```
 
-- **Tags:** only these six, three per notebook. The distiller's read as past, present and
+- **Tags:** only these seven: three each for the distiller and working notes, one for marginalia. The distiller's read as past, present and
   future: `cheme` (chemical engineering: separations, thermodynamics, fermentation and stills),
   `ml/llm` (machine learning and language models) and `qi/qc` (quantum information and
   computing). Working notes: `stats` (probability and statistics, the machinery underneath the
   other notes), `genes` (genetics and genomics) and `data` (health data and how it is stored,
-  coded and shared: EHRs, CDWs, common data models, medical codes). The list lives in
+  coded and shared: EHRs, CDWs, common data models, medical codes). Marginalia: `history`. The
+  list lives in
   `site.config.mjs` under each notebook, and the build fails on any other tag. A note's tags all
   come from one notebook; `npm run check` rejects a mix. Don't invent new tags; ask first.
   **Every new note needs a tag:** a note without tags lands in purgatorial thoughts (see the
@@ -478,7 +516,7 @@ errors. These rules matter more than anything above.
 title: <Short noun phrase or question>
 summary: <What it covers, in one line> — <part>, <part>, <part>.
 date: YYYY-MM-DD
-tags: [<cheme|ml/llm|qi/qc> or <stats|genes|data>, from one notebook]
+tags: [<cheme|ml/llm|qi/qc> or <stats|genes|data> or <history>, from one notebook]
 distillate: <The answer in one sentence.> <The key number from the worked example.> <The main limit or caveat.>
 model: [<the model writing this>]
 ---
@@ -646,6 +684,9 @@ depth (the first, unless another is much closer in kind):
   section.
 - `medical-codes.md` (`data`): identifiers checked against their sources, and numbers kept in
   sync with another note.
+- `when-the-three-kingdoms-tipped.md` (`history`): the marginalia bar's example. A position
+  argued from primary sources quoted in classical Chinese, census registers as the worked
+  example, and each historian's view attributed.
 
 
 When a new note becomes a better example, add it here and add any new trap to section 7.
