@@ -32,11 +32,15 @@ for (const note of notes) {
   // Body, skipping frontmatter and fenced code blocks.
   const fmEnd = lines.indexOf('---', 1);
   let inCode = false;
+  let inMath = false;
   let inSources = false;
   for (let i = fmEnd + 1; i < lines.length; i++) {
     const line = lines[i];
     if (/^\s*(```|~~~)/.test(line)) { inCode = !inCode; continue; }
     if (inCode) continue;
+    // Display math is not prose: an I(θ) there is a symbol, not a pronoun.
+    if (line.trim() === '$$') { inMath = !inMath; continue; }
+    if (inMath) continue;
 
     if (/^#\s/.test(line)) report(i, 'no H1 in the body; sections are ##');
     if (/^##\s+Limits\b/i.test(line)) report(i, 'no "## Limits" section; put each caveat in the section it qualifies');
