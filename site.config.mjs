@@ -85,9 +85,9 @@ export const FAMILY = [
     blurb: 'study and research notes from graduate school in data science, mostly statistics and genetics.',
   },
   {
-    title: '근거와 실재',
+    title: '인문학 개론',
     url: 'https://sungmin-kwon.github.io/korean-notes/',
     lang: 'ko',
-    blurb: '근거이론과 실재론을 비롯한 사회과학 방법론 노트, 한국어로.',
+    blurb: '근거이론, 실재론, 음악교육 등을 정리한 노트, 한국어로.',
   },
 ];
