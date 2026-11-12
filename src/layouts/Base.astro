@@ -3,7 +3,7 @@ import 'katex/dist/katex.min.css';
 import '../styles/site.css';
 import FamilyMenu from '../components/FamilyMenu.astro';
 import { href } from '../lib/notes';
-import { FONT_CSS, FONT_STYLESHEET, PALETTE_CSS, SITE_TITLE, SITE_DESCRIPTION, SITE_LANG, SITE_URL } from '../lib/site';
+import { FAMILY_FONT_STYLESHEETS, FONT_CSS, FONT_STYLESHEET, PALETTE_CSS, SITE_TITLE, SITE_DESCRIPTION, SITE_LANG, SITE_URL } from '../lib/site';
 import { UI, themeSwitch } from '../lib/i18n';
 
 interface Props {
@@ -64,6 +64,7 @@ const ogLocale = SITE_LANG === 'ko' ? 'ko_KR' : 'en_US';
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href={FONT_STYLESHEET} />
+    {FAMILY_FONT_STYLESHEETS.map((url) => <link rel="stylesheet" href={url} />)}
   </head>
   <body>
     <a class="skip" href="#main">{UI.skip}</a>
