@@ -23,8 +23,8 @@ The site holds four notebooks (sections), each with its own tags, look and path:
 
 Write for that reader. A note's tags decide its notebook, so its tags all come from one of them.
 The rules below are the same for all of them, except where a rule names a notebook: the
-affiliation rule (section 1), the tags (section 2), the language for code (section 6), and the
-bar and the sources for marginalia (The bar, and section 6).
+affiliation rule (section 1), the tags (section 2), the language for code (section 6), the
+default version of the bar, and the sources for marginalia (The bar).
 
 The Korean notebook (사회학 개론) is a separate repository, `korean-notes`, with its own copy of
 this guide. Shared code is kept in step with it (see `SHARED.md`).
@@ -62,7 +62,17 @@ remember nothing else from this file, follow these. Details are in the sections 
 
 ## The bar: depth, not polish
 
-A note is published only if it passes all five tests below. They are about how much the note
+The bar comes in two versions, chosen by the kind of argument a note makes, not by its subject.
+The **quantitative bar** (the five tests just below) is for notes that argue with models,
+derivations or calculations: the mathematics, science and technology notes, and most economics.
+The **qualitative bar** (after it) is for notes that argue from sources and interpretation:
+history, and qualitative social science such as grounded theory. Each notebook has a default:
+the quantitative bar for the distiller and working notes, the qualitative bar for marginalia.
+A note may use the other version when its argument is of that kind (an economic-history note
+built on a model, say), and the PR says which bar it was held to. The Korean notebook
+(korean-notes) has no bar for now.
+
+A note is published only if it passes all five tests of its bar. They are about how much the note
 explains, not about correctness or style, which the rest of this file covers. Read them before
 planning a note, not after drafting it: a note that fails them can't be fixed by editing, only
 by rethinking. The likelihood note (`likelihood-and-fisher-information.md`) passes all five;
@@ -98,8 +108,9 @@ table of codes. For those, tests 1 and 2 are met by the reasoning behind the rul
 rather than by a derivation. Sungmin decides when a note gets that exception. A note that fails
 a test is held with `draft: true` until it is reworked; it is not published to be improved later.
 
-**The bar for marginalia.** A history note has no formula to derive, so the five tests take
-this form there. The Three Kingdoms note (`when-the-three-kingdoms-tipped.md`) is the example.
+**The qualitative bar.** A note that argues from sources has no formula to derive, so the five
+tests take this form. It is the default for marginalia. The Three Kingdoms note
+(`when-the-three-kingdoms-tipped.md`) is the example.
 
 1. **It makes a case from evidence, not a retelling.** The note takes a position on a question
    and shows the evidence that decides it. A narrative of events, however accurate, doesn't
@@ -115,10 +126,12 @@ this form there. The Three Kingdoms note (`when-the-three-kingdoms-tipped.md`) i
    loyalties to the date he chooses.
 4. **It says where the sources are thin, biased or disputed, and where historians disagree.**
    Who wrote each source, when and for whom; what the numbers can and can't bear; and each
-   historian's view given to that historian, with the opposing one.
+   historian's view given to that historian, with the opposing one. A social-science note also
+   says what evidence would change its conclusion: the case, finding or count that would count
+   against it.
 5. **It is more than a survey**, as in the main test.
 
-Sources for marginalia: classical Chinese originals and Korean and Chinese scholarship count as
+Sources for marginalia and other qualitative notes: classical Chinese originals and Korean and Chinese scholarship count as
 much as English, and English coverage of East Asian history is often the thinnest. Quote the
 original, then translate it ("translations are our own" when they are). Cite a primary text by
 work, author, date and chapter (卷), linked to an online text (Chinese Wikisource, Chinese Text
@@ -684,7 +697,7 @@ depth (the first, unless another is much closer in kind):
   section.
 - `medical-codes.md` (`data`): identifiers checked against their sources, and numbers kept in
   sync with another note.
-- `when-the-three-kingdoms-tipped.md` (`history`): the marginalia bar's example. A position
+- `when-the-three-kingdoms-tipped.md` (`history`): the qualitative bar's example. A position
   argued from primary sources quoted in classical Chinese, census registers as the worked
   example, and each historian's view attributed.
 
