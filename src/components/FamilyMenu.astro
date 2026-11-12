@@ -1,11 +1,12 @@
 ---
-// The other notebooks: the home page, this site's other sections and the notebooks on other
-// sites (familyFrom in src/lib/site.ts), in two places:
+// The other notebooks: this site's other sections and the notebooks on other sites (familyFrom
+// in src/lib/site.ts), under a label whose braced words link to the page that lists them all
+// (`familyLabel` and `familyHome` in site.config.mjs). In two places:
 // - header: a small <details> menu in the masthead nav, so the other sites are one tap away
 //   on a phone. It lists titles only; the blurbs are on About. It opens and closes without
 //   JavaScript; Base.astro adds Escape and click-outside.
 // - footer: one plain line of links.
-import { SITE_FAMILY_LABEL, SITE_LANG, familyFrom, type Section } from '../lib/site';
+import { SITE_FAMILY_HOME, SITE_LANG, familyFrom, familyLabelParts, type Section } from '../lib/site';
 import { UI } from '../lib/i18n';
 
 interface Props {
@@ -16,7 +17,11 @@ interface Props {
 const { section, place = 'header' } = Astro.props;
 
 const langOf = (s: { lang?: string }) => (s.lang && s.lang !== SITE_LANG ? s.lang : undefined);
-const others = familyFrom(section);
+const others = familyFrom(section, false);
+const [before, linked, after] = familyLabelParts();
+// No link on the page it would point to.
+const onHome = SITE_FAMILY_HOME && Astro.url.pathname === new URL(SITE_FAMILY_HOME).pathname;
+const home = onHome ? undefined : SITE_FAMILY_HOME;
 ---
 
 {
@@ -24,7 +29,9 @@ const others = familyFrom(section);
     <details class="family">
       <summary>{UI.family}</summary>
       <div class="family-panel">
-        <p class="family-label">{SITE_FAMILY_LABEL}</p>
+        <p class="family-label">
+          {before}{home ? <a class="family-home" href={home}>{linked}</a> : linked}{after}
+        </p>
         <ul>
           {others.map((s) => (
             <li lang={langOf(s)}>
@@ -38,7 +45,7 @@ const others = familyFrom(section);
     </details>
   ) : (
     <p class="family-line">
-      {SITE_FAMILY_LABEL}:{' '}
+      {before}{home ? <a href={home}>{linked}</a> : linked}{after}:{' '}
       {others.map((s, i) => (
         <>
           {i > 0 && <span aria-hidden="true"> · </span>}

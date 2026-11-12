@@ -71,16 +71,24 @@ export interface FamilySite {
 /** Notebooks on other sites (FAMILY in site.config.mjs). */
 export const SITE_FAMILY: readonly FamilySite[] = FAMILY;
 /** Heading of the family list, in the header menu and the footer. */
-export const SITE_FAMILY_LABEL: string = SITE.familyLabel ?? 'part of a family of notebooks';
+export const SITE_FAMILY_LABEL: string = SITE.familyLabel ?? 'part of a family of {notebooks}';
+/** The page that lists every notebook, which the braced words of the label link to. */
+export const SITE_FAMILY_HOME: string | undefined = SITE.familyHome;
+/** The family label split around its braced words: [before, linked, after]. */
+export function familyLabelParts(): [string, string, string] {
+  const m = SITE_FAMILY_LABEL.match(/^(.*)\{(.+)\}(.*)$/);
+  return m ? [m[1], m[2], m[3]] : [SITE_FAMILY_LABEL, '', ''];
+}
 
 /**
  * The notebooks to list from a page: the home page (when there is one), this site's sections and
  * the notebooks on other sites, without the one the page is in. On the home page, `current` is
- * undefined and every section is listed.
+ * undefined and every section is listed. The header menu and the footer pass `withHome` false:
+ * they reach the home page through the label instead (familyLabelParts).
  */
-export function familyFrom(current?: Section): FamilySite[] {
+export function familyFrom(current?: Section, withHome = true): FamilySite[] {
   const home: FamilySite[] =
-    HAS_HOME && current ? [{ title: SITE_TITLE, url: SITE_URL, blurb: SITE.blurb ?? SITE_DESCRIPTION }] : [];
+    withHome && HAS_HOME && current ? [{ title: SITE_TITLE, url: SITE_URL, blurb: SITE.blurb ?? SITE_DESCRIPTION }] : [];
   const sections = SECTIONS.filter((s) => s.path !== current?.path).map((s) => ({
     title: s.title,
     url: s.url,

@@ -50,7 +50,8 @@ Copy these unchanged. `scripts/sync-shared.mjs` holds the same list.
 ## Site-specific: never copied
 
 - `site.config.mjs`: everything above, plus web fonts, the 404 line, the number of notes per page,
-  the label of the family list and the notebooks on the other site (`FAMILY`). When a notebook
+  the label of the family list (its braced words link to `familyHome`, the page that lists every
+  notebook) and the notebooks on the other site (`FAMILY`). When a notebook
   is added, add it to the other site's `FAMILY`.
 - `public/`: each section's favicon and link-preview card at `public/<path>/favicon.svg` and
   `og.png` (`public/favicon.svg` and `og.png` for the home page, or for a single section at the
