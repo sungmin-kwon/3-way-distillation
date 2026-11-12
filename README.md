@@ -53,8 +53,6 @@ reviewed_by: [Claude Opus 5.5] # optional: model(s) that did a separate review p
 - **Figures:** inline `<svg>` works. Use `style="stroke: var(--accent)"` (or `--ink`, `--muted`)
   instead of fixed colors so it follows dark mode.
 
-The "Currently" list lives at the top of `src/pages/about.astro`.
-
 ## Commands
 
 ```sh
