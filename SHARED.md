@@ -4,7 +4,7 @@ Each site is one of a family of notebook sites built from the same code:
 
 - [notes from the 3-way distiller](https://github.com/sungmin-kwon/3-way-distillation)
 - [working notes](https://github.com/sungmin-kwon/working-notes)
-- [근거와 실재](https://github.com/sungmin-kwon/korean-notes), in Korean
+- [인문학 개론](https://github.com/sungmin-kwon/korean-notes), in Korean
 
 To keep a fix from having to be made three times, every
 setting that differs between the sites lives in `site.config.mjs`, and the rest of the code is
