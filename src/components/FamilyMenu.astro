@@ -1,7 +1,8 @@
 ---
 // The other sites in the family (FAMILY in site.config.mjs, minus this one), in two places:
 // - header: a small <details> menu in the masthead nav, so the other sites are one tap away
-//   on a phone. It opens and closes without JavaScript; Base.astro adds Escape and click-outside.
+//   on a phone. It lists titles only; the blurbs are on About. It opens and closes without
+//   JavaScript; Base.astro adds Escape and click-outside.
 // - footer: one plain line of links.
 import { SITE_FAMILY, SITE_FAMILY_LABEL, SITE_LANG, SITE_URL } from '../lib/site';
 import { UI } from '../lib/i18n';
@@ -28,7 +29,6 @@ const others = SITE_FAMILY.filter((s) => !sameSite(s.url));
               <a class="family-site" href={s.url} hreflang={langOf(s)}>
                 {s.title}
               </a>
-              <span class="family-blurb">{s.blurb}</span>
             </li>
           ))}
         </ul>

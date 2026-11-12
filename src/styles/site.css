@@ -736,13 +736,6 @@ a.row-date:hover {
 .family-site {
   color: var(--ink);
 }
-.family-blurb {
-  display: block;
-  font-family: var(--sans);
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--muted);
-}
 
 .colophon {
   margin-top: 48px;
