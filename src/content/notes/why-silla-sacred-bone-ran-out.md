@@ -23,8 +23,8 @@ after the events. The *New Book of Tang* (新唐書, 1060) keeps a Tang envoy's 
 Silla from the 760s. Korean scholarship is the main literature, and much of it is known here
 from encyclopedia articles and journal abstracts; where that is so, the text says whose summary
 it is. Quotations are given in the original with a translation; translations are our own. These works
-are divided into *juan* (卷), literally "scrolls", closer to a long chapter than to a modern
-book, and are cited by *juan* number.
+are divided into volumes (卷, 권), each literally a "scroll" and closer to a long chapter than
+to a modern book, and are cited by volume number ("vol. 5").
 
 ## The family
 
@@ -76,7 +76,7 @@ The throne went to the second son, Jinji, whose names are given as Saryun (舍�
 (金輪, 금륜). After Jinji came Dongnyun's son Jinpyeong, who reigned 53 years. Jinpyeong had no son.
 His elder daughter Deokman became Queen Seondeok; his brother Gukban's daughter Seungman became
 Queen Jindeok. His other daughter, Cheonmyeong, married Jinji's son Yongchun, and their son
-was Kim Chunchu (*Samguk sagi*, *juan* 4 and 5).
+was Kim Chunchu (*Samguk sagi*, vols. 4 and 5).
 
 Two facts on the tree carry most of the argument. Chunchu was Jinpyeong's grandson, his
 closest male descendant, and a great-grandson of Jinheung through both parents. And yet he was
@@ -84,7 +84,7 @@ true bone, while Jinpyeong's daughter and his niece were sacred.
 
 ## What the two histories say
 
-Kim Busik gives the division once, at the end of Jindeok's annals (*Samguk sagi*, *juan* 5,
+Kim Busik gives the division once, at the end of Jindeok's annals (*Samguk sagi*, vol. 5,
 Jindeok's 8th year):
 
 > 國人謂始祖赫居世至眞德二十八王，謂之聖骨；自武烈至末王，謂之眞骨。唐令狐澄新羅記曰：其國王族，謂之第一骨，餘貴族第二骨。
@@ -116,14 +116,14 @@ the reason she reigned:
 
 Kim Busik says nothing of the kind. His account of her accession is plain: "King Jinpyeong
 died without a son, and the people of the country set up Deokman" (眞平王薨，無子，國人立德曼)
-(*Samguk sagi*, *juan* 5). The best-known sentence about the sacred bone, that its men ran out,
+(*Samguk sagi*, vol. 5). The best-known sentence about the sacred bone, that its men ran out,
 comes from a 13th-century table, not from the annals.
 
 The two histories also disagree about Jinji, the king whose line matters most. Kim Busik's
-annals end his reign with "the king died" (王薨) in his fourth year (*Samguk sagi*, *juan* 4). Iryeon,
+annals end his reign with "the king died" (王薨) in his fourth year (*Samguk sagi*, vol. 4). Iryeon,
 in the tale of the woman Dohwa (桃花女, 도화녀), says that he ruled four years, "his government was
 in disorder and he was dissolute, and the people of the country deposed him"
-(政亂荒婬，國人廢之) (*Samguk yusa*, *juan* 1). Iryeon's version explains why Jinji's grandson
+(政亂荒婬，國人廢之) (*Samguk yusa*, vol. 1). Iryeon's version explains why Jinji's grandson
 would be excluded; Kim Busik's leaves it a puzzle.
 
 The two accounts are evidence of different kinds. Kim Busik's twenty-eight-king version is a
@@ -138,7 +138,7 @@ time make sense only if eligibility for the throne was restricted to Dongnyun's 
 
 The first is the names. Jinpyeong's personal name was Baekjeong (白淨, 백정) and his queen was Lady
 Maya (摩耶夫人, 마야부인); in his first year he made his younger brothers Baekban (伯飯, 백반) and Gukban (國飯, 국반)
-royal "*galmunwang*" (葛文王, 갈문왕) (*Samguk sagi*, *juan* 4). These are the names of the Buddha's family:
+royal "*galmunwang*" (葛文王, 갈문왕) (*Samguk sagi*, vol. 4). These are the names of the Buddha's family:
 Śuddhodana, the Buddha's father, is 白淨 or 淨飯 in Chinese; Māyā is his mother; and
 Śuklodana and Droṇodana (白飯, 斛飯) are Śuddhodana's brothers. Choe Byeong-heon reads the set as
 a claim that Jinpyeong's house was the Buddha's own clan, the second stage of a royal
@@ -148,7 +148,7 @@ of that king.
 
 The second is a claim made on the house's behalf by a monk. When Jajang was in China, the
 bodhisattva Mañjuśrī told him, in Iryeon's account of the nine-storey pagoda at Hwangnyongsa
-(*Samguk yusa*, *juan* 3):
+(*Samguk yusa*, vol. 3):
 
 > 汝國王是天竺剎利種。王預受佛記。故別有因緣。
 >
@@ -158,7 +158,7 @@ bodhisattva Mañjuśrī told him, in Iryeon's account of the nine-storey pagoda 
 Jajang returned in 643, so "your king" is Queen Seondeok. The story is in a late collection,
 but it says what Jinpyeong's names say: the ruling line was of the Buddha's caste, and set
 apart from other people for that reason. Seondeok's own title, recorded in the *New Book of
-Tang* (*juan* 220) as well as by Kim Busik, was "Holy Ancestor, Imperial Lady"
+Tang* (vol. 220) as well as by Kim Busik, was "Holy Ancestor, Imperial Lady"
 (聖祖皇姑, 성조황고), with the same character 聖 that the later "sacred bone" uses.
 
 The third, and the strongest, is the two queens. Silla had never had a woman ruler. In 632 it
@@ -167,7 +167,7 @@ born in 604 (NIKH, "김춘추와 김유신") and was 28 when Seondeok took the t
 first and then its second woman than a king's grandson was not choosing on nearness of blood.
 It was choosing by a rule that Chunchu failed and the two women passed. The rule also cost
 something: in 647 the highest noble, Bidam (毗曇, 비담), made *sangdaedeung* (上大等, 상대등) two years
-before, rose in revolt saying "a woman ruler cannot govern well" (女主不能善理) (*Samguk sagi*, *juan* 5). A rule that a kingdom kept at the price of a rebellion is hard to explain as a later
+before, rose in revolt saying "a woman ruler cannot govern well" (女主不能善理) (*Samguk sagi*, vol. 5). A rule that a kingdom kept at the price of a rebellion is hard to explain as a later
 historian's invention.
 
 What the rule was can be read off the tree. Every sacred-bone ruler after 579 descends from
@@ -181,7 +181,7 @@ but it passed only through men.
 
 The one outside description of Silla's bones is the Tang envoy's. Gu Yin (顧愔) went to Silla
 as deputy envoy after King Gyeongdeok's death in 765, for the investiture of the boy king
-Hyegong (*New Book of Tang*, *juan* 220). The NIKH essay identifies him as the author of a *Record of
+Hyegong (*New Book of Tang*, vol. 220). The NIKH essay identifies him as the author of a *Record of
 the Kingdom of Silla* (新羅國記), which Linghu Cheng quoted, so Kim Busik's quotation goes back
 to it. The *New Book of Tang* keeps the fuller passage:
 
@@ -286,15 +286,15 @@ the best measure of how much the rule meant to the people who kept it.
 
 The true bone was not a new class that rose against the sacred. It was the rest of the same
 family, already ranked and already in office. In 650, under Jindeok, an order directed that
-"those of true bone who hold office carry ivory tablets" (以眞骨在位者，執牙笏) (*Samguk sagi*, *juan* 5). When Jindeok died in 654, the question was only which true-bone man would reign.
+"those of true bone who hold office carry ivory tablets" (以眞骨在位者，執牙笏) (*Samguk sagi*, vol. 5). When Jindeok died in 654, the question was only which true-bone man would reign.
 
-Kim Busik tells it twice, in two different ways. The annals of Muyeol (*Samguk sagi*, *juan* 5) have
+Kim Busik tells it twice, in two different ways. The annals of Muyeol (*Samguk sagi*, vol. 5) have
 the ministers ask Alcheon (閼川, 알천), *sangdaedeung* since 647, to act as regent. Alcheon refuses, calling
 himself old and without virtue to speak of (臣老矣，無德行可稱), and names another: "for virtue
 and repute today none is the equal of Lord Chunchu, truly a hero to save the age"
 (今之德望崇重，莫若春秋公，實可謂濟世英傑矣).
 Chunchu declines three times and takes the throne only because he must. Kim Yusin's biography
-in the same book (*Samguk sagi*, *juan* 42) says it in one line:
+in the same book (*Samguk sagi*, vol. 42) says it in one line:
 
 > 眞德大王薨，無嗣，庾信與宰相閼川伊飡謀，迎春秋伊飡，卽位。
 >
@@ -305,7 +305,7 @@ The annals give the ceremony of a man chosen for his virtue, the biography gives
 two powerful men. Iryeon's story of the nobles' council at Ujiam under Jindeok adds the
 balance of power between them: Alcheon was strong enough to kill a tiger by its tail and sat at
 the head of the meeting, "yet all the lords submitted to Yusin's authority"
-(然諸公皆服庾信之威) (*Samguk yusa*, *juan* 1). Chunchu had been the envoy who won the Tang
+(然諸公皆服庾信之威) (*Samguk yusa*, vol. 1). Chunchu had been the envoy who won the Tang
 alliance in 648, and Yusin held the army. Blood made Chunchu eligible once the rule was gone;
 the alliance with Yusin made him king.
 
@@ -375,9 +375,9 @@ quoted here, and the leading readings of the one later inscription disagree.
 
 ## Sources
 
-- Kim Busik 金富軾 김부식 et al., *Samguk sagi* 三國史記 삼국사기 [History of the Three Kingdoms] (1145). *Juan* 4 and 5 (annals of Jinheung to Muyeol) and 42 (Kim Yusin). [Wikisource text, GitHub mirror](https://github.com/michiboo/Classical_Chinese_Wikisource/tree/master/%E4%B8%89%E5%9C%8B%E5%8F%B2%E8%A8%98)
-- Iryeon 一然 일연, *Samguk yusa* 三國遺事 삼국유사 [Memorabilia of the Three Kingdoms] (late 13th century). Chronological table (王曆 왕력); *juan* 1 (桃花女 鼻荊郎 도화녀 비형랑, "Dohwa and Bihyeong"; 眞德王 진덕왕, "Queen Jindeok"); *juan* 3 (皇龍寺九層塔 황룡사 구층탑, "The nine-storey pagoda of Hwangnyongsa"). Kanseki Repository text KR6r0016. [github.com/kanripo/KR6r0016](https://github.com/kanripo/KR6r0016)
-- Ouyang Xiu 歐陽脩, Song Qi 宋祁 et al., *New Book of Tang* (*Xin Tang shu* 新唐書, 1060). *Juan* 220, 東夷傳 ("Account of the Eastern Yi"), 新羅 (Silla). [chinesenotes.com corpus, GitHub](https://github.com/alexamies/chinesenotes.com/blob/master/corpus/xintangshu/xintangshu220.txt)
+- Kim Busik 金富軾 김부식 et al., *Samguk sagi* 三國史記 삼국사기 [History of the Three Kingdoms] (1145). Vols. 4 and 5 (annals of Jinheung to Muyeol) and 42 (Kim Yusin). [Wikisource text, GitHub mirror](https://github.com/michiboo/Classical_Chinese_Wikisource/tree/master/%E4%B8%89%E5%9C%8B%E5%8F%B2%E8%A8%98)
+- Iryeon 一然 일연, *Samguk yusa* 三國遺事 삼국유사 [Memorabilia of the Three Kingdoms] (late 13th century). Chronological table (王曆 왕력); vol. 1 (桃花女 鼻荊郎 도화녀 비형랑, "Dohwa and Bihyeong"; 眞德王 진덕왕, "Queen Jindeok"); vol. 3 (皇龍寺九層塔 황룡사 구층탑, "The nine-storey pagoda of Hwangnyongsa"). Kanseki Repository text KR6r0016. [github.com/kanripo/KR6r0016](https://github.com/kanripo/KR6r0016)
+- Ouyang Xiu 歐陽脩, Song Qi 宋祁 et al., *New Book of Tang* (*Xin Tang shu* 新唐書, 1060). Vol. 220, 東夷傳 ("Account of the Eastern Yi"), 新羅 (Silla). [chinesenotes.com corpus, GitHub](https://github.com/alexamies/chinesenotes.com/blob/master/corpus/xintangshu/xintangshu220.txt)
 - 국사편찬위원회 (National Institute of Korean History), 우리역사넷 [Our History Net], 사료로 본 한국사 [Korean history through its sources]: "신라 성골과 진골" [Silla's sacred bone and true bone], "신라의 골품제" [Silla's bone-rank system], "김춘추와 김유신" [Kim Chunchu and Kim Yusin]. Read through a copy of the pages' text. [contents.history.go.kr](https://contents.history.go.kr/front/hm/view.do?levelId=hm_011_0090), [contents.history.go.kr](https://contents.history.go.kr/front/hm/view.do?levelId=hm_018_0060), [contents.history.go.kr](https://contents.history.go.kr/front/hm/view.do?levelId=hm_014_0030)
 - 한국민족문화대백과사전 (Encyclopedia of Korean Culture), "성골" [Sacred bone] (1995, revised 2023). [encykorea.aks.ac.kr](https://encykorea.aks.ac.kr/Article/E0029185)
 - 김두진 Kim Du-jin, "진골" [True bone], 한국민족문화대백과사전 (1995, revised 2023). [encykorea.aks.ac.kr](https://encykorea.aks.ac.kr/Article/E0054580)

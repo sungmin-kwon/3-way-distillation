@@ -15,7 +15,8 @@ worth keeping, put them under **Optional**, in one short list.
 
 1. **Branch and process.** Is it a PR from a branch cut from current `main`? Did the drafter
    paste the self-check and a **Not verified** list? Anything listed there is the first thing to
-   check. A note pushed straight to `main` gets reviewed the same way, and the fixes go through a PR.
+   check, and each item that stays in the note must be marked there too (WRITING.md section 7,
+   rule 20). A note pushed straight to `main` gets reviewed the same way, and the fixes go through a PR.
    Don't trust ticked boxes: compare each ticked item with the diff. A draft ticked the bracket
    rule while using the wrong brackets throughout.
 2. **Check the bar first.** Read the note once through and judge it against the five tests in
