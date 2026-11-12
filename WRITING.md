@@ -15,7 +15,7 @@ The site holds four notebooks (sections), each with its own tags, look and path:
 - **working notes** (`/working-notes/`, tags `stats`, `genes`, `data`): study and research notes
   from graduate school in data science, kept so that methods and results can be looked up later.
   The reader is a technical person who knows some statistics, often Sungmin a year from now.
-- **marginalia** (`/marginalia/`, tags `history`, `language`): notes on things outside mathematics, science
+- **marginalia** (`/marginalia/`, tags `history`, `language`, `geography`): notes on things outside mathematics, science
   and technology, starting with history, written in English. The reader is curious and
   careful but not a specialist, and may not read the languages its sources are written in.
 - **purgatorial thoughts** (`/purgatorial-thoughts/`, no tags): notes that fell below the bar
@@ -206,7 +206,7 @@ it breaks links.
 title: Forward vs. reverse KL          # omit for a short note
 date: 2026-11-12                       # required, YYYY-MM-DD
 updated: 2026-11-20                    # only when a published note changes materially
-tags: [ml/llm]                         # one notebook's tags: cheme, ml/llm, qi/qc | stats, genes, data | history, language
+tags: [ml/llm]                         # one notebook's tags: cheme, ml/llm, qi/qc | stats, genes, data | history, language, geography
 summary: One line for the index.       # long notes
 distillate: The boiled-down version.   # long notes
 rough: true                            # unfinished thinking; leave out otherwise
@@ -217,13 +217,14 @@ reviewed_by: [Claude Opus 5.5]         # optional: model(s) that did a separate 
 ---
 ```
 
-- **Tags:** only these eight: three each for the distiller and working notes, two for marginalia. The distiller's read as past, present and
+- **Tags:** only these nine: three each for the distiller, working notes and marginalia. The distiller's read as past, present and
   future: `cheme` (chemical engineering: separations, thermodynamics, fermentation and stills),
   `ml/llm` (machine learning and language models) and `qi/qc` (quantum information and
   computing). Working notes: `stats` (probability and statistics, the machinery underneath the
   other notes), `genes` (genetics and genomics) and `data` (health data and how it is stored,
-  coded and shared: EHRs, CDWs, common data models, medical codes). Marginalia: `history` and
-  `language` (languages, their history and the words people use). The
+  coded and shared: EHRs, CDWs, common data models, medical codes). Marginalia: `history`,
+  `language` (languages, their history and the words people use) and `geography` (places,
+  borders, rivers and maps: how land was divided and why). The
   list lives in
   `site.config.mjs` under each notebook, and the build fails on any other tag. A note may carry more than one tag, all
   from one notebook (`npm run check` rejects a mix): give a second tag when a reader browsing
@@ -556,7 +557,7 @@ errors. These rules matter more than anything above.
 title: <Short noun phrase or question>
 summary: <What it covers, in one line> — <part>, <part>, <part>.
 date: YYYY-MM-DD
-tags: [<cheme|ml/llm|qi/qc> or <stats|genes|data> or <history|language>, from one notebook]
+tags: [<cheme|ml/llm|qi/qc> or <stats|genes|data> or <history|language|geography>, from one notebook]
 distillate: <The answer in one sentence.> <The key number from the worked example.> <The main limit or caveat.>
 model: [<the model writing this>]
 ---

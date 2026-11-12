@@ -241,6 +241,11 @@ export const SECTIONS = [
         blurb: 'languages and the words people use, read from the sources that record them.',
         description: 'Languages, their history and the words people use, argued from grammars, dictionaries, texts and the linguists who disagree over them.',
       },
+      {
+        name: 'geography',
+        blurb: 'places, borders and rivers: how land came to be divided, read from treaties and maps.',
+        description: 'Places, borders, rivers and maps: how land came to be divided and claimed, argued from treaties, awards, surveys and the maps drawn from them.',
+      },
     ],
   },
   {
