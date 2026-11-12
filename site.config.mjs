@@ -28,8 +28,10 @@ export const SITE = {
   notFound: 'This page doesn’t exist, or it has moved.',
   // Notes per page on the index and the tag pages; older notes go on page/2/, page/3/ and so on.
   pageSize: 10,
-  // Heading of the list of the other notebooks (header menu and footer).
-  familyLabel: 'part of a family of notebooks',
+  // Heading of the list of the other notebooks (header menu and footer). The words in braces
+  // link to `familyHome`, the page that lists every notebook; here, this site's home page.
+  familyLabel: 'part of a family of {notebooks}',
+  familyHome: 'https://sungmin-kwon.github.io/',
   // Old paths (without the base) that send readers elsewhere: { '/old/path': 'https://…/new/' }.
   // The genes and stats notes moved from the distiller to working notes on 2026-11-11.
   redirects: Object.fromEntries([
