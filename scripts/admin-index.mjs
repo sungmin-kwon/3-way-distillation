@@ -28,7 +28,7 @@ ${SECTIONS.length > 1 ? '| status | notebook | date | note | tags | model |\n| -
 ${rows.join('\n')}
 
 - **visible**: on the index, tag pages, RSS and search.
-- **hidden**: finished but withheld (\`hidden: true\`). No page is built for it, and links to it from visible notes show as plain text.
+- **hidden**: finished but withheld (\`hidden: true\`). No page is built for it.
 - **draft**: unfinished (\`draft: true\`). Treated the same as hidden.
 
 To put a hidden note back on the site, delete its \`hidden: true\` line, run \`npm run build\`, and commit the note together with the regenerated ADMIN.md. See WRITING.md, section 2.

@@ -11,7 +11,7 @@ reviewed_by: [Claude Opus 5.5]
 
 The transformer block is built from one operation repeated many times: **self-attention**. Vaswani et al. (2017) introduced it in *Attention Is All You Need*[^1] as scaled dot-product attention, and nearly every large language model in wide use today is a transformer built from this operation. A single **attention head** takes a sequence of token embeddings, projects each token into a query, a key, and a value, and lets every token gather information from every other token with learned weights. This note computes one head by hand on a three-token sentence, so every number is visible.
 
-The models in the [distillation note](note:what-is-model-distillation) and the [speculative decoding note](note:speculative-decoding) are stacks of exactly this operation, plus feed-forward layers.
+A language model is a stack of exactly this operation, plus feed-forward layers.
 
 Throughout, the note uses one worked example:
 
@@ -179,7 +179,7 @@ A **multi-head** attention layer runs $h$ such heads in parallel, each with its 
 
 In a decoder, self-attention is **masked**: future positions get score $-\infty$ before the softmax, so token $i$ can attend only to positions $\le i$. The example above is unmasked, as in an encoder.
 
-Computing $S$ costs $O(n^2 d_k)$ time and the attention matrix $O(n^2)$ memory per head in sequence length $n$; that quadratic growth is the main practical limit of attention on long sequences. KV caching and the verify-in-one-pass trick in the [speculative decoding note](note:speculative-decoding) attack different costs: caching keeps each token's $K$ and $V$ so a decoding step attends in $O(n)$ instead of recomputing them, and speculative decoding targets the per-token memory-bandwidth cost of reading the weights.
+Computing $S$ costs $O(n^2 d_k)$ time and the attention matrix $O(n^2)$ memory per head in sequence length $n$; that quadratic growth is the main practical limit of attention on long sequences. KV caching and speculative decoding's verify-in-one-pass trick attack different costs: caching keeps each token's $K$ and $V$ so a decoding step attends in $O(n)$ instead of recomputing them, and speculative decoding targets the per-token memory-bandwidth cost of reading the weights.
 
 ## The whole computation in Python
 

@@ -23,7 +23,7 @@ The architecture is from Table 3 of the Llama 3 paper (Grattafiori et al., 2024)
 
 ## Why decoding is limited by memory bandwidth
 
-A matrix–vector product with a weight matrix of $N$ entries does $2N$ floating-point operations, a multiply and an add per weight, and must read all $N$ weights. At 4.89 bits, about 0.61 bytes, per weight, that is roughly 3 operations per byte read. An RTX 4090 is rated at 165.2 trillion 16-bit tensor operations per second (dense, with 32-bit accumulation) against 1,008 GB/s of memory bandwidth, about 160 operations per byte, so while generating one token at a time it mostly waits on memory. This is the slack that [speculative decoding](note:speculative-decoding) exploits: checking several drafted tokens in one pass costs about as much as producing one.
+A matrix–vector product with a weight matrix of $N$ entries does $2N$ floating-point operations, a multiply and an add per weight, and must read all $N$ weights. At 4.89 bits, about 0.61 bytes, per weight, that is roughly 3 operations per byte read. An RTX 4090 is rated at 165.2 trillion 16-bit tensor operations per second (dense, with 32-bit accumulation) against 1,008 GB/s of memory bandwidth, about 160 operations per byte, so while generating one token at a time it mostly waits on memory. This is the slack that speculative decoding exploits: checking several drafted tokens in one pass costs about as much as producing one.
 
 Reading the prompt is different. During *prefill*, all the prompt's tokens go through each layer together, so each weight fetched is used once per token in the prompt and the work becomes limited by arithmetic instead. The benchmarks in llama.cpp's quantization README show the gap for this model at Q4_K_M: 821.81 tokens/s when processing a 512-token prompt, against 71.93 tokens/s when generating, about 11 times faster per token. That is why a long prompt appears quickly and the answer then arrives word by word. The same reasoning explains why servers batch many users together: a batch of 64 sequences reuses each weight 64 times, which a single user at home never does.
 
@@ -220,7 +220,7 @@ On a Mac the operating system limits how much unified memory the GPU may wire. T
 - **LM Studio** is a desktop application that runs llama.cpp on Mac, Windows and Linux and MLX on Apple Silicon.
 - **vLLM** (Kwon et al., 2023) is built for serving many requests at once on GPUs. Its PagedAttention stores the KV cache in fixed-size pages, like virtual memory, so that little of it is wasted to fragmentation; the paper reports 2–4 times the throughput of earlier serving systems at the same latency. That matters when many sequences share a GPU, which is the batched regime from the first section, and much less for one person at a desk.
 
-Two other notes cover the remaining ways to go faster. [Speculative decoding](note:speculative-decoding) spends the arithmetic left idle during decoding on checking a small model's guesses, without changing the output; llama.cpp's server supports a draft model directly. [Model distillation](note:what-is-model-distillation) makes the small model itself, trading some quality for a smaller $W$.
+Two other techniques go faster still. Speculative decoding spends the arithmetic left idle during decoding on checking a small model's guesses, without changing the output; llama.cpp's server supports a draft model directly. Model distillation makes the small model itself, trading some quality for a smaller $W$.
 
 ## Where things stand
 

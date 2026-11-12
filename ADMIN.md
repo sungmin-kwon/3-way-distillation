@@ -32,7 +32,7 @@ This file is not deployed, but the repository is public, so anyone can read it a
 | visible | 3-way-distillation | 2026-11-09 | [What is model distillation?](src/content/notes/what-is-model-distillation.md) | ml/llm | Mistral Large 4, Claude Opus 5.5 |
 
 - **visible**: on the index, tag pages, RSS and search.
-- **hidden**: finished but withheld (`hidden: true`). No page is built for it, and links to it from visible notes show as plain text.
+- **hidden**: finished but withheld (`hidden: true`). No page is built for it.
 - **draft**: unfinished (`draft: true`). Treated the same as hidden.
 
 To put a hidden note back on the site, delete its `hidden: true` line, run `npm run build`, and commit the note together with the regenerated ADMIN.md. See WRITING.md, section 2.

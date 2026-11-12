@@ -43,7 +43,7 @@ $$
 \chi^2 = \sum \frac{(O - E)^2}{E} = 4 \times \frac{20^2}{200} = 8.0
 $$
 
-With 1 degree of freedom, $\chi^2 = 8.0$ gives $p = 0.0047$. On its own that would count as suggestive. In a genome-wide scan it is nothing, because tests like it are run a million times. The test also assumes the case and control labels are right; when they come from diagnosis codes in health records, they often aren't, and the [medical codes note](note:medical-codes) works out what that costs in odds ratio and sample size.
+With 1 degree of freedom, $\chi^2 = 8.0$ gives $p = 0.0047$. On its own that would count as suggestive. In a genome-wide scan it is nothing, because tests like it are run a million times. The test also assumes the case and control labels are right; when they come from diagnosis codes in health records, they often aren't, and misclassified cases shrink the odds ratio and raise the sample size needed.
 
 The allele-count table treats the 800 alleles as independent draws, which holds only under Hardy–Weinberg equilibrium. Real pipelines instead regress the trait on genotype dosage (0, 1 or 2 copies of A) with covariates: logistic regression for a disease, linear for a quantitative trait. For one SNP without covariates the two give nearly the same answer, and the regression form is what the simulated scan below uses. In practice it is run with tools such as PLINK (Chang et al., 2015) or REGENIE (Mbatchou et al., 2021).
 
@@ -177,13 +177,13 @@ Arrays measure about 0.5–2 million SNPs directly (WTCCC used the Affymetrix 50
 
 ## From hits to biology
 
-A lead SNP is rarely the causal one: it is the best-tagged member of a tower. In the simulation the causal SNP is known, and at the chromosome 13 locus the raw scan's lead SNP is its neighbour, not the causal SNP itself. **Fine-mapping** methods such as SuSiE (Wang et al., 2020) turn a tower into a *credible set*, a small group of SNPs that contains the causal one with a stated probability. Follow-up then links loci to genes, for example through expression QTLs, variants that change a gene's expression in some tissue (GTEx Consortium, 2017). Discovery effect sizes shrink on replication because of the winner's curse described above. The hits and their effect sizes also feed the [polygenic risk scores note](note:polygenic-risk-scores) and the instruments of [Mendelian randomization](note:mendelian-randomization).
+A lead SNP is rarely the causal one: it is the best-tagged member of a tower. In the simulation the causal SNP is known, and at the chromosome 13 locus the raw scan's lead SNP is its neighbour, not the causal SNP itself. **Fine-mapping** methods such as SuSiE (Wang et al., 2020) turn a tower into a *credible set*, a small group of SNPs that contains the causal one with a stated probability. Follow-up then links loci to genes, for example through expression QTLs, variants that change a gene's expression in some tissue (GTEx Consortium, 2017). Discovery effect sizes shrink on replication because of the winner's curse described above. The hits and their effect sizes also become the weights of polygenic risk scores and the instruments of Mendelian randomization.
 
 ## What GWAS showed about architecture
 
 Beyond single loci, GWAS measured how traits are built. SNP-based heritability, the share of trait variance that all common SNPs together explain (GCTA; Yang et al., 2011), turned out to be large for many traits, so much of the "missing heritability" sits in many SNPs each too small to cross 5×10⁻⁸ at the sample sizes of the time. Height is the clearest case: a GWAS of 5.4 million people found about 12,000 independent signals that together account for about 40% of height variance in European-ancestry samples, nearly all of the common-SNP heritability (Yengo et al., 2022). The simulated scan, with seven of ten true loci missed at 10,000 people, is the same story in miniature.
 
-Most GWAS samples are of European ancestry. Allele frequencies and LD patterns differ between ancestries, so loci are missed in under-studied populations, and results transfer poorly: the same height SNPs account for only about 10–20% of variance in other ancestries (Yengo et al., 2022). The PRS note follows this through to risk scores.
+Most GWAS samples are of European ancestry. Allele frequencies and LD patterns differ between ancestries, so loci are missed in under-studied populations, and results transfer poorly: the same height SNPs account for only about 10–20% of variance in other ancestries (Yengo et al., 2022).
 
 ## The simulated scan in R
 

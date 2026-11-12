@@ -7,7 +7,7 @@ distillate: "Health records store facts as codes from several systems with diffe
 model: [Claude Opus 5.5]
 ---
 
-A health record is mostly codes. When a doctor diagnoses type 2 diabetes, orders an HbA1c test and prescribes metformin, each of those facts is stored as a code from a different system, maintained by a different body for a different purpose. The [EHR note](note:ehrs-fhir-omop-cdw) describes how those records move and get standardized; this note is about the codes themselves, and about the step that genetic studies depend on: turning codes back into a **phenotype**, a yes-or-no label for "has the disease", that a [GWAS](note:genome-wide-association-studies), a [polygenic risk score](note:polygenic-risk-scores) or a [Mendelian randomization](note:mendelian-randomization) analysis can use.
+A health record is mostly codes. When a doctor diagnoses type 2 diabetes, orders an HbA1c test and prescribes metformin, each of those facts is stored as a code from a different system, maintained by a different body for a different purpose. This note is about the codes themselves, not about how the records move and get standardized, and about the step that genetic studies depend on: turning codes back into a **phenotype**, a yes-or-no label for "has the disease", that a GWAS, a polygenic risk score or a Mendelian randomization analysis can use.
 
 Throughout, the note uses one worked example: a patient with type 2 diabetes, and a ten-patient toy cohort to which three case definitions are applied.
 
@@ -139,7 +139,7 @@ Real algorithms look like rule 3. The eMERGE network's type 2 diabetes algorithm
 
 ## Why a clean phenotype is statistical power
 
-Misclassified cases dilute the signal a GWAS looks for. Take the toy SNP from the [GWAS note](note:genome-wide-association-studies): the risk allele has frequency 0.55 in true cases and 0.45 in controls, which gives an allelic odds ratio of 1.49 and needs about 1,500 people to reach $p < 5 \times 10^{-8}$. Now suppose the case definition has a **positive predictive value** (PPV) of 0.8: 80% of the people labeled cases have the disease, and the other 20% are really controls. The allele frequency among labeled cases becomes
+Misclassified cases dilute the signal a GWAS looks for. Take a toy SNP: the risk allele has frequency 0.55 in true cases and 0.45 in controls, which gives an allelic odds ratio of 1.49 and needs about 1,500 people to reach $p < 5 \times 10^{-8}$. Now suppose the case definition has a **positive predictive value** (PPV) of 0.8: 80% of the people labeled cases have the disease, and the other 20% are really controls. The allele frequency among labeled cases becomes
 
 $$
 p_{\text{case}} = 0.8 \times 0.55 + 0.2 \times 0.45 = 0.53
@@ -156,11 +156,11 @@ where $p_{\text{case}}$ is the risk-allele frequency in the labeled cases. With 
 
 The required sample grows roughly as $1/\mathrm{PPV}^2$, because the allele-frequency difference shrinks in proportion to the PPV and the chi-square grows with its square. Contaminated controls do the same damage from the other side, which is what exclusion ranges prevent. So a strict definition that leaves many people out can still be the better choice: a smaller, cleaner sample can carry more information than a larger, noisier one.
 
-The same dilution reaches the other methods in the section. A [polygenic risk score](note:polygenic-risk-scores) evaluated against code-defined outcomes shows a lower AUC than against true disease status, because some "cases" have nothing for the score to detect. In [Mendelian randomization](note:mendelian-randomization), an outcome GWAS built on a leaky phenotype has attenuated SNP–outcome effects, which pulls the causal estimate toward the null.
+The same dilution reaches the other methods in the section. A polygenic risk score evaluated against code-defined outcomes shows a lower AUC than against true disease status, because some "cases" have nothing for the score to detect. In Mendelian randomization, an outcome GWAS built on a leaky phenotype has attenuated SNP–outcome effects, which pulls the causal estimate toward the null.
 
 ## Where the codes meet the data model
 
-In an OMOP database, described in the [EHR note](note:ehrs-fhir-omop-cdw), each source code is kept and also mapped to one **standard concept**: diagnoses to SNOMED CT, drugs to RxNorm, lab tests to LOINC. ICD-10-CM E11.9 maps to the standard concept 201826, "Type 2 diabetes mellitus", whose source is SNOMED CT 44054006. A phenotype is then written once against standard concepts and their descendants, and runs on data that started as ICD-9-CM, ICD-10-CM or KCD. The mapping is many-to-one and sometimes lossy, so phenotypes that were validated on ICD codes, including phecodes, are often still run on the source codes, which OMOP keeps alongside.
+In an OMOP database, each source code is kept and also mapped to one **standard concept**: diagnoses to SNOMED CT, drugs to RxNorm, lab tests to LOINC. ICD-10-CM E11.9 maps to the standard concept 201826, "Type 2 diabetes mellitus", whose source is SNOMED CT 44054006. A phenotype is then written once against standard concepts and their descendants, and runs on data that started as ICD-9-CM, ICD-10-CM or KCD. The mapping is many-to-one and sometimes lossy, so phenotypes that were validated on ICD codes, including phecodes, are often still run on the source codes, which OMOP keeps alongside.
 
 ## Sources
 

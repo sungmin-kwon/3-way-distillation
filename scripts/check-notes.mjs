@@ -9,7 +9,6 @@ import { SITE } from '../site.config.mjs';
 import { ALL_TAG_NAMES as TAGS, sectionOfTag, sectionOfTags } from '../src/lib/sections.mjs';
 const problems = [];
 const notes = readNotes();
-const ids = new Set(notes.map((n) => n.id));
 
 for (const note of notes) {
   const text = readFileSync(join(NOTES_DIR.pathname, `${note.id}.md`), 'utf8');
@@ -29,8 +28,8 @@ for (const note of notes) {
   if (sections.length > 1) report(0, `tags from more than one notebook (${sections.join(', ')}); use one notebook's tags`);
   const section = sectionOfTags(tags);
   if (d.title && !d.distillate) report(0, 'a long note (with a title) needs a `distillate`');
-  if (typeof d.distillate === 'string' && /\[[^\]]*\]\(|note:|\*\*|`/.test(d.distillate)) {
-    report(0, 'the distillate is plain text: no links, `note:` targets, bold or code');
+  if (typeof d.distillate === 'string' && /\[[^\]]*\]\(|\*\*|`/.test(d.distillate)) {
+    report(0, 'the distillate is plain text: no links, bold or code');
   }
 
   // Body, skipping frontmatter and fenced code blocks.
@@ -86,14 +85,12 @@ for (const note of notes) {
       if (/스트라스/.test(prose)) report(i, 'Strauss is 스트라우스 on this site (STYLE-KO.md, section 2)');
     }
 
-    // Links between notes.
+    // No links to other notes: each note stands on its own, so a reader isn't pulled away
+    // mid-note (WRITING.md, section 6). Links to a heading in the same note (#…) are fine.
     for (const m of line.matchAll(/\]\(([^)]*)\)/g)) {
-      const target = m[1];
-      if (target.startsWith('note:')) {
-        const id = target.slice(5).split('#')[0];
-        if (!ids.has(id)) report(i, `note:${id} does not exist`);
-      } else if (/^(\.\.?\/|\/notes\/)/.test(target)) {
-        report(i, `link between notes must be note:<file-name>, not "${target}"`);
+      const target = m[1].trim();
+      if (/^note:|^\.\.?\/|^\/|sungmin-kwon\.github\.io/.test(target)) {
+        report(i, `no links to other notes ("${target}"); say what is needed here, without pointing elsewhere`);
       }
     }
 

@@ -48,7 +48,7 @@ $$
 
 At $x = 0.5$ and $\alpha = 2.5$, $y^* = 1.25 / 1.75 = 0.714$. The curve always lies above the diagonal because the vapor is richer in the light component than the liquid it's in equilibrium with. The further it bows away from the diagonal (bigger $\alpha$), the easier the separation and the fewer stages you need.
 
-The formula is only a convenience. When $\alpha$ isn't constant, plot measured VLE data instead and the rest of the method works unchanged; that's how ethanol–water is done. What the diagram can't get past is an azeotrope: there the curve meets the diagonal, the steps pinch, and no number of stages crosses it. The [spirits note](note:how-spirits-distillation-works) runs into exactly that wall at about 97% ABV. And with only one composition axis, the diagram has no room for a third component, so multicomponent columns are solved stage by stage in a simulator.
+The formula is only a convenience. When $\alpha$ isn't constant, plot measured VLE data instead and the rest of the method works unchanged; that's how ethanol–water is done. What the diagram can't get past is an azeotrope: there the curve meets the diagonal, the steps pinch, and no number of stages crosses it. Ethanol–water meets exactly that wall at about 97% ABV. And with only one composition axis, the diagram has no room for a third component, so multicomponent columns are solved stage by stage in a simulator.
 
 ## The q-line
 

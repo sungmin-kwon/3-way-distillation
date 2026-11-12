@@ -8,7 +8,7 @@ distillate: Fermentation turns sugar into ethanol with a theoretical yield of 0.
 model: [Mistral Large 4]
 ---
 
-Fermentation is the step that makes the alcohol, before any still is involved. Yeast converts sugar into ethanol and carbon dioxide, and two questions decide what a batch can become: how much ethanol the sugar could possibly make, and how much it actually made, which a hydrometer answers from the gravity drop. This note works both on one batch. What happens to the resulting wash is covered in the [spirits note](note:how-spirits-distillation-works); the [law note](note:home-brewing-and-distilling-law) uses the same 20 L wash size as its example.
+Fermentation is the step that makes the alcohol, before any still is involved. Yeast converts sugar into ethanol and carbon dioxide, and two questions decide what a batch can become: how much ethanol the sugar could possibly make, and how much it actually made, which a hydrometer answers from the gravity drop. This note works both on one batch.
 
 Throughout, the note uses one worked example:
 
@@ -84,7 +84,7 @@ $$
 \frac{1.62}{20} = 8.1\%\ \mathrm{ABV}
 $$
 
-That is the ceiling: 20 L at 8.1% ABV contains 1.62 L of ethanol, about the 1.6 L of ethanol in the 20 L at 8% ABV wash the [law note](note:home-brewing-and-distilling-law) starts from.
+That is the ceiling: 20 L at 8.1% ABV contains 1.62 L of ethanol.
 
 ## Estimating the actual ABV from the gravity drop
 
@@ -118,7 +118,7 @@ matching the gravity-drop formulas. (ABV counts ethanol as pure ethanol by volum
 
 ## Measuring ABV directly
 
-Once fermented, ABV is measured with an **alcoholmeter** (or estimated as above). It is calibrated at a printed temperature (usually 20 °C), but its scale runs the opposite way from a hydrometer's: a warm, less dense sample sinks it deeper and it **reads high**. ABV, weight percent, and mole fraction differ substantially; the conversion table is in the [spirits note](note:how-spirits-distillation-works). When diluting a spirit with water, the mixture contracts, so the result measures slightly *stronger* than the volume arithmetic suggests.
+Once fermented, ABV is measured with an **alcoholmeter** (or estimated as above). It is calibrated at a printed temperature (usually 20 °C), but its scale runs the opposite way from a hydrometer's: a warm, less dense sample sinks it deeper and it **reads high**. ABV, weight percent, and mole fraction differ substantially, so convert with a table rather than treating them as interchangeable. When diluting a spirit with water, the mixture contracts, so the result measures slightly *stronger* than the volume arithmetic suggests.
 
 ## The whole calculation in Python
 

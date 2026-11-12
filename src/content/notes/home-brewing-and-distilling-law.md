@@ -8,11 +8,11 @@ distillate: In most countries checked here, brewing beer or making wine at home 
 model: [Claude Opus 5.5]
 ---
 
-The law treats the two halves of making spirits very differently. Fermenting a sugary liquid into beer, wine or cider at home is allowed, within limits, in most of the countries below. Boiling that same liquid in a still, which is all a [pot still](note:how-spirits-distillation-works) does, is a licensed industrial activity almost everywhere. This note collects the rules that could be checked against primary sources, country by country, and says where they couldn't.
+The law treats the two halves of making spirits very differently. Fermenting a sugary liquid into beer, wine or cider at home is allowed, within limits, in most of the countries below. Boiling that same liquid in a still, which is all a pot still does, is a licensed industrial activity almost everywhere. This note collects the rules that could be checked against primary sources, country by country, and says where they couldn't.
 
 > **This is not legal advice.** It is a reading of statutes and official guidance **as of 10 November 2026**, with links so you can check them yourself. Laws and their enforcement change, regional and local rules can be stricter than national ones, and the US position in particular may change when the Supreme Court decides. Anything not confirmed from a primary source is marked as such.
 
-Throughout, the worked example is the stripping run from the [spirits note](note:how-spirits-distillation-works):
+Throughout, the worked example is one home stripping run:
 
 | | value |
 | --- | --- |
@@ -27,7 +27,7 @@ The 1.6 L of ethanol would make about 4 L of spirit at 40% ABV if all of it were
 
 The main reason is tax. Spirits concentrate alcohol, so a small, easily hidden volume carries a lot of duty, and most excise systems are built around licensing every place that produces it. Several of the provisions below are tax law: the UK rules sit in a Finance Act, the Australian ones in the Excise Act, and the Japanese and German ones in liquor and alcohol tax acts. The US Court of Appeals for the Fifth Circuit made the same point from the other side in April 2026, calling the home-distilling ban "anti-revenue" because it stops production entirely instead of taxing it.[^mcnutt]
 
-Safety is the usual second reason, and it is weaker than the common story. The fear is methanol, but methanol isn't concentrated in the heads of a run; it comes over across the whole run, and the amount in a spirit is set mostly by the fruit and the fermentation, as the [spirits note](note:how-spirits-distillation-works) explains. A grain or sugar wash like the example contains very little. The real home hazards are a still running dry or leaking hot ethanol vapor near a flame, and drinking the foreshots. None of the laws below distinguish safe and unsafe practice; they distinguish licensed from unlicensed.
+Safety is the usual second reason, and it is weaker than the common story. The fear is methanol, but methanol isn't concentrated in the heads of a run; it comes over across the whole run, and the amount in a spirit is set mostly by the fruit and the fermentation. A grain or sugar wash like the example contains very little. The real home hazards are a still running dry or leaking hot ethanol vapor near a flame, and drinking the foreshots. None of the laws below distinguish safe and unsafe practice; they distinguish licensed from unlicensed.
 
 ## The rules, country by country
 

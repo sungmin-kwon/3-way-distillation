@@ -7,7 +7,7 @@ distillate: "A random quantity is described by a distribution: a mass function p
 model: [Mistral Large 4]
 ---
 
-A **probability distribution** assigns probabilities to the possible outcomes of a random quantity. The outcomes come in two kinds. If they are countable, a list of numbers: how many tests out of ten come back significant, the number on a die, the count of calls in an hour, the variable is *discrete* and the distribution is a **probability mass function (PMF)**. If the outcome is a measurement on a continuous scale, a temperature, a concentration, a reaction time, the variable is *continuous* and the distribution is a **probability density function (PDF)**. Many notes on this site rest on one of these: the p-values in the [GWAS note](note:genome-wide-association-studies) are draws from a known distribution under the null hypothesis, and the next-token probabilities in the [model distillation note](https://sungmin-kwon.github.io/3-way-distillation/notes/what-is-model-distillation/) on the 3-way distiller are a discrete distribution over a vocabulary.
+A **probability distribution** assigns probabilities to the possible outcomes of a random quantity. The outcomes come in two kinds. If they are countable, a list of numbers: how many tests out of ten come back significant, the number on a die, the count of calls in an hour, the variable is *discrete* and the distribution is a **probability mass function (PMF)**. If the outcome is a measurement on a continuous scale, a temperature, a concentration, a reaction time, the variable is *continuous* and the distribution is a **probability density function (PDF)**. Much of applied statistics and machine learning rests on one of these: the p-values of a genome-wide scan are draws from a known distribution under the null hypothesis, and a language model's next-token probabilities are a discrete distribution over a vocabulary.
 
 The families have deep roots: the binomial goes back to Bernoulli's *Ars Conjectandi* (1713), De Moivre derived the normal curve in 1733 as an approximation to the binomial, Laplace generalized it in 1812, Gauss made it the model of measurement error in 1809, and Poisson introduced his count distribution in 1837 (Hald, 2007). The NIST e-Handbook's gallery lists the common ones, split into exactly these two groups (NIST/SEMATECH e-Handbook, section 1.3.6.6).
 
@@ -106,7 +106,7 @@ $$
 
 Either way $F$ is non-decreasing, right-continuous, and runs from 0 to 1. For the running binomial, $F(0) = 0.5987$, $F(1) = 0.9139$ and $F(2) = 0.9885$, so ten null tests produce at most two hits in 98.85% of runs.
 
-The inverse direction, the **quantile function** $Q(u) = \inf\{x : F(x) \ge u\}$, answers "which value is exceeded with probability $1 - u$?". For the standard normal, $Q(0.95) = 1.645$ and $Q(0.975) = 1.96$. QQ plots, like the one in the [GWAS note](note:genome-wide-association-studies), plot the quantiles of an observed sample against the quantiles of a reference distribution; if the sample really comes from that distribution, the points fall on the diagonal.
+The inverse direction, the **quantile function** $Q(u) = \inf\{x : F(x) \ge u\}$, answers "which value is exceeded with probability $1 - u$?". For the standard normal, $Q(0.95) = 1.645$ and $Q(0.975) = 1.96$. QQ plots, such as those that check a genome-wide scan, plot the quantiles of an observed sample against the quantiles of a reference distribution; if the sample really comes from that distribution, the points fall on the diagonal.
 
 ## Means and variances summarize, not determine
 

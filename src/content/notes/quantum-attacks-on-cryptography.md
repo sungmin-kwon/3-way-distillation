@@ -9,7 +9,7 @@ model: [Claude Opus 5.5]
 
 Almost every secure connection on the internet rests on two kinds of cryptography. **Public-key** cryptography lets two strangers agree on a secret and lets a server prove who it is; its security rests on problems such as factoring large numbers or computing discrete logarithms. **Symmetric** cryptography, a block cipher such as AES and a hash function such as SHA-256, then protects the bulk of the data with the agreed secret. Shor (1994; journal version 1997) showed that a quantum computer could solve both factoring and discrete logarithms in polynomial time, which would break the first kind outright. Grover (1996) gave a quantum search that speeds up attacks on the second kind, but only quadratically. The difference between those two speedups decides almost everything about what has to change.
 
-The [qubits note](note:qubits-entanglement-and-shors-algorithm) works through Shor's algorithm on factoring 15 and covers the hardware; this note takes that algorithm as known, applies it to the elliptic curves that now carry most key exchanges, and follows the consequences through one connection.
+This note takes Shor's algorithm for factoring as known, applies it to the elliptic curves that now carry most key exchanges, and follows the consequences through one connection.
 
 Throughout, the note follows one HTTPS connection, set up with TLS 1.3, and one toy elliptic curve small enough to simulate:
 
@@ -66,7 +66,7 @@ $$
 
 The last sum is $n$ when $v \equiv d\,u \pmod n$ and zero otherwise, since its terms then point evenly around the circle. So every outcome satisfies $v \equiv d\,u$, and whenever $u \ne 0$ the key follows as $d = v\,u^{-1} \bmod n$, with the inverse found by Euclid's algorithm. Only $u = 0$ gives nothing.
 
-The run can be checked by simulating the state, in the same way as the factoring example in the qubits note:
+The run can be checked by simulating the state, in the same way as a factoring example:
 
 ```python
 import numpy as np
@@ -118,7 +118,7 @@ P(u = 0) = 0.0526
 
 Of the 361 possible pairs, only the 19 on the line $v \equiv 13\,u$ ever appear, each with probability $1/19 = 0.0526$. Every one except $(0, 0)$ gives $d = 13$, so a single run succeeds with probability $18/19 \approx 0.95$. For a 256-bit curve the same steps need registers of about 256 qubits each, plus the workspace for elliptic-curve arithmetic, which dominates the cost.
 
-The simulation idealizes one detail. It uses a Fourier transform over exactly 19 values, while a real circuit uses registers whose size is a power of two, so the peaks spread out as in the $N = 21$ example of the qubits note and the classical post-processing has a little more to do. Proos and Zalka (2003) worked out the elliptic-curve version in detail.
+The simulation idealizes one detail. It uses a Fourier transform over exactly 19 values, while a real circuit uses registers whose size is a power of two, so the peaks spread out and the classical post-processing has a little more to do. Proos and Zalka (2003) worked out the elliptic-curve version in detail.
 
 ## Why elliptic curves fall before RSA
 
@@ -136,7 +136,7 @@ logical qubits, which for P-256 ($n = 256$) is $2304 + 16 + 10 = 2330$, and conc
 
 Grover's algorithm searches $N$ possibilities for one that passes a test using about $(\pi/4)\sqrt{N}$ evaluations of the test, against about $N/2$ on average classically. For a cipher key the test is "does this key turn a known plaintext into the observed ciphertext", and the quantum computer has to run AES itself, reversibly and error-corrected, inside each step. Bennett, Bernstein, Brassard and Vazirani (1997) proved a matching lower bound: relative to an oracle that gives nothing away, no quantum algorithm searches $2^n$ possibilities in fewer than order $2^{n/2}$ steps. So Grover is the best possible, up to a constant, against a cipher with no exploitable structure.
 
-For AES-128, $N = 2^{128}$, and the attack needs about $(\pi/4) \cdot 2^{64} \approx 1.45 \times 10^{19}$ Grover iterations, one after another. Two facts make that much worse than it sounds. Each iteration contains a full AES circuit, so even 1 µs per iteration, the length of a single error-correction cycle in the RSA estimates of the qubits note, is very generous. And Grover parallelizes badly: splitting the key space over $M$ machines makes each search space $M$ times smaller, so the time falls only by $\sqrt{M}$:
+For AES-128, $N = 2^{128}$, and the attack needs about $(\pi/4) \cdot 2^{64} \approx 1.45 \times 10^{19}$ Grover iterations, one after another. Two facts make that much worse than it sounds. Each iteration contains a full AES circuit, so even 1 µs per iteration, the length of a single error-correction cycle in published RSA estimates, is very generous. And Grover parallelizes badly: splitting the key space over $M$ machines makes each search space $M$ times smaller, so the time falls only by $\sqrt{M}$:
 
 ```python
 import math
@@ -207,7 +207,7 @@ A key exchange adds about 2.3 kB to a handshake, which networks handle without m
 
 *This section is a snapshot as of November 2026 and is not kept up to date. Each claim is from the source cited, checked on 2026-11-11.*
 
-**No quantum computer can attack real keys yet.** The largest error-corrected demonstrations are around a hundred physical qubits per logical qubit and a few dozen logical qubits in total, and no experiment has run Shor's algorithm on a number or curve that is hard classically; the [qubits note](note:qubits-entanglement-and-shors-algorithm) has the details and the falling estimates for RSA-2048, which reach under a million physical qubits and under a week (Gidney, 2025).
+**No quantum computer can attack real keys yet.** The largest error-corrected demonstrations are around a hundred physical qubits per logical qubit and a few dozen logical qubits in total, and no experiment has run Shor's algorithm on a number or curve that is hard classically. Estimates for RSA-2048 keep falling, and now reach under a million physical qubits and under a week (Gidney, 2025).
 
 **The estimated cost of breaking a 256-bit curve has fallen faster.** These are design studies with assumed hardware, not machines:
 

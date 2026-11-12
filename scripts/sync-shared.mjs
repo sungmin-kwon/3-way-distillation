@@ -29,7 +29,6 @@ export const SHARED = [
   'src/lib/i18n.ts',
   'src/lib/notes.ts',
   'src/lib/rehype-section-links.mjs',
-  'src/lib/remark-note-links.mjs',
   'src/lib/sections.mjs',
   'src/lib/site.ts',
   'src/pages/404.astro',
