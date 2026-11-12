@@ -244,6 +244,14 @@ script, never by hand.** If you can't compute them, leave the figure out and wri
 crosses a curve or line, that each region label sits in the region it names, and that axis
 labels line up with their values. Check it in dark mode too.
 
+**How many figures.** There is no limit. Add a figure wherever a picture shows an idea better
+than a table or a sentence: the shape of a curve, a tail, a comparison between two models, a
+geometric construction. Don't add one that only repeats a table. Keep each figure compact:
+about 640 units wide and at most about 300 tall in its `viewBox`, so that on a phone it takes
+up less than a screen. Two related plots can sit side by side as two panels in one SVG, as in
+`discrete-and-continuous-distributions.md`. Every figure is computed and render-checked on its
+own, by the rules above.
+
 **Links.** Between notes: `[industrial column](note:reading-a-mccabe-thiele-diagram)`, using the
 other note's file name without `.md`. Never write relative paths like `../notes/…`. To point
 at one section, add the id of its heading: `note:reading-a-mccabe-thiele-diagram#the-q-line`
@@ -463,7 +471,7 @@ Go through this list and fix anything that fails. Then report which items you co
 - [ ] Display math has `$$` alone on its own line before and after the formula.
 - [ ] Code runs as written, and every output block was pasted from a real run (with a seed if
       random). SVG uses CSS variables and computed coordinates.
-- [ ] The figure was rendered and checked: no label crosses a curve, region labels sit in their
+- [ ] Every figure was rendered and checked: no label crosses a curve, region labels sit in their
       regions, and it reads in dark mode.
 - [ ] Every cited work is in `## Sources` with a link, and every DOI was resolved, not recalled.
 - [ ] Each source supports the sentence that cites it (its abstract was read), and each view in
