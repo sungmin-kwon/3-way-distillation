@@ -1,0 +1,49 @@
+---
+// The home page at the site root, on a site with more than one section: each notebook with its
+// description and latest notes, then the notebooks on other sites.
+import Base from '../layouts/Base.astro';
+import { getNotes, isoDate, label, noteHref, sectionHref, shortDate } from '../lib/notes';
+import { SECTIONS, SITE_DESCRIPTION, SITE_FAMILY } from '../lib/site';
+import { entries } from '../lib/i18n';
+
+// Latest notes shown per notebook.
+const LATEST = 3;
+const notebooks = await Promise.all(
+  SECTIONS.map(async (section) => ({ section, notes: await getNotes(section) })),
+);
+---
+
+<Base current="index">
+  <p class="intro">{SITE_DESCRIPTION}</p>
+
+  {notebooks.map(({ section, notes }) => (
+    <section class="notebook">
+      <h2 class="notebook-title"><a href={sectionHref(section)}>{section.title}</a></h2>
+      <p class="notebook-description">{section.description}</p>
+      <ul class="notebook-latest">
+        {notes.slice(0, LATEST).map((n) => (
+          <li>
+            <time class="row-date" datetime={isoDate(n.data.date)}>{shortDate(n.data.date)}</time>
+            <a href={noteHref(n)}>{label(n)}</a>
+          </li>
+        ))}
+      </ul>
+      <p class="notebook-more">
+        <a href={sectionHref(section)}>{entries(notes.length)} →</a>
+        <span aria-hidden="true"> · </span>
+        {section.tags.map((t, i) => <>{i > 0 && ', '}{t.name}</>)}
+      </p>
+    </section>
+  ))}
+
+  {SITE_FAMILY.length > 0 && (
+    <section class="notebook notebook-elsewhere">
+      <h2 class="label">Elsewhere</h2>
+      <ul>
+        {SITE_FAMILY.map((s) => (
+          <li><a href={s.url} lang={s.lang} hreflang={s.lang}>{s.title}</a>: {s.blurb}</li>
+        ))}
+      </ul>
+    </section>
+  )}
+</Base>

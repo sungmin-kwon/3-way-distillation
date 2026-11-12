@@ -1,0 +1,17 @@
+---
+// A section's index (page 1), and the home page at the site root when the site has more than
+// one section (HAS_HOME). Later pages of a section's index are in page/[page].astro.
+import IndexPage from '../../components/IndexPage.astro';
+import Home from '../../components/Home.astro';
+import { sectionPaths } from '../../lib/notes';
+import { HAS_HOME, type Section } from '../../lib/site';
+
+export function getStaticPaths() {
+  const home = HAS_HOME ? [{ params: { section: undefined }, props: { section: undefined } }] : [];
+  return [...home, ...sectionPaths()];
+}
+
+const { section } = Astro.props as { section?: Section };
+---
+
+{section ? <IndexPage section={section} page={1} /> : <Home />}

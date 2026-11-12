@@ -3,6 +3,7 @@
 // ADMIN.md is in the repo, not on the site. The repo is public, so it is unlisted, not private.
 import { writeFileSync } from 'node:fs';
 import { readNotes } from './notes-meta.mjs';
+import { SECTIONS, sectionOfTags } from '../src/lib/sections.mjs';
 
 const notes = readNotes();
 const list = (v) => (Array.isArray(v) ? v : v ? [v] : []);
@@ -11,7 +12,8 @@ const count = (s) => notes.filter((n) => n.status === s).length;
 
 const rows = notes.map((n) => {
   const title = n.data.title ?? '(short note)';
-  return `| ${n.status} | ${cell(n.data.date)} | [${cell(title)}](${n.file}) | ${cell(list(n.data.tags).join(', '))} | ${cell(list(n.data.model).join(', '))} |`;
+  const section = SECTIONS.length > 1 ? ` ${cell(sectionOfTags(list(n.data.tags)).path)} |` : '';
+  return `| ${n.status} |${section} ${cell(n.data.date)} | [${cell(title)}](${n.file}) | ${cell(list(n.data.tags).join(', '))} | ${cell(list(n.data.model).join(', '))} |`;
 });
 
 const md = `# Admin index
@@ -22,8 +24,7 @@ This file is not deployed, but the repository is public, so anyone can read it a
 
 ${notes.length} notes: ${count('visible')} visible, ${count('hidden')} hidden, ${count('draft')} draft.
 
-| status | date | note | tags | model |
-| --- | --- | --- | --- | --- |
+${SECTIONS.length > 1 ? '| status | notebook | date | note | tags | model |\n| --- | --- | --- | --- | --- | --- |' : '| status | date | note | tags | model |\n| --- | --- | --- | --- | --- |'}
 ${rows.join('\n')}
 
 - **visible**: on the index, tag pages, RSS and search.

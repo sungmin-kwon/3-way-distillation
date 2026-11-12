@@ -1,11 +1,13 @@
 ---
+// The one 404 page for the whole site (GitHub Pages serves /404.html for any missing path). On a
+// site with a home page it has the home page's look; on a single-section site, the section's.
 import Base from '../layouts/Base.astro';
 import { href } from '../lib/notes';
-import { NOT_FOUND } from '../lib/site';
+import { HAS_HOME, NOT_FOUND, SECTIONS } from '../lib/site';
 import { UI } from '../lib/i18n';
 ---
 
-<Base title={UI.notFoundTitle}>
+<Base section={HAS_HOME ? undefined : SECTIONS[0]} title={UI.notFoundTitle}>
   <div class="entry">
     <h1>{UI.notFoundHeading}</h1>
     <p>{NOT_FOUND} <a href={href()}>{UI.backToIndex}</a></p>

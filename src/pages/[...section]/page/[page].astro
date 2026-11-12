@@ -1,0 +1,20 @@
+---
+// Pages 2, 3, … of a section's index. Page 1 is the section's index itself (../index.astro).
+import IndexPage from '../../../components/IndexPage.astro';
+import { getNotes, pageCount, sectionPaths } from '../../../lib/notes';
+
+export async function getStaticPaths() {
+  const paths = [];
+  for (const { params, props } of sectionPaths()) {
+    const pages = pageCount((await getNotes(props.section)).length);
+    for (let page = 2; page <= pages; page++) {
+      paths.push({ params: { ...params, page: String(page) }, props: { ...props, page } });
+    }
+  }
+  return paths;
+}
+
+const { section, page } = Astro.props;
+---
+
+<IndexPage section={section} page={page} />

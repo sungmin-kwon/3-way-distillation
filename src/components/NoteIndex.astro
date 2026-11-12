@@ -5,7 +5,6 @@ import {
   allTags,
   groupByMonth,
   hasTag,
-  href,
   isShort,
   isoDate,
   listHref,
@@ -13,19 +12,22 @@ import {
   pageCount,
   pageOf,
   readingMinutes,
+  sectionHref,
   shortDate,
   tagHref,
 } from '../lib/notes';
 import { UI, entries, matches, minutes, pagePosition } from '../lib/i18n';
+import type { Section } from '../lib/site';
 
 interface Props {
-  notes: Note[]; // every published note, newest first
+  section: Section; // the notebook whose notes these are
+  notes: Note[]; // every published note in the section, newest first
   tag?: string; // when set, only notes with this tag are listed
   page?: number; // which page of the list, from 1 (PAGE_SIZE notes a page, see site.ts)
 }
 
-const { notes, tag, page = 1 } = Astro.props;
-const tags = allTags(notes);
+const { section, notes, tag, page = 1 } = Astro.props;
+const tags = allTags(section, notes);
 const shown = tag ? notes.filter((n) => hasTag(n, tag)) : notes;
 const pages = pageCount(shown.length);
 const onPage = pageOf(shown, page);
@@ -40,15 +42,16 @@ for (const n of onPage) {
 
 <div class="index-bar">
   <nav class="tag-filter" aria-label={UI.filterLabel}>
-    <a href={href()} aria-current={!tag ? 'page' : undefined}>{UI.all}</a>
+    <a href={sectionHref(section)} aria-current={!tag ? 'page' : undefined}>{UI.all}</a>
     {tags.map((t) => (
-      <a href={tagHref(t)} aria-current={t === tag ? 'page' : undefined}>{t === 'rough' ? UI.rough : t}</a>
+      <a href={tagHref(t, section)} aria-current={t === tag ? 'page' : undefined}>{t === 'rough' ? UI.rough : t}</a>
     ))}
   </nav>
   <div
     class="find"
     data-find
     data-tag={tag}
+    data-section={section.path}
     data-failed={UI.findFailed}
     data-match-one={matches(1)}
     data-match-many={matches(2).replace('2', '{n}')}
@@ -108,9 +111,9 @@ for (const n of onPage) {
 
 {pages > 1 && (
   <nav class="pager" aria-label={UI.pagesLabel}>
-    {page > 1 ? <a href={listHref(page - 1, tag)} rel="prev">{UI.newer}</a> : <span />}
+    {page > 1 ? <a href={listHref(section, page - 1, tag)} rel="prev">{UI.newer}</a> : <span />}
     <span class="pager-at" aria-current="page">{pagePosition(page, pages)}</span>
-    {page < pages ? <a href={listHref(page + 1, tag)} rel="next">{UI.older}</a> : <span />}
+    {page < pages ? <a href={listHref(section, page + 1, tag)} rel="next">{UI.older}</a> : <span />}
   </nav>
 )}
 </div>
@@ -122,7 +125,7 @@ for (const n of onPage) {
     {entries(shown.length)}
     {notes[0] && <> · {UI.lastWritten} {isoDate(notes[0].data.date)}</>}
   </span>
-  <a href={href('rss.xml')}>{UI.subscribe}</a>
+  <a href={sectionHref(section, 'rss.xml')}>{UI.subscribe}</a>
 </footer>
 
 <script>
@@ -137,6 +140,7 @@ for (const n of onPage) {
     date: string;
     day: string;
     month: string;
+    section: string;
     tags: string[];
     rough: boolean;
     meta: string;
@@ -185,6 +189,7 @@ for (const n of onPage) {
   if (box && input && status && listing && results) {
     box.hidden = false;
     const scope = box.dataset.tag;
+    const inSection = box.dataset.section ?? '';
     let index: Entry[] | null = null;
     let loading: Promise<void> | null = null;
 
@@ -192,9 +197,11 @@ for (const n of onPage) {
       (loading ??= fetch(`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}search.json`)
         .then((r) => r.json())
         .then((data: Entry[]) => {
+          // search.json holds every section's notes; keep this section's (and this tag's).
+          const own = data.filter((n) => n.section === inSection);
           index = scope
-            ? data.filter((n) => (scope === 'rough' ? n.rough : n.tags.includes(scope)))
-            : data;
+            ? own.filter((n) => (scope === 'rough' ? n.rough : n.tags.includes(scope)))
+            : own;
         })
         .catch(() => {
           status.textContent = box.dataset.failed ?? '';

@@ -5,9 +5,8 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { NOTES_DIR, readNotes } from './notes-meta.mjs';
-import { SITE, TAGS as TAG_LIST } from '../site.config.mjs';
-
-const TAGS = TAG_LIST.map((t) => t.name);
+import { SITE } from '../site.config.mjs';
+import { ALL_TAG_NAMES as TAGS, sectionOfTag, sectionOfTags } from '../src/lib/sections.mjs';
 const problems = [];
 const notes = readNotes();
 const ids = new Set(notes.map((n) => n.id));
@@ -21,9 +20,14 @@ for (const note of notes) {
   // Frontmatter.
   if (!d.date) report(0, 'frontmatter has no `date`');
   if (!d.model) report(0, 'frontmatter has no `model` (list every model that wrote or revised the note)');
-  for (const t of Array.isArray(d.tags) ? d.tags : []) {
+  const tags = Array.isArray(d.tags) ? d.tags : [];
+  for (const t of tags) {
     if (!TAGS.includes(t)) report(0, `unknown tag "${t}" (allowed: ${TAGS.join(', ')})`);
   }
+  // A note's tags decide its section (its notebook), so they must all come from one section.
+  const sections = [...new Set(tags.map((t) => sectionOfTag(t)?.title).filter(Boolean))];
+  if (sections.length > 1) report(0, `tags from more than one notebook (${sections.join(', ')}); use one notebook's tags`);
+  const section = sectionOfTags(tags);
   if (d.title && !d.distillate) report(0, 'a long note (with a title) needs a `distillate`');
   if (typeof d.distillate === 'string' && /\[[^\]]*\]\(|note:|\*\*|`/.test(d.distillate)) {
     report(0, 'the distillate is plain text: no links, `note:` targets, bold or code');
@@ -69,7 +73,7 @@ for (const note of notes) {
       }
       if (/—/.test(prose)) report(i, 'no em dash in body text; use a comma, colon, or new sentence');
     }
-    if (!SITE.allowAffiliation && /\b(my|our)\s+(lab|labs|group|advisor|supervisor|PI|hospital|university|institute|employer|company|team)\b/i.test(prose)) {
+    if (!section.allowAffiliation && /\b(my|our)\s+(lab|labs|group|advisor|supervisor|PI|hospital|university|institute|employer|company|team)\b/i.test(prose)) {
       report(i, 'no affiliation: don\'t name or point to a lab, hospital, university or employer');
     }
 

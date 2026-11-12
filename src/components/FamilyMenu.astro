@@ -1,20 +1,22 @@
 ---
-// The other sites in the family (FAMILY in site.config.mjs, minus this one), in two places:
+// The other notebooks: the home page, this site's other sections and the notebooks on other
+// sites (familyFrom in src/lib/site.ts), in two places:
 // - header: a small <details> menu in the masthead nav, so the other sites are one tap away
 //   on a phone. It lists titles only; the blurbs are on About. It opens and closes without
 //   JavaScript; Base.astro adds Escape and click-outside.
 // - footer: one plain line of links.
-import { SITE_FAMILY, SITE_FAMILY_LABEL, SITE_LANG, SITE_URL } from '../lib/site';
+import { SITE_FAMILY_LABEL, SITE_LANG, familyFrom, type Section } from '../lib/site';
 import { UI } from '../lib/i18n';
 
 interface Props {
+  /** The notebook the page is in; undefined on the home page. */
+  section?: Section;
   place?: 'header' | 'footer';
 }
-const { place = 'header' } = Astro.props;
+const { section, place = 'header' } = Astro.props;
 
-const sameSite = (url: string) => url.replace(/\/+$/, '') === SITE_URL.replace(/\/+$/, '');
 const langOf = (s: { lang?: string }) => (s.lang && s.lang !== SITE_LANG ? s.lang : undefined);
-const others = SITE_FAMILY.filter((s) => !sameSite(s.url));
+const others = familyFrom(section);
 ---
 
 {
