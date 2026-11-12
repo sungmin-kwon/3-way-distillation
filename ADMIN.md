@@ -13,6 +13,7 @@ This file is not deployed, but the repository is public, so anyone can read it a
 | visible | marginalia | 2026-11-13 | [Why did Silla's sacred bone run out?](src/content/notes/why-silla-sacred-bone-ran-out.md) | history | Claude Opus 5.5 |
 | visible | working-notes | 2026-11-12 | [Likelihood and Fisher information](src/content/notes/likelihood-and-fisher-information.md) | stats | Claude Opus 5.5 |
 | visible | working-notes | 2026-11-12 | [Moments of a distribution](src/content/notes/moments-of-a-distribution.md) | stats | Claude Opus 5.5 |
+| visible | marginalia | 2026-11-12 | [What did Champollion have that Young lacked?](src/content/notes/what-champollion-had-that-young-lacked.md) | language, history | Claude Opus 5.5 |
 | visible | marginalia | 2026-11-12 | [What does the Savage say in Zuni?](src/content/notes/what-the-savage-says-in-zuni.md) | language, history | Claude Opus 5.5 |
 | visible | 3-way-distillation | 2026-11-11 | [How quantum computers break today's cryptography](src/content/notes/quantum-attacks-on-cryptography.md) | qi/qc | Claude Opus 5.5 |
 | visible | 3-way-distillation | 2026-11-11 | [Running a language model on your own machine](src/content/notes/running-llms-locally.md) | ml/llm | Claude Opus 5.5 |
