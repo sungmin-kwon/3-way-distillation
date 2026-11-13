@@ -13,6 +13,7 @@ import {
   tagHref,
 } from '../../../lib/notes';
 import { UI, minutes } from '../../../lib/i18n';
+import { scriptFontStylesheets } from '../../../lib/site';
 
 // A note's page, in its section. Older and newer are its neighbours within the section.
 export async function getStaticPaths() {
@@ -44,6 +45,7 @@ const { title, date, updated, tags, summary, distillate, rough } = note.data;
   title={label(note)}
   description={summary ?? distillate}
   article={{ published: date, modified: updated, tags }}
+  fontStylesheets={scriptFontStylesheets(note.body ?? '')}
 >
   <article class="entry">
     <p class="back"><a href={sectionHref(section)}>{UI.back}</a></p>

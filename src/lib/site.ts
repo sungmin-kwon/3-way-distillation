@@ -125,6 +125,25 @@ const foreignFonts = Object.entries(FAMILY_FONTS).flatMap(([lang, family]) => {
 });
 /** Extra stylesheets for family titles in another script (empty on the site in that language). */
 export const FAMILY_FONT_STYLESHEETS: readonly string[] = foreignFonts;
+
+/**
+ * Scripts that a note may quote but no system can be counted on to have a font for, such as
+ * Egyptian hieroglyphs (U+13000–U+1342F). For each such script found in the text, load the Noto
+ * font for it from Google Fonts, cut down by `text=` to just the signs used, as for the family
+ * titles above. site.css lists these fonts after Plex in both font stacks.
+ */
+const SCRIPT_FONTS: { family: string; range: RegExp }[] = [
+  { family: 'Noto Sans Egyptian Hieroglyphs', range: /[\u{13000}-\u{1342F}]/gu },
+];
+/** Stylesheets for the rare scripts used in `text` (usually a note's body); empty for most notes. */
+export function scriptFontStylesheets(text: string): string[] {
+  return SCRIPT_FONTS.flatMap(({ family, range }) => {
+    const signs = [...new Set(text.match(range) ?? [])].join('');
+    if (!signs) return [];
+    const name = family.replace(/ /g, '+');
+    return [`https://fonts.googleapis.com/css2?family=${name}&text=${encodeURIComponent(signs)}&display=swap`];
+  });
+}
 const fontVars = [fonts.sans && `--sans: ${fonts.sans};`, fonts.mono && `--mono: ${fonts.mono};`].filter(Boolean);
 /** CSS that sets this site's font stacks over the shared ones. Empty if it keeps the defaults. */
 export const FONT_CSS: string = fontVars.length ? `html:root { ${fontVars.join(' ')} }` : '';

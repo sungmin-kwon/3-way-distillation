@@ -11,9 +11,10 @@
   --accent: #9a4a1c;
 
   /* 'IBM Plex Sans KR' is only loaded for the Korean site's title in the family lists
-     (FAMILY_FONT_STYLESHEETS in src/lib/site.ts). */
-  --sans: 'IBM Plex Sans', 'IBM Plex Sans KR', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --mono: 'IBM Plex Mono', 'IBM Plex Sans KR', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+     (FAMILY_FONT_STYLESHEETS in src/lib/site.ts). 'Noto Sans Egyptian Hieroglyphs' is only loaded on
+     a note that quotes hieroglyphs, cut down to its signs (scriptFontStylesheets, same file). */
+  --sans: 'IBM Plex Sans', 'IBM Plex Sans KR', 'Noto Sans Egyptian Hieroglyphs', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', 'IBM Plex Sans KR', 'Noto Sans Egyptian Hieroglyphs', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   --page: 760px; /* index and about */
   --measure: 640px; /* reading column */
@@ -685,6 +686,12 @@ a.row-date:hover {
   border-bottom-color: var(--ink);
 }
 .prose img,
+/* Egyptian hieroglyphs sit small in a line of Latin text, so enlarge them a little. */
+.prose .hiero {
+  font-size: 1.4em;
+  line-height: 1;
+}
+
 .prose svg:not(.katex svg) {
   max-width: 100%;
   height: auto;

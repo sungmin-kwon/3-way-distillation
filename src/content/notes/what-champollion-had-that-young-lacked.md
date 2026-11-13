@@ -34,6 +34,17 @@ them carry the argument, and the later sections return to each row.
 | Ramesses | *Rꜥw-ms-sw* | Champollion | 1822–23 | Coptic ⲣⲏ "sun", ⲙⲓⲥⲉ "bear" |
 | Thutmose | *Ḏḥw.tj-ms.w* | Champollion | 1822–23 | Thoth's ibis, ⲙⲓⲥⲉ |
 
+In signs, written in a row from left to right rather than stacked as on the monuments, and
+without the ring of the cartouche:[^signs]
+
+- Ptolemy: <span class="hiero">𓊪𓏏𓍯𓃭𓐝𓇋𓇋𓋴</span>
+- Cleopatra: <span class="hiero">𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿𓏏𓆇</span>
+- Ramesses: <span class="hiero">𓇳𓄟𓋴𓋴</span>
+- Thutmose: <span class="hiero">𓅝𓄟𓋴</span>
+
+Ptolemy has eight: <span class="hiero">𓊪</span> *p*, <span class="hiero">𓏏</span> *t*, <span class="hiero">𓍯</span> *w* (Champollion's *o*), <span class="hiero">𓃭</span>
+*l*, <span class="hiero">𓐝</span> *m*, <span class="hiero">𓇋𓇋</span> *y* (his *e*) and <span class="hiero">𓋴</span> *s*.
+
 The first two are Greek names spelled in Egyptian signs, and a Greek text gave the answer in
 advance. The last two are Egyptian names, and nothing gave the answer in advance. The whole
 dispute over credit turns on the step from the second row to the third.
@@ -120,12 +131,12 @@ The letter ends with a hint of something larger. The same phonetic signs, Champo
 > Champollion, *Lettre à M. Dacier* (1822), in the 1921 reprint, p. XXVI[^ocr]
 
 That claim is the third row. In copies of inscriptions from the temple of Abu Simbel, carved
-long before the Greeks came, he found a cartouche with four signs. The first was a sun disc; Coptic for
-"sun" is ⲣⲏ (*rē*), and Egyptian *rꜥw* is the sun and the god Ra. The last two were the *s* he
-already knew from Ptolemy. The second he read as *m*, which gave Ra-m-s-s: Ramesses. The group *ms* also made a word. Coptic
+long before the Greeks came, he found a cartouche with four signs, <span class="hiero">𓇳𓄟𓋴𓋴</span>. The first, <span class="hiero">𓇳</span>, was a sun disc; Coptic
+for "sun" is ⲣⲏ (*rē*), and Egyptian *rꜥw* is the sun and the god Ra. The last two were the *s* he
+already knew from Ptolemy. The second, <span class="hiero">𓄟</span>, he read as *m*, which gave Ra-m-s-s: Ramesses. The group *ms* also made a word. Coptic
 ⲙⲓⲥⲉ (*mise*) means "bear, bring forth" in Crum's dictionary, and the name came out as a
-sentence, *Rꜥw-ms-sw*, Ra is the one who bore him. The second cartouche began with an ibis,
-the bird of the god Thoth, *Ḏḥw.tj*, followed by the same sign: Thoth-mes, Thutmose.
+sentence, *Rꜥw-ms-sw*, Ra is the one who bore him. The second cartouche began with an ibis, <span class="hiero">𓅝</span>,
+the bird of the god Thoth, *Ḏḥw.tj*, followed by the same sign, <span class="hiero">𓄟</span>: Thoth-mes, Thutmose.
 
 This is the step Young's view had ruled out, and it differs in kind from the first two rows. A
 value proposed for a sign was now tested by whether the word it produced existed in Egyptian,
@@ -382,8 +393,11 @@ saves time. None of it reads a text that Egyptologists cannot.
 - "Rosetta Stone", *Wikipedia* (read November 2026), for the find and the decree's names for the scripts. [en.wikipedia.org](https://en.wikipedia.org/wiki/Rosetta_Stone)
 - "Egyptian language", "Coptic language", "Coptic script" and "Egyptian hieroglyphs", *Wikipedia* (read November 2026), for the stages, the Coptic alphabet and dates, vowels and sign counts. [Egyptian](https://en.wikipedia.org/wiki/Egyptian_language), [Coptic](https://en.wikipedia.org/wiki/Coptic_language), [Coptic script](https://en.wikipedia.org/wiki/Coptic_alphabet), [hieroglyphs](https://en.wikipedia.org/wiki/Egyptian_hieroglyphs)
 - "Ramesses II", *Wikipedia* (read November 2026), for the cuneiform form of the name. [en.wikipedia.org](https://en.wikipedia.org/wiki/Ramesses_II)
+- "Thutmose I", *Wikipedia* (read November 2026), infobox, for the signs of the name. [en.wikipedia.org](https://en.wikipedia.org/wiki/Thutmose_I)
+- WikiHiero (MediaWiki extension), `data/tables.php`, Manuel de Codage to Gardiner table. [github.com](https://github.com/wikimedia/mediawiki-extensions-wikihiero/blob/master/data/tables.php)
 - "Egyptian Hieroglyphs (Unicode block)" and "Egyptian Hieroglyphs Extended-A", *Wikipedia* (read November 2026). [block](https://en.wikipedia.org/wiki/Egyptian_Hieroglyphs_(Unicode_block)), [Extended-A](https://en.wikipedia.org/wiki/Egyptian_Hieroglyphs_Extended-A)
 
+[^signs]: Sign sequences: Ptolemy and Cleopatra as in the tables "Champollion's analysis of the cartouche" of each, in Wikipedia's article on the decipherment, which give the signs in Manuel de Codage codes; Ramesses as the sun disc, the *ms* sign and two *s* that Wikipedia's French article on Champollion describes; Thutmose as Wikipedia's infobox spells the name of Thutmose I (Gardiner G26, F31, S29). Codes were turned into Gardiner numbers with the conversion table of MediaWiki's WikiHiero extension (whose J15 is Gardiner's Aa15), and into Unicode by the Gardiner numbers in the character names. The exact spellings on the Abu Simbel copies Champollion used were not checked.
 [^young-date]: Wikipedia's articles on the decipherment and on Champollion date the article 1819; its article on Young says it was written for the 1818 edition. The supplement's own title page wasn't checked.
 [^ocr]: Quoted from the OCR text of the archive.org scan, with obvious OCR errors corrected (for example *lerles* to *textes*); not compared with the page image. The page number is read from the OCR's page markers and may be off by one.
 [^precis-quote]: The French original of this sentence wasn't found in the parts of the *Précis* that could be read. Wikipedia's article on the decipherment attributes it to the *Précis*; its article on the *Lettre* attributes a version of it to the letter of 1822.
