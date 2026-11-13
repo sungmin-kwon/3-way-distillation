@@ -31,7 +31,7 @@ ${rows.join('\n')}
 - **hidden**: finished but withheld (\`hidden: true\`). No page is built for it.
 - **draft**: unfinished (\`draft: true\`). Treated the same as hidden.
 
-To put a hidden note back on the site, delete its \`hidden: true\` line, run \`npm run build\`, and commit the note together with the regenerated ADMIN.md. See WRITING.md, section 2.
+To put a hidden note back on the site, delete its \`hidden: true\` line, run \`npm run build\`, and commit the note together with the regenerated ADMIN.md. See the "Maintaining" section of README.md.
 `;
 
 writeFileSync(new URL('../ADMIN.md', import.meta.url), md);
