@@ -60,12 +60,31 @@ reviewed_by: [Claude Opus 5.5] # optional: model(s) that did a separate review p
 ---
 ```
 
-- **Math:** `$inline$` and `$$display$$` (KaTeX).
+- **Math:** `$inline$`, and display math with `$$` alone on the line above and below (KaTeX).
 - **No links between notes.** Each note stands on its own (see `WRITING.md`); `npm run check`
   rejects a link to another note. Links to a heading in the same note (`#section`) are fine.
 - **Footnotes:** `text[^1]` and `[^1]: the footnote`.
 - **Figures:** inline `<svg>` works. Use `style="stroke: var(--accent)"` (or `--ink`, `--muted`)
   instead of fixed colors so it follows dark mode.
+
+## Maintaining the notebooks
+
+These steps are for whoever looks after the site. A drafting model doesn't need them, so they
+live here rather than in `WRITING.md`.
+
+- **Moving a note to purgatorial thoughts.** Sungmin decides; a reviewer only recommends it.
+  Replace the note's tags with `tags: []` (a note without tags belongs to that notebook), and in
+  the same change add a redirect from its old URL to `SITE.redirects` in `site.config.mjs`, or
+  the old URL breaks. To bring a reworked note back, restore its tags and turn the redirect
+  around.
+- **Unhiding a note.** Delete its `hidden: true` line, run `npm run build` (which also refreshes
+  `ADMIN.md`), check that the note renders, and commit both files.
+- **Reference notes.** When a new note becomes a better model of style and depth, add it to the
+  list at the end of `WRITING.md`. The hidden `how-spirits-distillation-works.md` (real VLE data,
+  numerically integrated runs, corrections of common myths) can go back on the list when it is
+  unhidden.
+- **Known traps.** When a review finds a new kind of mistake, add a row to the traps table in
+  `WRITING.md` section 7 (see `REVIEWING.md`).
 
 ## Commands
 

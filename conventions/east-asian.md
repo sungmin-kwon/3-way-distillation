@@ -1,25 +1,20 @@
 # Conventions for Chinese, Korean and Japanese sources
 
-These rules add to the general rule on sources in `WRITING.md` (The bar, qualitative version).
+These rules add to the sources rules for qualitative notes in `WRITING.md` (The bar).
 Follow them only when a note cites Chinese, Korean or Japanese sources. They came out of the
 first two marginalia notes, both on East Asian history, and live here so that they don't shape
 notes on other subjects. This folder is not part of the site; nothing in it is published.
 
 ## Where to find and check primary texts
 
-Classical Chinese originals, and Korean, Chinese and Japanese scholarship, count as much as
-English. Link a primary text to an online edition you opened, such as Chinese Wikisource, the
-Chinese Text Project (ctext.org) or chinesenotes.com, and check every quotation against it
-character by character.
+Good online editions to link and check quotations against: Chinese Wikisource, the Chinese
+Text Project (ctext.org) and chinesenotes.com.
 
 ## Titles
 
-In the text a work goes by its English title, with the original in parentheses at first mention:
-*Book of Wei* (魏書), *Records of Wu* (吳錄). In Sources it gets the English title, then the
-romanization and the original: *Comprehensive Institutions* (*Tongdian* 通典, 801).
-
-A modern title in Korean, Chinese or Japanese keeps its original in Sources, followed by an
-English translation in square brackets.
+The general rule (English title in the text with the original at first mention; English title,
+romanization and original in Sources) looks like this: *Book of Wei* (魏書), *Records of Wu*
+(吳錄) in the text, and *Comprehensive Institutions* (*Tongdian* 通典, 801) in Sources.
 
 One exception: when two titles would translate into near-twins, keep the romanization as the
 running name and gloss it at first mention, as the Silla note does with *Samguk sagi* (三國史記,
