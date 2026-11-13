@@ -9,7 +9,7 @@ This file is not deployed, but the repository is public, so anyone can read it a
 | status | notebook | date | note | tags | model |
 | --- | --- | --- | --- | --- | --- |
 | visible | marginalia | 2026-11-13 | [Why are the Guianas divided five ways?](src/content/notes/how-the-guianas-were-divided.md) | history, geography | Claude Opus 5.5 |
-| visible | working-notes | 2026-11-13 | [Rare variants versus common variants](src/content/notes/rare-variants-versus-common-variants.md) | genes | GLM-5.3 |
+| visible | working-notes | 2026-11-13 | [Rare variants versus common variants](src/content/notes/rare-variants-versus-common-variants.md) | genes | GLM-5.3, Claude Opus 5.5 |
 | visible | marginalia | 2026-11-13 | [When did the Three Kingdoms tip toward the north?](src/content/notes/when-the-three-kingdoms-tipped.md) | history | Claude Opus 5.5 |
 | visible | marginalia | 2026-11-13 | [Why did Silla's sacred bone run out?](src/content/notes/why-silla-sacred-bone-ran-out.md) | history | Claude Opus 5.5 |
 | visible | marginalia | 2026-11-13 | [Xing and shi: the two names behind the East Asian surname](src/content/notes/xing-and-shi.md) | history | Mistral Large 4, Claude Opus 5.5 |
