@@ -8,7 +8,7 @@ model: [GLM-5.3, Claude Opus 5.5]
 reviewed_by: [Claude Opus 5.5]
 ---
 
-In January 2025, days after DeepSeek's R1 reasoning model made the front pages, OpenAI said it was "aware of and reviewing indications that DeepSeek may have inappropriately distilled our models" (Axios, 2025). A year later, a memo to the U.S. House Select Committee on China accused DeepSeek employees of writing "code to access U.S. AI models and obtain outputs for distillation in programmatic ways" (Reuters, 2026).[^1] The word in both statements is the one DeepSeek and Alibaba's Qwen team use, approvingly, in their own papers. This note is about what the word denotes when these labs use it: which operation, what it can carry from teacher to student, and which part of the dispute is technical and which contractual.
+In January 2025, days after DeepSeek's R1 reasoning model made the front pages, OpenAI said it was "aware of and reviewing indications that DeepSeek may have inappropriately distilled our models" (Axios, 2025). A year later, a memo to the U.S. House Select Committee on China accused DeepSeek employees of writing "code to access U.S. AI models and obtain outputs for distillation in programmatic ways" (Reuters, 2026). The word in both statements is the one DeepSeek and Alibaba's Qwen team use, approvingly, in their own papers. This note is about what the word denotes when these labs use it: which operation, what it can carry from teacher to student, and which part of the dispute is technical and which contractual.
 
 ## Two operations called distillation
 
@@ -56,7 +56,7 @@ So both labs distilled from their own teachers, and the practice itself is uncon
 
 ## The dispute, as of November 2026
 
-OpenAI's terms of use forbid using its models' outputs to develop models that compete with OpenAI (Axios, 2025). In January 2025 OpenAI said it had seen some evidence of "distillation" from groups based in China trying to replicate advanced U.S. models, and that it would keep working with the U.S. government to protect "the most capable models" (Axios, 2025). David Sacks, the White House AI czar, went further on Fox News: "There's substantial evidence that what DeepSeek did here is they distilled knowledge out of OpenAI models" (Axios, 2025). The February 2026 memo to the House committee alleged that DeepSeek routed around OpenAI's access controls through obfuscated third-party services and collected outputs programmatically; Reuters reported that DeepSeek and its parent High-Flyer did not respond to requests for comment (Reuters, 2026).[^1] Anthropic made a similar accusation in the same month: it said DeepSeek, Moonshot and MiniMax had generated over 16 million exchanges with Claude through about 24,000 fraudulent accounts, over 150,000 of them attributed to DeepSeek (Anthropic, 2026). Neither company has published its evidence in detail.
+OpenAI's terms of use forbid using its models' outputs to develop models that compete with OpenAI (Axios, 2025). In January 2025 OpenAI said it had seen some evidence of "distillation" from groups based in China trying to replicate advanced U.S. models, and that it would keep working with the U.S. government to protect "the most capable models" (Axios, 2025). David Sacks, the White House AI czar, went further on Fox News: "There's substantial evidence that what DeepSeek did here is they distilled knowledge out of OpenAI models" (Axios, 2025). The February 2026 memo to the House committee said that accounts associated with DeepSeek employees had developed ways to circumvent OpenAI's access restrictions "through obfuscated third-party routers", and that DeepSeek employees wrote code to collect outputs programmatically; DeepSeek and its parent High-Flyer did not immediately respond to Reuters' requests for comment (Reuters, 2026). Anthropic made a similar accusation in the same month: it said DeepSeek, Moonshot and MiniMax had generated over 16 million exchanges with Claude through about 24,000 fraudulent accounts, over 150,000 of them attributed to DeepSeek (Anthropic, 2026). Neither company has published its evidence in detail.
 
 The operation is standard and published: Alpaca distilled text-davinci-003 through OpenAI's API, DeepSeek distilled its own models into Qwen and Llama bases, and Qwen distilled its flagship into its small models. What OpenAI and Anthropic allege is a breach of terms, a specific teacher used without permission. The section above says what such a theft could and could not get. Through an API, the distiller gets samples, so it gets the teacher's behaviour on the prompts it chose and whatever the student can generalize from them, not the teacher's distribution at any one prompt.
 
@@ -117,8 +117,6 @@ p=0.42, eps=+/-0.01: n = 2,436 draws
 twist sd=0.0: mean |student - teacher| = 0.001
 twist sd=1.0: mean |student - teacher| = 0.119
 ```
-
-[^1]: The Reuters story was read by the drafting model on the Asahi Shimbun's syndicated page; the review could not open that page or any other copy, so the memo quotes and the no-comment line are not checked here.
 
 ## Sources
 
