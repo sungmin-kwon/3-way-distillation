@@ -209,7 +209,7 @@ export const SECTIONS = [
     ],
     aboutDescription: 'Whose notebook this is, what it covers, and how it uses its sources.',
     howToRead: 'Entries marked rough are unfinished thinking and may be wrong. Longer entries open with a short summary, so you can stop there.',
-    // Rice paper and a pine-green ink, apart from the copper, blue and ember of the others.
+    // Rice paper and a pine-green ink, apart from the copper, blue and crimson of the others.
     palette: {
       light: {
         paper: '#f4f3ec',
@@ -265,25 +265,26 @@ export const SECTIONS = [
     ],
     aboutDescription: 'What this notebook holds, and why its notes are here.',
     howToRead: 'Treat these as drafts. Longer entries open with a short summary, so you can stop there.',
-    // Ash-grey paper and an ember accent, apart from the other two notebooks.
+    // Ash paper with a faint rose cast and a crimson accent, clearly apart from the distiller's
+    // copper (the two read as one colour when this notebook used an ember orange).
     palette: {
       light: {
-        paper: '#f3f1ef',
-        ink: '#1d1a19',
-        'ink-2': '#433d3a',
-        muted: '#5e5652',
-        rule: '#d6d0cc',
-        'code-bg': '#e9e5e2',
-        accent: '#a2401c',
+        paper: '#f5f0ef',
+        ink: '#1e1919',
+        'ink-2': '#453b3a',
+        muted: '#5f5452',
+        rule: '#ddd2d0',
+        'code-bg': '#ebe3e2',
+        accent: '#a8182b',
       },
       dark: {
-        paper: '#171413',
-        ink: '#e8e3e0',
-        'ink-2': '#c6beb9',
-        muted: '#a0958f',
-        rule: '#36302d',
-        'code-bg': '#201c1a',
-        accent: '#f08a5d',
+        paper: '#181313',
+        ink: '#ebe3e2',
+        'ink-2': '#c9bdbb',
+        muted: '#a2928f',
+        rule: '#382e2d',
+        'code-bg': '#211a1a',
+        accent: '#f2737e',
       },
     },
     tags: [],
