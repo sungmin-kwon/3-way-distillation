@@ -16,7 +16,7 @@ worth keeping, put them under **Optional**, in one short list.
 1. **Branch and process.** Is it a PR from a branch cut from current `main`? Did the drafter
    paste the self-check and a **Not verified** list? Anything listed there is the first thing to
    check, and each item that stays in the note must be marked there too (WRITING.md section 7,
-   rule 20). A note pushed straight to `main` gets reviewed the same way, and the fixes go through a PR.
+   rule 5). A note pushed straight to `main` gets reviewed the same way, and the fixes go through a PR.
    Don't trust ticked boxes: compare each ticked item with the diff. A draft ticked the bracket
    rule while using the wrong brackets throughout.
 2. **Check the bar first.** Read the note once through and judge it against the five tests in
@@ -30,8 +30,8 @@ worth keeping, put them under **Optional**, in one short list.
    section or worked example that repeats one of them. Overlap is a *should fix*: cut the
    repeated part to what this note needs, or trim the older note. Also check that the note has no
    "see the … note" and stands on its own.
-4. **Run the mechanical checks.** `npm run check` and `npm run build`. Fix nothing yourself yet;
-   list failures as *must fix*.
+4. **Run the mechanical checks.** `npm run check` and `npm run build`. Fix nothing until the review
+   is written; list failures as *must fix*.
 5. **Render the page** with `npm run preview` (or `npm run dev`) and a headless browser.
    Screenshot it at about 1,200 px and about 400 px wide, in light and dark mode. Look for red
    KaTeX errors, equations clipped at the column edge, literal `$`, `*` or `[`, captions
@@ -58,7 +58,7 @@ worth keeping, put them under **Optional**, in one short list.
    any number shared with another note must match (`grep -rn` for it).
 11. **Check attribution and concepts.** In a note that contrasts schools or authors, check that
    each view is given to the person who holds it, and that look-alike distinctions in a framework
-   aren't merged (WRITING.md section 7, rules 15 and 17). For a note not in English, read it at
+   aren't merged (WRITING.md section 7, rules 13 and 14). For a note not in English, read it at
    the level of characters: substituted brackets or misspelled names pass the build.
    A note citing Chinese, Korean or Japanese sources is also checked against
    `conventions/east-asian.md`.
@@ -106,14 +106,16 @@ overall call: merge, fix then merge, or rework.>
 - **Must fix**: false statements, wrong numbers, reversed directions, unsupported causes, broken
   rendering, wrong or unverifiable citations, rule breaks from the hard rules in WRITING.md.
 - **Should fix**: overstatements, missing context a careful reader needs, rounding drift.
-- Give the fix, not only the problem. A cheaper model applies a concrete replacement reliably and
-  an open-ended "rethink this" poorly.
+- Give the fix, not only the problem: the replacement number, sentence or citation.
+- Usually the reviewer applies the fixes itself, in a PR into the draft's branch, and the review
+  says what changed. When the drafter fixes instead, the concrete replacements matter most: a
+  cheaper model applies them reliably and an open-ended "rethink this" poorly.
 - Mark anything you couldn't check as **unverified**, and say what to check.
 
 ## After the review
 
-- When the fixes come back, check each item was done and nothing else changed by accident, then
-  re-render the page.
+- When the drafter makes the fixes, check each item was done and nothing else changed by
+  accident, then re-render the page.
 - If the review found a new kind of mistake, add a row to the known-traps table in WRITING.md
   section 7 in the same PR, or a follow-up.
 - Add the reviewer to `reviewed_by`, and to `model` too if it edited the text.
